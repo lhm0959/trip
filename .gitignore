@@ -1,0 +1,4 @@
+# 공개 저장소에 올리지 않을 것 (개발 노트·시스템 파일)
+CLAUDE.md
+.DS_Store
+.claude/
