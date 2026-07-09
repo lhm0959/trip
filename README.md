@@ -8,10 +8,16 @@
 
 ```
 travel/
-├── index.html   ← 이거 하나가 전부. 열면 여행 앱처럼 보임. (편집 = 계획 수정)
+├── index.html   ← 기존안: 부다페스트 3박 · 비엔나 4박 · 샌딩투어 · 프라하 4박
+├── v2.html      ← V2안: 부다페스트 2박 · 비엔나 3박 · 고사우 2박 렌트 · 프라하 4박
 ├── assets/      ← 홈 화면 아이콘 이미지
 └── README.md    ← 지금 이 문서 (사용법)
 ```
+
+비교용 공개 URL:
+
+- 기존안: https://lhm0959.github.io/trip/
+- V2안: https://lhm0959.github.io/trip/v2.html
 
 ---
 
