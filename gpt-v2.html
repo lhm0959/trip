@@ -587,7 +587,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
     <div class="card" id="flights-card">
       <div class="card-title"><span class="ic">✈</span> 항공</div>
       <div id="flights"></div>
-      <div class="card-note" style="margin-top:6px">동유럽은 <b>다구간(멀티시티)</b> — 첫 도시 IN / 마지막 도시 OUT 이 효율적입니다. (예: 프라하 IN · 부다페스트 OUT)</div>
+      <div class="card-note" style="margin-top:6px">동유럽은 <b>다구간(멀티시티)</b> — 첫 도시 IN / 마지막 도시 OUT 이 효율적입니다. (예: 부다페스트 IN · 프라하 OUT)</div>
     </div>
 
     <div class="section-head" style="margin-top:20px"><h2 class="serif" style="font-size:20px">도시 간 이동</h2><span class="kicker">Intercity</span></div>
@@ -595,7 +595,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
 
     <div class="callout">
       <div class="h serif">✦ 알아두기</div>
-      <p>프라하·빈·부다페스트는 <b>기차</b>가 편합니다(도심↔도심). 운영사는 <b>Railjet(ÖBB)</b>·<b>RegioJet</b>. 표는 <b>미리 예약할수록 저렴</b>합니다. 버스는 <b>FlixBus/RegioJet</b>이 더 쌉니다.</p>
+      <p>부다페스트·비엔나·린츠·프라하 구간은 <b>기차</b>가 편합니다(도심↔도심). 운영사는 <b>Railjet(ÖBB)</b>·<b>RegioJet</b>·<b>České dráhy</b>. 표는 <b>미리 예약할수록 저렴</b>합니다. 잘츠캄머구트(고사우·할슈타트)는 대중교통이 불편해 <b>린츠 렌트카</b>가 효율적입니다.</p>
       <div class="src">※ 소요시간·요금은 참고용 — 예약 전 RegioJet / ÖBB 공식 사이트에서 확인하세요.</div>
     </div>
   </section>
@@ -713,9 +713,11 @@ const TRIP = {
     categories:[
       { name:"항공 (2인·예약완료)", planned: 3000000, actual: 0 },
       { name:"숙소 (11박)",       planned: 2200000, actual: 0 },
+      { name:"렌트카 (2박3일·린츠)", planned: 450000, actual: 0 },
+      { name:"기차 (부다·비엔·린츠·프라하)", planned: 600000, actual: 0 },
+      { name:"유류·주차·통행", planned: 200000, actual: 0 },
       { name:"식비 (2인·12일)",    planned: 1800000, actual: 0 },
-      { name:"교통 (기차·렌트·유류·주차·시내)", planned: 1400000, actual: 0 },
-      { name:"투어·입장 (궁전·크루즈·온천)", planned: 800000, actual: 0 },
+      { name:"투어·입장 (온천·크루즈·궁전)", planned: 700000, actual: 0 },
       { name:"쇼핑·기타",          planned: 600000, actual: 0 },
     ]
   },
@@ -732,7 +734,7 @@ const TRIP = {
     { from:"비엔나", to:"린츠", mode:"ÖBB 기차 · Wien Hbf→Linz Hbf", duration:"약 1시간 10~30분", cost:"€10~40", booked:false, link:"https://www.oebb.at/en/reiseplanung-services/oebb-zugverbindungen/zugverbindungen-oesterreich/weststrecke/wien-linz" },
     { from:"린츠", to:"고사우", mode:"렌트카 · 트라운제/그문덴 경유", duration:"약 2시간~2시간 30분", cost:"렌트·유류·주차", booked:false, link:"" },
     { from:"고사우", to:"린츠", mode:"렌트카 · 장크트길겐/볼프강 호수 경유 후 반납", duration:"반나절", cost:"유류·주차", booked:false, link:"" },
-    { from:"린츠", to:"프라하", mode:"기차 · Linz Hbf→Praha hl.n.", duration:"약 4시간 이상", cost:"€25~80", booked:false, link:"https://www.oebb.at" },
+    { from:"린츠", to:"프라하", mode:"기차 · Linz Hbf→Praha hl.n.", duration:"약 4시간 전후", cost:"€25~80", booked:false, link:"https://www.oebb.at" },
   ],
 
   // ── 날짜별 일정 ──────────────────────────────────────────────
@@ -806,26 +808,26 @@ const TRIP = {
       { area:"기차 · 렌트 픽업", map:"Linz Hauptbahnhof", items:[
         { time:"08:30", place:"비엔나 숙소 체크아웃", type:"이동", note:"너무 늦지 않게 출발. 고사우는 해 있을 때 도착 목표." },
         { time:"09:00~10:30", place:"비엔나 → 린츠", type:"이동", note:"ÖBB 직행 다수. 린츠 Hbf 도착 후 렌트 지점으로.", map:"Wien Hauptbahnhof" },
-        { time:"10:45", place:"린츠 렌트 픽업", type:"이동", note:"오토매틱, 보험, 보증금, 비네트 포함 여부, 영업시간 확인.", map:"Linz Hauptbahnhof car rental" },
+        { time:"10:45", place:"린츠 렌트 픽업", type:"이동", note:"오토매틱, 완전면책 보험, 보증금, 비네트 포함 여부, 영업시간, 금요일 오후 동일 지점 반납 가능 여부 확인.", map:"Linz Hauptbahnhof car rental" },
       ]},
       { area:"트라운제 · 고사우", map:"Gmunden Traunsee", items:[
         { time:"11:30", place:"린츠 출발", type:"이동", note:"Linz → Gmunden/Traunsee. 구글맵 + 차량 내비 병행.", map:"Linz Austria" },
         { time:"13:00", place:"트라운제 / 그문덴 점심 산책", type:"관광", note:"호수 산책 후 점심. 긴 산책보다 사진+식사 중심.", map:"Gmunden Traunsee" },
         { time:"15:30", place:"고사우 이동", type:"이동", note:"그문덴 → 고사우 약 1시간 20분 전후.", map:"Gosau Austria" },
         { time:"17:00", place:"고사우 숙소 체크인", type:"이동", note:"Gosausee 근처는 풍경 최고, Gosau 마을 중심은 이동 편함.", map:"Gosau Austria" },
-        { time:"18:00", place:"고사우제 일몰 산책", type:"관광", note:"Dachstein 배경의 호수. 공식 안내상 유료 주차 가능, P1은 23:00~04:00 야간 주차 금지.", map:"Gosausee Austria" },
+        { time:"18:00", place:"고사우제 일몰 산책", type:"관광", note:"Dachstein 배경의 호수. 공식 안내상 호수 근처 유료 주차 가능, P1은 23:00~04:00 야간 주차 금지.", map:"Gosausee Austria" },
         { time:"19:30", place:"저녁 · Gasthof Gosausee / 숙소 근처", type:"식사", note:"알프스 구간은 식당 마감이 빠를 수 있어 운영시간 확인.", map:"Gasthof Gosausee" },
       ]},
     ]},
     { date:"2026-09-17", city:"고사우", title:"할슈타트 · 오버트라운 · 바트고이제른", items:[
       { area:"할슈타트 이른 방문", map:"Hallstatt P2 Parking", items:[
         { time:"07:30", place:"고사우 출발", type:"이동", note:"할슈타트 주차 혼잡 피하려면 이른 출발.", map:"Gosau Austria" },
-        { time:"08:00", place:"Hallstatt P2 주차", type:"이동", note:"공식 안내: 중심부 차량 진입 불가, P1~P4 이용. P2는 소금광산 케이블카 입구 쪽.", map:"Hallstatt P2 Parking" },
-        { time:"08:15", place:"할슈타트 클래식 뷰포인트", type:"관광", note:"오전 8시 전후가 사진 최적. 관광객 몰리기 전 산책.", map:"Hallstatt Classic Viewpoint" },
+        { time:"08:00", place:"Hallstatt P2 주차", type:"이동", note:"공식 안내: 중심부 차량 진입 불가, P1~P4 이용. P2는 소금광산 케이블카 입구 쪽. 예약 불가라 이른 도착이 유리.", map:"Hallstatt P2 Parking" },
+        { time:"08:15", place:"할슈타트 클래식 뷰포인트 · 마을 산책", type:"관광", note:"오전 8시 전후가 사진 최적. 관광객 몰리기 전 호숫가 골목까지 산책.", map:"Hallstatt Classic Viewpoint" },
         { time:"10:30", place:"카페 · Seecafé Frundsberg", type:"식사", note:"호숫가 휴식. 영업 여부 현장 확인.", map:"Seecafe Frundsberg Hallstatt" },
       ]},
       { area:"소금광산 여부 · 호수 드라이브", map:"Hallstätter See", items:[
-        { time:"11:30", place:"소금광산/스카이워크 선택", type:"관광", note:"공식 안내상 Hallstatt salt mine·funicular·skywalk는 2026년 여름까지 공사. 9월 방문 전 재개장 상태 확인 필수.", map:"Salzwelten Hallstatt" },
+        { time:"11:30", place:"소금광산/스카이워크 선택", type:"관광", note:"공식 안내상 2026년 여름 재개장 일정. 9월 방문 전 salzwelten.at에서 실제 운영 여부 재확인. 닫혀 있으면 마을 산책·오버트라운·고사우제로 전환.", map:"Salzwelten Hallstatt" },
         { time:"13:00", place:"점심 · Restaurant Rudolfsturm 또는 마을 식당", type:"식사", note:"소금광산이 운영 중이면 Rudolfsturm, 아니면 마을 식당으로.", map:"Restaurant Rudolfsturm Hallstatt" },
         { time:"15:00", place:"오버트라운", type:"관광", note:"할슈타트보다 한적한 호수 풍경. 짧게 산책.", map:"Obertraun Austria" },
         { time:"16:00", place:"바트고이제른 호수 드라이브", type:"휴식", note:"날씨 좋으면 드라이브, 비 오면 카페/숙소 휴식.", map:"Bad Goisern Austria" },
@@ -842,8 +844,8 @@ const TRIP = {
       ]},
       { area:"렌트 반납 · 프라하 이동", map:"Linz Hauptbahnhof", items:[
         { time:"14:00", place:"린츠 이동", type:"이동", note:"반납 지연을 피하려면 14시 전후 출발.", map:"St Gilgen to Linz" },
-        { time:"16:00", place:"린츠 렌트 반납", type:"이동", note:"주유 정책 Full to Full이면 반납 전 주유. 외관 사진/영수증 보관.", map:"Linz car rental" },
-        { time:"17:00~18:00", place:"린츠 → 프라하", type:"이동", note:"기차 4시간 이상. 간식·물 준비.", map:"Linz Hauptbahnhof" },
+        { time:"16:00", place:"린츠 렌트 반납", type:"이동", note:"16시 전후 목표. 주유 정책 Full to Full이면 반납 전 주유, 외관 사진/영상과 영수증 보관.", map:"Linz car rental" },
+        { time:"17:00~18:00", place:"린츠 → 프라하", type:"이동", note:"기차 약 4시간 전후. 열차별 소요시간이 달라 예약 전 확인, 간식·물 준비.", map:"Linz Hauptbahnhof" },
         { time:"21:00~22:30", place:"프라하 도착 / 체크인", type:"이동", note:"중앙역 접근성 좋은 숙소가 편함.", map:"Praha hlavní nádraží" },
         { time:"밤", place:"카를교 야경 산책 (여유되면)", type:"관광", note:"도착이 늦으면 다음날로 미루기.", map:"Charles Bridge Prague" },
       ]},
@@ -903,38 +905,39 @@ const TRIP = {
   // ── 준비 체크리스트 ──────────────────────────────────────────
   prep:{
     predeparture:[
-      { t:"고사우 숙소 2박 예약 ⭐최우선", s:"Gosausee 근처/고사우 마을 중심/Bad Goisern 비교. 풍경 좋은 곳은 빨리 마감" },
-      { t:"프라하 숙소 4박 예약", s:"Old Town / Malá Strana 권장 (주말 포함, 좋은 위치 빨리 빠짐)" },
-      { t:"린츠 렌트카 예약", s:"오토매틱·보험·비네트·보증금·영업시간·동일 지점 반납 확인" },
+      { t:"고사우 숙소 2박 예약 ⭐최우선", s:"Gosausee 근처/고사우 마을 중심/Bad Goisern 비교. 숙소 수가 적고 풍경 좋은 곳은 빨리 마감" },
+      { t:"프라하 숙소 4박 예약", s:"Old Town / Malá Strana / 중앙역 근처 — 위치가 만족도에 큰 영향" },
+      { t:"린츠 렌트카 예약", s:"오토매틱·완전면책보험·비네트 포함·보증금·영업시간·금요일 오후 동일 지점 반납 가능 여부 확인" },
       { t:"비엔나 숙소 3박 예약", s:"Innere Stadt(감성) 또는 Wien Hbf 주변(린츠 이동 편의)" },
       { t:"부다페스트 숙소 2박 예약", s:"District V / Deák / 7구 — 공항·강변·크루즈 접근 좋음" },
       { t:"부다페스트 → 비엔나 기차 예약 (9/13)", s:"Railjet/EC — 오전 출발 추천" },
       { t:"비엔나 → 린츠 기차 예약 (9/16)", s:"렌트 픽업 시간에 맞춰 여유 있게" },
-      { t:"린츠 → 프라하 기차 예약 (9/18)", s:"렌트 반납 후 탈 수 있는 저녁 시간대" },
-      { t:"부다페스트 야경 크루즈 예약 (9/12)", s:"원하는 시간대" },
-      { t:"세체니 온천 / 쇤브룬 / 벨베데레 예약", s:"인기 시간대 선점" },
-      { t:"Hallstatt 소금광산·스카이워크 재개장 확인", s:"2026년 여름까지 공사 안내가 있어 1~2개월 전 공식 사이트 재확인" },
-      { t:"Google My Maps 핀 + 오프라인 지도 준비", s:"부다페스트·비엔나·고사우/할슈타트·프라하 영역" },
+      { t:"린츠 → 프라하 기차 예약 (9/18)", s:"렌트 반납 후 탈 수 있는 17시 전후 시간대" },
+      { t:"야경 크루즈 / 세체니 온천 / 쇤브룬 / 벨베데레 예약", s:"인기 시간대 선점" },
+      { t:"Hallstatt 소금광산·스카이워크 재개장 확인", s:"2026년 여름 재개장 일정이므로 1~2개월 전 salzwelten.at에서 실제 운영 여부 재확인" },
+      { t:"Google My Maps 핀 + 오프라인 지도 준비", s:"부다페스트·비엔나·잘츠캄머구트·프라하 영역 · Organic Maps" },
     ],
     documents:[
       { t:"여권 (유효기간 6개월+)", s:"" },
-      { t:"국제운전면허증 + 국내 운전면허증", s:"렌트카 픽업 필수" },
-      { t:"운전자 명의 신용카드", s:"렌트 보증금용. 체크카드 불가 가능성 높음" },
+      { t:"국제운전면허증", s:"린츠 렌트 필수" },
+      { t:"국내 운전면허증", s:"국제면허와 함께 지참" },
+      { t:"운전자 명의 신용카드", s:"렌트 보증금·픽업 시 필수. 체크카드 불가 가능성 높음" },
       { t:"여행자보험 가입", s:"출국 전" },
       { t:"eSIM / 유심", s:"헝가리·오스트리아·체코 사용 가능 상품" },
       { t:"환전 / 트래블카드", s:"유로 + 체코 코루나 소액 + 헝가리 포린트 소액" },
       { t:"해외 결제 카드 2장", s:"분산 보관" },
-      { t:"예약 바우처 (숙소·기차·투어·항공)", s:"인쇄 또는 오프라인 저장" },
+      { t:"예약 바우처 (숙소·기차·렌트·투어·항공)", s:"인쇄 또는 오프라인 저장" },
     ],
     packing:[
       { t:"멀티어댑터 (유럽 C타입)", s:"" },
       { t:"보조배터리", s:"렌트 이동일·프라하 이동일 필수" },
-      { t:"편한 신발", s:"돌길·언덕 많음" },
-      { t:"얇은 경량패딩/바람막이 · 우산/방수 자켓", s:"9월 환절기·알프스 일교차" },
+      { t:"편한 운동화", s:"돌길·언덕·호수 산책" },
+      { t:"얇은 경량패딩/바람막이", s:"9월 환절기·알프스 일교차" },
+      { t:"우산 또는 방수 자켓", s:"고사우/할슈타트 날씨 변동 큼" },
       { t:"멀미약 · 간식 · 물", s:"렌트 이동·산길 대비" },
       { t:"수영복 · 수건", s:"부다페스트 온천" },
       { t:"선글라스", s:"렌트 운전·호수 반사광 대비" },
-      { t:"주차 위치 캡처", s:"고사우제·할슈타트 주차장" },
+      { t:"주차 위치 캡처 · 오프라인 지도 · 날씨 캡처", s:"고사우제·할슈타트 렌트 구간 필수" },
     ],
   },
 
