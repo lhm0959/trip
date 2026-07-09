@@ -335,13 +335,17 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 :root[data-theme="dark"] .day-route{color:#12100b}
 .day-route:active{opacity:.85}
 
-.item{display:flex;gap:12px;padding:9px 0;border-bottom:1px dotted var(--line)}
+.item{
+  display:grid;grid-template-columns:minmax(48px,max-content) minmax(0,1fr);
+  column-gap:12px;padding:9px 0;border-bottom:1px dotted var(--line);
+}
 .item:last-child{border-bottom:0}
 .item .time{
-  flex:none;width:48px;font-family:"Courier New",monospace;font-size:12.5px;
-  color:var(--wine);font-weight:700;padding-top:1px;
+  min-width:48px;font-family:"Courier New",monospace;font-size:12.5px;
+  color:var(--wine);font-weight:700;padding-top:1px;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
 }
-.item .body{flex:1;min-width:0}
+.item .body{min-width:0}
 .item .pl{font-size:14.5px;color:var(--ink);font-weight:600;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
 .item .tag{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
 .item .nt{font-size:12.5px;color:var(--ink-soft);margin-top:3px;line-height:1.5}
@@ -728,7 +732,8 @@ const TRIP = {
   intercity:[
     { from:"부다페스트", to:"비엔나", mode:"기차 · Railjet / EC (Keleti → Wien Hbf)", duration:"약 2시간 40분", cost:"€20~60", booked:false, link:"https://www.oebb.at" },
     { from:"비엔나", to:"린츠", mode:"기차 · ÖBB Railjet (Wien Hbf → Linz Hbf) · 시간당 2회+", duration:"약 1시간 15분", cost:"€10~40", booked:false, link:"https://www.oebb.at" },
-    { from:"린츠", to:"고사우", mode:"렌트카 · 트라운제/그문덴 경유 (린츠 픽업·반납)", duration:"약 2~2.5시간", cost:"렌트·유류 별도", booked:false, link:"" },
+    { from:"린츠", to:"고사우", mode:"렌트카 픽업 · 트라운제/그문덴 경유 (린츠 Hbf 픽업)", duration:"약 2~2.5시간", cost:"렌트·유류 별도", booked:false, link:"" },
+    { from:"고사우", to:"린츠", mode:"렌트카 반납 · 장크트길겐/볼프강 호수 경유 후 린츠 Hbf 반납", duration:"반나절", cost:"유류·주차", booked:false, link:"" },
     { from:"린츠", to:"프라하", mode:"기차 · 직행 EC / Railjet (Linz Hbf → Praha hl.n.)", duration:"약 3시간 45분~4시간 30분", cost:"€25~80", booked:false, link:"https://www.oebb.at" },
   ],
 
@@ -944,8 +949,10 @@ const TRIP = {
     links:[
       { k:"ÖBB (기차·비엔↔린츠·린츠→프라하)", v:"oebb.at", url:"https://www.oebb.at" },
       { k:"RegioJet 기차/버스", v:"regiojet.com", url:"https://www.regiojet.com" },
-      { k:"할슈타트 소금광산 운영확인", v:"salzwelten.at", url:"https://www.salzwelten.at/en/hallstatt" },
+      { k:"할슈타트 소금광산 운영시간", v:"salzwelten.at", url:"https://www.salzwelten.at/en/hallstatt/prices-opening-hours" },
+      { k:"할슈타트 주차 공식", v:"hallstatt.net", url:"https://www.hallstatt.net/parking-in-hallstatt/cars/" },
       { k:"고사우제 주차 결제", v:"arivo.info/gosausee", url:"https://www.arivo.info/gosausee" },
+      { k:"고사우 관광·주차", v:"gosautal.net", url:"https://www.gosautal.net/gosau-en-US/aktiv-en-US/wanderzeit-en-US/hiking-trails-at-a-glance/hiking-in-the-gosau-valley/lake-gosau/" },
       { k:"환율 계산", v:"xe.com", url:"https://www.xe.com" },
     ],
     phrases:[
