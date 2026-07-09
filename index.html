@@ -21,9 +21,10 @@
 <meta name="theme-color" content="#f4ecd8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="동유럽 여행">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="assets/app-icon.png">
-<title>동유럽 커플여행 · 부다페스트 · 비엔나 · 프라하</title>
+<title>동유럽 커플여행 V2 · 부다페스트 · 비엔나 · 고사우 · 프라하</title>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -696,9 +697,9 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
 <script id="trip-data">
 const TRIP = {
   // ── 기본 정보 ────────────────────────────────────────────────
-  title:    "동유럽 커플여행",
-  crest:    "9",                       // 헤더 원형 뱃지 (11박12일)
-  route:    ["부다페스트", "비엔나", "프라하"],   // 숙박 3도시 (9/18 샌딩투어로 이동)
+  title:    "동유럽 커플여행 V2",
+  crest:    "12",                      // 헤더 원형 뱃지 (11박12일)
+  route:    ["부다페스트", "비엔나", "고사우", "프라하"], // 2박 · 3박 · 2박 렌트 · 4박
   startDate:"2026-09-11",              // 출발 (인천)
   endDate:  "2026-09-22",              // 귀국 (프라하 출발)
   currency: "₩",
@@ -709,7 +710,7 @@ const TRIP = {
       { name:"항공 (2인·예약완료)", planned: 3000000, actual: 0 },
       { name:"숙소 (11박)",       planned: 2200000, actual: 0 },
       { name:"식비 (2인·12일)",    planned: 1800000, actual: 0 },
-      { name:"교통 (기차·샌딩투어·시내)", planned: 1200000, actual: 0 },
+      { name:"교통 (기차·렌트·유류·주차·시내)", planned: 1400000, actual: 0 },
       { name:"투어·입장 (궁전·크루즈·온천)", planned: 800000, actual: 0 },
       { name:"쇼핑·기타",          planned: 600000, actual: 0 },
     ]
@@ -723,165 +724,174 @@ const TRIP = {
 
   // ── 도시 간 이동 ─────────────────────────────────────────────
   intercity:[
-    { from:"부다페스트", to:"비엔나", mode:"기차 · Railjet / EC (Keleti→Wien Hbf)", duration:"약 2시간 40분", cost:"€20~40", booked:false, link:"https://www.oebb.at" },
-    { from:"비엔나", to:"프라하", mode:"샌딩투어 차량 · 고사우·할슈타트·체스키 경유", duration:"종일 (9/18)", cost:"업체 견적", booked:false, link:"" },
+    { from:"부다페스트", to:"비엔나", mode:"기차 · Railjet / EC (Keleti→Wien Hbf)", duration:"약 2시간 40분", cost:"€20~60", booked:false, link:"https://www.oebb.at" },
+    { from:"비엔나", to:"린츠", mode:"ÖBB 기차 · Wien Hbf→Linz Hbf", duration:"약 1시간 10~30분", cost:"€10~40", booked:false, link:"https://www.oebb.at/en/reiseplanung-services/oebb-zugverbindungen/zugverbindungen-oesterreich/weststrecke/wien-linz" },
+    { from:"린츠", to:"고사우", mode:"렌트카 · 트라운제/그문덴 경유", duration:"약 2시간~2시간 30분", cost:"렌트·유류·주차", booked:false, link:"" },
+    { from:"고사우", to:"린츠", mode:"렌트카 · 장크트길겐/볼프강 호수 경유 후 반납", duration:"반나절", cost:"유류·주차", booked:false, link:"" },
+    { from:"린츠", to:"프라하", mode:"기차 · Linz Hbf→Praha hl.n.", duration:"약 4시간 이상", cost:"€25~80", booked:false, link:"https://www.oebb.at" },
   ],
 
   // ── 날짜별 일정 ──────────────────────────────────────────────
   //   items 안의 area = 동네 묶음, time = 시간, place = 장소,
   //   type = 태그(관광/식사/이동/휴식/쇼핑), note = 메모, map = 지도검색어
   days:[
-    { date:"2026-09-11", city:"부다페스트", title:"도착 · 힐튼 체크인 · 국회의사당 야경", items:[
+    { date:"2026-09-11", city:"부다페스트", title:"도착 · 체크인 · 국회의사당 야경", items:[
       { time:"12:35", place:"인천 출발", type:"이동", note:"장거리 비행." },
       { time:"18:00", place:"부다페스트 도착 (BUD)", type:"이동", note:"입국 60~90분. 100E 공항버스 또는 Bolt로 숙소.", map:"Budapest Ferenc Liszt Airport" },
-      { time:"19:30", place:"힐튼 부다페스트 체크인", type:"이동", note:"리버뷰 · 국회의사당이 정면으로 보임(매우 만족). 부다성 언덕 위치.", map:"Hilton Budapest" },
-      { time:"20:00", place:"저녁 · Jamie Oliver", type:"식사", note:"이탈리안 · 마르게리타 피자, 슈림프 파스타 추천.", map:"Jamie Oliver restaurant Budapest" },
-      { time:"21:00", place:"국회의사당 야경", type:"관광", note:"첫날은 무리 없이 야경만. 힐튼에서 강 건너로 보임.", map:"Hungarian Parliament Building" },
-      { time:"21:30", place:"간식 · Chimney Cake Shop", type:"식사", note:"굴뚝빵 · 시나몬 맛이 담백하고 맛있음.", map:"Chimney Cake Shop Budapest" },
+      { time:"19:30", place:"숙소 체크인", type:"이동", note:"추천 지역: 5구 Belváros / 7구 Jewish Quarter / Deák Ferenc tér. 첫날은 Bolt가 편함.", map:"Deak Ferenc ter Budapest" },
+      { time:"20:30", place:"저녁 · Mazel Tov 또는 Bors GastroBar", type:"식사", note:"Mazel Tov는 분위기 좋은 첫날 저녁, Bors는 빠르고 캐주얼한 대안.", map:"Mazel Tov Budapest" },
+      { time:"21:30", place:"국회의사당 야경 산책", type:"관광", note:"첫날은 무리하지 말고 다뉴브 강변 야경만. Batthyány tér 쪽 전망도 좋음.", map:"Hungarian Parliament Building" },
+      { time:"22:00", place:"간식 · Chimney Cake Shop", type:"식사", note:"굴뚝빵 · 시나몬 맛 추천.", map:"Chimney Cake Shop Budapest" },
     ]},
     { date:"2026-09-12", city:"부다페스트", title:"페스트 카페 · 부다 언덕 · 다뉴브 일몰", items:[
       { area:"페스트 (강 동쪽)", map:"St. Stephen's Basilica Budapest", items:[
-        { time:"09:30", place:"브런치 · New York Café", type:"식사", note:"'세상에서 가장 아름다운 카페' · 분위기 최고.", map:"New York Cafe Budapest" },
-        { time:"11:30", place:"성 이슈트반 대성당", type:"관광", note:"전망대 선택 가능.", map:"St. Stephen's Basilica Budapest" },
-        { time:"13:00", place:"커피 · Espresso Embassy", type:"식사", note:"라떼 맛집 · 상큼한 원두 플랫화이트.", map:"Espresso Embassy Budapest" },
+        { time:"09:30", place:"브런치 · New York Café / Freyja", type:"식사", note:"화려한 카페를 원하면 New York Café, 가볍게 시작하려면 Freyja.", map:"New York Cafe Budapest" },
+        { time:"10:45", place:"성 이슈트반 대성당", type:"관광", note:"전망대 선택 가능. 시간이 빠듯하면 외관만.", map:"St. Stephen's Basilica Budapest" },
+        { time:"11:30", place:"커피 · Espresso Embassy", type:"식사", note:"라떼 맛집 · 상큼한 원두 플랫화이트.", map:"Espresso Embassy Budapest" },
       ]},
       { area:"부다 (강 서쪽 언덕)", map:"Buda Castle District Budapest", items:[
-        { time:"14:30", place:"부다성", type:"관광", note:"성 지구 산책 · 사진 포인트.", map:"Buda Castle" },
-        { time:"15:30", place:"어부의 요새", type:"관광", note:"다뉴브강·국회의사당 전망.", map:"Fisherman's Bastion Budapest" },
+        { time:"12:30", place:"어부의 요새", type:"관광", note:"다뉴브강·국회의사당 전망. 오전~점심 전후가 사진 좋음.", map:"Fisherman's Bastion Budapest" },
+        { time:"13:15", place:"마차시 성당 · 부다성 산책", type:"관광", note:"성 지구를 너무 깊게 보지 말고 산책 중심.", map:"Buda Castle Budapest" },
+        { time:"14:30", place:"점심 · Hungarikum Bisztró", type:"식사", note:"굴라쉬 등 헝가리식. 예약 추천, 어렵다면 Lánchíd Söröző.", map:"Hungarikum Bisztro Budapest" },
       ]},
-      { area:"저녁 · 다뉴브", map:"Szechenyi Chain Bridge Budapest", items:[
-        { time:"17:00", place:"세치니 다리 산책", type:"관광", note:"부다↔페스트를 잇는 사슬다리.", map:"Szechenyi Chain Bridge" },
-        { time:"18:30", place:"다뉴브강 일몰 피크닉", type:"휴식", note:"강변에서 해질녘 피크닉.", map:"Danube Promenade Budapest" },
-        { time:"19:30", place:"저녁 · Lánchíd Söröző", type:"식사", note:"굴라쉬 · 오리고기 리조또, 한국인 입맛에 잘 맞음.", map:"Lanchid Sorozo Budapest" },
-        { time:"21:00", place:"국회의사당 야경 / 크루즈(선택)", type:"관광", note:"야경 크루즈(70분) 원하면 예약.", map:"Danube night cruise Budapest" },
-      ]},
-    ]},
-    { date:"2026-09-13", city:"부다페스트", title:"세체니 온천 · 영웅광장 · 마지막 밤", items:[
-      { area:"시민공원 (온천 지구)", map:"Szechenyi Thermal Bath", items:[
-        { time:"10:30", place:"늦은 브런치", type:"식사", note:"여유로운 시작." },
-        { time:"11:30", place:"세체니 온천", type:"휴식", note:"⭐ 온천 예정 — 수영복·수건 지참. 노천탕 유명 (2~3시간).", map:"Szechenyi Thermal Bath" },
-        { time:"14:30", place:"영웅광장 · 시민공원", type:"관광", note:"온천 바로 앞. 밀레니엄 기념비.", map:"Heroes Square Budapest" },
-        { time:"15:00", place:"안드라시 거리 산책", type:"관광", note:"영웅광장→시내 방향, 유네스코 대로.", map:"Andrassy Avenue Budapest" },
-      ]},
-      { area:"다운타운 · 마지막 밤", map:"Great Market Hall Budapest", items:[
-        { time:"16:30", place:"그레이트 마켓 홀", type:"쇼핑", note:"파프리카 · 기념품 · 간식.", map:"Great Market Hall Budapest" },
-        { time:"17:15", place:"간식 · Retro Lángos", type:"식사", note:"랑고스 맛집 · 튀김 반죽인데도 쫄깃하고 맛있음.", map:"Retro Langos Budapest" },
-        { time:"19:00", place:"저녁 · Comme Chez Soi", type:"식사", note:"푸아그라 맛집 · 구운 푸아그라와 사과, 매쉬포테이토 별미.", map:"Comme Chez Soi Budapest" },
-        { time:"21:00", place:"루인바 (Szimpla Kert) · 마지막 밤", type:"휴식", note:"루인펍 분위기 체험.", map:"Szimpla Kert Budapest" },
+      { area:"온천 · 야경", map:"Szechenyi Thermal Bath", items:[
+        { time:"16:00", place:"세체니 온천", type:"휴식", note:"수영복·수건 지참. 노천탕 유명, 2~3시간.", map:"Szechenyi Thermal Bath Budapest" },
+        { time:"19:30", place:"저녁 · Kiosk Budapest", type:"식사", note:"온천 후 택시 이동 추천. 대안: Lánchíd Söröző 굴라쉬.", map:"Kiosk Budapest" },
+        { time:"21:00", place:"다뉴브 야경 크루즈", type:"관광", note:"부다페스트 2박 일정에서 가장 추천하는 예약 코스. 국회의사당 지날 때 영상.", map:"Danube River Cruise Budapest" },
       ]},
     ]},
-    { date:"2026-09-14", city:"비엔나", title:"부다페스트 → 비엔나 · 한식당 비빔", items:[
+    { date:"2026-09-13", city:"비엔나", title:"부다페스트 → 비엔나 · 구시가 첫 산책", items:[
       { area:"이동", items:[
-        { time:"09:30", place:"체크아웃 준비 (부다페스트)", type:"이동", note:"너무 이른 출발 피하기." },
-        { time:"11:00", place:"Budapest Keleti 이동", type:"이동", note:"캐리어 있으면 Bolt 추천.", map:"Budapest Keleti" },
-        { time:"12:40", place:"부다페스트 → 비엔나", type:"이동", note:"Railjet / EC, 약 2시간 40분. 예약한 열차 확인." },
-        { time:"15:30", place:"Wien Hbf 도착 · 체크인", type:"이동", note:"Hbf 또는 중심부 숙소 권장.", map:"Wien Hauptbahnhof" },
+        { time:"08:30", place:"체크아웃", type:"이동", note:"오전 기차 추천. 캐리어 있으면 Keleti까지 Bolt.", map:"Budapest Keleti" },
+        { time:"09:40 전후", place:"부다페스트 → 비엔나", type:"이동", note:"Railjet / EC, 약 2시간 40분. 너무 이른 출발이 부담되면 10~11시대도 현실적.", map:"Budapest Keleti" },
+        { time:"12:30", place:"Wien Hbf 도착 / 짐 보관", type:"이동", note:"숙소 체크인 전이면 중앙역 락커 활용.", map:"Wien Hauptbahnhof" },
       ]},
       { area:"비엔나 첫 저녁 (Innere Stadt)", map:"Innere Stadt Vienna", items:[
-        { time:"17:00", place:"슈타트파크 산책", type:"관광", note:"요한 슈트라우스 금빛 동상 · 첫 비엔나 산책.", map:"Stadtpark Vienna" },
-        { time:"18:30", place:"저녁 · 한식당 비빔 (Bibim)", type:"식사", note:"여행 중 한식 · 찌개와 파전이 맛있음.", map:"Bibim Korean restaurant Vienna" },
-        { time:"20:00", place:"구시가 · 링 거리 야경 산책", type:"휴식", note:"첫 비엔나 밤 산책.", map:"Ringstrasse Vienna" },
+        { time:"14:00", place:"슈테판 대성당", type:"관광", note:"비엔나 랜드마크. 도착일은 외관+광장 산책 중심.", map:"St. Stephen's Cathedral Vienna" },
+        { time:"15:30", place:"그라벤 / 콜마르크트 산책", type:"관광", note:"구시가 쇼핑 거리. 카페 휴식 넣기 좋음.", map:"Graben Vienna" },
+        { time:"17:00", place:"호프부르크 외관 · 링 거리", type:"관광", note:"궁전 내부는 다른 날로 미루고 산책만.", map:"Hofburg Vienna" },
+        { time:"19:00", place:"저녁 · Figlmüller / Plachutta / Bibim", type:"식사", note:"슈니첼·타펠슈피츠 또는 여행 중 한식. 인기 식당은 예약 추천.", map:"Figlmuller Vienna" },
       ]},
     ]},
-    { date:"2026-09-15", city:"비엔나", title:"구시가 · 카페 · 음악협회 공연", items:[
-      { area:"구시가 (Innere Stadt)", map:"Stephansplatz Vienna", items:[
-        { time:"09:30", place:"카페 자허 (Café Sacher)", type:"식사", note:"비엔나 3대 카페 · 자허 토르테와 아인슈페너.", map:"Cafe Sacher Wien" },
-        { time:"10:30", place:"성 슈테판 대성당", type:"관광", note:"고딕 양식의 절정, 랜드마크.", map:"Stephansdom Vienna" },
-        { time:"12:00", place:"빈 국립 오페라극장 (외부)", type:"관광", note:"외부에서 관람.", map:"Vienna State Opera" },
-        { time:"12:30", place:"점심 · Brasserie Palmenhaus", type:"식사", note:"식물원(부르크가르텐) 내 · 슈니첼 극찬.", map:"Brasserie Palmenhaus Vienna" },
-        { time:"15:00", place:"오후 자유 · 링 거리 산책", type:"휴식", note:"공연 전 여유롭게.", map:"Ringstrasse Vienna" },
+    { date:"2026-09-14", city:"비엔나", title:"쇤브룬궁 · 클래식 카페 · 오페라 거리", items:[
+      { area:"쇤브룬", map:"Schönbrunn Palace Vienna", items:[
+        { time:"09:30", place:"쇤브룬궁", type:"관광", note:"오전 입장 추천. 내부 관람 시 시간권 예약.", map:"Schönbrunn Palace Vienna" },
+        { time:"11:30", place:"글로리에테 전망", type:"관광", note:"언덕이라 은근 걷기 있음. 날씨 좋으면 사진 포인트.", map:"Gloriette Schonbrunn" },
+        { time:"13:00", place:"점심 · Café Gloriette 또는 시내 이동", type:"식사", note:"궁전 안에서 쉬거나, 체력 아끼려면 시내로 이동.", map:"Cafe Gloriette Vienna" },
       ]},
-      { area:"저녁 · 공연", map:"Musikverein Vienna", items:[
-        { time:"18:00", place:"저녁 · 필리 비엔나 (Philly Vienna)", type:"식사", note:"공연 전 간단히 한 끼.", map:"Philly Vienna" },
-        { time:"19:30", place:"빈 음악협회 (Musikverein)", type:"관광", note:"오케스트라 공연 관람.", map:"Musikverein Vienna" },
-      ]},
-    ]},
-    { date:"2026-09-16", city:"비엔나", title:"왕궁 · 국립도서관 · 미술관", items:[
-      { area:"호프부르크 (왕궁 지구)", map:"Hofburg Vienna", items:[
-        { time:"10:00", place:"호프부르크 왕궁 · 정원", type:"관광", note:"도보로 산책하기 좋음.", map:"Hofburg Vienna" },
-        { time:"11:00", place:"오스트리아 국립 도서관", type:"관광", note:"화려한 내부(프룽크잘)가 매우 인상적.", map:"Austrian National Library Vienna" },
-        { time:"12:30", place:"카페 데멜 (Café Demel)", type:"식사", note:"비엔나 3대 카페 · 애플파이와 카이저슈마렌.", map:"Cafe Demel Vienna" },
-      ]},
-      { area:"미술관 지구", map:"Maria-Theresien-Platz Vienna", items:[
-        { time:"14:00", place:"빈 미술사 박물관 (KHM)", type:"관광", note:"내부가 매우 화려하며 예술 감상에 최적.", map:"Kunsthistorisches Museum Vienna" },
-        { time:"16:30", place:"알베르티나 미술관", type:"관광", note:"야경 명소로도 추천.", map:"Albertina Vienna" },
-        { time:"18:00", place:"케른트너 · 그라벤 쇼핑", type:"쇼핑", note:"기념품/쇼핑.", map:"Karntner Strasse Vienna" },
-        { time:"19:30", place:"저녁 맛집", type:"식사", note:"예약 식당 배치하기 좋은 날." },
+      { area:"카페 · 구시가", map:"Cafe Sacher Vienna", items:[
+        { time:"15:30", place:"카페 자허 / 데멜", type:"식사", note:"자허 줄이 길면 데멜로 변경. 자허토르테·아인슈페너.", map:"Cafe Sacher Vienna" },
+        { time:"17:00", place:"빈 국립 오페라극장 외관 / 케른트너 거리", type:"관광", note:"공연 예약이 있으면 이 날 저녁에 배치하기 좋음.", map:"Vienna State Opera" },
+        { time:"19:00", place:"저녁 · Lugeck", type:"식사", note:"비엔나식 음식. 대안: Brasserie Palmenhaus.", map:"Lugeck Vienna" },
       ]},
     ]},
-
-    { date:"2026-09-17", city:"비엔나", title:"벨베데레 · 나슈마르크트 · 투어 전날", items:[
-      { area:"벨베데레 · 카를스플라츠", map:"Belvedere Vienna", items:[
-        { time:"09:30", place:"벨베데레 궁전 (클림트 '키스')", type:"관광", note:"⭐ 클림트 '키스' 원본. 정원도 예쁨. (쇤브룬까지 원하면 오전 더 일찍 시작)", map:"Belvedere Vienna" },
-        { time:"11:30", place:"카를 성당 (Karlskirche)", type:"관광", note:"바로크 걸작 · 나슈마르크트 옆.", map:"Karlskirche Vienna" },
-        { time:"12:30", place:"나슈마르크트", type:"관광", note:"시장 구경, 간단 점심.", map:"Naschmarkt Vienna" },
+    { date:"2026-09-15", city:"비엔나", title:"벨베데레 · 나슈마르크트 · 쇼핑", items:[
+      { area:"벨베데레 · 카를스플라츠", map:"Belvedere Palace Vienna", items:[
+        { time:"09:30", place:"벨베데레궁", type:"관광", note:"클림트 '키스'. 시간권 예약 추천.", map:"Belvedere Palace Vienna" },
+        { time:"11:30", place:"카를 성당", type:"관광", note:"나슈마르크트 가는 길에 외관 산책.", map:"Karlskirche Vienna" },
+        { time:"12:00", place:"점심 · 나슈마르크트", type:"식사", note:"시장 구경과 점심. 너무 붐비면 주변 식당으로.", map:"Naschmarkt Vienna" },
       ]},
-      { area:"저녁 · 프라터", map:"Wiener Riesenrad Prater", items:[
-        { time:"16:30", place:"프라터 대관람차 (선택)", type:"관광", note:"빈 상징 대관람차 · 커플 저녁 명소.", map:"Wiener Riesenrad Prater" },
-        { time:"18:30", place:"비엔나 마지막 저녁", type:"식사", note:"좋은 식당 예약 추천." },
-        { time:"21:00", place:"짐 정리 (투어 준비)", type:"휴식", note:"여권·현금·보조배터리·간식·물·멀미약·겉옷·우산·편한 신발." },
-      ]},
-    ]},
-    { date:"2026-09-18", city:"프라하", title:"샌딩투어: 고사우·할슈타트·체스키 → 프라하", items:[
-      { area:"출발", items:[
-        { time:"07:00", place:"체크아웃 / 픽업 준비", type:"이동", note:"조식 포장 또는 간단 간식 추천." },
-        { time:"08:00", place:"비엔나 숙소 픽업", type:"이동", note:"투어 차량. 정확한 픽업 시간 업체 확인.", map:"Vienna" },
-      ]},
-      { area:"경유지 (오스트리아·체코)", map:"Hallstatt Austria", items:[
-        { time:"오전", place:"고사우 (Gosau)", type:"관광", note:"호수·산 풍경 사진 포인트.", map:"Gosau Austria" },
-        { time:"점심", place:"할슈타트 (Hallstatt)", type:"관광", note:"자유 산책, 점심, 사진 (2~3시간).", map:"Hallstatt Austria" },
-        { time:"오후", place:"체스키 크룸로프", type:"관광", note:"구시가지, 성 전망 포인트 (1.5~2시간).", map:"Cesky Krumlov" },
-      ]},
-      { area:"프라하 도착", map:"Charles Bridge Prague", items:[
-        { time:"저녁", place:"프라하 이동", type:"이동", note:"긴 이동 (2~3시간), 간식 필수." },
-        { time:"20–22시", place:"프라하 숙소 도착 / 체크인", type:"이동", note:"욕심내지 말기." },
-        { time:"밤", place:"카를교 야경 산책 (여유되면)", type:"관광", note:"노을~야경이 낭만적. 도착이 늦으면 다음날로.", map:"Charles Bridge Prague" },
-        { time:"밤", place:"간식 · Tradlo (굴뚝빵)", type:"식사", note:"즉석에서 구워주는 달콤한 굴뚝빵 · 아이스크림·딸기 올린 메뉴.", map:"Tradlo Prague" },
+      { area:"쇼핑 · 렌트 전날 준비", map:"Mariahilfer Straße Vienna", items:[
+        { time:"14:00", place:"마리아힐퍼 거리 쇼핑", type:"쇼핑", note:"기념품·의류 쇼핑. 피곤하면 카페로 줄이기.", map:"Mariahilfer Straße Vienna" },
+        { time:"16:30", place:"카페 · Café Central", type:"식사", note:"줄이 길면 데멜/동네 카페로 변경.", map:"Cafe Central Vienna" },
+        { time:"19:00", place:"저녁 · Gasthaus Pöschl", type:"식사", note:"비엔나 마지막 저녁. 예약 권장.", map:"Gasthaus Poschl Vienna" },
+        { time:"21:00", place:"렌트 구간 짐 정리", type:"준비", note:"우비·운동화·국제운전면허증·국내면허증·여권·운전자 명의 신용카드 확인." },
       ]},
     ]},
-    { date:"2026-09-19", city:"프라하", title:"프라하성 · 스트라호프 · 꼴레뇨", items:[
-      { area:"프라하성 (흐라드차니)", map:"Prague Castle", items:[
-        { time:"09:30", place:"프라하성 (성 비투스 대성당)", type:"관광", note:"성 비투스 성당·로즈 윈도우 등 웅장한 볼거리.", map:"Prague Castle" },
-        { time:"12:00", place:"근위병 교대식", type:"관광", note:"정오 교대식." },
-        { time:"12:30", place:"점심 · Kuchyň", type:"식사", note:"슈니첼·오리 다리 요리로 유명한 뷰 맛집.", map:"Kuchyn Prague Castle" },
-        { time:"13:30", place:"Lobkowicz Palace Café", type:"식사", note:"프라하성 내부 뷰 카페 · 야외 테라스 힐링.", map:"Lobkowicz Palace Cafe Prague" },
+    { date:"2026-09-16", city:"고사우", title:"비엔나 → 린츠 렌트 → 트라운제 → 고사우", items:[
+      { area:"기차 · 렌트 픽업", map:"Linz Hauptbahnhof", items:[
+        { time:"08:30", place:"비엔나 숙소 체크아웃", type:"이동", note:"너무 늦지 않게 출발. 고사우는 해 있을 때 도착 목표." },
+        { time:"09:00~10:30", place:"비엔나 → 린츠", type:"이동", note:"ÖBB 직행 다수. 린츠 Hbf 도착 후 렌트 지점으로.", map:"Wien Hauptbahnhof" },
+        { time:"10:45", place:"린츠 렌트 픽업", type:"이동", note:"오토매틱, 보험, 보증금, 비네트 포함 여부, 영업시간 확인.", map:"Linz Hauptbahnhof car rental" },
       ]},
-      { area:"스트라호프 · 말라스트라나", map:"Strahov Monastery Prague", items:[
-        { time:"15:00", place:"스트라호프 수도원 도서관", type:"관광", note:"화려한 프레스코화가 돋보이는 프라하 명소.", map:"Strahov Monastery Library" },
-        { time:"15:45", place:"Kláštorný pivovar Strahov (양조장)", type:"식사", note:"수도원 내 양조장 · 다양한 맥주.", map:"Klasterni pivovar Strahov" },
-        { time:"17:00", place:"레논 벽", type:"관광", note:"내려오는 길에 사진.", map:"Lennon Wall Prague" },
-        { time:"19:00", place:"저녁 · Pork's (꼴레뇨)", type:"식사", note:"체코식 족발 꼴레뇨 · 겉바속촉 식감이 일품.", map:"Porks Prague" },
+      { area:"트라운제 · 고사우", map:"Gmunden Traunsee", items:[
+        { time:"11:30", place:"린츠 출발", type:"이동", note:"Linz → Gmunden/Traunsee. 구글맵 + 차량 내비 병행.", map:"Linz Austria" },
+        { time:"13:00", place:"트라운제 / 그문덴 점심 산책", type:"관광", note:"호수 산책 후 점심. 긴 산책보다 사진+식사 중심.", map:"Gmunden Traunsee" },
+        { time:"15:30", place:"고사우 이동", type:"이동", note:"그문덴 → 고사우 약 1시간 20분 전후.", map:"Gosau Austria" },
+        { time:"17:00", place:"고사우 숙소 체크인", type:"이동", note:"Gosausee 근처는 풍경 최고, Gosau 마을 중심은 이동 편함.", map:"Gosau Austria" },
+        { time:"18:00", place:"고사우제 일몰 산책", type:"관광", note:"Dachstein 배경의 호수. 공식 안내상 유료 주차 가능, P1은 23:00~04:00 야간 주차 금지.", map:"Gosausee Austria" },
+        { time:"19:30", place:"저녁 · Gasthof Gosausee / 숙소 근처", type:"식사", note:"알프스 구간은 식당 마감이 빠를 수 있어 운영시간 확인.", map:"Gasthof Gosausee" },
       ]},
     ]},
-    { date:"2026-09-20", city:"프라하", title:"구시가 광장 · 유대인 지구 · 화약탑", items:[
-      { time:"10:00", place:"구시가 광장", type:"관광", note:"천문시계탑이 있는 프라하의 심장.", map:"Old Town Square Prague" },
-      { time:"10:30", place:"하벨 시장 (Havel's Market)", type:"쇼핑", note:"과일·수공예품 구경.", map:"Havelske trziste Prague" },
-      { time:"11:30", place:"천문 시계탑", type:"관광", note:"600년 역사의 정교한 시계탑 · 정시 쇼.", map:"Prague Astronomical Clock" },
-      { time:"13:00", place:"유대인 지구 (요세포프)", type:"관광", note:"구 신 시나고그 · 유대인 묘지, 유럽 최고(古) 유대 지구.", map:"Josefov Prague" },
-      { time:"15:00", place:"화약탑 (Powder Tower)", type:"관광", note:"프라하 전경 360도 뷰 맛집.", map:"Powder Tower Prague" },
-      { time:"16:30", place:"카페 · 자유", type:"식사", note:"젤라또/카페 휴식." },
-      { time:"19:00", place:"저녁 · Pilsnerka Národní", type:"식사", note:"타르타르·굴라쉬(갈비찜 비슷)가 정말 맛있는 현지인 맛집.", map:"Pilsnerka Narodni Prague" },
+    { date:"2026-09-17", city:"고사우", title:"할슈타트 · 오버트라운 · 바트고이제른", items:[
+      { area:"할슈타트 이른 방문", map:"Hallstatt P2 Parking", items:[
+        { time:"07:30", place:"고사우 출발", type:"이동", note:"할슈타트 주차 혼잡 피하려면 이른 출발.", map:"Gosau Austria" },
+        { time:"08:00", place:"Hallstatt P2 주차", type:"이동", note:"공식 안내: 중심부 차량 진입 불가, P1~P4 이용. P2는 소금광산 케이블카 입구 쪽.", map:"Hallstatt P2 Parking" },
+        { time:"08:15", place:"할슈타트 클래식 뷰포인트", type:"관광", note:"오전 8시 전후가 사진 최적. 관광객 몰리기 전 산책.", map:"Hallstatt Classic Viewpoint" },
+        { time:"10:30", place:"카페 · Seecafé Frundsberg", type:"식사", note:"호숫가 휴식. 영업 여부 현장 확인.", map:"Seecafe Frundsberg Hallstatt" },
+      ]},
+      { area:"소금광산 여부 · 호수 드라이브", map:"Hallstätter See", items:[
+        { time:"11:30", place:"소금광산/스카이워크 선택", type:"관광", note:"공식 안내상 Hallstatt salt mine·funicular·skywalk는 2026년 여름까지 공사. 9월 방문 전 재개장 상태 확인 필수.", map:"Salzwelten Hallstatt" },
+        { time:"13:00", place:"점심 · Restaurant Rudolfsturm 또는 마을 식당", type:"식사", note:"소금광산이 운영 중이면 Rudolfsturm, 아니면 마을 식당으로.", map:"Restaurant Rudolfsturm Hallstatt" },
+        { time:"15:00", place:"오버트라운", type:"관광", note:"할슈타트보다 한적한 호수 풍경. 짧게 산책.", map:"Obertraun Austria" },
+        { time:"16:00", place:"바트고이제른 호수 드라이브", type:"휴식", note:"날씨 좋으면 드라이브, 비 오면 카페/숙소 휴식.", map:"Bad Goisern Austria" },
+        { time:"18:00", place:"고사우 복귀", type:"이동", note:"야간 산길 운전은 피하기.", map:"Gosau Austria" },
+        { time:"19:00", place:"저녁 · 고사우 숙소/마을 식당", type:"식사", note:"다음날 이동을 위해 가볍게." },
+      ]},
     ]},
-    { date:"2026-09-21", city:"프라하", title:"말라스트라나 · 댄싱하우스 · 페트르진 야경", items:[
-      { area:"말라스트라나 (강 서쪽)", map:"Mala Strana Prague", items:[
-        { time:"10:30", place:"브런치 · Café Savoy", type:"식사", note:"브런치 유명 · 트러플 향 가득한 요리.", map:"Cafe Savoy Prague" },
-        { time:"12:00", place:"캄파 섬 (Kampa)", type:"관광", note:"블타바 강변 조용한 섬 · 존레논 벽 근처.", map:"Kampa Island Prague" },
-        { time:"13:00", place:"발트슈타인 궁전 정원", type:"관광", note:"정원이 아름다운 무료 관광지.", map:"Wallenstein Palace Prague" },
+    { date:"2026-09-18", city:"프라하", title:"고사우 → 장크트길겐 → 린츠 반납 → 프라하", items:[
+      { area:"볼프강 호수", map:"St Gilgen Austria", items:[
+        { time:"08:30", place:"고사우 체크아웃", type:"이동", note:"캐리어 적재 전 차량 외관/짐 확인." },
+        { time:"09:00", place:"고사우제 마지막 산책", type:"관광", note:"날씨가 좋으면 짧게. 전날 못 봤다면 우선순위 높음.", map:"Gosausee Austria" },
+        { time:"10:30", place:"장크트길겐 이동", type:"이동", note:"Day 8은 욕심내지 말고 St. Gilgen 또는 St. Wolfgang 중 1곳만.", map:"St Gilgen Austria" },
+        { time:"12:00", place:"Wolfgangsee 점심/호수 산책", type:"식사", note:"사진+점심 중심. 늦어지면 바로 린츠로.", map:"Wolfgangsee Austria" },
       ]},
-      { area:"신시가 · 강변", map:"Dancing House Prague", items:[
-        { time:"15:00", place:"카페 · Café Imperial", type:"식사", note:"인테리어가 매우 화려하고 예쁜 카페.", map:"Cafe Imperial Prague" },
-        { time:"16:00", place:"댄싱 하우스 (Dancing House)", type:"관광", note:"강변의 물결치는 현대 건축물.", map:"Dancing House Prague" },
-        { time:"17:00", place:"쇼핑 / 기념품", type:"쇼핑", note:"마뉴팍투라 등.", map:"Manufaktura Prague" },
+      { area:"렌트 반납 · 프라하 이동", map:"Linz Hauptbahnhof", items:[
+        { time:"14:00", place:"린츠 이동", type:"이동", note:"반납 지연을 피하려면 14시 전후 출발.", map:"St Gilgen to Linz" },
+        { time:"16:00", place:"린츠 렌트 반납", type:"이동", note:"주유 정책 Full to Full이면 반납 전 주유. 외관 사진/영수증 보관.", map:"Linz car rental" },
+        { time:"17:00~18:00", place:"린츠 → 프라하", type:"이동", note:"기차 4시간 이상. 간식·물 준비.", map:"Linz Hauptbahnhof" },
+        { time:"21:00~22:30", place:"프라하 도착 / 체크인", type:"이동", note:"중앙역 접근성 좋은 숙소가 편함.", map:"Praha hlavní nádraží" },
+        { time:"밤", place:"카를교 야경 산책 (여유되면)", type:"관광", note:"도착이 늦으면 다음날로 미루기.", map:"Charles Bridge Prague" },
       ]},
-      { area:"저녁", map:"Petrin Tower Prague", items:[
-        { time:"20:30", place:"페트르진 야경", type:"관광", note:"케이블카 타고 마지막 프라하 야경.", map:"Petrin Tower Prague" },
+    ]},
+    { date:"2026-09-19", city:"프라하", title:"구시가 광장 · 천문시계 · 카를교", items:[
+      { area:"구시가", map:"Old Town Square Prague", items:[
+        { time:"09:30", place:"브런치 · Café Louvre", type:"식사", note:"늦은 시작. 도착 다음날이라 무리하지 않기.", map:"Cafe Louvre Prague" },
+        { time:"11:00", place:"구시가 광장", type:"관광", note:"천문시계탑이 있는 프라하의 심장.", map:"Old Town Square Prague" },
+        { time:"11:30", place:"천문시계", type:"관광", note:"정시 쇼. 전망대는 대기줄 보고 결정.", map:"Prague Astronomical Clock" },
+        { time:"13:00", place:"점심 · Kantýna", type:"식사", note:"고기 중심 캐주얼 맛집.", map:"Kantyna Prague" },
+      ]},
+      { area:"시장 · 카를교", map:"Charles Bridge Prague", items:[
+        { time:"15:00", place:"하벨시장 / 젤라또", type:"쇼핑", note:"기념품·과일·젤라또. Crème de la Crème 대안.", map:"Havelsky Market Prague" },
+        { time:"17:30", place:"카를교 산책", type:"관광", note:"해질녘 좋지만 붐빔. 사진은 다음날 아침 한 번 더.", map:"Charles Bridge Prague" },
+        { time:"19:30", place:"저녁/맥주 · Lokál Dlouhááá", type:"식사", note:"필스너 우르켈, 굴라쉬, 스비치코바. 대기 시 Pilsnerka Národní.", map:"Lokal Dlouha Prague" },
+        { time:"밤", place:"간식 · Tradlo", type:"식사", note:"굴뚝빵. 아이스크림 토핑은 사진용.", map:"Tradlo Prague" },
+      ]},
+    ]},
+    { date:"2026-09-20", city:"프라하", title:"프라하성 · 말라스트라나 · 페트르진", items:[
+      { area:"이른 카를교 · 프라하성", map:"Prague Castle", items:[
+        { time:"08:30", place:"카를교 이른 산책", type:"관광", note:"사람 적을 때 사진. 힘들면 생략하고 10시부터 시작.", map:"Charles Bridge Prague" },
+        { time:"10:00", place:"프라하성", type:"관광", note:"성 비투스 대성당·황금소로. 입장권 범위 확인.", map:"Prague Castle" },
+        { time:"11:30", place:"성 비투스 대성당 / 황금소로", type:"관광", note:"로즈 윈도우와 성 내부가 핵심.", map:"St Vitus Cathedral Prague" },
+        { time:"13:30", place:"점심 · U Glaubiců / Kuchyň", type:"식사", note:"U Glaubiců는 말라스트라나 쪽, Kuchyň은 성 근처 뷰 맛집.", map:"U Glaubicu Prague" },
+      ]},
+      { area:"전망 · 공원", map:"Petrin Hill Prague", items:[
+        { time:"15:00", place:"프라하성 스타벅스 전망", type:"휴식", note:"맛보다 전망 목적. 사람이 많으면 바로 이동.", map:"Starbucks Prague Castle" },
+        { time:"16:00", place:"레논 벽 / 캄파 섬", type:"관광", note:"프라하성에서 내려오는 길에 사진.", map:"Lennon Wall Prague" },
+        { time:"17:00", place:"페트르진 공원", type:"관광", note:"노을 시간대 좋음. 피곤하면 Day 11로 이동.", map:"Petrin Hill Prague" },
+        { time:"19:30", place:"저녁 · U Kroka / Pork's", type:"식사", note:"U Kroka는 편한 체코식, Pork's는 꼴레뇨.", map:"U Kroka Prague" },
+      ]},
+    ]},
+    { date:"2026-09-21", city:"프라하", title:"여유일 · 비셰흐라드 · 레트나 · 쇼핑", items:[
+      { area:"카를린 · 비셰흐라드", map:"Vysehrad Prague", items:[
+        { time:"10:00", place:"브런치 · Eska Karlín / Můj šálek kávy", type:"식사", note:"카를린 감성 카페. 늦은 시작에 적합.", map:"Eska Karlin Prague" },
+        { time:"12:00", place:"비셰흐라드", type:"관광", note:"구시가보다 한적한 성벽 산책과 전망.", map:"Vysehrad Prague" },
+      ]},
+      { area:"쇼핑 · 마지막 저녁", map:"Letna Park Prague", items:[
+        { time:"14:30", place:"팔라디움 / 나 프르지코페 쇼핑", type:"쇼핑", note:"마뉴팍투라, 기념품, 선물 보완.", map:"Palladium Prague" },
+        { time:"17:00", place:"레트나 공원", type:"관광", note:"블타바 강과 다리 전망. 맥주 한 잔 하기 좋음.", map:"Letna Park Prague" },
+        { time:"19:30", place:"마지막 저녁 · Kuchyň / Čestr", type:"식사", note:"전망+체코식은 Kuchyň, 고기 중심은 Čestr.", map:"Kuchyn Prague" },
+      ]},
+      { area:"선택 코스", map:"Josefov Prague", items:[
+        { time:"대체", place:"유대인 지구 / Café Imperial / 댄싱하우스", type:"선택", note:"비가 오거나 쇼핑을 줄이면 넣기 좋은 보완 코스.", map:"Josefov Prague" },
       ]},
     ]},
     { date:"2026-09-22", city:"프라하", title:"프라하 출국", items:[
-      { time:"10:30", place:"브런치", type:"식사", note:"숙소 근처 추천." },
-      { time:"12:00", place:"마지막 산책 / 기념품", type:"쇼핑", note:"무리하지 않기." },
-      { time:"14:00", place:"숙소 짐 픽업", type:"이동", note:"체크아웃 후 짐 보관 확인." },
-      { time:"15:00", place:"공항 이동", type:"이동", note:"Metro A + 59번 또는 Bolt (45~60분). 국제선 여유 있게.", map:"Vaclav Havel Airport Prague" },
+      { time:"09:30", place:"체크아웃 / 짐 보관", type:"이동", note:"숙소 또는 중앙역 락커. 항공 전날 짐 무게 확인." },
+      { time:"10:30", place:"마지막 쇼핑 · Na Příkopě / Palladium", type:"쇼핑", note:"무리하지 않고 중심부만.", map:"Na Prikope Prague" },
+      { time:"12:30", place:"점심 · Sisters Bistro 또는 근처", type:"식사", note:"가볍게 먹고 공항 이동 준비.", map:"Sisters Bistro Prague" },
+      { time:"14:30", place:"공항 이동 준비", type:"이동", note:"짐 픽업, 택시/Bolt 호출." },
+      { time:"15:30", place:"프라하 공항 도착 목표", type:"이동", note:"18:50 출국 기준 3시간 전 도착. 마지막날은 택시/앱 호출 추천.", map:"Vaclav Havel Airport Prague" },
       { time:"18:50", place:"프라하 출발 (인천행)", type:"이동" },
     ]},
   ],
@@ -889,18 +899,23 @@ const TRIP = {
   // ── 준비 체크리스트 ──────────────────────────────────────────
   prep:{
     predeparture:[
-      { t:"9/18 샌딩투어 예약 ⭐최우선", s:"비엔나 픽업·프라하 드롭·캐리어 적재 여부 반드시 확인" },
+      { t:"고사우 숙소 2박 예약 ⭐최우선", s:"Gosausee 근처/고사우 마을 중심/Bad Goisern 비교. 풍경 좋은 곳은 빨리 마감" },
       { t:"프라하 숙소 4박 예약", s:"Old Town / Malá Strana 권장 (주말 포함, 좋은 위치 빨리 빠짐)" },
-      { t:"비엔나 숙소 4박 예약", s:"Innere Stadt(감성) 또는 Wien Hbf 주변(이동 편의)" },
-      { t:"부다페스트 숙소 3박 예약", s:"District V / Deák — 공항·강변·크루즈 접근 좋음" },
-      { t:"부다페스트 → 비엔나 기차 예약 (9/14)", s:"Railjet/EC — 좋은 시간대·저렴한 표 선점" },
+      { t:"린츠 렌트카 예약", s:"오토매틱·보험·비네트·보증금·영업시간·동일 지점 반납 확인" },
+      { t:"비엔나 숙소 3박 예약", s:"Innere Stadt(감성) 또는 Wien Hbf 주변(린츠 이동 편의)" },
+      { t:"부다페스트 숙소 2박 예약", s:"District V / Deák / 7구 — 공항·강변·크루즈 접근 좋음" },
+      { t:"부다페스트 → 비엔나 기차 예약 (9/13)", s:"Railjet/EC — 오전 출발 추천" },
+      { t:"비엔나 → 린츠 기차 예약 (9/16)", s:"렌트 픽업 시간에 맞춰 여유 있게" },
+      { t:"린츠 → 프라하 기차 예약 (9/18)", s:"렌트 반납 후 탈 수 있는 저녁 시간대" },
       { t:"부다페스트 야경 크루즈 예약 (9/12)", s:"원하는 시간대" },
-      { t:"프라하 Pork's 콜레뇨 예약 (9/19 저녁)", s:"피크타임 예약 추천" },
-      { t:"쇤브룬 / 벨베데레 입장 예약", s:"내부 관람 시" },
-      { t:"Google My Maps 핀 + 오프라인 지도 준비", s:"3개 도시 영역 · Organic Maps 설치" },
+      { t:"세체니 온천 / 쇤브룬 / 벨베데레 예약", s:"인기 시간대 선점" },
+      { t:"Hallstatt 소금광산·스카이워크 재개장 확인", s:"2026년 여름까지 공사 안내가 있어 1~2개월 전 공식 사이트 재확인" },
+      { t:"Google My Maps 핀 + 오프라인 지도 준비", s:"부다페스트·비엔나·고사우/할슈타트·프라하 영역" },
     ],
     documents:[
       { t:"여권 (유효기간 6개월+)", s:"" },
+      { t:"국제운전면허증 + 국내 운전면허증", s:"렌트카 픽업 필수" },
+      { t:"운전자 명의 신용카드", s:"렌트 보증금용. 체크카드 불가 가능성 높음" },
       { t:"여행자보험 가입", s:"출국 전" },
       { t:"eSIM / 유심", s:"헝가리·오스트리아·체코 사용 가능 상품" },
       { t:"환전 / 트래블카드", s:"유로 + 체코 코루나 소액 + 헝가리 포린트 소액" },
@@ -909,20 +924,22 @@ const TRIP = {
     ],
     packing:[
       { t:"멀티어댑터 (유럽 C타입)", s:"" },
-      { t:"보조배터리", s:"9/18 투어일 필수" },
+      { t:"보조배터리", s:"렌트 이동일·프라하 이동일 필수" },
       { t:"편한 신발", s:"돌길·언덕 많음" },
-      { t:"얇은 겉옷 · 우산", s:"9월 환절기·일교차" },
-      { t:"멀미약 · 간식 · 물", s:"샌딩투어 장거리 이동 대비" },
+      { t:"얇은 경량패딩/바람막이 · 우산/방수 자켓", s:"9월 환절기·알프스 일교차" },
+      { t:"멀미약 · 간식 · 물", s:"렌트 이동·산길 대비" },
       { t:"수영복 · 수건", s:"부다페스트 온천" },
+      { t:"선글라스", s:"렌트 운전·호수 반사광 대비" },
+      { t:"주차 위치 캡처", s:"고사우제·할슈타트 주차장" },
     ],
   },
 
   // ── 개요 정보 카드 ───────────────────────────────────────────
   info:{
     offlineMaps:[
-      { t:"Google Maps — 3개 도시 영역 다운로드", s:"부다페스트·비엔나·프라하 (Wi-Fi에서 프로필→오프라인 지도)" },
+      { t:"Google Maps — 여행 전체 영역 다운로드", s:"부다페스트·비엔나·Salzkammergut·프라하 (Wi-Fi에서 프로필→오프라인 지도)" },
       { t:"Organic Maps 설치 + 도시 지도 받기", s:"도보 내비에 강함 · 광고/추적 없음" },
-      { t:"Google My Maps 여정 지도 만들기", s:"맛집·명소 핀을 동네별로 찍고 오프라인 저장" },
+      { t:"렌트 구간 지도 사전 저장", s:"Linz→Gmunden→Gosau→Hallstatt→St. Gilgen→Linz" },
     ],
     emergency:[
       { k:"긴급(EU 공통)", v:"112" },
@@ -934,7 +951,9 @@ const TRIP = {
     links:[
       { k:"ÖBB (부다페스트→비엔나)", v:"oebb.at", url:"https://www.oebb.at" },
       { k:"RegioJet 기차", v:"regiojet.com", url:"https://www.regiojet.com" },
-      { k:"FlixBus 버스", v:"flixbus.com", url:"https://www.flixbus.com" },
+      { k:"Hallstatt 주차 공식", v:"hallstatt.net", url:"https://www.hallstatt.net/parking-in-hallstatt/cars/" },
+      { k:"Salzwelten Hallstatt 운영", v:"salzwelten.at", url:"https://www.salzwelten.at/en/hallstatt/prices-opening-hours" },
+      { k:"Gosausee 주차/관광", v:"gosautal.net", url:"https://www.gosautal.net/gosau-en-US/aktiv-en-US/wanderzeit-en-US/hiking-trails-at-a-glance/hiking-in-the-gosau-valley/lake-gosau/" },
       { k:"환율 계산", v:"xe.com", url:"https://www.xe.com" },
     ],
     phrases:[
