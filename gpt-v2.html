@@ -52,6 +52,7 @@
   --shadow:rgba(74,55,25,.16);
   --shadow-strong:rgba(74,55,25,.28);
   --grain:.04;
+  --appbar-offset:72px;
 }
 :root[data-theme="dark"]{
   /* Dark "night train" theme (dim compartment, candle warmth) */
@@ -286,9 +287,44 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .callout .src{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
 
 /* ═══════════ ITINERARY ═══════════ */
+.day-quick-wrap{
+  margin:-2px -16px 14px;padding:7px 16px 0;position:sticky;
+  top:var(--appbar-offset);z-index:30;
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg) 78%,transparent 100%);
+}
+.day-quick-label{
+  font-family:"Courier New",monospace;font-size:10px;letter-spacing:.14em;
+  color:var(--muted);text-transform:uppercase;margin:0 2px 7px;
+}
+.day-quick{
+  display:flex;gap:7px;overflow-x:auto;padding:1px 2px 8px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  scroll-snap-type:x proximity;
+}
+.day-quick::-webkit-scrollbar{display:none}
+.day-quick-link{
+  flex:none;scroll-snap-align:start;display:flex;align-items:center;gap:7px;
+  min-height:40px;padding:6px 10px;border:1px solid var(--line-strong);
+  border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer;
+  box-shadow:0 2px 7px var(--shadow);font:inherit;text-align:left;
+}
+.day-quick-link .num{
+  font-family:"Didot","Bodoni 72",serif;font-size:15px;font-weight:700;
+  color:var(--teal);line-height:1;
+}
+.day-quick-link .info{display:flex;flex-direction:column;line-height:1.15}
+.day-quick-link .date{font-family:"Courier New",monospace;font-size:10.5px;color:var(--ink)}
+.day-quick-link .city{font-size:10px;color:var(--muted);margin-top:3px;max-width:78px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.day-quick-link:active,.day-quick-link.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.day-quick-link:active .num,.day-quick-link:active .date,.day-quick-link:active .city,
+.day-quick-link.active .num,.day-quick-link.active .date,.day-quick-link.active .city{color:#fff}
+:root[data-theme="dark"] .day-quick-link:active,:root[data-theme="dark"] .day-quick-link.active{color:#12100b}
+:root[data-theme="dark"] .day-quick-link:active .num,:root[data-theme="dark"] .day-quick-link:active .date,:root[data-theme="dark"] .day-quick-link:active .city,
+:root[data-theme="dark"] .day-quick-link.active .num,:root[data-theme="dark"] .day-quick-link.active .date,:root[data-theme="dark"] .day-quick-link.active .city{color:#12100b}
 .day{
   background:var(--paper);border:1px solid var(--line);border-radius:14px;
   margin-bottom:12px;overflow:hidden;box-shadow:0 2px 10px var(--shadow);
+  scroll-margin-top:calc(var(--appbar-offset) + 76px);
 }
 .day-head{
   display:flex;align-items:center;gap:12px;padding:14px 15px;cursor:pointer;
@@ -509,7 +545,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   body{padding:0;background:#fff}
   header.appbar{position:static;box-shadow:none;background:#fff;color:#000;border-bottom:2px solid #000}
   .appbar .sub,.appbar .crest{color:#000}
-  .theme-btn,nav.tabbar,.perf,.caret,.day-route{display:none!important}
+  .theme-btn,nav.tabbar,.perf,.caret,.day-route,.day-quick-wrap{display:none!important}
   .panel{display:block!important;page-break-before:always}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
@@ -591,6 +627,10 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   <!-- ══════════ 일정 ══════════ -->
   <section class="panel" id="p-itinerary" data-tab="itinerary">
     <div class="section-head"><h2 class="serif">일정</h2><span class="kicker">Itinerary</span></div>
+    <div class="day-quick-wrap" aria-label="날짜 바로가기">
+      <div class="day-quick-label">날짜 바로가기</div>
+      <div class="day-quick" id="day-quick"></div>
+    </div>
     <div class="callout" style="border-color:var(--teal)">
       <div class="h serif" style="color:var(--teal)">✦ 지도 우선 동선</div>
       <p>각 날의 장소는 <b>동네(area)별로 묶여</b> 있습니다. 이동을 줄이려면 한 동네를 다 보고 다음 동네로 넘어가세요. 장소를 누르면 지도가 열립니다.</p>
@@ -1136,6 +1176,15 @@ const TRIP = {
     applyTheme(next); save("theme", next);
   });
 
+  // Keep in-panel sticky controls directly below the responsive app header.
+  const syncAppbarOffset = ()=>{
+    const bar = document.querySelector("header.appbar");
+    if(bar) rootEl.style.setProperty("--appbar-offset", Math.ceil(bar.getBoundingClientRect().height)+"px");
+  };
+  syncAppbarOffset();
+  window.addEventListener("resize", syncAppbarOffset, {passive:true});
+  if("ResizeObserver" in window) new ResizeObserver(syncAppbarOffset).observe(document.querySelector("header.appbar"));
+
   /* ---- utils ---- */
   const fmtMoney = n => (T.currency||"₩") + (n||0).toLocaleString("ko-KR");
   const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1196,12 +1245,19 @@ const TRIP = {
 
   /* ══════════ ITINERARY ══════════ */
   const weekdays=["일","월","화","수","목","금","토"];
+  $("#day-quick").innerHTML = T.days.map((d,i)=>{
+    const dt = parseD(d.date);
+    const label = `${d.date.slice(5).replace("-","/")} (${weekdays[dt.getDay()]})`;
+    return `<button class="day-quick-link" type="button" data-quick-day="${i}" aria-label="${esc(label)} ${esc(d.city)} 일정으로 이동">
+      <span class="num">${i+1}</span><span class="info"><span class="date">${label}</span><span class="city">${esc(d.city)}</span></span>
+    </button>`;
+  }).join("");
   $("#days").innerHTML = T.days.map((d,i)=>{
     const dt = parseD(d.date);
     const wd = weekdays[dt.getDay()];
     const body = renderDayBody(d);
     const open = i===0 ? "open":"";
-    return `<div class="day ${open}">
+    return `<div class="day ${open}" id="itinerary-day-${i}">
       <div class="day-head" data-day="${i}">
         <div class="day-badge"><b>${i+1}</b><span>DAY</span></div>
         <div class="day-meta">
@@ -1215,6 +1271,46 @@ const TRIP = {
     </div>`;
   }).join("");
   $$(".day-head").forEach(h=> h.addEventListener("click", ()=> h.parentElement.classList.toggle("open")));
+  let activeQuickDay = -1;
+  function setActiveQuickDay(index, scrollQuick=true){
+    index = Number(index);
+    if(index===activeQuickDay) return;
+    activeQuickDay = index;
+    const links = $$("[data-quick-day]");
+    const active = links.find(x=>Number(x.getAttribute("data-quick-day"))===index);
+    links.forEach(x=>x.classList.toggle("active", x===active));
+    if(active && scrollQuick){
+      const rail = $("#day-quick");
+      const left = active.offsetLeft - (rail.clientWidth-active.offsetWidth)/2;
+      rail.scrollTo({left:Math.max(0,left),behavior:"smooth"});
+    }
+  }
+  $$("[data-quick-day]").forEach(btn=>btn.addEventListener("click", ()=>{
+    const index = btn.getAttribute("data-quick-day");
+    const day = $("#itinerary-day-"+index);
+    if(!day) return;
+    day.classList.add("open");
+    setActiveQuickDay(index);
+    day.scrollIntoView({behavior:"smooth",block:"start"});
+  }));
+  setActiveQuickDay(0, false);
+
+  // Scroll spy: highlight the day currently passing beneath the sticky date rail.
+  let quickSpyFrame = 0;
+  function updateQuickFromScroll(){
+    quickSpyFrame = 0;
+    if(!$("#p-itinerary").classList.contains("active")) return;
+    const offset = parseFloat(getComputedStyle(rootEl).getPropertyValue("--appbar-offset")) || 72;
+    const railHeight = document.querySelector(".day-quick-wrap").getBoundingClientRect().height;
+    const marker = offset + railHeight + 12;
+    const days = $$("#days .day");
+    let current = 0;
+    days.forEach((day,i)=>{ if(day.getBoundingClientRect().top <= marker) current=i; });
+    setActiveQuickDay(current);
+  }
+  window.addEventListener("scroll", ()=>{
+    if(!quickSpyFrame) quickSpyFrame=requestAnimationFrame(updateQuickFromScroll);
+  }, {passive:true});
 
   function renderDayBody(d){
     let html = "";
