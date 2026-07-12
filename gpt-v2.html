@@ -349,12 +349,63 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .item .body{min-width:0}
 .item .pl{font-size:14.5px;color:var(--ink);font-weight:600;display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
 .item .tag{font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.item .rec-tag{color:var(--teal);border-color:var(--teal)}
 .item .nt{font-size:12.5px;color:var(--ink-soft);margin-top:3px;line-height:1.5}
 .item .maplink{
   font-family:"Courier New",monospace;font-size:12px;color:var(--teal);
   text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:4px;
 }
 .item .maplink:active{opacity:.6}
+
+/* ═══════════ RECOMMENDATIONS ═══════════ */
+.rec-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.rec-toolbar select{
+  flex:1 1 130px;min-width:0;padding:10px 11px;border:1px solid var(--line-strong);
+  border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;
+}
+.rec-summary{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;color:var(--ink-soft);font-size:13px}
+.rec-city-group{margin:18px 0 22px}
+.rec-city-group:first-child{margin-top:4px}
+.rec-city-head{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.rec-city-name{font-family:"Didot","Bodoni 72",serif;font-size:20px;font-weight:700;color:var(--ink)}
+.rec-city-count{font-family:"Courier New",monospace;font-size:11px;color:var(--teal);border:1px solid var(--line);border-radius:999px;padding:2px 7px}
+.rec-city-rule{flex:1;height:1px;background:var(--line)}
+.rec-copy{
+  flex:none;border:1px solid var(--line-strong);border-radius:7px;padding:5px 8px;
+  background:var(--paper);color:var(--teal);font:600 11px "Courier New",monospace;cursor:pointer;
+}
+.rec-copy:active{background:var(--teal);border-color:var(--teal);color:#fff}
+.rec-copy:disabled{cursor:default;color:var(--muted);border-color:var(--line);opacity:.65}
+:root[data-theme="dark"] .rec-copy:active{color:#12100b}
+.rec-card{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:11px;box-shadow:0 2px 9px var(--shadow)}
+.rec-top{display:flex;align-items:flex-start;gap:11px}
+.rec-pick{flex:none;width:25px;height:25px;border:2px solid var(--line-strong);border-radius:7px;background:var(--paper);color:transparent;font-size:15px;font-weight:700;cursor:pointer}
+.rec-card.selected .rec-pick{background:var(--teal);border-color:var(--teal);color:#fff}
+:root[data-theme="dark"] .rec-card.selected .rec-pick{color:#12100b}
+.rec-main{flex:1;min-width:0}
+.rec-name{font-size:15.5px;font-weight:700;color:var(--ink)}
+.rec-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.rec-chip{font-family:"Courier New",monospace;font-size:10.5px;color:var(--teal);border:1px solid var(--line);border-radius:999px;padding:2px 7px}
+.rec-note{font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin-top:8px}
+.rec-sources{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px dotted var(--line)}
+.rec-source{font-size:12px;color:var(--teal);text-decoration:none;border-bottom:1px dotted currentColor}
+.rec-source.no-link{color:var(--muted);border-bottom:0}
+.rec-empty{text-align:center;color:var(--muted);font-size:13.5px;line-height:1.7;padding:28px 12px;background:var(--paper);border:1px dashed var(--line-strong);border-radius:13px}
+.tip-card{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:10px;box-shadow:0 2px 9px var(--shadow)}
+.tip-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--ink)}
+.tip-body{font-size:13px;color:var(--ink-soft);line-height:1.65;margin-top:7px}
+.tip-crops{display:flex;flex-direction:column;gap:10px;margin:-14px -14px 13px}
+.tip-crop-block{background:var(--paper-2)}
+.tip-crop-label{padding:8px 12px 6px;font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.04em}
+.tip-crop{position:relative;overflow:hidden;width:100%;background:var(--paper-2)}
+.tip-crop img{position:absolute;height:auto;max-width:none;pointer-events:none}
+.tip-points{margin:10px 0 0 18px;color:var(--ink-soft);font-size:12.5px;line-height:1.6}
+.tip-points li+li{margin-top:5px}
+.tip-card .rec-sources{margin-top:9px;padding-top:9px}
+#overview-budget summary{cursor:pointer;list-style:none}
+#overview-budget summary::-webkit-details-marker{display:none}
+#overview-budget summary .chip::after{content:" ▾"}
+#overview-budget[open] summary .chip::after{content:" ▴"}
 
 /* ═══════════ TRANSPORT ═══════════ */
 .leg{
@@ -450,42 +501,7 @@ nav.tabbar .inner{display:flex;width:100%;max-width:760px}
 a.plain{color:var(--teal)}
 .hr-stamp{text-align:center;color:var(--line-strong);letter-spacing:.5em;font-size:12px;margin:10px 0}
 
-/* ═══════════ EXPENSE LOGGER (여행 중 지출 기록) ═══════════ */
-.exp-form{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.exp-form input,.exp-form select{
-  font-family:inherit;font-size:16px;padding:10px 11px;border:1px solid var(--line-strong);
-  border-radius:10px;background:var(--paper-2);color:var(--ink);min-width:0;
-}
-.exp-form .amt{flex:2 1 110px}
-.exp-form .cur{flex:1 1 84px}
-.exp-form .cat{flex:1 1 100%}
-.exp-form .memo{flex:1 1 100%}
-.exp-add-btn{
-  flex:1 1 100%;padding:12px;border:0;border-radius:11px;background:var(--teal);color:#fff;
-  font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.02em;
-  box-shadow:0 2px 8px var(--shadow);transition:transform .12s,opacity .2s;
-}
-.exp-add-btn:active{transform:scale(.98);opacity:.9}
-:root[data-theme="dark"] .exp-add-btn{color:#12100b}
 input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
-.exp{display:flex;align-items:center;gap:11px;padding:11px 2px;border-bottom:1px dotted var(--line)}
-.exp:last-child{border-bottom:0}
-.exp-main{flex:1;min-width:0}
-.exp-cat{font-size:11px;color:var(--teal);font-weight:700;font-family:"Courier New",monospace;letter-spacing:.02em}
-.exp-memo{display:block;font-size:14px;color:var(--ink);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.exp-amt{font-family:"Courier New",monospace;font-size:14.5px;color:var(--wine);font-weight:700;text-align:right;white-space:nowrap}
-.exp-amt small{display:block;font-size:10.5px;color:var(--muted);font-weight:400;letter-spacing:0}
-.exp-del{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line-strong);background:var(--paper-2);color:var(--muted);font-size:16px;cursor:pointer;line-height:1;display:grid;place-items:center}
-.exp-del:active{background:var(--wine);color:#fff;border-color:var(--wine)}
-.rates-box{margin-top:2px}
-.rates-box summary{cursor:pointer;font-size:13px;color:var(--ink-soft);font-family:"Courier New",monospace;letter-spacing:.02em;list-style:none;padding:4px 0}
-.rates-box summary::-webkit-details-marker{display:none}
-.rates-box summary::before{content:"▸ ";color:var(--muted)}
-.rates-box[open] summary::before{content:"▾ "}
-.rates{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
-.rates label{font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:6px;font-family:"Courier New",monospace}
-.rates input{width:78px;font-family:"Courier New",monospace;font-size:14px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--ink)}
-.exp-empty{font-size:13.5px;color:var(--muted);text-align:center;padding:14px 0;font-style:italic}
 
 /* ═══════════ PRINT (offline paper backup) ═══════════ */
 @media print{
@@ -493,7 +509,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   body{padding:0;background:#fff}
   header.appbar{position:static;box-shadow:none;background:#fff;color:#000;border-bottom:2px solid #000}
   .appbar .sub,.appbar .crest{color:#000}
-  .theme-btn,nav.tabbar,.perf,.caret,.exp-form,.rates-box,.exp-del,.day-route{display:none!important}
+  .theme-btn,nav.tabbar,.perf,.caret,.day-route{display:none!important}
   .panel{display:block!important;page-break-before:always}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
@@ -529,14 +545,16 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
       <div class="stat"><div class="n" id="st-book">–</div><div class="l">예약완료</div></div>
     </div>
 
-    <div class="card ruled">
-      <div class="card-title"><span class="ic">₩</span> 예산 개요</div>
-      <div class="bud-mini">
-        <div class="track"><div class="fill" id="ov-bud-fill" style="width:0%"></div></div>
-        <div class="rowline"><span>사용 <b class="mono-num" id="ov-bud-actual">0</b></span><span>목표 <b class="mono-num" id="ov-bud-total">0</b></span></div>
-      </div>
-      <div class="card-note" style="margin-top:8px">자세한 항목별 내역은 아래 <b>예산</b> 탭에서 관리하세요.</div>
-    </div>
+    <details class="card ruled" id="overview-budget">
+      <summary>
+        <div class="card-title"><span class="ic">₩</span> 예산 개요 <span class="chip teal" style="margin-left:auto">세부내역 보기</span></div>
+        <div class="bud-mini">
+          <div class="track"><div class="fill" id="ov-bud-fill" style="width:0%"></div></div>
+          <div class="rowline"><span>사용 <b class="mono-num" id="ov-bud-actual">0</b></span><span>목표 <b class="mono-num" id="ov-bud-total">0</b></span></div>
+        </div>
+      </summary>
+      <div id="ov-budget-categories" style="margin-top:10px"></div>
+    </details>
 
     <div class="callout">
       <div class="h serif">✦ 여행 계획, 이 순서로 하세요</div>
@@ -600,54 +618,29 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
     </div>
   </section>
 
-  <!-- ══════════ 예산 ══════════ -->
-  <section class="panel" id="p-budget" data-tab="budget">
-    <div class="section-head"><h2 class="serif">예산</h2><span class="kicker">Budget</span></div>
-    <div class="bud-total">
-      <div class="lbl">목표 예산</div>
-      <div class="amt mono-num" id="bt-total">₩0</div>
-      <div class="split">
-        <div><span>사용</span><b class="mono-num" id="bt-actual">₩0</b></div>
-        <div><span>남음</span><b class="mono-num" id="bt-left">₩0</b></div>
-      </div>
+  <!-- ══════════ 추천 ══════════ -->
+  <section class="panel" id="p-recommendations" data-tab="recommendations">
+    <div class="section-head"><h2 class="serif">추천</h2><span class="kicker">Saved places</span></div>
+    <div class="callout" style="border-color:var(--teal)">
+      <div class="h serif" style="color:var(--teal)">✦ 소스를 모으고, 갈 곳을 선택하세요</div>
+      <p>인스타그램·유튜브·블로그에서 발견한 장소를 한곳에 저장합니다. 체크한 장소는 이 기기에 보관되며, 추후 날짜별 일정을 만들 때 선택 후보로 사용합니다.</p>
     </div>
-    <div class="card">
-      <div id="bcats"></div>
+    <div class="rec-toolbar">
+      <select id="rec-city" aria-label="도시 필터"><option value="all">모든 도시</option></select>
+      <select id="rec-category" aria-label="유형 필터"><option value="all">모든 유형</option></select>
     </div>
+    <div class="rec-summary"><span id="rec-visible">0개 장소</span><span class="prog" id="rec-selected">선택 0개</span></div>
+    <div id="recommendation-list"></div>
+  </section>
 
-    <div class="card ruled">
-      <div class="card-title"><span class="ic">＋</span> 지출 추가 <span class="chip teal" style="margin-left:auto">여행 중 · 오프라인 저장</span></div>
-      <div class="exp-form">
-        <input class="amt" id="exp-amt" type="text" inputmode="decimal" placeholder="금액" aria-label="금액">
-        <select class="cur" id="exp-cur" aria-label="통화">
-          <option value="KRW">₩ 원</option>
-          <option value="EUR">€ 유로</option>
-          <option value="CZK">Kč 코루나</option>
-          <option value="HUF">Ft 포린트</option>
-        </select>
-        <select class="cat" id="exp-cat" aria-label="항목"></select>
-        <input class="memo" id="exp-memo" type="text" placeholder="메모 (예: 점심 굴라쉬)" aria-label="메모">
-        <button class="exp-add-btn" id="exp-add">＋ 기록 추가</button>
-      </div>
-      <details class="rates-box">
-        <summary>환율 설정 (₩ 기준 · 외화 입력 시 자동 환산)</summary>
-        <div class="rates">
-          <label>€ = ₩<input id="rate-EUR" type="text" inputmode="decimal"></label>
-          <label>Kč = ₩<input id="rate-CZK" type="text" inputmode="decimal"></label>
-          <label>Ft = ₩<input id="rate-HUF" type="text" inputmode="decimal"></label>
-        </div>
-      </details>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span class="ic">☰</span> 지출 기록 <span class="prog" id="exp-count" style="margin-left:auto"></span></div>
-      <div id="expense-list"></div>
-    </div>
-
+  <!-- ══════════ 팁 ══════════ -->
+  <section class="panel" id="p-tips" data-tab="tips">
+    <div class="section-head"><h2 class="serif">팁</h2><span class="kicker">Travel tips</span></div>
     <div class="callout" style="border-color:var(--gold)">
-      <div class="h serif">✦ 이렇게 쓰세요</div>
-      <p>여행 중 쓴 돈을 <b>위에서 바로 추가</b>하면 항목별 막대와 합계에 즉시 반영되고 <b>이 폰에 저장</b>됩니다(오프라인). 외화(€·Kč·Ft)로 입력하면 환율로 원화 환산해 합산합니다. 항공처럼 <b>미리 낸 금액</b>은 파일의 <code style="font-family:'Courier New',monospace">actual</code> 값에 넣어두면 함께 더해집니다.</p>
+      <div class="h serif">✦ 여행 전에 알아둘 것</div>
+      <p>교통 이용법, 무료 이동 동선, 쇼핑 추천 상품과 영업시간처럼 일정에 넣기보다는 미리 알아두면 좋은 정보를 도시별로 모았습니다.</p>
     </div>
+    <div id="tips-list"></div>
   </section>
 
   <!-- ══════════ 준비 ══════════ -->
@@ -669,7 +662,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
 
     <p class="foot-note">
       체크 상태는 이 기기에 저장됩니다(오프라인).<br>
-      계획 내용을 바꾸려면 <code>index.html</code> 안의 <code>TRIP</code> 데이터를 편집하세요.
+      계획 내용을 바꾸려면 <code>gpt-v2.html</code> 안의 <code>TRIP</code> 데이터를 편집하세요.
     </p>
     <div class="hr-stamp">✦ ✦ ✦</div>
   </section>
@@ -680,14 +673,17 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
     <button class="tab active" data-go="overview">
       <svg viewBox="0 0 24 24"><path d="M3 12l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span class="tl">개요</span>
     </button>
+    <button class="tab" data-go="recommendations">
+      <svg viewBox="0 0 24 24"><path d="M12 21s7-4.6 7-11a7 7 0 10-14 0c0 6.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg><span class="tl">추천</span>
+    </button>
+    <button class="tab" data-go="tips">
+      <svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M8.5 14.5A6 6 0 1115.5 14.5C14.5 15.3 14 16 14 18h-4c0-2-.5-2.7-1.5-3.5z"/></svg><span class="tl">팁</span>
+    </button>
     <button class="tab" data-go="itinerary">
       <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg><span class="tl">일정</span>
     </button>
     <button class="tab" data-go="transport">
       <svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="13" rx="2"/><path d="M6 12h12M9 17l-2 3M15 17l2 3"/><circle cx="9" cy="14.5" r=".6"/><circle cx="15" cy="14.5" r=".6"/></svg><span class="tl">이동</span>
-    </button>
-    <button class="tab" data-go="budget">
-      <svg viewBox="0 0 24 24"><path d="M12 3v18M7 7h7a3 3 0 010 6H7M7 13h8"/></svg><span class="tl">예산</span>
     </button>
     <button class="tab" data-go="prep">
       <svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><span class="tl">준비</span>
@@ -703,22 +699,142 @@ const TRIP = {
   // ── 기본 정보 ────────────────────────────────────────────────
   title:    "동유럽 커플여행 GPT V2",
   crest:    "12",                      // 헤더 원형 뱃지 (11박12일)
-  route:    ["부다페스트", "비엔나", "고사우", "프라하"], // 2박 · 3박 · 2박 렌트 · 4박
+  route:    ["부다페스트", "비엔나", "잘츠캄머구트", "프라하"], // 2박 · 3박 · 2박 렌트 · 4박
   startDate:"2026-09-11",              // 출발 (인천)
   endDate:  "2026-09-22",              // 귀국 (프라하 출발)
   currency: "₩",
 
+  // ── 추천 장소 ────────────────────────────────────────────────
+  // 여러 소스가 같은 장소를 추천하면 sources 배열에 모두 추가하세요.
+  // 예: { id:"budapest-place", city:"부다페스트", category:"맛집",
+  //       name:"장소명", note:"저장 이유", map:"Google Maps 검색어",
+  //       sources:[{ type:"인스타", label:"@계정명", url:"https://..." }] }
+  recommendations:[
+    // 부다페스트 · 유튜버 규진
+    { id:"bud-jamie-oliver", city:"부다페스트", category:"맛집", name:"Jamie Oliver's Italian Budapest", note:"마르게리타 피자와 슈림프 파스타 추천.", map:"Jamie Oliver's Italian Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-buda-castle", city:"부다페스트", category:"명소", name:"부다성", note:"부다페스트 대표 성곽 지구. 푸니쿨라 대신 Clark Ádám tér 쪽 무료 엘리베이터로 올라가는 팁.", map:"Buda Castle Budapest", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@intensify_yen"}] },
+    { id:"bud-fishermans-bastion", city:"부다페스트", category:"명소", name:"어부의 요새", note:"국회의사당과 다뉴브 전망 명소.", map:"Fisherman's Bastion Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-danube-promenade", city:"부다페스트", category:"명소", name:"다뉴브강 야경 산책", note:"세체니 다리를 건넌 뒤 페스트 강변에서 부다성·다뉴브 야경을 감상하기 좋은 산책 코스.", map:"Danube Promenade Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-chimney-cake", city:"부다페스트", category:"카페", name:"Chimney Cake Shop", note:"시나몬 맛 굴뚝빵 추천.", map:"Chimney Cake Shop Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-new-york-cafe", city:"부다페스트", category:"카페", name:"New York Café", note:"화려한 인테리어로 유명한 카페.", map:"New York Cafe Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-st-stephen", city:"부다페스트", category:"명소", name:"성 이슈트반 대성당", note:"부다페스트 중심부의 대표 성당.", map:"St. Stephen's Basilica Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-espresso-embassy", city:"부다페스트", category:"카페", name:"Espresso Embassy", note:"플랫화이트와 라떼 추천.", map:"Espresso Embassy Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-walzer-cafe", city:"부다페스트", category:"카페", name:"Walzer Café", note:"부다성에서 어부의 요새로 걸어가는 성곽 지구 안의 조용한 안뜰 카페. Táncsics Mihály utca의 오래된 건물에 있어 이른 저녁 전 동선이 편함.", map:"Walzer Cafe Budapest", sources:[{type:"웹",label:"매장·지도 정보"}] },
+    { id:"bud-lanchid-sorozo", city:"부다페스트", category:"맛집", name:"Lánchíd Söröző", note:"굴라쉬와 오리고기 리조또 추천.", map:"Lanchid Sorozo Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-chain-bridge", city:"부다페스트", category:"명소", name:"세체니 다리", note:"부다와 페스트를 잇는 대표 다리.", map:"Szechenyi Chain Bridge Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-parliament", city:"부다페스트", category:"명소", name:"헝가리 국회의사당", note:"다뉴브강 야경의 핵심 명소.", map:"Hungarian Parliament Building Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-comme-chez-soi", city:"부다페스트", category:"맛집", name:"Comme Chez Soi", note:"구운 푸아그라와 사과, 매시드포테이토 추천.", map:"Comme Chez Soi Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-great-market-hall", city:"부다페스트", category:"명소", name:"그레이트 마켓 홀", note:"현지 식재료와 기념품을 둘러보기 좋은 시장.", map:"Central Market Hall Budapest", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"bud-retro-langos", city:"부다페스트", category:"맛집", name:"Retro Lángos Budapest", note:"쫄깃한 반죽의 랑고스 추천.", map:"Retro Langos Budapest", sources:[{type:"유튜브",label:"규진"}] },
+
+    // 비엔나 · 유튜버 규진
+    { id:"vie-bibim", city:"비엔나", category:"맛집", name:"한식당 비빔 (Bibim)", note:"찌개와 해물파전 추천.", map:"Bibim Korean restaurant Vienna", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-cafe-sacher", city:"비엔나", category:"카페", name:"Café Sacher", note:"원조 자허토르테와 아인슈페너 추천.", map:"Cafe Sacher Wien", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@hyem.tori"}] },
+    { id:"vie-state-opera", city:"비엔나", category:"명소", name:"빈 국립 오페라극장", note:"비엔나의 대표 문화 공간이자 클래식 공연·사진 명소.", map:"Vienna State Opera", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@knewnew.official"}] },
+    { id:"vie-national-library", city:"비엔나", category:"명소", name:"오스트리아 국립 도서관", note:"화려한 내부와 방대한 고서, 아름다운 천장이 인상적인 곳.", map:"Austrian National Library Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@hyem.tori"}] },
+    { id:"vie-hofburg", city:"비엔나", category:"명소", name:"호프부르크 왕궁과 정원", note:"도보 산책과 사진 촬영하기 좋은 왕궁 지구.", map:"Hofburg Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-palmenhaus", city:"비엔나", category:"맛집", name:"Brasserie Palmenhaus", note:"아름다운 식물원 인테리어와 슈니첼·맥주 추천.", map:"Brasserie Palmenhaus Vienna", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-khm", city:"비엔나", category:"명소", name:"빈 미술사 박물관", note:"합스부르크 왕가의 수집품과 화려한 내부 감상 추천.", map:"Kunsthistorisches Museum Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@hyem.tori"}] },
+    { id:"vie-philly", city:"비엔나", category:"맛집", name:"Philly Vienna", note:"공연 전 간단하게 한 끼 먹기 좋은 곳.", map:"Philly Vienna restaurant", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-musikverein", city:"비엔나", category:"명소", name:"빈 음악협회", note:"오케스트라 공연 관람 추천.", map:"Musikverein Wien", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-albertina", city:"비엔나", category:"명소", name:"알베르티나 미술관", note:"미술 관람과 오페라극장 전망, 비포 선라이즈 촬영 구도로 유명한 곳.", map:"Albertina Museum Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@viennese.snap"},{type:"인스타",label:"@knewnew.official"}] },
+    { id:"vie-demel", city:"비엔나", category:"카페", name:"Café Demel", note:"애플파이와 카이저슈마렌, 아인슈페너 등 디저트 추천.", map:"Cafe Demel Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@knewnew.official"}] },
+    { id:"vie-st-stephen", city:"비엔나", category:"명소", name:"성 슈테판 대성당", note:"고딕 양식의 비엔나 대표 랜드마크이자 사진 명소.", map:"St. Stephen's Cathedral Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@myrealtrip"},{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-anker-clock", city:"비엔나", category:"명소", name:"앙커우어 인형시계", note:"독특한 외관의 아기자기한 시계.", map:"Anker Clock Vienna", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-griechenbeisl", city:"비엔나", category:"맛집", name:"Griechenbeisl", note:"슈베르트 단골집으로 알려진 전통 식당, 족발 튀김과 굴라쉬 추천.", map:"Griechenbeisl Vienna", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-city-hall", city:"비엔나", category:"명소", name:"빈 시청", note:"화려한 건축과 야경 감상 추천.", map:"Vienna City Hall Rathaus", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-15-suesse-minuten", city:"비엔나", category:"카페", name:"15 süße Minuten", note:"애플파이와 크림빵을 즐긴 동네 베이커리.", map:"15 susse Minuten Vienna", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-belvedere", city:"비엔나", category:"명소", name:"벨베데레 궁전", note:"정원과 클림트의 키스 등 실내 작품을 함께 보는 대표 예술 명소.", map:"Belvedere Palace Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@myrealtrip"},{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-schonbrunn", city:"비엔나", category:"명소", name:"쇤브룬 궁전", note:"궁전과 정원 투어, 사진 촬영 추천.", map:"Schonbrunn Palace Vienna", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@atourshop"},{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-gloriette", city:"비엔나", category:"카페", name:"Gloriette Schönbrunn", note:"쇤브룬 전경을 보며 브런치와 자허토르테를 즐길 수 있는 곳.", map:"Cafe Gloriette Vienna", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-sura", city:"비엔나", category:"맛집", name:"한식당 수라", note:"짜장면과 순두부찌개 추천.", map:"Sura Korean restaurant Vienna", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"vie-cafe-central", city:"비엔나", category:"카페", name:"Café Central", note:"고급스러운 분위기와 디저트·브라우니 추천.", map:"Cafe Central Vienna", sources:[{type:"유튜브",label:"규진"}] },
+
+    // 인스타그램에서 추가한 부다페스트 추천
+    { id:"bud-hunyadi-lakasbisztro", city:"부다페스트", category:"맛집", name:"Hunyadi Lakásbisztró és Kézműves Söröző", note:"어부의 요새 근처. 파프리카 향이 진하고 깊은 굴라쉬 추천.", map:"Hunyadi Lakasbisztro es Kezmuves Sorozo Budapest", sources:[{type:"인스타",label:"@intensify_yen"}] },
+    { id:"bud-pest-buda-bistro", city:"부다페스트", category:"맛집", name:"Pest-Buda Bistro", note:"어부의 요새 근처 전통 헝가리 요리 식당. 굴라쉬와 치킨 파프리카시 추천.", map:"Pest-Buda Bistro Budapest", sources:[{type:"인스타",label:"인스타 스크린샷"}] },
+    { id:"bud-ruszwurm", city:"부다페스트", category:"카페", name:"Ruszwurm Cukrászda", note:"오래된 전통 카페로 크림 케이크와 커피 추천.", map:"Ruszwurm Cukraszda Budapest", sources:[{type:"인스타",label:"인스타 스크린샷"}] },
+    { id:"bud-gellert-cafe", city:"부다페스트", category:"카페", name:"Gellért Café", note:"다뉴브강과 부다 풍경을 함께 즐기기 좋은 카페.", map:"Gellert Cafe Budapest", sources:[{type:"인스타",label:"인스타 스크린샷"}] },
+    { id:"bud-360-bar", city:"부다페스트", category:"맛집", name:"360 Bar", note:"어부의 요새 일대를 바라보는 루프톱 바.", map:"360 Bar Budapest", sources:[{type:"인스타",label:"인스타 스크린샷"}] },
+
+    // 인스타그램에서 추가한 비엔나 맛집·카페
+    { id:"vie-figlmueller", city:"비엔나", category:"맛집", name:"Figlmüller", note:"접시보다 큰 오리지널 슈니첼. 포테이토 샐러드와 링곤베리잼 조합 추천, 예약 필수.", map:"Figlmuller Vienna Wollzeile", sources:[{type:"인스타",label:"@1.freee"},{type:"인스타",label:"@knewnew.official"}] },
+    { id:"vie-bitzinger", city:"비엔나", category:"맛집", name:"Bitzinger Würstelstand Albertina", note:"알베르티나 앞 전통 소시지 노점. 치즈 소시지 케제크라이너와 핫도그 추천.", map:"Bitzinger Wurstelstand Albertina Vienna", sources:[{type:"인스타",label:"@1.freee"}] },
+    { id:"vie-rinderwahn", city:"비엔나", category:"맛집", name:"Rinderwahn", note:"소고기 패티 수제버거와 고구마튀김 추천.", map:"Rinderwahn Vienna", sources:[{type:"인스타",label:"@1.freee"}] },
+    { id:"vie-oefferl", city:"비엔나", category:"카페", name:"Öfferl", note:"성수동 감성의 친환경 빵집. 피스타치오·아몬드 크루아상 추천.", map:"Oefferl Vienna", sources:[{type:"인스타",label:"@1.freee"}] },
+    { id:"vie-neni", city:"비엔나", category:"맛집", name:"NENI am Naschmarkt", note:"나슈마르크트 테라스에서 즐기는 지중해·중동 요리.", map:"NENI am Naschmarkt Vienna", sources:[{type:"인스타",label:"@eyesmag"},{type:"인스타",label:"@heytravelmag"}] },
+    { id:"vie-vinifero", city:"비엔나", category:"맛집", name:"Vinifero", note:"오스트리아 내추럴 와인을 즐길 수 있는 와인 바.", map:"Vinifero Vienna", sources:[{type:"인스타",label:"@eyesmag"}] },
+    { id:"vie-brosl", city:"비엔나", category:"맛집", name:"brösl", note:"제철 식재료에 따라 메뉴가 바뀌는 팜투테이블 자연주의 레스토랑.", map:"brosl Vienna restaurant", sources:[{type:"인스타",label:"@eyesmag"}] },
+    { id:"vie-bert-coffee", city:"비엔나", category:"카페", name:"BERT Coffee & Matcha", note:"현대적인 분위기의 커피·말차 전문점.", map:"BERT Coffee and Matcha Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-hafi-books", city:"비엔나", category:"카페", name:"Hafi Books + Coffee", note:"책과 커피를 함께 즐기는 북카페.", map:"Hafi Books Coffee Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-die-cafetiere", city:"비엔나", category:"카페", name:"Die Cafetière", note:"샌드위치와 스페셜티 커피를 즐기기 좋은 현대적인 카페.", map:"Die Cafetiere Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-cafe-friedlich", city:"비엔나", category:"카페", name:"Café Friedlich im KunstHausWien", note:"훈데르트바서 미술관 안의 식물 가득한 카페. 카이저슈마렌 추천.", map:"Cafe Friedlich KunstHausWien", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-das-goldstueck", city:"비엔나", category:"카페", name:"Café das Goldstück", note:"케이크와 감각적인 인테리어가 돋보이는 카페.", map:"Cafe das Goldstuck Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-cafe-glas", city:"비엔나", category:"카페", name:"Cafe Glas", note:"차분한 로컬 분위기의 스페셜티 카페.", map:"Cafe Glas Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-cafe-exchange", city:"비엔나", category:"카페", name:"Café Exchange", note:"오스트리아 우편저축은행 건물 안의 넓고 조용한 카페.", map:"Cafe Exchange Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-small-batch", city:"비엔나", category:"카페", name:"small batch", note:"커피와 케이크를 즐기기 좋은 현대적인 카페.", map:"small batch Vienna cafe", sources:[{type:"인스타",label:"@viennese.snap"}] },
+    { id:"vie-fenster-cafe", city:"비엔나", category:"카페", name:"Fenster Café", note:"골목의 테이크아웃 창문 카페. 와플콘에 담은 비주얼 라테로 유명.", map:"Fenster Cafe Vienna", sources:[{type:"인스타",label:"@knewnew.official"}] },
+
+    // 인스타그램에서 추가한 비엔나 명소·쇼핑
+    { id:"vie-burggarten", city:"비엔나", category:"명소", name:"왕궁정원 (Burggarten)", note:"모차르트 동상과 온실을 배경으로 사진 찍기 좋은 도심 정원.", map:"Burggarten Vienna", sources:[{type:"인스타",label:"@viennese.snap"},{type:"인스타",label:"@knewnew.official"}] },
+    { id:"vie-volksgarten", city:"비엔나", category:"명소", name:"시민정원 (Volksgarten)", note:"무료로 산책하며 쉬기 좋은 장미정원.", map:"Volksgarten Vienna", sources:[{type:"인스타",label:"@hyem.tori"}] },
+    { id:"vie-prater", city:"비엔나", category:"명소", name:"프라터", note:"빈티지 놀이기구와 대관람차가 있는 레트로 감성 놀이공원.", map:"Prater Vienna", sources:[{type:"인스타",label:"@knewnew.official"}] },
+    { id:"vie-alt-neu", city:"비엔나", category:"쇼핑", name:"Alt & Neu Records", note:"영화 비포 선라이즈에 등장한 레코드 판매점.", map:"Alt Neu Records Vienna", sources:[{type:"인스타",label:"@viennese.snap"},{type:"인스타",label:"@knewnew.official"}] },
+    { id:"vie-beethoven-museum", city:"비엔나", category:"명소", name:"베토벤 박물관", note:"베토벤의 작업 공간과 생애를 살펴볼 수 있는 박물관.", map:"Beethoven Museum Vienna", sources:[{type:"인스타",label:"@atourshop"}] },
+    { id:"vie-leopold-museum", city:"비엔나", category:"명소", name:"레오폴트 미술관", note:"에곤 실레 컬렉션으로 유명한 미술관.", map:"Leopold Museum Vienna", sources:[{type:"인스타",label:"@atourshop"}] },
+    { id:"vie-wien-museum", city:"비엔나", category:"명소", name:"비엔나 박물관", note:"에곤 실레·클림트 작품과 비엔나 도시 역사를 함께 보는 박물관.", map:"Wien Museum Karlsplatz", sources:[{type:"인스타",label:"@eyesmag"}] },
+    { id:"vie-karmeliterviertel", city:"비엔나", category:"명소", name:"카르멜리터피어텔", note:"파머스 마켓과 편집숍, 갤러리가 모인 현지인 동네.", map:"Karmeliterviertel Vienna", sources:[{type:"인스타",label:"@eyesmag"}] },
+    { id:"vie-meidlinger-markt", city:"비엔나", category:"명소", name:"마이들링거 시장", note:"150년 역사의 시장. 주말 파머스 마켓 추천.", map:"Meidlinger Markt Vienna", sources:[{type:"인스타",label:"@eyesmag"}] },
+    { id:"vie-billa", city:"비엔나", category:"쇼핑", name:"BILLA", note:"현지 식료품과 다르보 꿀, 기념품을 구입하기 좋은 슈퍼마켓.", map:"BILLA Vienna", sources:[{type:"인스타",label:"@bricksmagazine"},{type:"인스타",label:"@atourshop"}] },
+    { id:"vie-dm", city:"비엔나", category:"쇼핑", name:"dm drogerie markt", note:"건강보조제·입욕제·화장품과 생필품을 구입하기 좋은 드러그스토어.", map:"dm drogerie markt Vienna", sources:[{type:"인스타",label:"@bricksmagazine"},{type:"인스타",label:"@atourshop"}] },
+    { id:"vie-parndorf", city:"비엔나", category:"쇼핑", name:"Designer Outlet Parndorf", note:"비엔나 근교 디자이너 아울렛. 셔틀버스 이용 가능.", map:"Designer Outlet Parndorf Austria", sources:[{type:"인스타",label:"@atourshop"}] },
+
+    // 프라하 · 유튜버 규진
+    { id:"prg-charles-bridge", city:"프라하", category:"명소", name:"카를교", note:"노을과 야경, 낮 풍경을 모두 즐기기 좋은 프라하의 상징.", map:"Charles Bridge Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-tradlo", city:"프라하", category:"카페", name:"Tradlo", note:"아이스크림과 딸기를 올린 즉석 굴뚝빵 추천.", map:"Tradlo Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-castle", city:"프라하", category:"명소", name:"프라하성", note:"성 비투스 대성당과 황금소로 등 볼거리가 많은 필수 코스.", map:"Prague Castle", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-lobkowicz-cafe", city:"프라하", category:"카페", name:"Lobkowicz Palace Café", note:"프라하성 내부의 전망 좋은 테라스 카페.", map:"Lobkowicz Palace Cafe Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-kuchyn", city:"프라하", category:"맛집", name:"Kuchyň", note:"슈니첼과 오리 다리 요리, 프라하 전망 추천.", map:"Kuchyn Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-strahov-brewery", city:"프라하", category:"맛집", name:"Klášterní pivovar Strahov", note:"수도원 안에서 다양한 맥주를 맛볼 수 있는 양조장.", map:"Klasterni pivovar Strahov Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-strahov-library", city:"프라하", category:"명소", name:"스트라호프 수도원 도서관", note:"화려한 프레스코화와 고풍스러운 내부로 유명.", map:"Strahov Monastery Library Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-porks", city:"프라하", category:"맛집", name:"Pork's", note:"겉은 바삭하고 속은 촉촉한 체코식 족발 꼴레뇨 추천.", map:"Pork's Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-havel-market", city:"프라하", category:"명소", name:"하벨 시장", note:"과일과 수공예품, 기념품을 둘러보기 좋은 시장.", map:"Havelska Market Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-astronomical-clock", city:"프라하", category:"명소", name:"천문시계", note:"600년 역사를 지닌 정교한 시계탑.", map:"Prague Astronomical Clock", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-powder-tower", city:"프라하", category:"명소", name:"화약탑", note:"프라하 시내를 360도로 조망할 수 있는 전망 명소.", map:"Powder Tower Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-pilsnerka", city:"프라하", category:"맛집", name:"Pilsnerka Národní", note:"타르타르와 굴라쉬를 추천한 현지 식당.", map:"Pilsnerka Narodni Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-cafe-savoy", city:"프라하", category:"카페", name:"Café Savoy", note:"트러플 향이 나는 브런치로 유명한 카페.", map:"Cafe Savoy Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-wallenstein", city:"프라하", category:"명소", name:"발트슈타인 궁전", note:"정원이 아름답고 산책하기 좋은 무료 관광지.", map:"Wallenstein Palace Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-cafe-imperial", city:"프라하", category:"카페", name:"Café Imperial", note:"화려하고 아름다운 인테리어로 유명한 카페.", map:"Cafe Imperial Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-trdelnik-celetna", city:"프라하", category:"카페", name:"Trdelník Celetná", note:"구시가의 또 다른 굴뚝빵 가게.", map:"Trdelnik Celetna Prague", sources:[{type:"유튜브",label:"규진"}] },
+  ],
+
+  // ── 도시별 여행 팁 ──────────────────────────────────────────
+  tips:[
+    { id:"tip-bud-transit-ticket", city:"부다페스트", category:"교통", title:"지하철 자동발매기 티켓 구매", body:"지하철역의 보라색 자동발매기에서 영국 국기를 눌러 영어로 바꾸고 원하는 티켓을 선택합니다. 인원수를 추가한 뒤 초록색 버튼으로 진행하고, 카드 삽입 후 비밀번호를 누르면 발권됩니다. 일정에 따라 72시간 트래블카드도 비교하세요.", sources:[{type:"인스타",label:"@intensify_yen"}] },
+    { id:"tip-bud-castle-lift", city:"부다페스트", category:"이동", title:"푸니쿨라 대신 무료로 부다성 올라가기", body:"Clark Ádám tér 인근에서 Google Maps에 ‘Guards Palace’를 검색해 입구를 찾습니다. 문 안쪽 엘리베이터로 1층, 에스컬레이터와 야외 엘리베이터를 차례로 이용하면 부다성 도착입니다.", sources:[{type:"인스타",label:"@intensify_yen"}] },
+    { id:"tip-bud-fishermans-guide", city:"부다페스트", category:"명소", title:"어부의 요새 야경·포토스팟 가이드", image:"assets/fishermans-bastion-guide.png", imageAlt:"어부의 요새 포토스팟, 시간대별 풍경, 주변 이동시간을 정리한 가이드", imageCrops:[{label:"BEST 포토스팟 TOP 5",x:53,y:270,w:1289,h:485},{label:"지도 · 시간대별 추천 풍경 · 주변 명소",x:53,y:765,w:1289,h:440},{label:"여행 팁 · 추천 동선 · 카페",x:53,y:1215,w:1289,h:175}], body:"2일차에는 일몰 전 도착해 해 질 무렵부터 야경까지 이어서 보는 일정으로 반영했습니다. 아치와 계단을 활용하면 국회의사당을 프레임 안에 담을 수 있고, 성벽 끝 전망대에서는 부다페스트 전경을 넓게 볼 수 있습니다.", points:["추천 포토스팟: 아치 사이 전망, 계단 위 파노라마, 일곱 개의 탑, 성벽 끝 전망대, 야간 삼각대 촬영 지점","추천 시간: 일출 05:30~07:30 · 오전 09:00~11:00 · 일몰 18:00~19:30 · 야경 20:00~23:00","주변 이동: 마차시 성당 도보 2분 · 부다성 15분 · 세체니 다리 12분 · 바트야니 광장 10분","2일차는 부다성에서 Walzer Café와 Pest-Buda Bistro를 거쳐 어부의 요새까지 성곽 안에서 한 방향으로 이동","야간에는 계단과 석조 바닥이 어두울 수 있으므로 편한 신발을 신고 소지품과 삼각대 통행에 주의"], sources:[{type:"이미지",label:"사용자 제공 가이드"}] },
+    { id:"tip-bud-goulash", city:"부다페스트", category:"음식", title:"굴라쉬 주문 팁", body:"한국 김치찌개처럼 딱 맞는 굴라쉬를 특정하기 어렵습니다. 진한 소고기 육수에 파프리카 향이 강하고 매콤한 스타일을 찾으면 실패 확률을 줄일 수 있습니다.", sources:[{type:"인스타",label:"@intensify_yen"}] },
+
+    { id:"tip-vie-cat", city:"비엔나", category:"교통", title:"공항에서 시내까지 CAT 이용", body:"City Airport Train(CAT)을 이용하면 비엔나 공항에서 Wien Mitte역까지 약 16분입니다. 티켓 종류가 다양하므로 탑승 전에 공식 e티켓과 현장 가격을 비교하세요.", sources:[{type:"인스타",label:"@myrealtrip"}] },
+    { id:"tip-vie-billa", city:"비엔나", category:"쇼핑", title:"BILLA에서 살 만한 식품", body:"오스트리아 대표 커피 Julius Meinl과 다르보(Darbo) 꿀·잼을 선물 후보로 추천합니다. BILLA는 지점이 많고 노란색 간판으로 찾기 쉽습니다.", sources:[{type:"인스타",label:"@bricksmagazine"},{type:"인스타",label:"@atourshop"}] },
+    { id:"tip-vie-dm", city:"비엔나", category:"쇼핑", title:"dm 드러그스토어 쇼핑", body:"Mivolis 비타민·오메가3 계열 건강보조제와 tetesept 입욕제를 많이 찾습니다. 중앙역과 Wien Mitte 인근 지점이 편리하며 토요일은 일찍 닫고 일부 지점을 제외하면 일요일 휴무이므로 시간을 확인하세요.", sources:[{type:"인스타",label:"@bricksmagazine"},{type:"인스타",label:"@atourshop"}] },
+    { id:"tip-vie-sausage", city:"비엔나", category:"음식", title:"비엔나 소시지 주문 용어", body:"Käsekrainer는 치즈가 든 소시지, Semmel은 함께 먹는 빵, Senf는 머스터드입니다. 노점에서는 소시지만 접시에 받거나 핫도그 형태로 주문할 수 있습니다.", sources:[{type:"인스타",label:"@1.freee"}] },
+    { id:"tip-vie-schnitzel", city:"비엔나", category:"음식", title:"슈니첼 더 맛있게 먹기", body:"레몬을 뿌리고 링곤베리잼을 곁들이며, 감자샐러드는 호박씨 오일 향을 함께 즐기는 조합이 추천됩니다. Figlmüller 같은 인기 식당은 미리 예약하세요.", sources:[{type:"인스타",label:"@1.freee"},{type:"인스타",label:"@knewnew.official"}] },
+    { id:"tip-vie-parndorf", city:"비엔나", category:"쇼핑", title:"파른도르프 아울렛 이동·할인", body:"비엔나에서 전용 셔틀버스로 이동할 수 있습니다. 방문 전 예약 페이지에서 날짜와 시간을 선택하고, 제공되는 할인 교환권·쿠폰의 사용 조건을 확인하세요.", sources:[{type:"인스타",label:"@atourshop"}] },
+  ],
+
   // ── 예산 (2인 합산 예상치 — 실제 예약가로 수정하세요) ──────────
   budget:{
     categories:[
-      { name:"항공 (2인·예약완료)", planned: 3000000, actual: 0 },
-      { name:"숙소 (11박)",       planned: 2200000, actual: 0 },
+      { name:"항공 (2인·인당 118만원·예약완료)", planned: 2360000, actual: 2360000 },
+      { name:"숙소 (11박)",       planned: 2200000, actual: 3086856 },
       { name:"렌트카 (2박3일·린츠)", planned: 450000, actual: 0 },
       { name:"기차 (부다·비엔·린츠·프라하)", planned: 600000, actual: 0 },
       { name:"유류·주차·통행", planned: 200000, actual: 0 },
-      { name:"식비 (2인·12일)",    planned: 1800000, actual: 0 },
-      { name:"투어·입장 (온천·크루즈·궁전)", planned: 700000, actual: 0 },
-      { name:"쇼핑·기타",          planned: 600000, actual: 0 },
+      { name:"식비 (2인·12일·카페/와인 포함)", planned: 2600000, actual: 0 },
+      { name:"입장·공연 (온천·크루즈 제외)", planned: 700000, actual: 0 },
+      { name:"쇼핑",               planned: 300000, actual: 0 },
+      { name:"여행 잡비·예비비",   planned: 300000, actual: 0 },
     ]
   },
 
@@ -744,51 +860,64 @@ const TRIP = {
     { date:"2026-09-11", city:"부다페스트", title:"도착 · 체크인 · 국회의사당 야경", items:[
       { time:"12:35", place:"인천 출발", type:"이동", note:"장거리 비행." },
       { time:"18:00", place:"부다페스트 도착 (BUD)", type:"이동", note:"입국 60~90분. 100E 공항버스 또는 Bolt로 숙소.", map:"Budapest Ferenc Liszt Airport" },
-      { time:"19:30", place:"숙소 체크인", type:"이동", note:"추천 지역: 5구 Belváros / 7구 Jewish Quarter / Deák Ferenc tér. 첫날은 Bolt가 편함.", map:"Deak Ferenc ter Budapest" },
+      { time:"19:30", place:"H2 Hotel Budapest 체크인", type:"이동", note:"9/11~9/13 · 2박 · 네이버 호텔 예약 · 502,356원 결제. 첫날 공항에서는 Bolt가 편함.", map:"H2 Hotel Budapest" },
       { time:"20:30", place:"저녁 · Mazel Tov 또는 Bors GastroBar", type:"식사", note:"Mazel Tov는 분위기 좋은 첫날 저녁, Bors는 빠르고 캐주얼한 대안.", map:"Mazel Tov Budapest" },
       { time:"21:30", place:"국회의사당 야경 산책", type:"관광", note:"첫날은 무리하지 말고 다뉴브 강변 야경만. Batthyány tér 쪽 전망도 좋음.", map:"Hungarian Parliament Building" },
       { time:"22:00", place:"간식 · Chimney Cake Shop", type:"식사", note:"굴뚝빵 · 시나몬 맛 추천.", map:"Chimney Cake Shop Budapest" },
     ]},
-    { date:"2026-09-12", city:"부다페스트", title:"페스트 카페 · 부다 언덕 · 다뉴브 일몰", items:[
-      { area:"페스트 (강 동쪽)", map:"St. Stephen's Basilica Budapest", items:[
-        { time:"09:30", place:"브런치 · New York Café / Freyja", type:"식사", note:"화려한 카페를 원하면 New York Café, 가볍게 시작하려면 Freyja.", map:"New York Cafe Budapest" },
-        { time:"10:45", place:"성 이슈트반 대성당", type:"관광", note:"전망대 선택 가능. 시간이 빠듯하면 외관만.", map:"St. Stephen's Basilica Budapest" },
-        { time:"11:30", place:"커피 · Espresso Embassy", type:"식사", note:"라떼 맛집 · 상큼한 원두 플랫화이트.", map:"Espresso Embassy Budapest" },
+    { date:"2026-09-12", city:"부다페스트", title:"페스트 중심 · 부다 성곽 일몰 · 다뉴브 야경", items:[
+      { area:"페스트 아침 · 도심 북쪽", map:"New York Cafe Budapest", items:[
+        { time:"08:30–09:40", place:"New York Café", type:"식사", recId:"bud-new-york-cafe", note:"체류 70분. 대기 시간을 줄이도록 아침 방문. 09:40 출발 → Blaha Lujza tér에서 M2 이용 후 도보, 대성당까지 약 20분.", map:"New York Cafe Budapest" },
+        { time:"10:00–11:00", place:"성 이슈트반 대성당", type:"관광", recId:"bud-st-stephen", note:"관람 60분 기준(외관·내부). 전망대까지 보면 20~30분 추가 필요. 국회의사당까지 도보 약 15분.", map:"St. Stephen's Basilica Budapest" },
+        { time:"11:15–12:00", place:"헝가리 국회의사당", type:"관광", recId:"bud-parliament", note:"주간 외관과 강변 관람 45분. 내부 투어를 예약하면 별도 60분이 필요해 이후 일정을 1시간 늦춰야 함. Jamie Oliver's까지 버스·도보 약 35분.", map:"Hungarian Parliament Building Budapest" },
       ]},
-      { area:"부다 (강 서쪽 언덕)", map:"Buda Castle District Budapest", items:[
-        { time:"12:30", place:"어부의 요새", type:"관광", note:"다뉴브강·국회의사당 전망. 오전~점심 전후가 사진 좋음.", map:"Fisherman's Bastion Budapest" },
-        { time:"13:15", place:"마차시 성당 · 부다성 산책", type:"관광", note:"성 지구를 너무 깊게 보지 말고 산책 중심.", map:"Buda Castle Budapest" },
-        { time:"14:30", place:"점심 · Hungarikum Bisztró", type:"식사", note:"굴라쉬 등 헝가리식. 예약 추천, 어렵다면 Lánchíd Söröző.", map:"Hungarikum Bisztro Budapest" },
+      { area:"부다 성곽 지구", map:"Buda Castle Budapest", items:[
+        { time:"12:35–14:00", place:"점심 · Jamie Oliver's Italian Budapest", type:"식사", recId:"bud-jamie-oliver", note:"이동 도착 여유 5분 포함, 식사 80분 기준. 토요일 혼잡을 고려해 12:40 전후 예약 권장. 부다성 왕궁 구역까지 도보 약 15분.", map:"Jamie Oliver's Italian Budapest" },
+        { time:"14:15–15:15", place:"부다성", type:"관광", recId:"bud-buda-castle", note:"왕궁 외부와 테라스 산책 60분 기준. 박물관 내부 관람은 제외. 성곽 안 Tárnok utca 방향으로 Walzer Café까지 도보 약 15분.", map:"Buda Castle Budapest" },
+        { time:"15:30–16:00", place:"커피 · Walzer Café", type:"카페", recId:"bud-walzer-cafe", note:"700년 된 건물의 안뜰 카페에서 30분 휴식. 영업시간은 방문 전 재확인 권장. Pest-Buda Bistro까지 도보 약 5분.", map:"Walzer Cafe Budapest" },
+        { time:"16:05–17:20", place:"이른 저녁 · Pest-Buda Bistro", type:"식사", recId:"bud-pest-buda-bistro", note:"굴라쉬와 치킨 파프리카시 후보. 공식 안내상 매일 운영하며, 어부의 요새까지 도보 약 5분이라 다시 언덕을 오르내리지 않음.", map:"Pest-Buda Bistro Budapest" },
+        { time:"17:25–19:25", place:"어부의 요새 · 일몰과 야경", type:"관광", recId:"bud-fishermans-bastion", note:"일몰 전 도착해 밝은 풍경부터 블루아워와 점등 후 야경까지 감상. 2026년 9월 12일 일몰은 19:02 전후. 아치와 성벽에서 국회의사당 사진 촬영.", map:"Fisherman's Bastion Budapest" },
       ]},
-      { area:"온천 · 야경", map:"Szechenyi Thermal Bath", items:[
-        { time:"16:00", place:"세체니 온천", type:"휴식", note:"수영복·수건 지참. 노천탕 유명, 2~3시간.", map:"Szechenyi Thermal Bath Budapest" },
-        { time:"19:30", place:"저녁 · Kiosk Budapest", type:"식사", note:"온천 후 택시 이동 추천. 대안: Lánchíd Söröző 굴라쉬.", map:"Kiosk Budapest" },
-        { time:"21:00", place:"다뉴브 야경 크루즈", type:"관광", note:"부다페스트 2박 일정에서 가장 추천하는 예약 코스. 국회의사당 지날 때 영상.", map:"Danube River Cruise Budapest" },
+      { area:"세체니 다리 · 다뉴브 야경 산책", map:"Szechenyi Chain Bridge Budapest", items:[
+        { time:"19:25–19:45", place:"Clark Ádám tér로 이동", type:"이동", note:"어부의 요새 인근 정류장에서 16번 버스로 내려가는 기준. 도보 하산보다 시간을 아끼고, 세체니 다리 부다 쪽 입구에 바로 도착.", map:"Clark Adam Square Budapest" },
+        { time:"19:45–20:10", place:"세체니 다리 건너기", type:"산책", recId:"bud-chain-bridge", note:"부다에서 페스트 방향으로 이동. 다리 조명과 부다성 야경을 보며 사진 시간을 포함해 25분 배정.", map:"Szechenyi Chain Bridge Budapest" },
+        { time:"20:10–21:00", place:"다뉴브강 야경 산책", type:"산책", recId:"bud-danube-promenade", note:"일몰 피크닉은 제외. 세체니 다리 페스트 쪽에서 다뉴브 산책로를 따라 국회의사당 방향으로 걷고, 적당한 지점에서 H2 Hotel로 이동.", map:"Shoes on the Danube Bank Budapest" },
+        { time:"21:00–21:20", place:"숙소로 이동", type:"이동", note:"강변에서 H2 Hotel Budapest까지 도보 약 15~20분. 피곤하면 짧게 Bolt 이용.", map:"H2 Hotel Budapest" },
       ]},
     ]},
-    { date:"2026-09-13", city:"비엔나", title:"부다페스트 → 비엔나 · 구시가 첫 산책", items:[
+    { date:"2026-09-13", city:"비엔나", title:"부다페스트 → 비엔나 · 호프부르크 · 빈 필하모닉", items:[
       { area:"이동", items:[
-        { time:"08:30", place:"체크아웃", type:"이동", note:"오전 기차 추천. 캐리어 있으면 Keleti까지 Bolt.", map:"Budapest Keleti" },
+        { time:"08:30", place:"H2 Hotel Budapest 체크아웃", type:"이동", note:"네이버 호텔 예약(9/11~9/13, 2박). 캐리어가 있으면 Keleti역까지 Bolt 추천.", map:"H2 Hotel Budapest" },
         { time:"09:40 전후", place:"부다페스트 → 비엔나", type:"이동", note:"Railjet / EC, 약 2시간 40분. 너무 이른 출발이 부담되면 10~11시대도 현실적.", map:"Budapest Keleti" },
-        { time:"12:30", place:"Wien Hbf 도착 / 짐 보관", type:"이동", note:"숙소 체크인 전이면 중앙역 락커 활용.", map:"Wien Hauptbahnhof" },
+        { time:"12:30", place:"Wien Hbf 도착", type:"이동", note:"호텔로 이동해 짐을 먼저 맡기기.", map:"Wien Hauptbahnhof" },
+        { time:"13:15", place:"The Cloud One Hotel Wien-Staatsoper 체크인/짐 보관", type:"이동", note:"9/13~9/16 · 3박 · 스탠다드 더블룸 · 총 920,000원. 체크인 전이면 프런트에 짐 보관.", map:"The Cloud One Hotel Wien-Staatsoper" },
       ]},
-      { area:"비엔나 첫 저녁 (Innere Stadt)", map:"Innere Stadt Vienna", items:[
-        { time:"14:00", place:"슈테판 대성당", type:"관광", note:"비엔나 랜드마크. 도착일은 외관+광장 산책 중심.", map:"St. Stephen's Cathedral Vienna" },
-        { time:"15:30", place:"그라벤 / 콜마르크트 산책", type:"관광", note:"구시가 쇼핑 거리. 카페 휴식 넣기 좋음.", map:"Graben Vienna" },
-        { time:"17:00", place:"호프부르크 외관 · 링 거리", type:"관광", note:"궁전 내부는 다른 날로 미루고 산책만.", map:"Hofburg Vienna" },
-        { time:"19:00", place:"저녁 · Figlmüller / Plachutta / Bibim", type:"식사", note:"슈니첼·타펠슈피츠 또는 여행 중 한식. 인기 식당은 예약 추천.", map:"Figlmuller Vienna" },
+      { area:"호프부르크 · 오페라 지구", map:"Austrian National Library Vienna", items:[
+        { time:"14:00–15:00", place:"오스트리아 국립 도서관", type:"관광", recId:"vie-national-library", note:"화려한 프룬크잘 내부 관람. 일요일 마지막 입장 시간을 사전에 확인하고, 이동 지연 시 9/15 보완 일정으로 이동.", map:"Austrian National Library Vienna" },
+        { time:"15:05–15:50", place:"호프부르크 왕궁과 정원", type:"관광", recId:"vie-hofburg", note:"공연일이라 내부 투어는 제외하고 미하엘 광장·왕궁 외관과 정원 중심으로 산책.", map:"Hofburg Vienna" },
+        { time:"15:55–16:30", place:"왕궁정원 (Burggarten)", type:"관광", recId:"vie-burggarten", note:"모차르트 동상과 온실을 배경으로 사진 촬영. Café Sacher까지 도보 약 5분.", map:"Burggarten Vienna" },
+        { time:"16:35–17:25", place:"Café Sacher", type:"카페", recId:"vie-cafe-sacher", note:"자허토르테와 아인슈페너. 대기줄이 길면 체류 시간을 줄이거나 9/15 보완 일정으로 이동.", map:"Cafe Sacher Wien" },
+        { time:"17:30–18:00", place:"빈 국립 오페라극장", type:"관광", recId:"vie-state-opera", note:"호텔과 가까운 외관·사진 중심 관람. 내부 투어는 제외.", map:"Vienna State Opera" },
+        { time:"18:05–18:35", place:"Bitzinger Würstelstand Albertina", type:"식사", recId:"vie-bitzinger", note:"공연 전 가벼운 저녁. 케제크라이너 또는 핫도그를 먹고 Musikverein까지 도보 이동.", map:"Bitzinger Wurstelstand Albertina Vienna" },
+      ]},
+      { area:"Musikverein · 빈 필하모닉", map:"Musikverein Wien", items:[
+        { time:"18:50", place:"Musikverein 도착 · 입장", type:"공연", note:"황금홀 공연. 좌석 확인과 외투 보관을 고려해 공연 40분 전 도착.", map:"Musikverein Wien" },
+        { time:"19:30–21:30", place:"빈 필하모닉 · Tugan Sokhiev", type:"공연", note:"베토벤 ‘레오노레 서곡 3번’ · 모차르트 교향곡 25번 · 프로코피예프 ‘로미오와 줄리엣’. 일반 예매 2026-08-10 09:00 시작 예정.", map:"Musikverein Wien" },
+        { time:"21:30–22:00", place:"공연 후 호텔 복귀", type:"이동", note:"Musikverein에서 The Cloud One Hotel Wien-Staatsoper까지 도보 약 10분.", map:"The Cloud One Hotel Wien-Staatsoper" },
       ]},
     ]},
-    { date:"2026-09-14", city:"비엔나", title:"쇤브룬궁 · 클래식 카페 · 오페라 거리", items:[
+    { date:"2026-09-14", city:"비엔나", title:"쇤브룬궁 · 클래식 카페 · Figlmüller · Vinifero", items:[
       { area:"쇤브룬", map:"Schönbrunn Palace Vienna", items:[
         { time:"09:30", place:"쇤브룬궁", type:"관광", note:"오전 입장 추천. 내부 관람 시 시간권 예약.", map:"Schönbrunn Palace Vienna" },
         { time:"11:30", place:"글로리에테 전망", type:"관광", note:"언덕이라 은근 걷기 있음. 날씨 좋으면 사진 포인트.", map:"Gloriette Schonbrunn" },
         { time:"13:00", place:"점심 · Café Gloriette 또는 시내 이동", type:"식사", note:"궁전 안에서 쉬거나, 체력 아끼려면 시내로 이동.", map:"Cafe Gloriette Vienna" },
       ]},
-      { area:"카페 · 구시가", map:"Cafe Sacher Vienna", items:[
-        { time:"15:30", place:"카페 자허 / 데멜", type:"식사", note:"자허 줄이 길면 데멜로 변경. 자허토르테·아인슈페너.", map:"Cafe Sacher Vienna" },
-        { time:"17:00", place:"빈 국립 오페라극장 외관 / 케른트너 거리", type:"관광", note:"공연 예약이 있으면 이 날 저녁에 배치하기 좋음.", map:"Vienna State Opera" },
-        { time:"19:00", place:"저녁 · Lugeck", type:"식사", note:"비엔나식 음식. 대안: Brasserie Palmenhaus.", map:"Lugeck Vienna" },
+      { area:"구시가 카페 · 쇼핑", map:"Cafe Central Vienna", items:[
+        { time:"15:30–16:30", place:"Café Central", type:"카페", recId:"vie-cafe-central", note:"고급스러운 분위기와 디저트·커피. 대기줄이 길면 체류 시간을 줄여 다음 장소로 이동.", map:"Cafe Central Vienna" },
+        { time:"16:45–17:15", place:"Fenster Café", type:"카페", recId:"vie-fenster-cafe", note:"골목 테이크아웃 창문 카페. 와플콘 라테는 비주얼 중심이라 둘이 하나를 나눠도 충분.", map:"Fenster Cafe Vienna" },
+        { time:"17:20–17:50", place:"BILLA", type:"쇼핑", recId:"vie-billa", note:"다르보 꿀·잼과 현지 식료품 확인. 무거운 제품은 일정 마지막에 추가 구매.", map:"BILLA Vienna Innere Stadt" },
+        { time:"19:00–20:45", place:"저녁 · Figlmüller", type:"식사", recId:"vie-figlmueller", note:"접시보다 큰 슈니첼과 포테이토 샐러드·링곤베리잼 조합. 인기 시간대라 사전 예약 필수.", map:"Figlmuller Vienna Wollzeile" },
+        { time:"21:15", place:"Vinifero", type:"식사", recId:"vie-vinifero", note:"오스트리아 내추럴 와인으로 하루 마무리. 영업일과 마지막 주문 시간은 방문 전 확인.", map:"Vinifero Vienna" },
       ]},
     ]},
     { date:"2026-09-15", city:"비엔나", title:"벨베데레 · 나슈마르크트 · 쇼핑", items:[
@@ -799,54 +928,54 @@ const TRIP = {
       ]},
       { area:"쇼핑 · 렌트 전날 준비", map:"Mariahilfer Straße Vienna", items:[
         { time:"14:00", place:"마리아힐퍼 거리 쇼핑", type:"쇼핑", note:"기념품·의류 쇼핑. 피곤하면 카페로 줄이기.", map:"Mariahilfer Straße Vienna" },
-        { time:"16:30", place:"카페 · Café Central", type:"식사", note:"줄이 길면 데멜/동네 카페로 변경.", map:"Cafe Central Vienna" },
+        { time:"16:00–18:00", place:"비엔나 박물관", type:"관광", recId:"vie-wien-museum", note:"에곤 실레·클림트 작품과 비엔나 도시사를 관람. 마지막 입장 시간을 방문 전 확인.", map:"Wien Museum Karlsplatz" },
         { time:"19:00", place:"저녁 · Gasthaus Pöschl", type:"식사", note:"비엔나 마지막 저녁. 예약 권장.", map:"Gasthaus Poschl Vienna" },
         { time:"21:00", place:"렌트 구간 짐 정리", type:"준비", note:"우비·운동화·국제운전면허증·국내면허증·여권·운전자 명의 신용카드 확인." },
       ]},
     ]},
-    { date:"2026-09-16", city:"고사우", title:"비엔나 → 린츠 렌트 → 트라운제 → 고사우", items:[
+    { date:"2026-09-16", city:"잘츠캄머구트", title:"비엔나 → 린츠 렌트 → 트라운제 → 장크트볼프강", items:[
       { area:"기차 · 렌트 픽업", map:"Linz Hauptbahnhof", items:[
-        { time:"08:30", place:"비엔나 숙소 체크아웃", type:"이동", note:"너무 늦지 않게 출발. 고사우는 해 있을 때 도착 목표." },
+        { time:"08:30", place:"The Cloud One Hotel Wien-Staatsoper 체크아웃", type:"이동", note:"9/13~9/16 · 3박 · 스탠다드 더블룸. 너무 늦지 않게 출발해 고사우는 해 있을 때 도착 목표.", map:"The Cloud One Hotel Wien-Staatsoper" },
         { time:"09:00~10:30", place:"비엔나 → 린츠", type:"이동", note:"ÖBB 직행 다수. 린츠 Hbf 도착 후 렌트 지점으로.", map:"Wien Hauptbahnhof" },
         { time:"10:45", place:"린츠 렌트 픽업", type:"이동", note:"오토매틱, 완전면책 보험, 보증금, 비네트 포함 여부, 영업시간, 금요일 오후 동일 지점 반납 가능 여부 확인.", map:"Linz Hauptbahnhof car rental" },
       ]},
       { area:"트라운제 · 고사우", map:"Gmunden Traunsee", items:[
         { time:"11:30", place:"린츠 출발", type:"이동", note:"Linz → Gmunden/Traunsee. 구글맵 + 차량 내비 병행.", map:"Linz Austria" },
         { time:"13:00", place:"트라운제 / 그문덴 점심 산책", type:"관광", note:"호수 산책 후 점심. 긴 산책보다 사진+식사 중심.", map:"Gmunden Traunsee" },
-        { time:"15:30", place:"고사우 이동", type:"이동", note:"그문덴 → 고사우 약 1시간 20분 전후.", map:"Gosau Austria" },
-        { time:"17:00", place:"고사우 숙소 체크인", type:"이동", note:"Gosausee 근처는 풍경 최고, Gosau 마을 중심은 이동 편함.", map:"Gosau Austria" },
-        { time:"18:00", place:"고사우제 일몰 산책", type:"관광", note:"Dachstein 배경의 호수. 공식 안내상 호수 근처 유료 주차 가능, P1은 23:00~04:00 야간 주차 금지.", map:"Gosausee Austria" },
-        { time:"19:30", place:"저녁 · Gasthof Gosausee / 숙소 근처", type:"식사", note:"알프스 구간은 식당 마감이 빠를 수 있어 운영시간 확인.", map:"Gasthof Gosausee" },
+        { time:"15:30", place:"장크트볼프강 숙소로 이동", type:"이동", note:"그문덴에서 차량 약 50~60분 예상.", map:"Seehaus Familie Leifer" },
+        { time:"16:30~17:00", place:"Seehaus Familie Leifer 체크인", type:"이동", note:"9/16~9/18 · 2박 · Booking.com 예약 · 524,000원 결제 · 9/18 체크아웃 10:30.", map:"Seehaus Familie Leifer" },
+        { time:"17:30", place:"볼프강호수 산책", type:"관광", note:"숙소가 호수 바로 앞이라 체크인 후 이동 없이 가볍게 산책. 장거리 이동일이므로 고사우제는 다음날로 조정.", map:"Wolfgangsee Sankt Wolfgang" },
+        { time:"19:00", place:"저녁 · 장크트볼프강 숙소 근처", type:"식사", note:"알프스 구간은 식당 마감이 빠를 수 있어 운영시간 확인.", map:"Sankt Wolfgang im Salzkammergut restaurants" },
       ]},
     ]},
-    { date:"2026-09-17", city:"고사우", title:"할슈타트 · 오버트라운 · 바트고이제른", items:[
+    { date:"2026-09-17", city:"잘츠캄머구트", title:"할슈타트 · 오버트라운 · 고사우제", items:[
       { area:"할슈타트 이른 방문", map:"Hallstatt P2 Parking", items:[
-        { time:"07:30", place:"고사우 출발", type:"이동", note:"할슈타트 주차 혼잡 피하려면 이른 출발.", map:"Gosau Austria" },
-        { time:"08:00", place:"Hallstatt P2 주차", type:"이동", note:"공식 안내: 중심부 차량 진입 불가, P1~P4 이용. P2는 소금광산 케이블카 입구 쪽. 예약 불가라 이른 도착이 유리.", map:"Hallstatt P2 Parking" },
-        { time:"08:15", place:"할슈타트 클래식 뷰포인트 · 마을 산책", type:"관광", note:"오전 8시 전후가 사진 최적. 관광객 몰리기 전 호숫가 골목까지 산책.", map:"Hallstatt Classic Viewpoint" },
+        { time:"07:20", place:"Seehaus Familie Leifer 출발", type:"이동", note:"장크트볼프강에서 Hallstatt P2까지 차량 약 45~55분. 주차 혼잡을 피하려면 이른 출발.", map:"Seehaus Familie Leifer" },
+        { time:"08:10", place:"Hallstatt P2 주차", type:"이동", note:"공식 안내: 중심부 차량 진입 불가, P1~P4 이용. P2는 소금광산 케이블카 입구 쪽. 예약 불가라 이른 도착이 유리.", map:"Hallstatt P2 Parking" },
+        { time:"08:25", place:"할슈타트 클래식 뷰포인트 · 마을 산책", type:"관광", note:"오전 8시대가 사진에 유리함. 관광객이 몰리기 전 호숫가 골목까지 산책.", map:"Hallstatt Classic Viewpoint" },
         { time:"10:30", place:"카페 · Seecafé Frundsberg", type:"식사", note:"호숫가 휴식. 영업 여부 현장 확인.", map:"Seecafe Frundsberg Hallstatt" },
       ]},
       { area:"소금광산 여부 · 호수 드라이브", map:"Hallstätter See", items:[
         { time:"11:30", place:"소금광산/스카이워크 선택", type:"관광", note:"공식 안내상 2026년 여름 재개장 일정. 9월 방문 전 salzwelten.at에서 실제 운영 여부 재확인. 닫혀 있으면 마을 산책·오버트라운·고사우제로 전환.", map:"Salzwelten Hallstatt" },
         { time:"13:00", place:"점심 · Restaurant Rudolfsturm 또는 마을 식당", type:"식사", note:"소금광산이 운영 중이면 Rudolfsturm, 아니면 마을 식당으로.", map:"Restaurant Rudolfsturm Hallstatt" },
         { time:"15:00", place:"오버트라운", type:"관광", note:"할슈타트보다 한적한 호수 풍경. 짧게 산책.", map:"Obertraun Austria" },
-        { time:"16:00", place:"바트고이제른 호수 드라이브", type:"휴식", note:"날씨 좋으면 드라이브, 비 오면 카페/숙소 휴식.", map:"Bad Goisern Austria" },
-        { time:"18:00", place:"고사우 복귀", type:"이동", note:"야간 산길 운전은 피하기.", map:"Gosau Austria" },
-        { time:"19:00", place:"저녁 · 고사우 숙소/마을 식당", type:"식사", note:"다음날 이동을 위해 가볍게." },
+        { time:"16:00", place:"고사우제 드라이브 · 호수 산책", type:"휴식", note:"오버트라운에서 차량 약 30분. 첫날 제외한 고사우제를 이 시간에 방문하고 날씨가 나쁘면 숙소 휴식으로 전환.", map:"Gosausee Austria" },
+        { time:"18:00", place:"장크트볼프강 숙소 복귀", type:"이동", note:"고사우제에서 숙소까지 차량 약 50~60분. 야간 산길 운전은 피하기.", map:"Seehaus Familie Leifer" },
+        { time:"19:00", place:"저녁 · 장크트볼프강", type:"식사", note:"다음날 이동을 위해 가볍게.", map:"Sankt Wolfgang im Salzkammergut restaurants" },
       ]},
     ]},
-    { date:"2026-09-18", city:"프라하", title:"고사우 → 장크트길겐 → 린츠 반납 → 프라하", items:[
+    { date:"2026-09-18", city:"프라하", title:"장크트볼프강 → 장크트길겐 → 린츠 반납 → 프라하", items:[
       { area:"볼프강 호수", map:"St Gilgen Austria", items:[
-        { time:"08:30", place:"고사우 체크아웃", type:"이동", note:"캐리어 적재 전 차량 외관/짐 확인." },
-        { time:"09:00", place:"고사우제 마지막 산책", type:"관광", note:"날씨가 좋으면 짧게. 전날 못 봤다면 우선순위 높음.", map:"Gosausee Austria" },
-        { time:"10:30", place:"장크트길겐 이동", type:"이동", note:"Day 8은 욕심내지 말고 St. Gilgen 또는 St. Wolfgang 중 1곳만.", map:"St Gilgen Austria" },
+        { time:"08:30", place:"볼프강호수 아침 산책", type:"관광", note:"숙소 앞 호숫가를 가볍게 산책하고 체크아웃 준비.", map:"Wolfgangsee Sankt Wolfgang" },
+        { time:"10:30", place:"Seehaus Familie Leifer 체크아웃", type:"이동", note:"Booking.com · 9/16~9/18 · 2박 · 524,000원. 체크아웃 마감 10:30. 캐리어 적재 전 차량 외관과 짐 확인.", map:"Seehaus Familie Leifer" },
+        { time:"10:45", place:"장크트길겐 이동", type:"이동", note:"숙소에서 차량 약 20~25분. St. Wolfgang은 숙박 중 둘러보고 이 날은 St. Gilgen만 방문.", map:"St Gilgen Austria" },
         { time:"12:00", place:"Wolfgangsee 점심/호수 산책", type:"식사", note:"사진+점심 중심. 늦어지면 바로 린츠로.", map:"Wolfgangsee Austria" },
       ]},
       { area:"렌트 반납 · 프라하 이동", map:"Linz Hauptbahnhof", items:[
         { time:"14:00", place:"린츠 이동", type:"이동", note:"반납 지연을 피하려면 14시 전후 출발.", map:"St Gilgen to Linz" },
         { time:"16:00", place:"린츠 렌트 반납", type:"이동", note:"16시 전후 목표. 주유 정책 Full to Full이면 반납 전 주유, 외관 사진/영상과 영수증 보관.", map:"Linz car rental" },
         { time:"17:00~18:00", place:"린츠 → 프라하", type:"이동", note:"기차 약 4시간 전후. 열차별 소요시간이 달라 예약 전 확인, 간식·물 준비.", map:"Linz Hauptbahnhof" },
-        { time:"21:00~22:30", place:"프라하 도착 / 체크인", type:"이동", note:"중앙역 접근성 좋은 숙소가 편함.", map:"Praha hlavní nádraží" },
+        { time:"21:00~22:30", place:"프라하 도착 · Airbnb 체크인", type:"이동", note:"9/18~9/21 · 3박 · 754,500원 결제. 중앙역에서 숙소까지 실제 도착시간을 고려해 호스트와 늦은 체크인 방법 확인.", map:"50.0818138,14.4058218" },
         { time:"밤", place:"카를교 야경 산책 (여유되면)", type:"관광", note:"도착이 늦으면 다음날로 미루기.", map:"Charles Bridge Prague" },
       ]},
     ]},
@@ -879,6 +1008,10 @@ const TRIP = {
       ]},
     ]},
     { date:"2026-09-21", city:"프라하", title:"여유일 · 비셰흐라드 · 레트나 · 쇼핑", items:[
+      { area:"숙소 이동", map:"Hotel BOOKQUET Prague", items:[
+        { time:"09:00", place:"프라하 Airbnb 체크아웃", type:"이동", note:"9/18~9/21 · 3박 · 754,500원. 체크아웃 시각은 호스트 안내에서 최종 확인.", map:"50.0818138,14.4058218" },
+        { time:"09:30", place:"Hotel BOOKQUET 체크인/짐 보관", type:"이동", note:"9/21~9/22 · 1박 · 네이버 호텔 예약 · 조식 포함 · 386,000원. 정식 체크인 전이면 프런트에 짐 보관.", map:"Hotel BOOKQUET Prague" },
+      ]},
       { area:"카를린 · 비셰흐라드", map:"Vysehrad Prague", items:[
         { time:"10:00", place:"브런치 · Eska Karlín / Můj šálek kávy", type:"식사", note:"카를린 감성 카페. 늦은 시작에 적합.", map:"Eska Karlin Prague" },
         { time:"12:00", place:"비셰흐라드", type:"관광", note:"구시가보다 한적한 성벽 산책과 전망.", map:"Vysehrad Prague" },
@@ -893,7 +1026,7 @@ const TRIP = {
       ]},
     ]},
     { date:"2026-09-22", city:"프라하", title:"프라하 출국", items:[
-      { time:"09:30", place:"체크아웃 / 짐 보관", type:"이동", note:"숙소 또는 중앙역 락커. 항공 전날 짐 무게 확인." },
+      { time:"09:30", place:"Hotel BOOKQUET 조식 · 체크아웃/짐 보관", type:"이동", note:"네이버 호텔 · 9/21~9/22 · 1박 · 조식 포함 · 386,000원. 체크아웃 후 호텔 프런트에 짐 보관하고 항공 전 짐 무게 확인.", map:"Hotel BOOKQUET Prague" },
       { time:"10:30", place:"마지막 쇼핑 · Na Příkopě / Palladium", type:"쇼핑", note:"무리하지 않고 중심부만.", map:"Na Prikope Prague" },
       { time:"12:30", place:"점심 · Sisters Bistro 또는 근처", type:"식사", note:"가볍게 먹고 공항 이동 준비.", map:"Sisters Bistro Prague" },
       { time:"14:30", place:"공항 이동 준비", type:"이동", note:"짐 픽업, 택시/Bolt 호출." },
@@ -905,15 +1038,17 @@ const TRIP = {
   // ── 준비 체크리스트 ──────────────────────────────────────────
   prep:{
     predeparture:[
-      { t:"고사우 숙소 2박 예약 ⭐최우선", s:"Gosausee 근처/고사우 마을 중심/Bad Goisern 비교. 숙소 수가 적고 풍경 좋은 곳은 빨리 마감" },
-      { t:"프라하 숙소 4박 예약", s:"Old Town / Malá Strana / 중앙역 근처 — 위치가 만족도에 큰 영향" },
+      { t:"잘츠캄머구트 숙소 2박 예약 완료 ✓", s:"Seehaus Familie Leifer · 장크트볼프강 · 9/16~9/18 · Booking.com · 524,000원 · 체크아웃 10:30" },
+      { t:"프라하 Airbnb 3박 예약 완료 ✓", s:"9/18~9/21 · 754,500원 · 위치 50.0818138, 14.4058218" },
+      { t:"프라하 Hotel BOOKQUET 1박 예약 완료 ✓", s:"9/21~9/22 · 네이버 호텔 · 조식 포함 · 386,000원 · Karoliny Světlé 27, Prague 1" },
       { t:"린츠 렌트카 예약", s:"오토매틱·완전면책보험·비네트 포함·보증금·영업시간·금요일 오후 동일 지점 반납 가능 여부 확인" },
-      { t:"비엔나 숙소 3박 예약", s:"Innere Stadt(감성) 또는 Wien Hbf 주변(린츠 이동 편의)" },
-      { t:"부다페스트 숙소 2박 예약", s:"District V / Deák / 7구 — 공항·강변·크루즈 접근 좋음" },
+      { t:"비엔나 숙소 3박 예약 완료 ✓", s:"The Cloud One Hotel Wien-Staatsoper · 9/13~9/16 · 스탠다드 더블룸 · 920,000원" },
+      { t:"부다페스트 숙소 2박 예약 완료 ✓", s:"H2 Hotel Budapest · 9/11~9/13 · 네이버 호텔 · 502,356원 · 지도: https://maps.app.goo.gl/kRi6VGdVCwvbyCVNA" },
       { t:"부다페스트 → 비엔나 기차 예약 (9/13)", s:"Railjet/EC — 오전 출발 추천" },
+      { t:"빈 필하모닉 티켓 예매 (9/13 19:30)", s:"Musikverein 황금홀 · Tugan Sokhiev · 일반 예매 2026-08-10 09:00 시작 예정" },
       { t:"비엔나 → 린츠 기차 예약 (9/16)", s:"렌트 픽업 시간에 맞춰 여유 있게" },
       { t:"린츠 → 프라하 기차 예약 (9/18)", s:"렌트 반납 후 탈 수 있는 17시 전후 시간대" },
-      { t:"야경 크루즈 / 세체니 온천 / 쇤브룬 / 벨베데레 예약", s:"인기 시간대 선점" },
+      { t:"쇤브룬 / 벨베데레 / 빈 공연 예약", s:"입장 시간과 공연 좌석 선점" },
       { t:"Hallstatt 소금광산·스카이워크 재개장 확인", s:"2026년 여름 재개장 일정이므로 1~2개월 전 salzwelten.at에서 실제 운영 여부 재확인" },
       { t:"Google My Maps 핀 + 오프라인 지도 준비", s:"부다페스트·비엔나·잘츠캄머구트·프라하 영역 · Organic Maps" },
     ],
@@ -935,7 +1070,6 @@ const TRIP = {
       { t:"얇은 경량패딩/바람막이", s:"9월 환절기·알프스 일교차" },
       { t:"우산 또는 방수 자켓", s:"고사우/할슈타트 날씨 변동 큼" },
       { t:"멀미약 · 간식 · 물", s:"렌트 이동·산길 대비" },
-      { t:"수영복 · 수건", s:"부다페스트 온천" },
       { t:"선글라스", s:"렌트 운전·호수 반사광 대비" },
       { t:"주차 위치 캡처 · 오프라인 지도 · 날씨 캡처", s:"고사우제·할슈타트 렌트 구간 필수" },
     ],
@@ -1049,99 +1183,16 @@ const TRIP = {
   const bookedCount = (T.flights||[]).filter(f=>f.booked).length + (T.intercity||[]).filter(l=>l.booked).length;
   $("#st-book").textContent = bookedCount + "/" + totalBookables;
 
-  /* ══════════ BUDGET + EXPENSE LOGGER ══════════ */
+  /* ══════════ COMPACT OVERVIEW BUDGET ══════════ */
   const cats = T.budget.categories || [];
-  const CUR = { KRW:{sym:"₩"}, EUR:{sym:"€"}, CZK:{sym:"Kč"}, HUF:{sym:"Ft"} };
-  const DEFAULT_RATES = { KRW:1, EUR:1450, CZK:62, HUF:3.9 };  // ₩ per 1 unit (여행 전 대략치 — 환율 설정에서 수정)
-  let rates = Object.assign({}, DEFAULT_RATES, load("rates") || {});
-  let expenses = load("expenses") || [];     // [{id,cat,amt,cur,memo,ts}]
-  const toKRW = e => Math.round((Number(e.amt)||0) * (rates[e.cur]||1));
-
-  // fill category dropdown + rate inputs
-  $("#exp-cat").innerHTML = cats.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
-  ["EUR","CZK","HUF"].forEach(k=>{ const el=$("#rate-"+k); if(el) el.value = rates[k]; });
-
-  function renderBudget(){
-    const logged = {};
-    expenses.forEach(e=>{ logged[e.cat] = (logged[e.cat]||0) + toKRW(e); });
-    const actualOf = c => (c.actual||0) + (logged[c.name]||0);
-    const totPlan = cats.reduce((s,c)=>s+(c.planned||0),0);
-    const totAct  = cats.reduce((s,c)=>s+actualOf(c),0);
-
-    $("#ov-bud-total").textContent  = fmtMoney(totPlan);
-    $("#ov-bud-actual").textContent = fmtMoney(totAct);
-    $("#ov-bud-fill").style.width   = (totPlan? Math.min(100, totAct/totPlan*100):0) + "%";
-    $("#bt-total").textContent  = fmtMoney(totPlan);
-    $("#bt-actual").textContent = fmtMoney(totAct);
-    $("#bt-left").textContent   = fmtMoney(totPlan - totAct);
-
-    const maxCat = Math.max(...cats.map(c=>c.planned||0), 1);
-    $("#bcats").innerHTML = cats.map(c=>{
-      const act = actualOf(c);
-      const pct = c.planned? Math.min(100, act/c.planned*100):0;
-      const over = act > (c.planned||0);
-      const w = (c.planned/maxCat*100);
-      return `<div class="bcat">
-        <div class="top"><span class="nm">${esc(c.name)}</span>
-          <span class="fig">${fmtMoney(act)} <span style="opacity:.5">/ ${fmtMoney(c.planned||0)}</span></span></div>
-        <div class="track" style="width:${Math.max(w,18)}%">
-          <div class="fill" style="width:${pct}%;background:${over?'var(--wine)':'linear-gradient(90deg,var(--teal),var(--gold-soft))'}"></div>
-        </div></div>`;
-    }).join("");
-
-    const list = expenses.slice().sort((a,b)=>(b.ts||0)-(a.ts||0));
-    $("#expense-list").innerHTML = list.length ? list.map(e=>{
-      const sym = (CUR[e.cur]||CUR.KRW).sym;
-      const conv = e.cur!=="KRW" ? `≈ ₩${toKRW(e).toLocaleString("ko-KR")}` : "";
-      return `<div class="exp">
-        <div class="exp-main">
-          <span class="exp-cat">${esc(e.cat)}</span>
-          <span class="exp-memo">${esc(e.memo||"(메모 없음)")}</span>
-        </div>
-        <div class="exp-amt">${sym}${Number(e.amt).toLocaleString("ko-KR")}<small>${conv}</small></div>
-        <button class="exp-del" data-del="${e.id}" aria-label="삭제">×</button>
-      </div>`;
-    }).join("") : '<div class="exp-empty">아직 기록이 없습니다. 위에서 지출을 추가하세요.</div>';
-
-    const cnt = expenses.length;
-    const sumKRW = expenses.reduce((s,e)=>s+toKRW(e),0);
-    $("#exp-count").textContent = cnt ? `${cnt}건 · ${fmtMoney(sumKRW)}` : "0건";
-  }
-
-  function addExpense(){
-    const amtEl = $("#exp-amt");
-    const amt = parseFloat(String(amtEl.value).replace(/,/g,""));
-    if(!amt || amt<=0){ amtEl.focus(); return; }
-    expenses.push({
-      id: String(Date.now())+Math.random().toString(36).slice(2,6),
-      cat: $("#exp-cat").value, cur: $("#exp-cur").value,
-      amt: amt, memo: $("#exp-memo").value.trim(), ts: Date.now()
-    });
-    save("expenses", expenses);
-    amtEl.value=""; $("#exp-memo").value="";
-    renderBudget(); amtEl.focus();
-  }
-  $("#exp-add").addEventListener("click", addExpense);
-  $("#exp-amt").addEventListener("keydown", e=>{ if(e.key==="Enter") addExpense(); });
-  $("#exp-memo").addEventListener("keydown", e=>{ if(e.key==="Enter") addExpense(); });
-
-  $("#expense-list").addEventListener("click", e=>{
-    const btn = e.target.closest("[data-del]"); if(!btn) return;
-    const id = btn.getAttribute("data-del");
-    expenses = expenses.filter(x=>String(x.id)!==id);
-    save("expenses", expenses); renderBudget();
-  });
-
-  ["EUR","CZK","HUF"].forEach(k=>{
-    const el = $("#rate-"+k); if(!el) return;
-    el.addEventListener("change", ()=>{
-      const v = parseFloat(String(el.value).replace(/,/g,""));
-      if(v>0){ rates[k]=v; save("rates", rates); renderBudget(); }
-      else { el.value = rates[k]; }
-    });
-  });
-
-  renderBudget();
+  const totPlan = cats.reduce((s,c)=>s+(c.planned||0),0);
+  const totAct = cats.reduce((s,c)=>s+(c.actual||0),0);
+  $("#ov-bud-total").textContent = fmtMoney(totPlan);
+  $("#ov-bud-actual").textContent = fmtMoney(totAct);
+  $("#ov-bud-fill").style.width = (totPlan ? Math.min(100,totAct/totPlan*100) : 0) + "%";
+  $("#ov-budget-categories").innerHTML = cats.map(c=>`<div class="bcat">
+    <div class="top"><span class="nm">${esc(c.name)}</span><span class="fig">${fmtMoney(c.actual||0)} <span style="opacity:.5">/ ${fmtMoney(c.planned||0)}</span></span></div>
+  </div>`).join("");
 
   /* ══════════ ITINERARY ══════════ */
   const weekdays=["일","월","화","수","목","금","토"];
@@ -1197,14 +1248,145 @@ const TRIP = {
   function renderItem(it){
     const map = it.map ? `<a class="maplink" href="${mapURL(it.map)}" target="_blank" rel="noopener">◎ 지도</a>` : "";
     const tag = it.type ? `<span class="tag">${esc(it.type)}</span>` : "";
+    const recTag = it.recId ? `<span class="tag rec-tag">추천 선택</span>` : "";
     const nt  = it.note ? `<div class="nt">${esc(it.note)}</div>` : "";
     return `<div class="item">
       <div class="time">${esc(it.time||"")}</div>
       <div class="body">
-        <div class="pl">${esc(it.place||"")} ${tag}</div>
+        <div class="pl">${esc(it.place||"")} ${tag}${recTag}</div>
         ${nt}${map}
       </div></div>`;
   }
+
+  /* ══════════ RECOMMENDATIONS ══════════ */
+  const recommendations = T.recommendations || [];
+  const recCities = [...new Set(recommendations.map(r=>r.city).filter(Boolean))];
+  const recCategories = [...new Set(recommendations.map(r=>r.category).filter(Boolean))];
+  $("#rec-city").innerHTML += recCities.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+  $("#rec-category").innerHTML += recCategories.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+
+  const recCheckId = (r,i) => "rec_" + (r.id || i);
+  const selectedRecommendationsForCity = cityName => recommendations
+    .map((r,i)=>({r,i}))
+    .filter(({r,i})=>r.city===cityName && checks[recCheckId(r,i)]);
+  const recommendationCopyText = cityName => {
+    const selected = selectedRecommendationsForCity(cityName);
+    return [
+      `[${cityName} 추천 선택 ${selected.length}곳]`,
+      ...selected.map(({r},i)=>[
+        `${i+1}. ${r.name}${r.category ? ` (${r.category})` : ""}`,
+        r.note ? `   메모: ${r.note}` : "",
+        r.map ? `   지도: ${mapURL(r.map)}` : "",
+      ].filter(Boolean).join("\n")),
+    ].join("\n");
+  };
+  async function copyText(text){
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    const area = document.createElement("textarea");
+    area.value = text; area.setAttribute("readonly", "");
+    area.style.cssText = "position:fixed;left:-9999px;top:0";
+    document.body.appendChild(area); area.select();
+    const copied = document.execCommand("copy");
+    area.remove();
+    if(!copied) throw new Error("copy failed");
+  }
+  function renderRecommendations(){
+    const city = $("#rec-city").value;
+    const category = $("#rec-category").value;
+    const visible = recommendations.map((r,i)=>({r,i})).filter(({r})=>
+      (city==="all" || r.city===city) && (category==="all" || r.category===category)
+    );
+    const selected = recommendations.filter((r,i)=>checks[recCheckId(r,i)]).length;
+    $("#rec-visible").textContent = `${visible.length}개 장소`;
+    $("#rec-selected").textContent = `선택 ${selected}개`;
+    const renderRecommendationCard = ({r,i})=>{
+      const id = recCheckId(r,i);
+      const picked = !!checks[id];
+      const sources = (r.sources||[]).map(s=> s.url
+        ? `<a class="rec-source" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.type||"출처")} · ${esc(s.label||"원문")} ↗</a>`
+        : `<span class="rec-source no-link">${esc(s.type||"출처")} · ${esc(s.label||"출처 미상")}</span>`
+      ).join("");
+      const map = r.map ? `<a class="rec-source" href="${mapURL(r.map)}" target="_blank" rel="noopener">◎ 지도</a>` : "";
+      return `<article class="rec-card ${picked?'selected':''}" data-rec-card="${esc(id)}">
+        <div class="rec-top">
+          <button class="rec-pick" data-rec-check="${esc(id)}" aria-label="${esc(r.name)} 선택" aria-pressed="${picked}">✓</button>
+          <div class="rec-main">
+            <div class="rec-name">${esc(r.name)}</div>
+            <div class="rec-meta"><span class="rec-chip">${esc(r.city||"도시 미정")}</span><span class="rec-chip">${esc(r.category||"유형 미정")}</span></div>
+            ${r.note?`<div class="rec-note">${esc(r.note)}</div>`:""}
+          </div>
+        </div>
+        ${(sources||map)?`<div class="rec-sources">${sources}${map}</div>`:""}
+      </article>`;
+    };
+    const grouped = visible.reduce((acc,item)=>{
+      const cityName = item.r.city || "도시 미정";
+      (acc[cityName] ||= []).push(item);
+      return acc;
+    },{});
+    const cityOrder = [...(T.route||[]), ...Object.keys(grouped).filter(x=>!(T.route||[]).includes(x))];
+    $("#recommendation-list").innerHTML = visible.length ? cityOrder.filter(x=>grouped[x]).map(cityName=>{
+      const items = grouped[cityName];
+      const selectedInCity = selectedRecommendationsForCity(cityName).length;
+      return `<section class="rec-city-group">
+        <div class="rec-city-head"><h3 class="rec-city-name">${esc(cityName)}</h3><span class="rec-city-count">${items.length}곳</span><span class="rec-city-rule"></span><button class="rec-copy" data-rec-copy="${esc(cityName)}" ${selectedInCity ? "" : "disabled"}>선택 ${selectedInCity}개 복사</button></div>
+        ${items.map(renderRecommendationCard).join("")}
+      </section>`;
+    }).join("") : `<div class="rec-empty">아직 저장된 추천 장소가 없습니다.<br>인스타·유튜브·블로그 링크를 받으면 이곳에 출처와 함께 추가됩니다.</div>`;
+  }
+  $("#rec-city").addEventListener("change", renderRecommendations);
+  $("#rec-category").addEventListener("change", renderRecommendations);
+  $("#recommendation-list").addEventListener("click", e=>{
+    const copyBtn = e.target.closest("[data-rec-copy]");
+    if(copyBtn){
+      const cityName = copyBtn.getAttribute("data-rec-copy");
+      const original = copyBtn.textContent;
+      copyText(recommendationCopyText(cityName)).then(()=>{
+        copyBtn.textContent = "복사 완료 ✓";
+        setTimeout(()=>{ if(copyBtn.isConnected) copyBtn.textContent = original; }, 1400);
+      }).catch(()=>{
+        copyBtn.textContent = "복사 실패";
+        setTimeout(()=>{ if(copyBtn.isConnected) copyBtn.textContent = original; }, 1400);
+      });
+      return;
+    }
+    const btn = e.target.closest("[data-rec-check]"); if(!btn) return;
+    const id = btn.getAttribute("data-rec-check");
+    setCheck(id, !checks[id]);
+    renderRecommendations();
+  });
+  renderRecommendations();
+
+  /* ══════════ CITY TIPS ══════════ */
+  const tips = T.tips || [];
+  const tipsByCity = tips.reduce((acc,tip)=>{
+    (acc[tip.city||"도시 미정"] ||= []).push(tip);
+    return acc;
+  },{});
+  const tipCityOrder = [...(T.route||[]), ...Object.keys(tipsByCity).filter(x=>!(T.route||[]).includes(x))];
+  $("#tips-list").innerHTML = tips.length ? tipCityOrder.filter(city=>tipsByCity[city]).map(city=>{
+    const cityTips = tipsByCity[city];
+    return `<section class="rec-city-group">
+      <div class="rec-city-head"><h3 class="rec-city-name">${esc(city)}</h3><span class="rec-city-count">${cityTips.length}개</span><span class="rec-city-rule"></span></div>
+      ${cityTips.map(t=>{
+        const sources=(t.sources||[]).map(s=>s.url
+          ? `<a class="rec-source" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.type||"출처")} · ${esc(s.label||"원문")} ↗</a>`
+          : `<span class="rec-source no-link">${esc(s.type||"출처")} · ${esc(s.label||"출처 미상")}</span>`
+        ).join("");
+        const tipImage = t.image && (t.imageCrops||[]).length ? `<div class="tip-crops">${t.imageCrops.map(c=>{
+          const widthPct = 1364 / c.w * 100;
+          const leftPct = -c.x / c.w * 100;
+          const topPct = -c.y / c.h * 100;
+          return `<div class="tip-crop-block"><div class="tip-crop-label">${esc(c.label||"")}</div><div class="tip-crop" style="aspect-ratio:${c.w}/${c.h}"><img src="${esc(t.image)}" alt="${esc(t.imageAlt||t.title||'여행 팁 이미지')}" loading="lazy" style="width:${widthPct}%;left:${leftPct}%;top:${topPct}%"></div></div>`;
+        }).join("")}</div>` : "";
+        const points = (t.points||[]).length ? `<ul class="tip-points">${t.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>` : "";
+        return `<article class="tip-card">${tipImage}<div class="tip-title"><span class="rec-chip">${esc(t.category||"기타")}</span>${esc(t.title)}</div><div class="tip-body">${esc(t.body||"")}</div>${points}${sources?`<div class="rec-sources">${sources}</div>`:""}</article>`;
+      }).join("")}
+    </section>`;
+  }).join("") : '<div class="rec-empty">아직 저장된 여행 팁이 없습니다.</div>';
 
   /* ══════════ TRANSPORT ══════════ */
   $("#flights").innerHTML = (T.flights||[]).map((f,i)=>{
