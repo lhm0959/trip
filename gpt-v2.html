@@ -137,6 +137,22 @@ header.appbar{
   transition:transform .3s ease,background .2s;
 }
 .theme-btn:active{transform:scale(.9)}
+.sync-btn{
+  flex:none;min-width:38px;height:38px;border-radius:19px;padding:0 11px;
+  border:1.5px solid rgba(246,236,214,.5);background:rgba(0,0,0,.15);color:#f6ecd6;
+  font:700 11px "Courier New",monospace;cursor:pointer;white-space:nowrap;
+}
+.sync-btn.online{background:rgba(31,91,82,.75);border-color:rgba(246,236,214,.7)}
+.auth-dialog{border:0;border-radius:16px;padding:0;max-width:min(420px,calc(100vw - 32px));width:100%;background:var(--paper);color:var(--ink);box-shadow:0 18px 60px rgba(0,0,0,.45)}
+.auth-dialog::backdrop{background:rgba(20,15,8,.65);backdrop-filter:blur(3px)}
+.auth-box{padding:20px}
+.auth-box h2{font-family:"Didot","Bodoni 72",serif;font-size:23px;margin-bottom:6px}
+.auth-box p{font-size:13px;color:var(--ink-soft);line-height:1.55;margin-bottom:14px}
+.auth-email{width:100%;padding:11px 12px;border:1px solid var(--line-strong);border-radius:9px;background:var(--paper-2);color:var(--ink);font:inherit;font-size:15px}
+.auth-actions{display:flex;gap:8px;margin-top:11px}
+.auth-actions button{flex:1;border:1px solid var(--line-strong);border-radius:9px;padding:10px;background:var(--paper-2);color:var(--ink);font:700 13px inherit;cursor:pointer}
+.auth-actions .primary{background:var(--teal);border-color:var(--teal);color:#fff}
+.auth-status{min-height:20px;margin-top:10px;font-size:12px;color:var(--teal)}
 
 /* perforated ticket edge under header */
 .perf{
@@ -545,7 +561,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   body{padding:0;background:#fff}
   header.appbar{position:static;box-shadow:none;background:#fff;color:#000;border-bottom:2px solid #000}
   .appbar .sub,.appbar .crest{color:#000}
-  .theme-btn,nav.tabbar,.perf,.caret,.day-route,.day-quick-wrap{display:none!important}
+  .theme-btn,.sync-btn,nav.tabbar,.perf,.caret,.day-route,.day-quick-wrap{display:none!important}
   .panel{display:block!important;page-break-before:always}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
@@ -560,9 +576,23 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
       <h1 id="h-title">동유럽 여행</h1>
       <div class="sub" id="h-sub">PRAGUE · VIENNA · BUDAPEST</div>
     </div>
+    <button class="sync-btn" id="syncToggle" aria-label="공동 편집 로그인">로그인</button>
     <button class="theme-btn" id="themeToggle" aria-label="테마 전환" title="라이트/다크 전환">☾</button>
   </div>
 </header>
+<dialog class="auth-dialog" id="authDialog">
+  <div class="auth-box">
+    <h2>공동 편집 로그인</h2>
+    <p id="authHelp">등록된 이메일로 로그인 링크를 받으면 두 사람의 체크 상태가 실시간으로 동기화됩니다.</p>
+    <input class="auth-email" id="authEmail" type="email" inputmode="email" autocomplete="email" placeholder="이메일 주소" aria-label="이메일 주소">
+    <div class="auth-actions">
+      <button type="button" id="authClose">닫기</button>
+      <button type="button" class="primary" id="authLogin">로그인 링크 받기</button>
+      <button type="button" id="authLogout" hidden>로그아웃</button>
+    </div>
+    <div class="auth-status" id="authStatus" role="status"></div>
+  </div>
+</dialog>
 <div class="perf"></div>
 
 <main>
@@ -1157,6 +1187,7 @@ const TRIP = {
 };
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous"></script>
 <script id="app">
 /* ══════════ RENDER ENGINE ══════════ */
 (function(){
@@ -1164,12 +1195,75 @@ const TRIP = {
   const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
   const T = TRIP;
   const STORE = "trip:" + (T.title||"trip");
+  const SUPABASE_URL = "https://bilrspsenkemhbzqnrlp.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_N_gGnxeFOY6mmwdC4YmVrQ_7ok-_nwK";
+  const TRIP_ID = "europe-2026";
+  const ALLOWED_EMAILS = ["devjjinny@gmail.com", "lhm0959@gmail.com"];
+  const cloud = { client:null, session:null, channel:null, ready:false };
 
   /* ---- localStorage helpers (checkbox state, theme) ---- */
   const load = k => { try{return JSON.parse(localStorage.getItem(STORE+":"+k)||"null")}catch(e){return null} };
   const save = (k,v) => { try{localStorage.setItem(STORE+":"+k, JSON.stringify(v))}catch(e){} };
   const checks = load("checks") || {};
-  const setCheck = (id,val)=>{ checks[id]=val; save("checks",checks); };
+  const setCheck = (id,val)=>{
+    checks[id]=val; save("checks",checks);
+    saveRemoteCheck(id,val);
+  };
+
+  function setSyncButton(message, online=false){
+    const btn=$("#syncToggle"); if(!btn) return;
+    btn.textContent=message; btn.classList.toggle("online",online);
+  }
+  async function saveRemoteCheck(id,val){
+    if(!cloud.client || !cloud.session) return;
+    const row={trip_id:TRIP_ID,check_id:id,checked:!!val,updated_by:cloud.session.user.email};
+    const {error}=await cloud.client.from("trip_checks").upsert(row,{onConflict:"trip_id,check_id"});
+    if(error){ save("pending-checks",Object.assign(load("pending-checks")||{},{[id]:!!val})); setSyncButton("재시도",false); }
+  }
+  async function flushPendingChecks(){
+    const pending=load("pending-checks")||{};
+    for(const [id,val] of Object.entries(pending)) await saveRemoteCheck(id,val);
+    if(cloud.session) save("pending-checks",{});
+  }
+  function refreshChecksUI(){
+    $$('[data-check]').forEach(el=>el.classList.toggle("done",!!checks[el.getAttribute("data-check")]));
+    if(typeof renderRecommendations==="function") renderRecommendations();
+    updateProg("#prog-pre",T.prep.predeparture,"pre");
+    updateProg("#prog-doc",T.prep.documents,"doc");
+    updateProg("#prog-pack",T.prep.packing,"pack");
+    refreshBookCount();
+  }
+  async function connectCloud(session){
+    cloud.session=session;
+    if(!session){
+      cloud.ready=false; setSyncButton("로그인",false);
+      if(cloud.channel){ await cloud.client.removeChannel(cloud.channel); cloud.channel=null; }
+      return;
+    }
+    const email=(session.user.email||"").toLowerCase();
+    if(!ALLOWED_EMAILS.includes(email)){
+      await cloud.client.auth.signOut();
+      $("#authStatus").textContent="등록되지 않은 이메일입니다.";
+      return;
+    }
+    setSyncButton("연결 중",false);
+    const {data,error}=await cloud.client.from("trip_checks").select("check_id,checked").eq("trip_id",TRIP_ID);
+    if(error){ setSyncButton("연결 오류",false); return; }
+    const remoteIds=new Set((data||[]).map(row=>row.check_id));
+    (data||[]).forEach(row=>{ checks[row.check_id]=row.checked; });
+    save("checks",checks); refreshChecksUI();
+    for(const [id,val] of Object.entries(checks)) if(!remoteIds.has(id)) await saveRemoteCheck(id,val);
+    await flushPendingChecks();
+    if(cloud.channel) await cloud.client.removeChannel(cloud.channel);
+    cloud.channel=cloud.client.channel("trip-checks-"+TRIP_ID)
+      .on("postgres_changes",{event:"*",schema:"public",table:"trip_checks",filter:`trip_id=eq.${TRIP_ID}`},payload=>{
+        const row=payload.new; if(!row||!row.check_id) return;
+        checks[row.check_id]=row.checked; save("checks",checks); refreshChecksUI();
+      }).subscribe(status=>{
+        cloud.ready=status==="SUBSCRIBED";
+        setSyncButton(cloud.ready?"동기화 ✓":"연결 중",cloud.ready);
+      });
+  }
 
   /* ---- theme ---- */
   const rootEl = document.documentElement;
@@ -1584,6 +1678,48 @@ const TRIP = {
     $$(".panel").forEach(p=>p.classList.toggle("active", p.getAttribute("data-tab")===go));
     window.scrollTo({top:0, behavior:"instant" in window ? "instant":"auto"});
   }));
+
+  /* ══════════ SUPABASE AUTH + SHARED SYNC ══════════ */
+  const authDialog=$("#authDialog"), authEmail=$("#authEmail"), authStatus=$("#authStatus");
+  function renderAuth(session){
+    const loggedIn=!!session;
+    authEmail.hidden=loggedIn;
+    $("#authLogin").hidden=loggedIn;
+    $("#authLogout").hidden=!loggedIn;
+    $("#authHelp").textContent=loggedIn
+      ? `${session.user.email} 계정으로 공동 편집 중입니다.`
+      : "등록된 이메일로 로그인 링크를 받으면 두 사람의 체크 상태가 실시간으로 동기화됩니다.";
+  }
+  $("#syncToggle").addEventListener("click",()=>{
+    renderAuth(cloud.session); authStatus.textContent="";
+    if(authDialog.showModal) authDialog.showModal(); else authDialog.setAttribute("open","");
+  });
+  $("#authClose").addEventListener("click",()=>authDialog.close());
+  $("#authLogin").addEventListener("click",async()=>{
+    const email=authEmail.value.trim().toLowerCase();
+    if(!ALLOWED_EMAILS.includes(email)){ authStatus.textContent="등록된 두 이메일만 로그인할 수 있습니다."; return; }
+    authStatus.textContent="로그인 링크를 보내는 중…";
+    const redirectTo=location.origin+location.pathname;
+    const {error}=await cloud.client.auth.signInWithOtp({email,options:{emailRedirectTo:redirectTo,shouldCreateUser:true}});
+    authStatus.textContent=error ? `전송 실패: ${error.message}` : "이메일을 확인해 로그인 링크를 눌러주세요.";
+  });
+  $("#authLogout").addEventListener("click",async()=>{
+    await cloud.client.auth.signOut(); authDialog.close();
+  });
+  async function initSupabase(){
+    if(!window.supabase){ setSyncButton("오프라인",false); return; }
+    cloud.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+      auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+    });
+    const {data}=await cloud.client.auth.getSession();
+    renderAuth(data.session); await connectCloud(data.session);
+    cloud.client.auth.onAuthStateChange((_event,session)=>{
+      renderAuth(session);
+      setTimeout(()=>connectCloud(session),0);
+    });
+    window.addEventListener("online",()=>{ if(cloud.session){ flushPendingChecks(); connectCloud(cloud.session); } });
+  }
+  initSupabase();
 
   /* ---- date range formatter ---- */
   function fmtDateRange(a,b){
