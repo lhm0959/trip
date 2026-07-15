@@ -576,19 +576,19 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
       <h1 id="h-title">동유럽 여행</h1>
       <div class="sub" id="h-sub">PRAGUE · VIENNA · BUDAPEST</div>
     </div>
-    <button class="sync-btn" id="syncToggle" aria-label="공동 편집 로그인">로그인</button>
+    <button class="sync-btn" id="syncToggle" aria-label="공동 편집 연결">연결</button>
     <button class="theme-btn" id="themeToggle" aria-label="테마 전환" title="라이트/다크 전환">☾</button>
   </div>
 </header>
 <dialog class="auth-dialog" id="authDialog">
   <div class="auth-box">
-    <h2>공동 편집 로그인</h2>
-    <p id="authHelp">등록된 이메일로 로그인 링크를 받으면 두 사람의 체크 상태가 실시간으로 동기화됩니다.</p>
-    <input class="auth-email" id="authEmail" type="email" inputmode="email" autocomplete="email" placeholder="이메일 주소" aria-label="이메일 주소">
+    <h2>공동 편집 연결</h2>
+    <p id="authHelp">두 사람만 아는 공유 코드를 입력하면 추천 선택과 체크 상태가 함께 동기화됩니다.</p>
+    <input class="auth-email" id="accessCode" type="password" autocomplete="current-password" placeholder="공유 코드" aria-label="공유 코드">
     <div class="auth-actions">
       <button type="button" id="authClose">닫기</button>
-      <button type="button" class="primary" id="authLogin">로그인 링크 받기</button>
-      <button type="button" id="authLogout" hidden>로그아웃</button>
+      <button type="button" class="primary" id="authLogin">연결하기</button>
+      <button type="button" id="authLogout" hidden>연결 해제</button>
     </div>
     <div class="auth-status" id="authStatus" role="status"></div>
   </div>
@@ -1198,12 +1198,13 @@ const TRIP = {
   const SUPABASE_URL = "https://bilrspsenkemhbzqnrlp.supabase.co";
   const SUPABASE_KEY = "sb_publishable_N_gGnxeFOY6mmwdC4YmVrQ_7ok-_nwK";
   const TRIP_ID = "europe-2026";
-  const ALLOWED_EMAILS = ["devjjinny@gmail.com", "lhm0959@gmail.com"];
-  const cloud = { client:null, session:null, channel:null, ready:false };
+  const cloud = { client:null, accessCode:"", pollTimer:null, ready:false, syncing:false };
 
   /* ---- localStorage helpers (checkbox state, theme) ---- */
   const load = k => { try{return JSON.parse(localStorage.getItem(STORE+":"+k)||"null")}catch(e){return null} };
   const save = (k,v) => { try{localStorage.setItem(STORE+":"+k, JSON.stringify(v))}catch(e){} };
+  const deviceId = load("device-id") || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random().toString(36).slice(2));
+  save("device-id",deviceId);
   const checks = load("checks") || {};
   const setCheck = (id,val)=>{
     checks[id]=val; save("checks",checks);
@@ -1215,15 +1216,25 @@ const TRIP = {
     btn.textContent=message; btn.classList.toggle("online",online);
   }
   async function saveRemoteCheck(id,val){
-    if(!cloud.client || !cloud.session) return;
-    const row={trip_id:TRIP_ID,check_id:id,checked:!!val,updated_by:cloud.session.user.email};
-    const {error}=await cloud.client.from("trip_checks").upsert(row,{onConflict:"trip_id,check_id"});
-    if(error){ save("pending-checks",Object.assign(load("pending-checks")||{},{[id]:!!val})); setSyncButton("재시도",false); }
+    if(!cloud.client || !cloud.accessCode){
+      save("pending-checks",Object.assign(load("pending-checks")||{},{[id]:!!val}));
+      return false;
+    }
+    const {error}=await cloud.client.rpc("set_trip_check",{
+      p_trip_id:TRIP_ID,p_check_id:id,p_checked:!!val,p_code:cloud.accessCode,p_device:deviceId
+    });
+    if(error){
+      save("pending-checks",Object.assign(load("pending-checks")||{},{[id]:!!val}));
+      setSyncButton(navigator.onLine?"재시도":"오프라인",false); return false;
+    }
+    return true;
   }
   async function flushPendingChecks(){
     const pending=load("pending-checks")||{};
-    for(const [id,val] of Object.entries(pending)) await saveRemoteCheck(id,val);
-    if(cloud.session) save("pending-checks",{});
+    for(const [id,val] of Object.entries(pending)){
+      if(await saveRemoteCheck(id,val)) delete pending[id];
+    }
+    save("pending-checks",pending);
   }
   function refreshChecksUI(){
     $$('[data-check]').forEach(el=>el.classList.toggle("done",!!checks[el.getAttribute("data-check")]));
@@ -1233,36 +1244,31 @@ const TRIP = {
     updateProg("#prog-pack",T.prep.packing,"pack");
     refreshBookCount();
   }
-  async function connectCloud(session){
-    cloud.session=session;
-    if(!session){
-      cloud.ready=false; setSyncButton("로그인",false);
-      if(cloud.channel){ await cloud.client.removeChannel(cloud.channel); cloud.channel=null; }
-      return;
-    }
-    const email=(session.user.email||"").toLowerCase();
-    if(!ALLOWED_EMAILS.includes(email)){
-      await cloud.client.auth.signOut();
-      $("#authStatus").textContent="등록되지 않은 이메일입니다.";
-      return;
-    }
-    setSyncButton("연결 중",false);
-    const {data,error}=await cloud.client.from("trip_checks").select("check_id,checked").eq("trip_id",TRIP_ID);
-    if(error){ setSyncButton("연결 오류",false); return; }
+  async function fetchRemoteChecks(mergeLocal=false){
+    if(!cloud.client||!cloud.accessCode||cloud.syncing) return {ok:false};
+    cloud.syncing=true;
+    const {data,error}=await cloud.client.rpc("get_trip_checks",{p_trip_id:TRIP_ID,p_code:cloud.accessCode});
+    cloud.syncing=false;
+    if(error) return {ok:false,error};
     const remoteIds=new Set((data||[]).map(row=>row.check_id));
     (data||[]).forEach(row=>{ checks[row.check_id]=row.checked; });
     save("checks",checks); refreshChecksUI();
-    for(const [id,val] of Object.entries(checks)) if(!remoteIds.has(id)) await saveRemoteCheck(id,val);
-    await flushPendingChecks();
-    if(cloud.channel) await cloud.client.removeChannel(cloud.channel);
-    cloud.channel=cloud.client.channel("trip-checks-"+TRIP_ID)
-      .on("postgres_changes",{event:"*",schema:"public",table:"trip_checks",filter:`trip_id=eq.${TRIP_ID}`},payload=>{
-        const row=payload.new; if(!row||!row.check_id) return;
-        checks[row.check_id]=row.checked; save("checks",checks); refreshChecksUI();
-      }).subscribe(status=>{
-        cloud.ready=status==="SUBSCRIBED";
-        setSyncButton(cloud.ready?"동기화 ✓":"연결 중",cloud.ready);
-      });
+    if(mergeLocal) for(const [id,val] of Object.entries(checks)) if(!remoteIds.has(id)) await saveRemoteCheck(id,val);
+    return {ok:true};
+  }
+  async function connectCloud(code){
+    cloud.accessCode=code;
+    setSyncButton("확인 중",false);
+    const result=await fetchRemoteChecks(true);
+    if(!result.ok){ cloud.accessCode=""; cloud.ready=false; setSyncButton("연결",false); return result; }
+    save("access-code",code); await flushPendingChecks();
+    cloud.ready=true; setSyncButton("동기화 ✓",true);
+    clearInterval(cloud.pollTimer);
+    cloud.pollTimer=setInterval(async()=>{
+      const polled=await fetchRemoteChecks(false);
+      if(polled.ok) setSyncButton("동기화 ✓",true);
+    },5000);
+    return result;
   }
 
   /* ---- theme ---- */
@@ -1679,45 +1685,49 @@ const TRIP = {
     window.scrollTo({top:0, behavior:"instant" in window ? "instant":"auto"});
   }));
 
-  /* ══════════ SUPABASE AUTH + SHARED SYNC ══════════ */
-  const authDialog=$("#authDialog"), authEmail=$("#authEmail"), authStatus=$("#authStatus");
-  function renderAuth(session){
-    const loggedIn=!!session;
-    authEmail.hidden=loggedIn;
-    $("#authLogin").hidden=loggedIn;
-    $("#authLogout").hidden=!loggedIn;
-    $("#authHelp").textContent=loggedIn
-      ? `${session.user.email} 계정으로 공동 편집 중입니다.`
-      : "등록된 이메일로 로그인 링크를 받으면 두 사람의 체크 상태가 실시간으로 동기화됩니다.";
+  /* ══════════ SUPABASE SHARED-CODE SYNC ══════════ */
+  const authDialog=$("#authDialog"), accessCode=$("#accessCode"), authStatus=$("#authStatus");
+  function renderConnection(){
+    const connected=!!cloud.accessCode;
+    accessCode.hidden=connected;
+    $("#authLogin").hidden=connected;
+    $("#authLogout").hidden=!connected;
+    $("#authHelp").textContent=connected
+      ? "이 기기는 공유 여행에 연결되어 있습니다. 추천 선택과 체크 상태가 약 5초마다 동기화됩니다."
+      : "두 사람만 아는 공유 코드를 입력하면 추천 선택과 체크 상태가 함께 동기화됩니다.";
   }
   $("#syncToggle").addEventListener("click",()=>{
-    renderAuth(cloud.session); authStatus.textContent="";
+    renderConnection(); authStatus.textContent="";
     if(authDialog.showModal) authDialog.showModal(); else authDialog.setAttribute("open","");
   });
   $("#authClose").addEventListener("click",()=>authDialog.close());
   $("#authLogin").addEventListener("click",async()=>{
-    const email=authEmail.value.trim().toLowerCase();
-    if(!ALLOWED_EMAILS.includes(email)){ authStatus.textContent="등록된 두 이메일만 로그인할 수 있습니다."; return; }
-    authStatus.textContent="로그인 링크를 보내는 중…";
-    const redirectTo=location.origin+location.pathname;
-    const {error}=await cloud.client.auth.signInWithOtp({email,options:{emailRedirectTo:redirectTo,shouldCreateUser:true}});
-    authStatus.textContent=error ? `전송 실패: ${error.message}` : "이메일을 확인해 로그인 링크를 눌러주세요.";
+    const code=accessCode.value;
+    if(!code){ authStatus.textContent="공유 코드를 입력해주세요."; return; }
+    authStatus.textContent="코드를 확인하는 중…";
+    const result=await connectCloud(code);
+    if(!result.ok){ authStatus.textContent="공유 코드가 맞지 않거나 연결할 수 없습니다."; return; }
+    renderConnection(); authStatus.textContent="연결됐습니다.";
+    setTimeout(()=>authDialog.close(),500);
   });
-  $("#authLogout").addEventListener("click",async()=>{
-    await cloud.client.auth.signOut(); authDialog.close();
+  accessCode.addEventListener("keydown",e=>{ if(e.key==="Enter") $("#authLogin").click(); });
+  $("#authLogout").addEventListener("click",()=>{
+    cloud.accessCode=""; cloud.ready=false; clearInterval(cloud.pollTimer);
+    save("access-code",null); accessCode.value=""; setSyncButton("연결",false); authDialog.close();
   });
   async function initSupabase(){
     if(!window.supabase){ setSyncButton("오프라인",false); return; }
-    cloud.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
-      auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
-    });
-    const {data}=await cloud.client.auth.getSession();
-    renderAuth(data.session); await connectCloud(data.session);
-    cloud.client.auth.onAuthStateChange((_event,session)=>{
-      renderAuth(session);
-      setTimeout(()=>connectCloud(session),0);
-    });
-    window.addEventListener("online",()=>{ if(cloud.session){ flushPendingChecks(); connectCloud(cloud.session); } });
+    cloud.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:false}});
+    const savedCode=load("access-code");
+    if(savedCode){
+      const result=await connectCloud(savedCode);
+      if(!result.ok) save("access-code",null);
+    }else{
+      setSyncButton("연결",false);
+      renderConnection();
+      if(authDialog.showModal) authDialog.showModal();
+    }
+    window.addEventListener("online",()=>{ if(cloud.accessCode){ flushPendingChecks(); fetchRemoteChecks(false); } });
   }
   initSupabase();
 
