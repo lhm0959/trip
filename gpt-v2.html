@@ -24,7 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="동유럽 여행">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-gpt.png">
 <link rel="icon" type="image/png" href="assets/icon-gpt.png">
-<title>동유럽 커플여행 GPT V2 · 부다페스트 · 비엔나 · 고사우 · 프라하</title>
+<title>동유럽 부비잘프여행레츠고 · 부다페스트 · 비엔나 · 잘츠캄머구트 · 프라하</title>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -289,6 +289,12 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .ilist .k{color:var(--ink-soft)}
 .ilist .v{font-family:"Courier New",monospace;color:var(--ink);text-align:right}
 .ilist .v a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--line-strong)}
+.language-card summary{cursor:pointer;list-style:none}.language-card summary::-webkit-details-marker{display:none}
+.language-card summary .chip::after{content:" ▾"}.language-card[open] summary .chip::after{content:" ▴"}
+.lang-group+.lang-group{margin-top:15px}.lang-head{font-size:12px;font-weight:700;color:var(--teal);margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid var(--line)}
+.lang-row{display:grid;grid-template-columns:minmax(90px,.8fr) minmax(0,1.2fr);gap:10px;padding:7px 0;border-bottom:1px dotted var(--line)}
+.lang-use{font-size:12px;color:var(--ink-soft)}.lang-local{font-size:13px;font-weight:700;color:var(--ink)}
+.lang-pron{display:block;font-size:11px;color:var(--muted);margin-top:2px;font-weight:400}
 
 /* callout (methodology) */
 .callout{
@@ -337,6 +343,9 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 :root[data-theme="dark"] .day-quick-link:active,:root[data-theme="dark"] .day-quick-link.active{color:#12100b}
 :root[data-theme="dark"] .day-quick-link:active .num,:root[data-theme="dark"] .day-quick-link:active .date,:root[data-theme="dark"] .day-quick-link:active .city,
 :root[data-theme="dark"] .day-quick-link.active .num,:root[data-theme="dark"] .day-quick-link.active .date,:root[data-theme="dark"] .day-quick-link.active .city{color:#12100b}
+.itinerary-export{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:0 0 14px}
+.itinerary-export button{min-width:0;border:1px solid var(--line-strong);border-radius:9px;background:var(--paper);color:var(--teal);padding:9px 5px;font-size:11px;font-weight:700;cursor:pointer;box-shadow:0 2px 7px var(--shadow)}
+.itinerary-export button:active{background:var(--teal);color:#fff}
 .day{
   background:var(--paper);border:1px solid var(--line);border-radius:14px;
   margin-bottom:12px;overflow:hidden;box-shadow:0 2px 10px var(--shadow);
@@ -408,6 +417,16 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
   text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:4px;
 }
 .item .maplink:active{opacity:.6}
+.item-note-tools{display:flex;align-items:center;gap:7px;margin-top:6px}
+.item-note-btn{border:1px solid var(--line);border-radius:6px;background:var(--paper-2);color:var(--teal);padding:3px 7px;font-size:11px;cursor:pointer}
+.pin-btn{border:1px solid var(--line);border-radius:6px;background:var(--paper-2);color:var(--muted);padding:3px 7px;font-size:11px;cursor:pointer}
+.pin-btn.done{background:var(--wine);border-color:var(--wine);color:#fff}
+.item:has(.pin-btn.done){background:linear-gradient(90deg,color-mix(in srgb,var(--wine) 7%,transparent),transparent);border-radius:8px;padding-left:6px;padding-right:6px}
+.item-user-note{font-size:12px;line-height:1.5;color:var(--wine);padding:6px 8px;background:var(--paper-2);border-left:2px solid var(--gold);border-radius:0 6px 6px 0}
+.item-note-editor{display:none;margin-top:7px}.item-note-editor.open{display:block}
+.item-note-editor textarea{width:100%;min-height:64px;resize:vertical;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--ink);font:13px/1.5 inherit}
+.item-note-actions{display:flex;gap:6px;margin-top:5px}.item-note-actions button{border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink-soft);padding:5px 9px;cursor:pointer;font-size:11px}
+.item-note-actions .note-save{background:var(--teal);color:#fff;border-color:var(--teal)}
 
 /* ═══════════ RECOMMENDATIONS ═══════════ */
 .rec-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
@@ -415,6 +434,10 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
   flex:1 1 130px;min-width:0;padding:10px 11px;border:1px solid var(--line-strong);
   border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;
 }
+.rec-city-quick{display:flex;gap:7px;overflow-x:auto;margin:0 0 11px;padding:1px 1px 5px;scrollbar-width:none}
+.rec-city-quick::-webkit-scrollbar{display:none}
+.rec-city-quick button{flex:none;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink-soft);padding:7px 11px;font-size:12px;font-weight:700;cursor:pointer}
+.rec-city-quick button.active{background:var(--wine);border-color:var(--wine);color:#fff}
 .rec-summary{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;color:var(--ink-soft);font-size:13px}
 .rec-city-group{margin:18px 0 22px}
 .rec-city-group:first-child{margin-top:4px}
@@ -454,6 +477,65 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .tip-points{margin:10px 0 0 18px;color:var(--ink-soft);font-size:12.5px;line-height:1.6}
 .tip-points li+li{margin-top:5px}
 .tip-card .rec-sources{margin-top:9px;padding-top:9px}
+.subtab-bar{
+  display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0 0 16px;
+  padding:4px;background:var(--paper-2);border:1px solid var(--line);
+  border-radius:12px;position:sticky;top:70px;z-index:12;
+}
+.subtab{
+  border:0;border-radius:9px;padding:10px 12px;background:transparent;
+  color:var(--muted);font-size:13.5px;font-weight:700;cursor:pointer;
+}
+.subtab.active{background:var(--paper);color:var(--wine);box-shadow:0 2px 8px var(--shadow)}
+.subpanel{display:none}
+.subpanel.active{display:block}
+.fx-grid{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:7px}
+.fx-input,.fx-select{
+  width:100%;border:1px solid var(--line-strong);border-radius:9px;
+  background:var(--paper-2);color:var(--ink);padding:9px 10px;font-size:14px;
+}
+.fx-input{font-family:"Courier New",monospace;font-size:16px}
+.fx-swap,.fx-refresh{
+  border:1px solid var(--line);border-radius:8px;background:var(--paper);
+  color:var(--teal);padding:6px 10px;cursor:pointer;font-weight:700;
+}
+.fx-status{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;color:var(--muted);font-size:10.5px}
+.exp-section{margin-top:14px;padding-top:13px;border-top:1px dashed var(--line)}
+.exp-form{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:7px}
+.exp-form input,.exp-form select{
+  min-width:0;width:100%;padding:9px 10px;border:1px solid var(--line);
+  border-radius:8px;background:var(--paper-2);color:var(--ink);font-size:13px;
+}
+.exp-form .wide{grid-column:1/-1}
+.exp-actions{grid-column:1/-1;display:flex;gap:7px}
+.exp-save,.exp-cancel{
+  flex:1;border:0;border-radius:8px;padding:9px 10px;cursor:pointer;font-weight:700;
+}
+.exp-save{background:var(--teal);color:#fff}.exp-cancel{background:var(--paper-2);color:var(--muted);border:1px solid var(--line)}
+:root[data-theme="dark"] .exp-save{color:#12100b}
+.exp-list{margin-top:11px}
+.exp{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px dotted var(--line)}
+.exp-main{flex:1;min-width:0}.exp-cat{font-size:10.5px;color:var(--teal);font-weight:700}
+.exp-memo{display:block;font-size:13px;color:var(--ink);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp-amt{font-family:"Courier New",monospace;font-size:13px;color:var(--wine);font-weight:700;text-align:right;white-space:nowrap}
+.exp-amt small{display:block;font-size:10px;color:var(--muted);font-weight:400}
+.exp-edit,.exp-del{flex:none;border:1px solid var(--line);border-radius:7px;background:var(--paper-2);color:var(--muted);padding:5px 7px;cursor:pointer}
+.exp-empty{font-size:12.5px;color:var(--muted);text-align:center;padding:13px 0}
+.exp-summary{display:flex;justify-content:space-between;gap:10px;margin-top:11px;font-size:12px;color:var(--muted)}
+.daily-budget{margin-top:15px;padding-top:13px;border-top:1px dashed var(--line)}
+.cash-guide{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 11px}
+.cash-pill{font-family:"Courier New",monospace;font-size:11px;color:var(--teal);background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:5px 8px}
+.db-row{padding:9px 0;border-bottom:1px dotted var(--line)}
+.db-top,.db-values{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.db-date{font-size:12px;font-weight:700;color:var(--ink)}.db-city{color:var(--muted);font-weight:400}
+.db-state{font-size:11px;font-weight:700}.db-state.ok{color:var(--teal)}.db-state.over{color:var(--wine)}
+.db-values{font-family:"Courier New",monospace;font-size:11px;color:var(--muted);margin-top:5px}
+.db-track{height:6px;background:var(--paper-2);border:1px solid var(--line);border-radius:5px;overflow:hidden;margin-top:6px}
+.db-fill{display:block;height:100%;background:var(--teal);border-radius:4px}.db-fill.over{background:var(--wine)}
+@media(max-width:380px){
+  .fx-grid{grid-template-columns:minmax(0,1fr) 96px}
+  .fx-select{padding-left:7px;padding-right:5px}
+}
 #overview-budget summary{cursor:pointer;list-style:none}
 #overview-budget summary::-webkit-details-marker{display:none}
 #overview-budget summary .chip::after{content:" ▾"}
@@ -561,8 +643,9 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   body{padding:0;background:#fff}
   header.appbar{position:static;box-shadow:none;background:#fff;color:#000;border-bottom:2px solid #000}
   .appbar .sub,.appbar .crest{color:#000}
-  .theme-btn,.sync-btn,nav.tabbar,.perf,.caret,.day-route,.day-quick-wrap{display:none!important}
+  .theme-btn,.sync-btn,nav.tabbar,.perf,.caret,.day-route,.day-quick-wrap,.subtab-bar{display:none!important}
   .panel{display:block!important;page-break-before:always}
+  .subpanel{display:block!important}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
   .card,.day,.leg,.hero{box-shadow:none;border:1px solid #999}
@@ -583,7 +666,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
 <dialog class="auth-dialog" id="authDialog">
   <div class="auth-box">
     <h2>공동 편집 연결</h2>
-    <p id="authHelp">두 사람만 아는 공유 코드를 입력하면 추천 선택과 체크 상태가 함께 동기화됩니다.</p>
+    <p id="authHelp">두 사람만 아는 공유 코드를 입력하면 추천·체크·일정 메모·지출 기록이 함께 동기화됩니다.</p>
     <input class="auth-email" id="accessCode" type="password" autocomplete="current-password" placeholder="공유 코드" aria-label="공유 코드">
     <div class="auth-actions">
       <button type="button" id="authClose">닫기</button>
@@ -605,12 +688,6 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
       <div class="route" id="ov-route"></div>
     </div>
 
-    <div class="stats">
-      <div class="stat"><div class="n" id="st-days">–</div><div class="l">일정</div></div>
-      <div class="stat"><div class="n teal" id="st-cities">–</div><div class="l">도시</div></div>
-      <div class="stat"><div class="n" id="st-book">–</div><div class="l">예약완료</div></div>
-    </div>
-
     <details class="card ruled" id="overview-budget">
       <summary>
         <div class="card-title"><span class="ic">₩</span> 예산 개요 <span class="chip teal" style="margin-left:auto">세부내역 보기</span></div>
@@ -621,6 +698,25 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
       </summary>
       <div id="ov-budget-categories" style="margin-top:10px"></div>
     </details>
+
+    <div class="card" id="fx-card">
+      <div class="card-title"><span class="ic">⇄</span> 환율 계산기 <button class="fx-swap" id="fx-swap" type="button" aria-label="통화 순서 바꾸기" style="margin-left:auto">⇅ 바꾸기</button></div>
+      <div class="fx-grid">
+        <input class="fx-input" id="fx-amount" type="number" inputmode="decimal" min="0" step="any" value="10000" aria-label="변환할 금액">
+        <select class="fx-select" id="fx-from" aria-label="변환 전 통화">
+          <option value="KRW">원 KRW</option><option value="EUR">유로 EUR</option>
+          <option value="HUF">포린트 HUF</option><option value="CZK">코루나 CZK</option>
+        </select>
+      </div>
+      <div class="fx-grid">
+        <input class="fx-input" id="fx-output" type="text" value="환율 불러오는 중…" readonly aria-label="환산 결과">
+        <select class="fx-select" id="fx-to" aria-label="변환 후 통화">
+          <option value="EUR">유로 EUR</option><option value="KRW">원 KRW</option>
+          <option value="HUF">포린트 HUF</option><option value="CZK">코루나 CZK</option>
+        </select>
+      </div>
+      <div class="fx-status" aria-live="polite"><span id="fx-updated">환율 확인 중</span><button class="fx-refresh" id="fx-refresh" type="button">새로고침</button></div>
+    </div>
 
     <div class="callout">
       <div class="h serif">✦ 여행 계획, 이 순서로 하세요</div>
@@ -648,10 +744,10 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
       <ul class="ilist" id="list-links"></ul>
     </div>
 
-    <div class="card">
-      <div class="card-title"><span class="ic">語</span> 여행 한마디</div>
-      <ul class="ilist" id="list-phrases"></ul>
-    </div>
+    <details class="card language-card">
+      <summary><div class="card-title"><span class="ic">語</span> 여행 언어 <span class="chip teal" style="margin-left:auto">필요할 때 열기</span></div></summary>
+      <div id="list-phrases"></div>
+    </details>
   </section>
 
   <!-- ══════════ 일정 ══════════ -->
@@ -664,6 +760,10 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
     <div class="callout" style="border-color:var(--teal)">
       <div class="h serif" style="color:var(--teal)">✦ 지도 우선 동선</div>
       <p>각 날의 장소는 <b>동네(area)별로 묶여</b> 있습니다. 이동을 줄이려면 한 동네를 다 보고 다음 동네로 넘어가세요. 장소를 누르면 지도가 열립니다.</p>
+    </div>
+    <div class="itinerary-export">
+      <button type="button" id="copy-pinned">📌 고정 일정</button>
+      <button type="button" id="copy-notes">📝 메모</button>
     </div>
     <div id="days"></div>
   </section>
@@ -688,29 +788,61 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
     </div>
   </section>
 
-  <!-- ══════════ 추천 ══════════ -->
+  <!-- ══════════ 추천 · 팁 ══════════ -->
   <section class="panel" id="p-recommendations" data-tab="recommendations">
-    <div class="section-head"><h2 class="serif">추천</h2><span class="kicker">Saved places</span></div>
-    <div class="callout" style="border-color:var(--teal)">
-      <div class="h serif" style="color:var(--teal)">✦ 소스를 모으고, 갈 곳을 선택하세요</div>
-      <p>인스타그램·유튜브·블로그에서 발견한 장소를 한곳에 저장합니다. 체크한 장소는 이 기기에 보관되며, 추후 날짜별 일정을 만들 때 선택 후보로 사용합니다.</p>
+    <div class="section-head"><h2 class="serif">추천 · 팁</h2><span class="kicker">Places & tips</span></div>
+    <div class="subtab-bar" role="tablist" aria-label="추천과 팁">
+      <button class="subtab active" type="button" role="tab" aria-selected="true" data-subgo="places">추천</button>
+      <button class="subtab" type="button" role="tab" aria-selected="false" data-subgo="tips">팁</button>
     </div>
-    <div class="rec-toolbar">
-      <select id="rec-city" aria-label="도시 필터"><option value="all">모든 도시</option></select>
-      <select id="rec-category" aria-label="유형 필터"><option value="all">모든 유형</option></select>
+    <div class="subpanel active" data-subpanel="places">
+      <div class="callout" style="border-color:var(--teal)">
+        <div class="h serif" style="color:var(--teal)">✦ 소스를 모으고, 갈 곳을 선택하세요</div>
+        <p>인스타그램·유튜브·블로그에서 발견한 장소를 한곳에 저장합니다. 체크한 장소는 이 기기에 보관되며, 추후 날짜별 일정을 만들 때 선택 후보로 사용합니다.</p>
+      </div>
+      <div class="rec-toolbar">
+        <select id="rec-city" aria-label="도시 필터"><option value="all">모든 도시</option></select>
+        <select id="rec-category" aria-label="유형 필터"><option value="all">모든 유형</option></select>
+      </div>
+      <div class="rec-city-quick" id="rec-city-quick" aria-label="추천 도시 바로가기"></div>
+      <div class="rec-summary"><span id="rec-visible">0개 장소</span><span class="prog" id="rec-selected">선택 0개</span></div>
+      <div id="recommendation-list"></div>
     </div>
-    <div class="rec-summary"><span id="rec-visible">0개 장소</span><span class="prog" id="rec-selected">선택 0개</span></div>
-    <div id="recommendation-list"></div>
+    <div class="subpanel" data-subpanel="tips">
+      <div class="callout" style="border-color:var(--gold)">
+        <div class="h serif">✦ 여행 전에 알아둘 것</div>
+        <p>교통 이용법, 무료 이동 동선, 쇼핑 추천 상품과 영업시간처럼 일정에 넣기보다는 미리 알아두면 좋은 정보를 도시별로 모았습니다.</p>
+      </div>
+      <div id="tips-list"></div>
+    </div>
   </section>
 
-  <!-- ══════════ 팁 ══════════ -->
-  <section class="panel" id="p-tips" data-tab="tips">
-    <div class="section-head"><h2 class="serif">팁</h2><span class="kicker">Travel tips</span></div>
-    <div class="callout" style="border-color:var(--gold)">
-      <div class="h serif">✦ 여행 전에 알아둘 것</div>
-      <p>교통 이용법, 무료 이동 동선, 쇼핑 추천 상품과 영업시간처럼 일정에 넣기보다는 미리 알아두면 좋은 정보를 도시별로 모았습니다.</p>
+  <!-- ══════════ 예산 ══════════ -->
+  <section class="panel" id="p-budget" data-tab="budget">
+    <div class="section-head"><h2 class="serif">예산</h2><button class="fx-refresh" id="copy-budget" type="button" style="margin-left:auto">₩ 예산 내용 복사</button></div>
+    <div class="bud-total">
+      <div class="lbl">목표 예산</div><div class="amt mono-num" id="bt-total">₩0</div>
+      <div class="split"><div><span>사용</span><b id="bt-actual">₩0</b></div><div><span>남음</span><b id="bt-left">₩0</b></div></div>
     </div>
-    <div id="tips-list"></div>
+    <div class="card">
+      <div class="card-title"><span class="ic">＋</span> 지출 기록 <span class="chip teal" id="exp-count" style="margin-left:auto">0건</span></div>
+      <div class="exp-form">
+        <input id="exp-amt" type="number" inputmode="decimal" min="0" step="any" placeholder="금액" aria-label="지출 금액">
+        <select id="exp-cur" aria-label="지출 통화"><option value="KRW">₩ 원</option><option value="EUR">€ 유로</option><option value="HUF">Ft 포린트</option><option value="CZK">Kč 코루나</option></select>
+        <select class="wide" id="exp-cat" aria-label="예산 분류"></select>
+        <select class="wide" id="exp-method" aria-label="결제 수단"><option value="card">카드 결제</option><option value="cash">환전한 현금</option></select>
+        <input id="exp-date" type="date" aria-label="지출 날짜">
+        <input id="exp-memo" type="text" placeholder="메모" aria-label="지출 메모">
+        <div class="exp-actions"><button class="exp-save" id="exp-save" type="button">기록 추가</button><button class="exp-cancel" id="exp-cancel" type="button" hidden>수정 취소</button></div>
+      </div>
+      <div class="exp-list" id="expense-list"></div>
+      <div class="exp-summary"><span>기록 합계</span><b class="mono-num" id="exp-total">₩0</b></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="ic">◷</span> 일자별 사용 예산 <span class="chip" style="margin-left:auto">2인 기준</span></div>
+      <div class="cash-guide" id="cash-guide"></div><div id="daily-budget-list"></div>
+      <p class="foot-note" style="margin-top:10px">현금은 예상액의 25%만 준비하고 나머지는 카드 결제를 권장합니다. 이미 결제한 항공·숙소·부다페스트→빈 기차는 제외했습니다.</p>
+    </div>
   </section>
 
   <!-- ══════════ 준비 ══════════ -->
@@ -746,14 +878,14 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
     <button class="tab" data-go="recommendations">
       <svg viewBox="0 0 24 24"><path d="M12 21s7-4.6 7-11a7 7 0 10-14 0c0 6.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg><span class="tl">추천</span>
     </button>
-    <button class="tab" data-go="tips">
-      <svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M8.5 14.5A6 6 0 1115.5 14.5C14.5 15.3 14 16 14 18h-4c0-2-.5-2.7-1.5-3.5z"/></svg><span class="tl">팁</span>
-    </button>
     <button class="tab" data-go="itinerary">
       <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg><span class="tl">일정</span>
     </button>
     <button class="tab" data-go="transport">
       <svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="13" rx="2"/><path d="M6 12h12M9 17l-2 3M15 17l2 3"/><circle cx="9" cy="14.5" r=".6"/><circle cx="15" cy="14.5" r=".6"/></svg><span class="tl">이동</span>
+    </button>
+    <button class="tab" data-go="budget">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9h8M8 13h8M10 17h4"/></svg><span class="tl">예산</span>
     </button>
     <button class="tab" data-go="prep">
       <svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><span class="tl">준비</span>
@@ -767,7 +899,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
 <script id="trip-data">
 const TRIP = {
   // ── 기본 정보 ────────────────────────────────────────────────
-  title:    "동유럽 커플여행 GPT V2",
+  title:    "동유럽 부비잘프여행레츠고",
   crest:    "12",                      // 헤더 원형 뱃지 (11박12일)
   route:    ["부다페스트", "비엔나", "잘츠캄머구트", "프라하"], // 2박 · 3박 · 2박 렌트 · 4박
   startDate:"2026-09-11",              // 출발 (인천)
@@ -902,8 +1034,8 @@ const TRIP = {
   // ── 예산 (2인 합산 예상치 — 실제 예약가로 수정하세요) ──────────
   budget:{
     categories:[
-      { name:"항공 (2인·인당 118만원·예약완료)", planned: 2360000, actual: 2360000 },
-      { name:"숙소 (11박)",       planned: 2200000, actual: 3086856 },
+      { name:"항공 (2인·인당 118만원·예약완료)", planned: 2360000, actual: 0 },
+      { name:"숙소 (11박)",       planned: 2200000, actual: 0 },
       { name:"렌트카 (2박3일·린츠)", planned: 450000, actual: 0 },
       { name:"기차 (부다·비엔·린츠·프라하)", planned: 600000, actual: 0 },
       { name:"유류·주차·통행", planned: 200000, actual: 0 },
@@ -913,6 +1045,23 @@ const TRIP = {
       { name:"여행 잡비·예비비",   planned: 300000, actual: 0 },
     ]
   },
+  // 2인 기준 일별 현지 사용 예상액. 항공·숙소·예약 완료 기차는 제외.
+  dailyBudget:[
+    { date:"2026-09-11", city:"부다페스트", cur:"HUF", planned:18000 },
+    { date:"2026-09-12", city:"부다페스트", cur:"HUF", planned:75000 },
+    { date:"2026-09-13", city:"부다페스트", cur:"HUF", planned:8000 },
+    { date:"2026-09-13", city:"비엔나", cur:"EUR", planned:90 },
+    { date:"2026-09-14", city:"비엔나", cur:"EUR", planned:180 },
+    { date:"2026-09-15", city:"비엔나", cur:"EUR", planned:180 },
+    { date:"2026-09-16", city:"잘츠캄머구트", cur:"EUR", planned:150 },
+    { date:"2026-09-17", city:"잘츠캄머구트", cur:"EUR", planned:200 },
+    { date:"2026-09-18", city:"잘츠캄머구트", cur:"EUR", planned:100 },
+    { date:"2026-09-18", city:"프라하", cur:"CZK", planned:1200 },
+    { date:"2026-09-19", city:"프라하", cur:"CZK", planned:4500 },
+    { date:"2026-09-20", city:"프라하", cur:"CZK", planned:4500 },
+    { date:"2026-09-21", city:"프라하", cur:"CZK", planned:4000 },
+    { date:"2026-09-22", city:"프라하", cur:"CZK", planned:2000 },
+  ],
 
   // ── 항공 (예약완료) ──────────────────────────────────────────
   flights:[
@@ -922,7 +1071,7 @@ const TRIP = {
 
   // ── 도시 간 이동 ─────────────────────────────────────────────
   intercity:[
-    { from:"부다페스트", to:"비엔나", mode:"기차 · Railjet / EC (Keleti→Wien Hbf)", duration:"약 2시간 40분", cost:"€20~60", booked:false, link:"https://www.oebb.at" },
+    { from:"부다페스트", to:"비엔나", mode:"MÁV 예약 · Railjet / EC (Keleti→Wien Hbf) · 9/13 09:30→12:20 · 구매자 ID 2389732895 · 결제 ID 879835032", duration:"2시간 50분", cost:"23,680 HUF", booked:true, link:"https://jegy.mav.hu" },
     { from:"비엔나", to:"린츠", mode:"ÖBB 기차 · Wien Hbf→Linz Hbf", duration:"약 1시간 10~30분", cost:"€10~40", booked:false, link:"https://www.oebb.at/en/reiseplanung-services/oebb-zugverbindungen/zugverbindungen-oesterreich/weststrecke/wien-linz" },
     { from:"린츠", to:"고사우", mode:"렌트카 · 트라운제/그문덴 경유", duration:"약 2시간~2시간 30분", cost:"렌트·유류·주차", booked:false, link:"" },
     { from:"고사우", to:"린츠", mode:"렌트카 · 장크트길겐/볼프강 호수 경유 후 반납", duration:"반나절", cost:"유류·주차", booked:false, link:"" },
@@ -964,8 +1113,8 @@ const TRIP = {
     { date:"2026-09-13", city:"비엔나", title:"부다페스트 → 비엔나 · 호프부르크 · 빈 필하모닉", items:[
       { area:"이동", items:[
         { time:"08:30", place:"H2 Hotel Budapest 체크아웃", type:"이동", note:"네이버 호텔 예약(9/11~9/13, 2박). 캐리어가 있으면 Keleti역까지 Bolt 추천.", map:"H2 Hotel Budapest" },
-        { time:"09:40 전후", place:"부다페스트 → 비엔나", type:"이동", note:"Railjet / EC, 약 2시간 40분. 너무 이른 출발이 부담되면 10~11시대도 현실적.", map:"Budapest Keleti" },
-        { time:"12:30", place:"Wien Hbf 도착", type:"이동", note:"호텔로 이동해 짐을 먼저 맡기기.", map:"Wien Hauptbahnhof" },
+        { time:"09:30–12:20", place:"부다페스트 → 비엔나 · MÁV 예약 완료", type:"이동", note:"Budapest Keleti → Wien Hbf · Railjet / EC · 2시간 50분 · 결제 23,680 HUF · 구매자 ID 2389732895 · 결제 ID 879835032.", map:"Budapest Keleti" },
+        { time:"12:20", place:"Wien Hbf 도착", type:"이동", note:"예약 열차 도착 후 호텔로 이동해 짐을 먼저 맡기기.", map:"Wien Hauptbahnhof" },
         { time:"13:15", place:"The Cloud One Hotel Wien-Staatsoper 체크인/짐 보관", type:"이동", note:"9/13~9/16 · 3박 · 스탠다드 더블룸 · 총 920,000원. 체크인 전이면 프런트에 짐 보관.", map:"The Cloud One Hotel Wien-Staatsoper" },
       ]},
       { area:"호프부르크 · 오페라 지구", map:"Austrian National Library Vienna", items:[
@@ -1123,7 +1272,8 @@ const TRIP = {
       { t:"린츠 렌트카 예약", s:"오토매틱·완전면책보험·비네트 포함·보증금·영업시간·금요일 오후 동일 지점 반납 가능 여부 확인" },
       { t:"비엔나 숙소 3박 예약 완료 ✓", s:"The Cloud One Hotel Wien-Staatsoper · 9/13~9/16 · 스탠다드 더블룸 · 920,000원" },
       { t:"부다페스트 숙소 2박 예약 완료 ✓", s:"H2 Hotel Budapest · 9/11~9/13 · 네이버 호텔 · 502,356원 · 지도: https://maps.app.goo.gl/kRi6VGdVCwvbyCVNA" },
-      { t:"부다페스트 → 비엔나 기차 예약 (9/13)", s:"Railjet/EC — 오전 출발 추천" },
+      { t:"부다페스트 → 비엔나 기차 예약 완료 ✓", s:"MÁV · 구매자 ID 2389732895 · 결제 ID 879835032 · 9/13 09:30 Budapest Keleti 출발 → 12:20 Wien Hbf 도착 · 23,680 HUF" },
+      { t:"여행 현금 환전", s:"2인 기준 권장액 · 헝가리 26,000 HUF · 오스트리아 230 EUR · 체코 4,100 CZK · 나머지는 카드 결제" },
       { t:"빈 필하모닉 티켓 예매 (9/13 19:30)", s:"Musikverein 황금홀 · Tugan Sokhiev · 일반 예매 2026-08-10 09:00 시작 예정" },
       { t:"비엔나 → 린츠 기차 예약 (9/16)", s:"렌트 픽업 시간에 맞춰 여유 있게" },
       { t:"린츠 → 프라하 기차 예약 (9/18)", s:"렌트 반납 후 탈 수 있는 17시 전후 시간대" },
@@ -1138,7 +1288,7 @@ const TRIP = {
       { t:"운전자 명의 신용카드", s:"렌트 보증금·픽업 시 필수. 체크카드 불가 가능성 높음" },
       { t:"여행자보험 가입", s:"출국 전" },
       { t:"eSIM / 유심", s:"헝가리·오스트리아·체코 사용 가능 상품" },
-      { t:"환전 / 트래블카드", s:"유로 + 체코 코루나 소액 + 헝가리 포린트 소액" },
+      { t:"환전 / 트래블카드", s:"현금 목표: 26,000 HUF + 230 EUR + 4,100 CZK · 트래블카드 잔액 별도 준비" },
       { t:"해외 결제 카드 2장", s:"분산 보관" },
       { t:"예약 바우처 (숙소·기차·렌트·투어·항공)", s:"인쇄 또는 오프라인 저장" },
     ],
@@ -1177,11 +1327,41 @@ const TRIP = {
       { k:"환율 계산", v:"xe.com", url:"https://www.xe.com" },
     ],
     phrases:[
-      { k:"안녕하세요 (헝가리)", v:"Jó napot 요너포트" },
-      { k:"감사합니다 (헝가리)", v:"Köszönöm 쾨쇠뇜" },
-      { k:"안녕하세요 (독일어/빈)", v:"Grüß Gott 그뤼스 고트" },
-      { k:"안녕하세요 (체코)", v:"Dobrý den 도브리 덴" },
-      { k:"감사합니다 (체코)", v:"Děkuji 데쿠이" },
+      { country:"🇭🇺 헝가리어", use:"안녕하세요", local:"Jó napot kívánok", pron:"요 너포트 키바녹" },
+      { country:"🇭🇺 헝가리어", use:"감사합니다", local:"Köszönöm", pron:"쾨쇠뇜" },
+      { country:"🇭🇺 헝가리어", use:"부탁합니다 / 주세요", local:"Kérem", pron:"케렘" },
+      { country:"🇭🇺 헝가리어", use:"네 / 아니요", local:"Igen / Nem", pron:"이겐 / 넴" },
+      { country:"🇭🇺 헝가리어", use:"2명이요", local:"Két személyre, kérem", pron:"케트 세메이레 케렘" },
+      { country:"🇭🇺 헝가리어", use:"한 개 / 두 개 주세요", local:"Egyet kérek / Kettőt kérek", pron:"에젯 케렉 / 케퇴트 케렉" },
+      { country:"🇭🇺 헝가리어", use:"영어 하세요?", local:"Beszél angolul?", pron:"베셀 언골룰?" },
+      { country:"🇭🇺 헝가리어", use:"얼마예요?", local:"Mennyibe kerül?", pron:"멘니베 케륄?" },
+      { country:"🇭🇺 헝가리어", use:"계산서 주세요", local:"A számlát kérem", pron:"어 삼라트 케렘" },
+      { country:"🇭🇺 헝가리어", use:"카드로 결제할게요", local:"Kártyával fizetek", pron:"카르탸벌 피제테크" },
+      { country:"🇭🇺 헝가리어", use:"화장실이 어디예요?", local:"Hol van a mosdó?", pron:"홀 번 어 모슈도?" },
+      { country:"🇭🇺 헝가리어", use:"도와주세요!", local:"Segítség!", pron:"셰기치셰그!" },
+      { country:"🇦🇹 독일어", use:"안녕하세요", local:"Grüß Gott", pron:"그뤼스 고트" },
+      { country:"🇦🇹 독일어", use:"감사합니다", local:"Danke", pron:"당케" },
+      { country:"🇦🇹 독일어", use:"부탁합니다 / 천만에요", local:"Bitte", pron:"비테" },
+      { country:"🇦🇹 독일어", use:"2명이요", local:"Für zwei Personen, bitte", pron:"퓌어 츠바이 페어조넨 비테" },
+      { country:"🇦🇹 독일어", use:"한 개 / 두 개 주세요", local:"Einmal, bitte / Zweimal, bitte", pron:"아인말 비테 / 츠바이말 비테" },
+      { country:"🇦🇹 독일어", use:"영어 하세요?", local:"Sprechen Sie Englisch?", pron:"슈프레헨 지 엥글리시?" },
+      { country:"🇦🇹 독일어", use:"얼마예요?", local:"Was kostet das?", pron:"바스 코스테트 다스?" },
+      { country:"🇦🇹 독일어", use:"계산서 주세요", local:"Die Rechnung, bitte", pron:"디 레히눙 비테" },
+      { country:"🇦🇹 독일어", use:"카드로 결제할게요", local:"Mit Karte, bitte", pron:"밋 카르테 비테" },
+      { country:"🇦🇹 독일어", use:"화장실이 어디예요?", local:"Wo ist die Toilette?", pron:"보 이스트 디 토일레테?" },
+      { country:"🇦🇹 독일어", use:"도와주세요!", local:"Hilfe!", pron:"힐페!" },
+      { country:"🇨🇿 체코어", use:"안녕하세요", local:"Dobrý den", pron:"도브리 덴" },
+      { country:"🇨🇿 체코어", use:"감사합니다", local:"Děkuji", pron:"데쿠이" },
+      { country:"🇨🇿 체코어", use:"부탁합니다 / 천만에요", local:"Prosím", pron:"프로심" },
+      { country:"🇨🇿 체코어", use:"네 / 아니요", local:"Ano / Ne", pron:"아노 / 네" },
+      { country:"🇨🇿 체코어", use:"2명이요", local:"Pro dvě osoby, prosím", pron:"프로 드비에 오소비 프로심" },
+      { country:"🇨🇿 체코어", use:"한 개 / 두 개 주세요", local:"Jeden, prosím / Dva, prosím", pron:"예덴 프로심 / 드바 프로심" },
+      { country:"🇨🇿 체코어", use:"영어 하세요?", local:"Mluvíte anglicky?", pron:"믈루비테 앙글리츠키?" },
+      { country:"🇨🇿 체코어", use:"얼마예요?", local:"Kolik to stojí?", pron:"콜릭 토 스토이?" },
+      { country:"🇨🇿 체코어", use:"계산서 주세요", local:"Účet, prosím", pron:"우체트 프로심" },
+      { country:"🇨🇿 체코어", use:"카드로 결제할게요", local:"Kartou, prosím", pron:"카르토우 프로심" },
+      { country:"🇨🇿 체코어", use:"화장실이 어디예요?", local:"Kde je toaleta?", pron:"그데 예 토알레타?" },
+      { country:"🇨🇿 체코어", use:"도와주세요!", local:"Pomoc!", pron:"포모츠!" },
     ],
   },
 };
@@ -1194,14 +1374,21 @@ const TRIP = {
   const $ = (s,el=document)=>el.querySelector(s);
   const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
   const T = TRIP;
-  const STORE = "trip:" + (T.title||"trip");
+  const STORE = "trip:europe-2026";
+  const LEGACY_STORE = "trip:동유럽 커플여행 GPT V2";
   const SUPABASE_URL = "https://bilrspsenkemhbzqnrlp.supabase.co";
   const SUPABASE_KEY = "sb_publishable_N_gGnxeFOY6mmwdC4YmVrQ_7ok-_nwK";
   const TRIP_ID = "europe-2026";
   const cloud = { client:null, accessCode:"", pollTimer:null, ready:false, syncing:false };
 
   /* ---- localStorage helpers (checkbox state, theme) ---- */
-  const load = k => { try{return JSON.parse(localStorage.getItem(STORE+":"+k)||"null")}catch(e){return null} };
+  const load = k => {
+    try{
+      const current=localStorage.getItem(STORE+":"+k);
+      const legacy=current==null?localStorage.getItem(LEGACY_STORE+":"+k):null;
+      return JSON.parse(current!=null?current:(legacy!=null?legacy:"null"));
+    }catch(e){return null}
+  };
   const save = (k,v) => { try{localStorage.setItem(STORE+":"+k, JSON.stringify(v))}catch(e){} };
   const deviceId = load("device-id") || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random().toString(36).slice(2));
   save("device-id",deviceId);
@@ -1237,7 +1424,14 @@ const TRIP = {
     save("pending-checks",pending);
   }
   function refreshChecksUI(){
-    $$('[data-check]').forEach(el=>el.classList.toggle("done",!!checks[el.getAttribute("data-check")]));
+    $$('[data-check]').forEach(el=>{
+      const done=!!checks[el.getAttribute("data-check")];
+      el.classList.toggle("done",done);
+      if(el.classList.contains("pin-btn")){
+        el.textContent=done?"📌 고정됨":"📌 고정";
+        el.setAttribute("aria-pressed",done?"true":"false");
+      }
+    });
     if(typeof renderRecommendations==="function") renderRecommendations();
     updateProg("#prog-pre",T.prep.predeparture,"pre");
     updateProg("#prog-doc",T.prep.documents,"doc");
@@ -1256,17 +1450,73 @@ const TRIP = {
     if(mergeLocal) for(const [id,val] of Object.entries(checks)) if(!remoteIds.has(id)) await saveRemoteCheck(id,val);
     return {ok:true};
   }
+  async function fetchRemoteExpenses(mergeLocal=false){
+    if(!cloud.client||!cloud.accessCode) return {ok:false};
+    const {data,error}=await cloud.client.rpc("get_trip_expenses",{p_trip_id:TRIP_ID,p_code:cloud.accessCode});
+    if(error) return {ok:false,error};
+    const remote=(data||[]).map(row=>({
+      id:row.expense_id,cat:row.category,amt:Number(row.amount),cur:row.currency,method:row.payment_method||"card",
+      memo:row.memo||"",date:row.spent_on,updatedAt:new Date(row.updated_at).getTime()
+    }));
+    if(mergeLocal){
+      const byId=new Map(remote.map(x=>[x.id,x]));
+      for(const local of expenses){
+        const other=byId.get(local.id);
+        if(!other||(local.updatedAt||0)>=(other.updatedAt||0)){byId.set(local.id,local);await saveRemoteExpense(local);}
+      }
+      expenses=[...byId.values()];
+    }else expenses=remote;
+    save("expenses",expenses);renderBudget();
+    return {ok:true};
+  }
+  async function saveRemoteExpense(item){
+    if(!cloud.client||!cloud.accessCode)return false;
+    const {error}=await cloud.client.rpc("save_trip_expense",{
+      p_trip_id:TRIP_ID,p_expense_id:item.id,p_category:item.cat,p_amount:item.amt,
+      p_currency:item.cur,p_payment_method:item.method||"card",p_memo:item.memo||"",p_spent_on:item.date,p_code:cloud.accessCode,p_device:deviceId
+    });
+    return !error;
+  }
+  async function deleteRemoteExpense(id){
+    if(!cloud.client||!cloud.accessCode)return false;
+    const {error}=await cloud.client.rpc("delete_trip_expense",{
+      p_trip_id:TRIP_ID,p_expense_id:id,p_code:cloud.accessCode
+    });
+    return !error;
+  }
+  async function fetchRemoteNotes(mergeLocal=false){
+    if(!cloud.client||!cloud.accessCode)return {ok:false};
+    const {data,error}=await cloud.client.rpc("get_trip_notes",{p_trip_id:TRIP_ID,p_code:cloud.accessCode});
+    if(error)return {ok:false,error};
+    const remote=Object.fromEntries((data||[]).map(row=>[row.note_id,row.content]));
+    itineraryNotes=mergeLocal?Object.assign({},remote,itineraryNotes):remote;
+    save("itinerary-notes",itineraryNotes);refreshItineraryNotes();
+    if(mergeLocal)for(const [id,content] of Object.entries(itineraryNotes))await saveRemoteNote(id,content);
+    return {ok:true};
+  }
+  async function saveRemoteNote(id,content){
+    if(!cloud.client||!cloud.accessCode)return false;
+    const {error}=await cloud.client.rpc("save_trip_note",{
+      p_trip_id:TRIP_ID,p_note_id:id,p_content:content,p_code:cloud.accessCode,p_device:deviceId
+    });
+    return !error;
+  }
+  async function deleteRemoteNote(id){
+    if(!cloud.client||!cloud.accessCode)return false;
+    const {error}=await cloud.client.rpc("delete_trip_note",{p_trip_id:TRIP_ID,p_note_id:id,p_code:cloud.accessCode});
+    return !error;
+  }
   async function connectCloud(code){
     cloud.accessCode=code;
     setSyncButton("확인 중",false);
     const result=await fetchRemoteChecks(true);
     if(!result.ok){ cloud.accessCode=""; cloud.ready=false; setSyncButton("연결",false); return result; }
-    save("access-code",code); await flushPendingChecks();
+    save("access-code",code); await flushPendingChecks(); await fetchRemoteExpenses(true); await fetchRemoteNotes(true);
     cloud.ready=true; setSyncButton("동기화 ✓",true);
     clearInterval(cloud.pollTimer);
     cloud.pollTimer=setInterval(async()=>{
       const polled=await fetchRemoteChecks(false);
-      if(polled.ok) setSyncButton("동기화 ✓",true);
+      if(polled.ok){await fetchRemoteExpenses(false);await fetchRemoteNotes(false);setSyncButton("동기화 ✓",true);}
     },5000);
     return result;
   }
@@ -1335,22 +1585,184 @@ const TRIP = {
   $("#ov-route").innerHTML = rr;
 
   // stats
-  $("#st-days").textContent = totalDays;
-  $("#st-cities").textContent = new Set(T.days.map(d=>d.city.split(" ")[0].split("→")[0].trim())).size;
-  const totalBookables = (T.flights||[]).length + (T.intercity||[]).length;
-  const bookedCount = (T.flights||[]).filter(f=>f.booked).length + (T.intercity||[]).filter(l=>l.booked).length;
-  $("#st-book").textContent = bookedCount + "/" + totalBookables;
-
   /* ══════════ COMPACT OVERVIEW BUDGET ══════════ */
   const cats = T.budget.categories || [];
   const totPlan = cats.reduce((s,c)=>s+(c.planned||0),0);
-  const totAct = cats.reduce((s,c)=>s+(c.actual||0),0);
-  $("#ov-bud-total").textContent = fmtMoney(totPlan);
-  $("#ov-bud-actual").textContent = fmtMoney(totAct);
-  $("#ov-bud-fill").style.width = (totPlan ? Math.min(100,totAct/totPlan*100) : 0) + "%";
-  $("#ov-budget-categories").innerHTML = cats.map(c=>`<div class="bcat">
-    <div class="top"><span class="nm">${esc(c.name)}</span><span class="fig">${fmtMoney(c.actual||0)} <span style="opacity:.5">/ ${fmtMoney(c.planned||0)}</span></span></div>
-  </div>`).join("");
+  $("#exp-cat").innerHTML=cats.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+  $("#exp-date").value=new Date().toISOString().slice(0,10);
+
+  /* ══════════ EXCHANGE RATE CALCULATOR ══════════ */
+  const FX_CACHE_KEY="fx-rates-eur";
+  const fxAmount=$("#fx-amount"),fxFrom=$("#fx-from"),fxTo=$("#fx-to"),fxOutput=$("#fx-output");
+  let fxData=load(FX_CACHE_KEY);
+  let expenses=load("expenses")||[];
+  const prepaidExpenses=[
+    {id:"paid-airfare",cat:"항공 (2인·인당 118만원·예약완료)",amt:2360000,cur:"KRW",method:"card",date:"2026-09-10",memo:"왕복 항공권 · 2인",updatedAt:0},
+    {id:"paid-h2-budapest",cat:"숙소 (11박)",amt:502356,cur:"KRW",method:"card",date:"2026-09-10",memo:"H2 Hotel Budapest · 9/11~9/13",updatedAt:0},
+    {id:"paid-cloud-one",cat:"숙소 (11박)",amt:920000,cur:"KRW",method:"card",date:"2026-09-10",memo:"The Cloud One Hotel Wien-Staatsoper · 9/13~9/16",updatedAt:0},
+    {id:"paid-seehaus",cat:"숙소 (11박)",amt:524000,cur:"KRW",method:"card",date:"2026-09-10",memo:"Seehaus Familie Leifer · 9/16~9/18",updatedAt:0},
+    {id:"paid-prague-airbnb",cat:"숙소 (11박)",amt:754500,cur:"KRW",method:"card",date:"2026-09-10",memo:"프라하 Airbnb · 9/18~9/21",updatedAt:0},
+    {id:"paid-bookquet",cat:"숙소 (11박)",amt:386000,cur:"KRW",method:"card",date:"2026-09-10",memo:"Hotel BOOKQUET · 9/21~9/22",updatedAt:0},
+    {id:"paid-mav-bud-vie",cat:"기차 (부다·비엔·린츠·프라하)",amt:23680,cur:"HUF",method:"card",date:"2026-09-10",memo:"MÁV 부다페스트→빈 · 결제 ID 879835032",updatedAt:0},
+  ];
+  const loadedExpenseIds=new Map(expenses.map(e=>[e.id,e]));
+  expenses=[
+    ...prepaidExpenses.map(seed=>loadedExpenseIds.get(seed.id)||seed),
+    ...expenses.filter(e=>!prepaidExpenses.some(seed=>seed.id===e.id))
+  ];
+  save("expenses",expenses);
+  let itineraryNotes=load("itinerary-notes")||{};
+  let editingExpenseId=null;
+  const fxDigits={KRW:0,EUR:2,HUF:0,CZK:2};
+  const formatFx=(value,code)=>new Intl.NumberFormat("ko-KR",{
+    minimumFractionDigits:fxDigits[code],maximumFractionDigits:fxDigits[code]
+  }).format(value);
+  function renderFx(){
+    const amount=Number(fxAmount.value);
+    const rates=fxData&&fxData.rates;
+    if(!rates||!Number.isFinite(amount)){
+      fxOutput.value=rates?"금액을 입력하세요":"환율 연결 필요";
+      return;
+    }
+    const from=fxFrom.value,to=fxTo.value;
+    const result=amount/rates[from]*rates[to];
+    fxOutput.value=formatFx(result,to);
+    const unit=rates[to]/rates[from];
+    fxOutput.title=`1 ${from} ≈ ${formatFx(unit,to)} ${to} · 카드사 수수료와 현장 환전가는 다를 수 있습니다.`;
+  }
+  const expenseKRW=e=>{
+    if(e.cur==="KRW") return Math.round(Number(e.amt)||0);
+    const rates=fxData&&fxData.rates;
+    return rates&&rates[e.cur] ? Math.round((Number(e.amt)||0)/rates[e.cur]*rates.KRW) : 0;
+  };
+  function renderBudget(){
+    const logged={};
+    expenses.forEach(e=>{logged[e.cat]=(logged[e.cat]||0)+expenseKRW(e);});
+    const actualOf=c=>(c.actual||0)+(logged[c.name]||0);
+    const totalActual=cats.reduce((sum,c)=>sum+actualOf(c),0);
+    $("#ov-bud-total").textContent=fmtMoney(totPlan);
+    $("#ov-bud-actual").textContent=fmtMoney(totalActual);
+    $("#ov-bud-fill").style.width=(totPlan?Math.min(100,totalActual/totPlan*100):0)+"%";
+    $("#bt-total").textContent=fmtMoney(totPlan);
+    $("#bt-actual").textContent=fmtMoney(totalActual);
+    $("#bt-left").textContent=fmtMoney(totPlan-totalActual);
+    $("#ov-budget-categories").innerHTML=cats.map(c=>`<div class="bcat">
+      <div class="top"><span class="nm">${esc(c.name)}</span><span class="fig">${fmtMoney(actualOf(c))} <span style="opacity:.5">/ ${fmtMoney(c.planned||0)}</span></span></div>
+    </div>`).join("");
+    const list=expenses.slice().sort((a,b)=>String(b.date||"").localeCompare(String(a.date||""))||(b.updatedAt||0)-(a.updatedAt||0));
+    $("#expense-list").innerHTML=list.length?list.map(e=>{
+      const symbols={KRW:"₩",EUR:"€",HUF:"Ft ",CZK:"Kč "};
+      const converted=e.cur!=="KRW"?`≈ ${fmtMoney(expenseKRW(e))}`:"";
+      const prepaid=String(e.id).startsWith("paid-");
+      const method=e.method==="cash"?"현금":"카드";
+      return `<div class="exp">
+        <div class="exp-main"><span class="exp-cat">${prepaid?"선결제":esc(e.date||"날짜 없음")} · ${method} · ${esc(e.cat)}</span><span class="exp-memo">${esc(e.memo||"(메모 없음)")}</span></div>
+        <div class="exp-amt">${symbols[e.cur]||""}${Number(e.amt).toLocaleString("ko-KR")}<small>${converted}</small></div>
+        <button class="exp-edit" data-edit-exp="${esc(e.id)}" aria-label="수정">수정</button>
+        ${prepaid?"":`<button class="exp-del" data-del-exp="${esc(e.id)}" aria-label="삭제">×</button>`}
+      </div>`;
+    }).join(""):'<div class="exp-empty">아직 지출 기록이 없습니다.</div>';
+    const loggedTotal=expenses.reduce((sum,e)=>sum+expenseKRW(e),0);
+    $("#exp-count").textContent=`${expenses.length}건`;
+    $("#exp-total").textContent=fmtMoney(loggedTotal);
+
+    const plans=T.dailyBudget||[];
+    const localSymbol={HUF:"Ft",EUR:"€",CZK:"Kč",KRW:"₩"};
+    const localText=(n,cur)=>`${localSymbol[cur]||cur} ${Number(n||0).toLocaleString("ko-KR",{maximumFractionDigits:2})}`;
+    const totals=plans.reduce((acc,p)=>{acc[p.cur]=(acc[p.cur]||0)+p.planned;return acc;},{});
+    const cashRound=(value,cur)=>{
+      const unit=cur==="HUF"?1000:cur==="CZK"?100:10;
+      return Math.ceil(value*.25/unit)*unit;
+    };
+    $("#cash-guide").innerHTML=Object.entries(totals).map(([cur,total])=>{
+      const target=cashRound(total,cur);
+      const used=expenses.filter(e=>e.method==="cash"&&e.cur===cur).reduce((sum,e)=>sum+Number(e.amt||0),0);
+      return `<span class="cash-pill">${cur} 환전 ${localText(target,cur)} · 사용 ${localText(used,cur)} · 남음 ${localText(Math.max(0,target-used),cur)}</span>`;
+    }).join("");
+    $("#daily-budget-list").innerHTML=plans.map(p=>{
+      const sameDay=plans.filter(x=>x.date===p.date);
+      const dayExpenses=expenses.filter(e=>e.date===p.date&&(sameDay.length===1||e.cur===p.cur));
+      const actual=dayExpenses.reduce((sum,e)=>{
+        if(e.cur===p.cur)return sum+Number(e.amt||0);
+        const krw=expenseKRW(e),rates=fxData&&fxData.rates;
+        return sum+(rates&&rates[p.cur]?krw/(rates.KRW/rates[p.cur]):0);
+      },0);
+      const has=dayExpenses.length>0,diff=p.planned-actual,over=diff<0;
+      const pct=p.planned?Math.min(100,actual/p.planned*100):0;
+      const md=p.date.slice(5).replace("-","/");
+      const state=!has?"실제 입력 전":over?`${localText(Math.abs(diff),p.cur)} 초과`:`${localText(diff,p.cur)} 남음`;
+      return `<div class="db-row">
+        <div class="db-top"><span class="db-date">${md} <span class="db-city">${esc(p.city)}</span></span><span class="db-state ${over?"over":"ok"}">${state}</span></div>
+        <div class="db-values"><span>예상 ${localText(p.planned,p.cur)}</span><span>실제 ${has?localText(actual,p.cur):"—"}</span></div>
+        <div class="db-track"><span class="db-fill ${over?"over":""}" style="width:${over?100:pct}%"></span></div>
+      </div>`;
+    }).join("");
+  }
+  function renderFxStatus(){
+    if(!fxData){$("#fx-updated").textContent="저장된 환율 없음";return;}
+    const cached=fxData.fetchedAt?new Date(fxData.fetchedAt).toLocaleString("ko-KR"):"";
+    $("#fx-updated").textContent=`${fxData.date||"최근"} 기준 · ${cached} 저장`;
+  }
+  async function refreshFx(){
+    const btn=$("#fx-refresh");
+    btn.disabled=true;btn.textContent="확인 중…";
+    try{
+      const response=await fetch("https://api.frankfurter.dev/v1/latest?base=EUR&symbols=KRW,HUF,CZK",{cache:"no-store"});
+      if(!response.ok) throw new Error("rate request failed");
+      const data=await response.json();
+      fxData={date:data.date,rates:{EUR:1,...data.rates},fetchedAt:new Date().toISOString()};
+      save(FX_CACHE_KEY,fxData);renderFxStatus();renderFx();renderBudget();
+    }catch(e){
+      renderFxStatus();renderFx();
+      if(!fxData) $("#fx-updated").textContent="불러오기 실패 · 인터넷 연결을 확인하세요";
+    }finally{
+      btn.disabled=false;btn.textContent="새로고침";
+    }
+  }
+  [fxAmount,fxFrom,fxTo].forEach(el=>el.addEventListener(el===fxAmount?"input":"change",renderFx));
+  $("#fx-swap").addEventListener("click",()=>{
+    const before=fxFrom.value;fxFrom.value=fxTo.value;fxTo.value=before;renderFx();
+  });
+  $("#fx-refresh").addEventListener("click",refreshFx);
+  function resetExpenseForm(){
+    editingExpenseId=null;$("#exp-amt").value="";$("#exp-memo").value="";
+    $("#exp-method").value="card";
+    $("#exp-date").value=new Date().toISOString().slice(0,10);
+    $("#exp-save").textContent="기록 추가";$("#exp-cancel").hidden=true;
+  }
+  function saveExpense(){
+    const amount=Number($("#exp-amt").value);
+    if(!Number.isFinite(amount)||amount<=0){$("#exp-amt").focus();return;}
+    const old=expenses.find(e=>e.id===editingExpenseId);
+    const item={
+      id:editingExpenseId||((crypto.randomUUID&&crypto.randomUUID())||String(Date.now())),
+      cat:$("#exp-cat").value,cur:$("#exp-cur").value,method:$("#exp-method").value,amt:amount,
+      date:$("#exp-date").value||new Date().toISOString().slice(0,10),
+      memo:$("#exp-memo").value.trim(),updatedAt:Date.now()
+    };
+    if(old) expenses=expenses.map(e=>e.id===item.id?item:e); else expenses.push(item);
+    save("expenses",expenses);saveRemoteExpense(item);resetExpenseForm();renderBudget();
+  }
+  $("#exp-save").addEventListener("click",saveExpense);
+  $("#exp-cancel").addEventListener("click",resetExpenseForm);
+  $("#exp-memo").addEventListener("keydown",e=>{if(e.key==="Enter")saveExpense();});
+  $("#expense-list").addEventListener("click",e=>{
+    const edit=e.target.closest("[data-edit-exp]");
+    if(edit){
+      const item=expenses.find(x=>x.id===edit.getAttribute("data-edit-exp"));if(!item)return;
+      editingExpenseId=item.id;$("#exp-amt").value=item.amt;$("#exp-cur").value=item.cur;
+      $("#exp-cat").value=item.cat;$("#exp-method").value=item.method||"card";$("#exp-date").value=item.date||"";$("#exp-memo").value=item.memo||"";
+      $("#exp-save").textContent="수정 저장";$("#exp-cancel").hidden=false;$("#exp-amt").focus();return;
+    }
+    const del=e.target.closest("[data-del-exp]");
+    if(del){
+      const id=del.getAttribute("data-del-exp");
+      expenses=expenses.filter(x=>x.id!==id);save("expenses",expenses);deleteRemoteExpense(id);
+      if(editingExpenseId===id)resetExpenseForm();renderBudget();
+    }
+  });
+  renderFxStatus();renderFx();renderBudget();
+  refreshFx();
 
   /* ══════════ ITINERARY ══════════ */
   const weekdays=["일","월","화","수","목","금","토"];
@@ -1364,7 +1776,7 @@ const TRIP = {
   $("#days").innerHTML = T.days.map((d,i)=>{
     const dt = parseD(d.date);
     const wd = weekdays[dt.getDay()];
-    const body = renderDayBody(d);
+    const body = renderDayBody(d,i);
     const open = i===0 ? "open":"";
     return `<div class="day ${open}" id="itinerary-day-${i}">
       <div class="day-head" data-day="${i}">
@@ -1404,6 +1816,42 @@ const TRIP = {
   }));
   setActiveQuickDay(0, false);
 
+  function itineraryExportRows(){
+    const rows=[];
+    T.days.forEach((d,dayIndex)=>{
+      let itemIndex=0;
+      (d.items||[]).forEach(node=>{
+        const items=node.area?(node.items||[]):[node];
+        items.forEach(it=>{
+          const id=`${d.date}:${dayIndex}:${itemIndex++}`;
+          rows.push({id,date:d.date,city:d.city,time:it.time||"",place:it.place||"",map:it.map||""});
+        });
+      });
+    });
+    return rows;
+  }
+  function flashCopyButton(btn,label){
+    const before=btn.textContent;btn.textContent=label;
+    setTimeout(()=>{btn.textContent=before;},1300);
+  }
+  $("#copy-pinned").addEventListener("click",()=>{
+    const rows=itineraryExportRows().filter(x=>checks["pin_"+x.id]);
+    const text=rows.length?[`[고정 일정 ${rows.length}개 · 수정 시 삭제 금지]`,...rows.map((x,i)=>`${i+1}. ${x.date.slice(5)} ${x.time} · ${x.city} · ${x.place}${x.map?`\n   지도: ${mapURL(x.map)}`:""}`)].join("\n"):"[고정 일정 없음]";
+    copyText(text).then(()=>flashCopyButton($("#copy-pinned"),"복사 완료 ✓"));
+  });
+  $("#copy-notes").addEventListener("click",()=>{
+    const rows=itineraryExportRows().filter(x=>itineraryNotes[x.id]);
+    const text=rows.length?[`[일정 메모 ${rows.length}개]`,...rows.map((x,i)=>`${i+1}. ${x.date.slice(5)} ${x.time} · ${x.place}\n   메모: ${itineraryNotes[x.id]}`)].join("\n"):"[일정 메모 없음]";
+    copyText(text).then(()=>flashCopyButton($("#copy-notes"),"복사 완료 ✓"));
+  });
+  $("#copy-budget").addEventListener("click",()=>{
+    const actual=expenses.reduce((sum,e)=>sum+expenseKRW(e),0)+cats.reduce((sum,c)=>sum+(c.actual||0),0);
+    const entries=expenses.slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))).map((e,i)=>`${i+1}. ${String(e.id).startsWith("paid-")?"선결제":e.date} · ${e.method==="cash"?"현금":"카드"} · ${e.cat}\n   ${e.amt.toLocaleString("ko-KR")} ${e.cur}${e.memo?` · ${e.memo}`:""}`);
+    const plans=(T.dailyBudget||[]).map(p=>`- ${p.date.slice(5)} ${p.city}: ${p.planned.toLocaleString("ko-KR")} ${p.cur}`);
+    const text=["[여행 예산 내용]",`목표: ${fmtMoney(totPlan)}`,`사용: ${fmtMoney(actual)}`,`남음: ${fmtMoney(totPlan-actual)}`,"","[지출 기록]",...(entries.length?entries:["기록 없음"]),"","[일자별 예상]",...plans].join("\n");
+    copyText(text).then(()=>flashCopyButton($("#copy-budget"),"복사 완료 ✓"));
+  });
+
   // Scroll spy: highlight the day currently passing beneath the sticky date rail.
   let quickSpyFrame = 0;
   function updateQuickFromScroll(){
@@ -1421,14 +1869,15 @@ const TRIP = {
     if(!quickSpyFrame) quickSpyFrame=requestAnimationFrame(updateQuickFromScroll);
   }, {passive:true});
 
-  function renderDayBody(d){
+  function renderDayBody(d,dayIndex){
     let html = "";
+    let itemIndex=0;
     (d.items||[]).forEach(node=>{
       if(node.area){
         html += renderAreaHead(node);
-        (node.items||[]).forEach(it=> html += renderItem(it));
+        (node.items||[]).forEach(it=> html += renderItem(it,d,dayIndex,itemIndex++));
       } else {
-        html += renderItem(node);
+        html += renderItem(node,d,dayIndex,itemIndex++);
       }
     });
     const rurl = dayRouteURL(d);
@@ -1450,7 +1899,11 @@ const TRIP = {
     const uniq = stops.filter((s,i)=> i===0 || s!==stops[i-1]);
     return dirURL(uniq, "walking");
   }
-  function renderItem(it){
+  function renderItem(it,d,dayIndex,itemIndex){
+    const noteId=`${d.date}:${dayIndex}:${itemIndex}`;
+    const userNote=itineraryNotes[noteId]||"";
+    const pinId="pin_"+noteId;
+    const pinned=!!checks[pinId];
     const map = it.map ? `<a class="maplink" href="${mapURL(it.map)}" target="_blank" rel="noopener">◎ 지도</a>` : "";
     const tag = it.type ? `<span class="tag">${esc(it.type)}</span>` : "";
     const recTag = it.recId ? `<span class="tag rec-tag">추천 선택</span>` : "";
@@ -1460,7 +1913,34 @@ const TRIP = {
       <div class="body">
         <div class="pl">${esc(it.place||"")} ${tag}${recTag}</div>
         ${nt}${map}
+        <div class="item-note-tools"><button class="pin-btn ${pinned?"done":""}" type="button" data-check="${pinId}" aria-pressed="${pinned?"true":"false"}">📌 ${pinned?"고정됨":"고정"}</button><button class="item-note-btn" type="button" data-note-open="${noteId}">${userNote?"메모 수정":"＋ 메모"}</button>${userNote?`<span class="item-user-note" data-note-view="${noteId}">${esc(userNote)}</span>`:""}</div>
+        <div class="item-note-editor" data-note-editor="${noteId}">
+          <textarea aria-label="일정 메모" placeholder="예약 정보, 현장 메모 등을 적어두세요.">${esc(userNote)}</textarea>
+          <div class="item-note-actions"><button class="note-save" type="button" data-note-save="${noteId}">저장</button><button type="button" data-note-cancel="${noteId}">취소</button>${userNote?`<button type="button" data-note-delete="${noteId}">삭제</button>`:""}</div>
+        </div>
       </div></div>`;
+  }
+
+  $("#days").addEventListener("click",e=>{
+    const open=e.target.closest("[data-note-open]");
+    if(open){const id=open.getAttribute("data-note-open"),editor=document.querySelector(`[data-note-editor="${CSS.escape(id)}"]`);editor.classList.toggle("open");if(editor.classList.contains("open"))editor.querySelector("textarea").focus();return;}
+    const cancel=e.target.closest("[data-note-cancel]");
+    if(cancel){document.querySelector(`[data-note-editor="${CSS.escape(cancel.getAttribute("data-note-cancel"))}"]`).classList.remove("open");return;}
+    const saveBtn=e.target.closest("[data-note-save]");
+    if(saveBtn){
+      const id=saveBtn.getAttribute("data-note-save"),editor=document.querySelector(`[data-note-editor="${CSS.escape(id)}"]`);
+      const text=editor.querySelector("textarea").value.trim();
+      if(text)itineraryNotes[id]=text;else delete itineraryNotes[id];
+      save("itinerary-notes",itineraryNotes);saveRemoteNote(id,text);refreshItineraryNotes();return;
+    }
+    const del=e.target.closest("[data-note-delete]");
+    if(del){const id=del.getAttribute("data-note-delete");delete itineraryNotes[id];save("itinerary-notes",itineraryNotes);deleteRemoteNote(id);refreshItineraryNotes();}
+  });
+  function refreshItineraryNotes(){
+    T.days.forEach((d,i)=>{
+      const day=$("#itinerary-day-"+i);if(!day)return;
+      day.querySelector(".day-body").innerHTML=renderDayBody(d,i);
+    });
   }
 
   /* ══════════ RECOMMENDATIONS ══════════ */
@@ -1469,6 +1949,7 @@ const TRIP = {
   const recCategories = [...new Set(recommendations.map(r=>r.category).filter(Boolean))];
   $("#rec-city").innerHTML += recCities.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
   $("#rec-category").innerHTML += recCategories.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+  $("#rec-city-quick").innerHTML=["all",...recCities].map(city=>`<button type="button" data-rec-city-quick="${esc(city)}">${city==="all"?"전체":esc(city)}</button>`).join("");
 
   const recCheckId = (r,i) => "rec_" + (r.id || i);
   const selectedRecommendationsForCity = cityName => recommendations
@@ -1507,6 +1988,7 @@ const TRIP = {
     const selected = recommendations.filter((r,i)=>checks[recCheckId(r,i)]).length;
     $("#rec-visible").textContent = `${visible.length}개 장소`;
     $("#rec-selected").textContent = `선택 ${selected}개`;
+    $$("[data-rec-city-quick]").forEach(btn=>btn.classList.toggle("active",btn.getAttribute("data-rec-city-quick")===city));
     const renderRecommendationCard = ({r,i})=>{
       const id = recCheckId(r,i);
       const picked = !!checks[id];
@@ -1544,6 +2026,10 @@ const TRIP = {
   }
   $("#rec-city").addEventListener("change", renderRecommendations);
   $("#rec-category").addEventListener("change", renderRecommendations);
+  $("#rec-city-quick").addEventListener("click",e=>{
+    const btn=e.target.closest("[data-rec-city-quick]");if(!btn)return;
+    $("#rec-city").value=btn.getAttribute("data-rec-city-quick");renderRecommendations();
+  });
   $("#recommendation-list").addEventListener("click", e=>{
     const copyBtn = e.target.closest("[data-rec-copy]");
     if(copyBtn){
@@ -1629,8 +2115,11 @@ const TRIP = {
     `<li><span class="k">${esc(x.k)}</span><span class="v">${esc(x.v)}</span></li>`).join("");
   $("#list-links").innerHTML = (T.info.links||[]).map(x=>
     `<li><span class="k">${esc(x.k)}</span><span class="v"><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.v)} ↗</a></span></li>`).join("");
-  $("#list-phrases").innerHTML = (T.info.phrases||[]).map(x=>
-    `<li><span class="k">${esc(x.k)}</span><span class="v">${esc(x.v)}</span></li>`).join("");
+  const phraseGroups=(T.info.phrases||[]).reduce((acc,x)=>{(acc[x.country]||(acc[x.country]=[])).push(x);return acc;},{});
+  $("#list-phrases").innerHTML=Object.entries(phraseGroups).map(([country,items])=>`<div class="lang-group">
+    <div class="lang-head">${esc(country)}</div>
+    ${items.map(x=>`<div class="lang-row"><span class="lang-use">${esc(x.use)}</span><span class="lang-local">${esc(x.local)}<small class="lang-pron">${esc(x.pron)}</small></span></div>`).join("")}
+  </div>`).join("");
 
   /* ══════════ PREP CHECKLISTS ══════════ */
   renderChecklist("#list-predep", T.prep.predeparture, "pre", "#prog-pre");
@@ -1663,6 +2152,10 @@ const TRIP = {
     const now = !checks[id];
     setCheck(id, now);
     chk.classList.toggle("done", now);
+    if(chk.classList.contains("pin-btn")){
+      chk.textContent=now?"📌 고정됨":"📌 고정";
+      chk.setAttribute("aria-pressed",now?"true":"false");
+    }
     // refresh dependent counters
     updateProg("#prog-pre", T.prep.predeparture, "pre");
     updateProg("#prog-doc", T.prep.documents, "doc");
@@ -1670,12 +2163,25 @@ const TRIP = {
     refreshBookCount();
   });
   function refreshBookCount(){
+    const el=$("#st-book"); if(!el) return;
     let bc = 0, tb = (T.flights||[]).length + (T.intercity||[]).length;
     (T.flights||[]).forEach((f,i)=>{ if(checks["flight_"+i]||f.booked) bc++; });
     (T.intercity||[]).forEach((l,i)=>{ if(checks["leg_"+i]||l.booked) bc++; });
-    $("#st-book").textContent = bc + "/" + tb;
+    el.textContent = bc + "/" + tb;
   }
   refreshBookCount();
+
+  /* ══════════ RECOMMENDATION / TIP SUBTABS ══════════ */
+  $$(".subtab").forEach(btn=>btn.addEventListener("click",()=>{
+    const go=btn.getAttribute("data-subgo");
+    $$(".subtab").forEach(b=>{
+      const active=b===btn;
+      b.classList.toggle("active",active);
+      b.setAttribute("aria-selected",active?"true":"false");
+    });
+    $$(".subpanel").forEach(p=>p.classList.toggle("active",p.getAttribute("data-subpanel")===go));
+    window.scrollTo({top:0,behavior:"instant" in window?"instant":"auto"});
+  }));
 
   /* ══════════ TAB NAV ══════════ */
   $$(".tab").forEach(btn=> btn.addEventListener("click", ()=>{
@@ -1693,8 +2199,8 @@ const TRIP = {
     $("#authLogin").hidden=connected;
     $("#authLogout").hidden=!connected;
     $("#authHelp").textContent=connected
-      ? "이 기기는 공유 여행에 연결되어 있습니다. 추천 선택과 체크 상태가 약 5초마다 동기화됩니다."
-      : "두 사람만 아는 공유 코드를 입력하면 추천 선택과 체크 상태가 함께 동기화됩니다.";
+      ? "이 기기는 공유 여행에 연결되어 있습니다. 추천·체크·일정 메모·지출 기록이 약 5초마다 동기화됩니다."
+      : "두 사람만 아는 공유 코드를 입력하면 추천·체크·일정 메모·지출 기록이 함께 동기화됩니다.";
   }
   $("#syncToggle").addEventListener("click",()=>{
     renderConnection(); authStatus.textContent="";
