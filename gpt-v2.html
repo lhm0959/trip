@@ -1073,8 +1073,8 @@ const TRIP = {
   intercity:[
     { from:"부다페스트", to:"비엔나", mode:"MÁV 예약 · Railjet / EC (Keleti→Wien Hbf) · 9/13 09:30→12:20 · 구매자 ID 2389732895 · 결제 ID 879835032", duration:"2시간 50분", cost:"23,680 HUF", booked:true, link:"https://jegy.mav.hu" },
     { from:"비엔나", to:"린츠", mode:"ÖBB 기차 · Wien Hbf→Linz Hbf", duration:"약 1시간 10~30분", cost:"€10~40", booked:false, link:"https://www.oebb.at/en/reiseplanung-services/oebb-zugverbindungen/zugverbindungen-oesterreich/weststrecke/wien-linz" },
-    { from:"린츠", to:"고사우", mode:"렌트카 · 트라운제/그문덴 경유", duration:"약 2시간~2시간 30분", cost:"렌트·유류·주차", booked:false, link:"" },
-    { from:"고사우", to:"린츠", mode:"렌트카 · 장크트길겐/볼프강 호수 경유 후 반납", duration:"반나절", cost:"유류·주차", booked:false, link:"" },
+    { from:"린츠", to:"장크트볼프강", mode:"렌트카 예약 완료 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00 픽업 · 예약번호 9736979925", duration:"3일 대여", cost:"€196.88 · 보증금 €300", booked:true, link:"" },
+    { from:"장크트볼프강", to:"린츠", mode:"렌트카 · 장크트길겐 경유 · 9/18 16:00 반납", duration:"반나절", cost:"대여료에 포함", booked:true, link:"" },
     { from:"린츠", to:"프라하", mode:"기차 · Linz Hbf→Praha hl.n.", duration:"약 4시간 전후", cost:"€25~80", booked:false, link:"https://www.oebb.at" },
   ],
 
@@ -1165,7 +1165,7 @@ const TRIP = {
       { area:"기차 · 렌트 픽업", map:"Linz Hauptbahnhof", items:[
         { time:"08:30", place:"The Cloud One Hotel Wien-Staatsoper 체크아웃", type:"이동", note:"9/13~9/16 · 3박 · 스탠다드 더블룸. 너무 늦지 않게 출발해 고사우는 해 있을 때 도착 목표.", map:"The Cloud One Hotel Wien-Staatsoper" },
         { time:"09:00~10:30", place:"비엔나 → 린츠", type:"이동", note:"ÖBB 직행 다수. 린츠 Hbf 도착 후 렌트 지점으로.", map:"Wien Hauptbahnhof" },
-        { time:"10:45", place:"린츠 렌트 픽업", type:"이동", note:"오토매틱, 완전면책 보험, 보증금, 비네트 포함 여부, 영업시간, 금요일 오후 동일 지점 반납 가능 여부 확인.", map:"Linz Hauptbahnhof car rental" },
+        { time:"11:00", place:"린츠 렌트카 픽업 · 예약 완료", type:"이동", note:"예약번호 9736979925 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00~9/18 16:00 · 3일 · 세금 포함 €196.88 · Mastercard 끝번호 791 · 픽업 시 보증금 €300 임시 승인.", map:"Linz car rental" },
       ]},
       { area:"트라운제 · 고사우", map:"Gmunden Traunsee", items:[
         { time:"11:30", place:"린츠 출발", type:"이동", note:"Linz → Gmunden/Traunsee. 구글맵 + 차량 내비 병행.", map:"Linz Austria" },
@@ -1201,7 +1201,7 @@ const TRIP = {
       ]},
       { area:"렌트 반납 · 프라하 이동", map:"Linz Hauptbahnhof", items:[
         { time:"14:00", place:"린츠 이동", type:"이동", note:"반납 지연을 피하려면 14시 전후 출발.", map:"St Gilgen to Linz" },
-        { time:"16:00", place:"린츠 렌트 반납", type:"이동", note:"16시 전후 목표. 주유 정책 Full to Full이면 반납 전 주유, 외관 사진/영상과 영수증 보관.", map:"Linz car rental" },
+        { time:"16:00", place:"린츠 렌트카 반납", type:"이동", note:"예약 반납 시각 16:00. 주유 정책을 확인해 반납 전 주유하고 차량 외관 사진·영상과 영수증 보관. €300 보증금은 반납 후 며칠 이내 승인 해제 예정.", map:"Linz car rental" },
         { time:"17:00~18:00", place:"린츠 → 프라하", type:"이동", note:"기차 약 4시간 전후. 열차별 소요시간이 달라 예약 전 확인, 간식·물 준비.", map:"Linz Hauptbahnhof" },
         { time:"21:00~22:30", place:"프라하 도착 · Airbnb 체크인", type:"이동", note:"9/18~9/21 · 3박 · 754,500원 결제. 중앙역에서 숙소까지 실제 도착시간을 고려해 호스트와 늦은 체크인 방법 확인.", map:"50.0818138,14.4058218" },
         { time:"밤", place:"카를교 야경 산책 (여유되면)", type:"관광", note:"도착이 늦으면 다음날로 미루기.", map:"Charles Bridge Prague" },
@@ -1269,7 +1269,7 @@ const TRIP = {
       { t:"잘츠캄머구트 숙소 2박 예약 완료 ✓", s:"Seehaus Familie Leifer · 장크트볼프강 · 9/16~9/18 · Booking.com · 524,000원 · 체크아웃 10:30" },
       { t:"프라하 Airbnb 3박 예약 완료 ✓", s:"9/18~9/21 · 754,500원 · 위치 50.0818138, 14.4058218" },
       { t:"프라하 Hotel BOOKQUET 1박 예약 완료 ✓", s:"9/21~9/22 · 네이버 호텔 · 조식 포함 · 386,000원 · Karoliny Světlé 27, Prague 1" },
-      { t:"린츠 렌트카 예약", s:"오토매틱·완전면책보험·비네트 포함·보증금·영업시간·금요일 오후 동일 지점 반납 가능 여부 확인" },
+      { t:"린츠 렌트카 예약 완료 ✓", s:"예약번호 9736979925 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00 픽업 → 9/18 16:00 반납 · €196.88 · 보증금 €300" },
       { t:"비엔나 숙소 3박 예약 완료 ✓", s:"The Cloud One Hotel Wien-Staatsoper · 9/13~9/16 · 스탠다드 더블룸 · 920,000원" },
       { t:"부다페스트 숙소 2박 예약 완료 ✓", s:"H2 Hotel Budapest · 9/11~9/13 · 네이버 호텔 · 502,356원 · 지도: https://maps.app.goo.gl/kRi6VGdVCwvbyCVNA" },
       { t:"부다페스트 → 비엔나 기차 예약 완료 ✓", s:"MÁV · 구매자 ID 2389732895 · 결제 ID 879835032 · 9/13 09:30 Budapest Keleti 출발 → 12:20 Wien Hbf 도착 · 23,680 HUF" },
@@ -1283,9 +1283,9 @@ const TRIP = {
     ],
     documents:[
       { t:"여권 (유효기간 6개월+)", s:"" },
-      { t:"국제운전면허증", s:"린츠 렌트 필수" },
-      { t:"국내 운전면허증", s:"국제면허와 함께 지참" },
-      { t:"운전자 명의 신용카드", s:"렌트 보증금·픽업 시 필수. 체크카드 불가 가능성 높음" },
+      { t:"각 운전자의 운전면허증·국제운전면허증 원본", s:"린츠 렌트 픽업 필수 · 사본이 아닌 원본 지참" },
+      { t:"여권 또는 주민등록증 원본", s:"렌트 픽업 신원 확인용" },
+      { t:"주 운전자 명의 신용카드", s:"Mastercard 끝번호 791 · 보증금 €300 임시 승인 · 선불카드와 현금 앱 불가" },
       { t:"여행자보험 가입", s:"출국 전" },
       { t:"eSIM / 유심", s:"헝가리·오스트리아·체코 사용 가능 상품" },
       { t:"환전 / 트래블카드", s:"현금 목표: 26,000 HUF + 230 EUR + 4,100 CZK · 트래블카드 잔액 별도 준비" },
@@ -1604,6 +1604,7 @@ const TRIP = {
     {id:"paid-prague-airbnb",cat:"숙소 (11박)",amt:754500,cur:"KRW",method:"card",date:"2026-09-10",memo:"프라하 Airbnb · 9/18~9/21",updatedAt:0},
     {id:"paid-bookquet",cat:"숙소 (11박)",amt:386000,cur:"KRW",method:"card",date:"2026-09-10",memo:"Hotel BOOKQUET · 9/21~9/22",updatedAt:0},
     {id:"paid-mav-bud-vie",cat:"기차 (부다·비엔·린츠·프라하)",amt:23680,cur:"HUF",method:"card",date:"2026-09-10",memo:"MÁV 부다페스트→빈 · 결제 ID 879835032",updatedAt:0},
+    {id:"paid-linz-rental",cat:"렌트카 (2박3일·린츠)",amt:196.88,cur:"EUR",method:"card",date:"2026-09-10",memo:"Peugeot 208 또는 동급 · 예약번호 9736979925 · 보증금 €300 별도",updatedAt:0},
   ];
   const loadedExpenseIds=new Map(expenses.map(e=>[e.id,e]));
   expenses=[
