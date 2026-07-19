@@ -991,23 +991,73 @@ const TRIP = {
     { id:"vie-dm", city:"비엔나", category:"쇼핑", name:"dm drogerie markt", note:"건강보조제·입욕제·화장품과 생필품을 구입하기 좋은 드러그스토어.", map:"dm drogerie markt Vienna", sources:[{type:"인스타",label:"@bricksmagazine"},{type:"인스타",label:"@atourshop"}] },
     { id:"vie-parndorf", city:"비엔나", category:"쇼핑", name:"Designer Outlet Parndorf", note:"비엔나 근교 디자이너 아울렛. 셔틀버스 이용 가능.", map:"Designer Outlet Parndorf Austria", sources:[{type:"인스타",label:"@atourshop"}] },
 
+    // 잘츠캄머구트 장보기
+    { id:"szk-spar-strobl", city:"잘츠캄머구트", category:"쇼핑", name:"SPAR Supermarkt Strobl", note:"장크트볼프강 숙소 체크인 전에 들를 장보기 장소. B158 도로변 주유소 옆이며 주차 30면. 평일 07:00~19:00, 토요일 07:00~18:00로 안내됨. 주소: Wolfgangseestraße 2, 5350 Strobl.", map:"SPAR Supermarkt Strobl Wolfgangseestrasse 2", sources:[{type:"공식 관광정보",label:"Wolfgangsee Salzkammergut",url:"https://wolfgangsee.salzkammergut.at/oesterreich-poi/detail/104903/spar-supermarkt-strobl.html"}] },
+
+    // 도시별 커플·웨딩스냅 사진 스팟
+    { id:"bud-fishermans-photo", city:"부다페스트", category:"사진스팟", name:"어부의 요새 아치·계단", note:"석조 아치 사이로 국회의사당을 프레임처럼 넣는 부다페스트 대표 웨딩스냅 구도. 일출 직후에는 빛이 부드럽고 단체 관광객이 적어 인물과 배경을 깨끗하게 담기 좋음.", map:"Fisherman's Bastion Budapest", sources:[{type:"사진가이드",label:"Budapest Photoshoot Spots",url:"https://www.budapestpic.com/budapest-best-photo-locations"}] },
+    { id:"bud-batthyany-photo", city:"부다페스트", category:"사진스팟", name:"바트야니 광장 국회의사당 뷰", note:"다뉴브강 건너 국회의사당 정면을 배경으로 담는 클래식한 커플 촬영지. 망원 구도는 건물의 웅장함을 살리고, 해 질 무렵에는 강물 반영과 조명이 더해짐.", map:"Batthyany Square Budapest Parliament View", sources:[{type:"사진가이드",label:"Budapest Photoshoot Spots",url:"https://www.budapestpic.com/budapest-best-photo-locations"}] },
+    { id:"bud-toth-arpad-photo", city:"부다페스트", category:"사진스팟", name:"토트 아르파드 산책로", note:"부다성 성벽을 따라 나무와 벤치가 이어지는 비교적 조용한 산책로. 성곽 지구의 고풍스러운 분위기와 자연스러운 걷는 커플 컷을 함께 담기 좋음.", map:"Toth Arpad setany Budapest", sources:[{type:"사진가이드",label:"Buda Castle Photography Spots",url:"https://budapesttourguy.com/buda-castle-photography-spots/"}] },
+    { id:"bud-chain-bridge-photo", city:"부다페스트", category:"사진스팟", name:"세체니 다리 · 클라크 아담 광장 쪽", note:"다리의 사자상과 철제 구조가 만드는 대칭 구도로 도시적인 웨딩스냅을 찍기 좋은 지점. 차량과 보행자 흐름이 적은 이른 아침 촬영 추천.", map:"Clark Adam Square Chain Bridge Budapest", sources:[{type:"사진가이드",label:"Budapest Photoshoot Spots",url:"https://www.budapestpic.com/budapest-best-photo-locations"}] },
+
+    { id:"vie-hofburg-photo", city:"비엔나", category:"사진스팟", name:"호프부르크 왕궁 · 미하엘 광장", note:"왕궁의 곡선형 파사드와 아치, 마차가 어우러지는 비엔나 대표 웨딩스냅 배경. 관광객이 적은 이른 오전이나 해 질 무렵이 촬영에 유리함.", map:"Michaelerplatz Hofburg Vienna", sources:[{type:"사진가이드",label:"Vienna Wedding Photoshoot Locations",url:"https://comet.photo/locations-for-wedding-photoshoots/"}] },
+    { id:"vie-burggarten-photo", city:"비엔나", category:"사진스팟", name:"부르크가르텐 · 팔멘하우스", note:"아르누보 온실 외관과 정원 녹음을 함께 담는 로맨틱한 촬영지. 호프부르크와 가까워 왕궁 건축 컷 뒤에 부드러운 정원 컷을 이어 찍기 좋음.", map:"Palmenhaus Burggarten Vienna", sources:[{type:"사진가이드",label:"Vienna Wedding Photoshoot Locations",url:"https://comet.photo/locations-for-wedding-photoshoots/"}] },
+    { id:"vie-belvedere-photo", city:"비엔나", category:"사진스팟", name:"벨베데레 상궁 · 반영 연못", note:"바로크 궁전과 정원 축을 정면으로 담는 화려한 웨딩스냅 포인트. 연못 반영을 활용하면 대칭 구도가 살아나며, 외부 정원 촬영과 실내 전문 촬영의 허가 조건은 구분해 확인해야 함.", map:"Upper Belvedere Reflecting Pool Vienna", sources:[{type:"공식",label:"Belvedere Wedding Photoshoots",url:"https://www.belvedere.at/en/wedding"}] },
+    { id:"vie-schonbrunn-photo", city:"비엔나", category:"사진스팟", name:"쇤브룬 정원 · 글로리에테 축", note:"궁전 정원과 글로리에테를 길게 연결하는 왕실풍 파노라마 구도. 넓은 계단과 대칭형 정원에서 전신 웨딩 컷을 다양하게 남기기 좋음.", map:"Schonbrunn Palace Gardens Gloriette Vienna", sources:[{type:"사진가이드",label:"Vienna Wedding Locations",url:"https://murselovic.com/en/hochzeits-blog/my-10-favourite-locations-for-a-wedding-photoshoot-in-vienna/"}] },
+
+    { id:"szk-gosausee-photo", city:"잘츠캄머구트", category:"사진스팟", name:"고사우제 · 다흐슈타인 반영 포인트", note:"호수 정면에서 다흐슈타인 산군과 물 위 반영을 함께 담는 알프스 대표 커플 촬영지. 바람이 약한 이른 오전에는 반영이 선명하고, 흐린 날에도 짙은 산색이 분위기 있게 나옴.", map:"Vorderer Gosausee classic viewpoint", sources:[{type:"공식 관광정보",label:"Salzkammergut",url:"https://www.salzkammergut.at/"}] },
+    { id:"szk-hallstatt-photo", city:"잘츠캄머구트", category:"사진스팟", name:"할슈타트 클래식 뷰포인트", note:"호숫가 마을과 교회 첨탑, 산을 한 화면에 담는 대표 엽서 구도. 현재 일정처럼 오전 8시대에 방문하면 인파와 역광 부담을 줄이기 좋음.", map:"Hallstatt Classic Viewpoint", sources:[{type:"공식 관광정보",label:"Hallstatt",url:"https://www.hallstatt.net/"}] },
+    { id:"szk-wolfgangsee-photo", city:"잘츠캄머구트", category:"사진스팟", name:"장크트볼프강 호숫가", note:"볼프강호의 푸른 물과 산, 목조 보트 선착장을 배경으로 자연스러운 휴양지 커플 사진을 남기기 좋은 곳. 숙소 앞 산책 시간에 가볍게 촬영 가능.", map:"Sankt Wolfgang lakeside promenade", sources:[{type:"공식 관광정보",label:"Wolfgangsee",url:"https://wolfgangsee.salzkammergut.at/"}] },
+    { id:"szk-st-gilgen-photo", city:"잘츠캄머구트", category:"사진스팟", name:"장크트길겐 호숫가 · 모차르트 광장", note:"알록달록한 마을 건물과 꽃장식, 볼프강호 선착장 풍경을 번갈아 담을 수 있는 촬영지. 마지막 날 장크트길겐 산책 동선에 넣기 좋음.", map:"Mozartplatz St Gilgen Austria", sources:[{type:"공식 관광정보",label:"Wolfgangsee",url:"https://wolfgangsee.salzkammergut.at/"}] },
+    { id:"szk-ort-castle-photo", city:"잘츠캄머구트", category:"사진스팟", name:"그문덴 오르트성 나무다리", note:"트라운제 위의 오르트성과 긴 나무다리가 만드는 원근감 있는 커플 촬영 포인트. 린츠에서 장크트볼프강으로 이동하는 날 그문덴 점심 산책과 함께 들르기 좋음.", map:"Seeschloss Ort Gmunden", sources:[{type:"공식 관광정보",label:"Salzkammergut",url:"https://www.salzkammergut.at/"}] },
+
     // 프라하 · 유튜버 규진
-    { id:"prg-charles-bridge", city:"프라하", category:"명소", name:"카를교", note:"노을과 야경, 낮 풍경을 모두 즐기기 좋은 프라하의 상징.", map:"Charles Bridge Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-charles-bridge", city:"프라하", category:"명소", name:"카를교", note:"노을과 가로등이 어우러진 중세 감성의 야경과 프라하성 전망을 함께 즐기기 좋은 프라하의 상징.", map:"Charles Bridge Prague", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@sachacollectif"},{type:"인스타",label:"@minjjang_trip"}] },
     { id:"prg-tradlo", city:"프라하", category:"카페", name:"Tradlo", note:"아이스크림과 딸기를 올린 즉석 굴뚝빵 추천.", map:"Tradlo Prague", sources:[{type:"유튜브",label:"규진"}] },
-    { id:"prg-castle", city:"프라하", category:"명소", name:"프라하성", note:"성 비투스 대성당과 황금소로 등 볼거리가 많은 필수 코스.", map:"Prague Castle", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-castle", city:"프라하", category:"명소", name:"프라하성", note:"성 비투스 대성당과 황금소로 등 볼거리가 많은 필수 코스. 해 질 무렵에는 붉은 지붕과 첨탑이 황금빛으로 물드는 대표 야경 뷰포인트.", map:"Prague Castle", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@sachacollectif"},{type:"인스타",label:"@minjjang_trip"}] },
     { id:"prg-lobkowicz-cafe", city:"프라하", category:"카페", name:"Lobkowicz Palace Café", note:"프라하성 내부의 전망 좋은 테라스 카페.", map:"Lobkowicz Palace Cafe Prague", sources:[{type:"유튜브",label:"규진"}] },
     { id:"prg-kuchyn", city:"프라하", category:"맛집", name:"Kuchyň", note:"슈니첼과 오리 다리 요리, 프라하 전망 추천.", map:"Kuchyn Prague", sources:[{type:"유튜브",label:"규진"}] },
-    { id:"prg-strahov-brewery", city:"프라하", category:"맛집", name:"Klášterní pivovar Strahov", note:"수도원 안에서 다양한 맥주를 맛볼 수 있는 양조장.", map:"Klasterni pivovar Strahov Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-strahov-brewery", city:"프라하", category:"맛집", name:"Klášterní pivovar Strahov", note:"스트라호프 수도원이 직접 운영하는 양조장. 신선한 수도원 맥주와 체코 음식을 함께 즐기기 좋음.", map:"Klasterni pivovar Strahov Prague", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@sachacollectif"},{type:"인스타",label:"@pangpang2_travel"}] },
     { id:"prg-strahov-library", city:"프라하", category:"명소", name:"스트라호프 수도원 도서관", note:"화려한 프레스코화와 고풍스러운 내부로 유명.", map:"Strahov Monastery Library Prague", sources:[{type:"유튜브",label:"규진"}] },
-    { id:"prg-porks", city:"프라하", category:"맛집", name:"Pork's", note:"겉은 바삭하고 속은 촉촉한 체코식 족발 꼴레뇨 추천.", map:"Pork's Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-porks", city:"프라하", category:"맛집", name:"Pork's Vodičkova", note:"겉은 바삭하고 속은 촉촉한 체코식 족발 꼴레뇨와 굴라쉬 추천. 양이 넉넉해 2인이 꼴레뇨 1개와 맥주를 나누기 좋고, 2호점은 Vodičkova 17.", map:"Pork's Vodičkova 17 Prague", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@sachacollectif"},{type:"인스타",label:"@nomadtravel2019"},{type:"인스타",label:"@pangpang2_travel"}] },
     { id:"prg-havel-market", city:"프라하", category:"명소", name:"하벨 시장", note:"과일과 수공예품, 기념품을 둘러보기 좋은 시장.", map:"Havelska Market Prague", sources:[{type:"유튜브",label:"규진"}] },
     { id:"prg-astronomical-clock", city:"프라하", category:"명소", name:"천문시계", note:"600년 역사를 지닌 정교한 시계탑.", map:"Prague Astronomical Clock", sources:[{type:"유튜브",label:"규진"}] },
     { id:"prg-powder-tower", city:"프라하", category:"명소", name:"화약탑", note:"프라하 시내를 360도로 조망할 수 있는 전망 명소.", map:"Powder Tower Prague", sources:[{type:"유튜브",label:"규진"}] },
     { id:"prg-pilsnerka", city:"프라하", category:"맛집", name:"Pilsnerka Národní", note:"타르타르와 굴라쉬를 추천한 현지 식당.", map:"Pilsnerka Narodni Prague", sources:[{type:"유튜브",label:"규진"}] },
     { id:"prg-cafe-savoy", city:"프라하", category:"카페", name:"Café Savoy", note:"트러플 향이 나는 브런치로 유명한 카페.", map:"Cafe Savoy Prague", sources:[{type:"유튜브",label:"규진"}] },
-    { id:"prg-wallenstein", city:"프라하", category:"명소", name:"발트슈타인 궁전", note:"정원이 아름답고 산책하기 좋은 무료 관광지.", map:"Wallenstein Palace Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-wallenstein", city:"프라하", category:"명소", name:"발트슈타인 정원", note:"바로크 양식의 궁정 정원으로 분수·생울타리 사이 사진 스폿이 많아 말라스트라나 동선에 넣기 좋은 곳.", map:"Valdstejnska zahrada Prague", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@sachacollectif"}] },
     { id:"prg-cafe-imperial", city:"프라하", category:"카페", name:"Café Imperial", note:"화려하고 아름다운 인테리어로 유명한 카페.", map:"Cafe Imperial Prague", sources:[{type:"유튜브",label:"규진"}] },
     { id:"prg-trdelnik-celetna", city:"프라하", category:"카페", name:"Trdelník Celetná", note:"구시가의 또 다른 굴뚝빵 가게.", map:"Trdelnik Celetna Prague", sources:[{type:"유튜브",label:"규진"}] },
+
+    // 사용자 제공 인스타그램 스크린샷에서 추가한 프라하 추천
+    { id:"prg-old-town-square", city:"프라하", category:"명소", name:"구시가지 광장 & 틴 성당 앞", note:"천문시계와 조명 받은 틴 성당을 함께 보는 프라하 구시가의 중심. 돌바닥에 비치는 가로등 빛을 살려 낮은 각도로 찍으면 웅장하고 몽환적인 인물 사진을 남기기 좋음.", map:"Old Town Square Prague", mapUrl:"https://maps.app.goo.gl/eWkCY8ZfP6Bfrhu59", sources:[{type:"인스타",label:"사용자 제공 스크린샷"},{type:"인스타",label:"@minjjang_trip"},{type:"가이드",label:"프라하 야경 스팟 TOP 5"}] },
+    { id:"prg-st-vitus", city:"프라하", category:"명소", name:"성 비투스 대성당", note:"프라하성 안의 대표 고딕 성당. 첨탑과 스테인드글라스를 함께 감상하는 핵심 코스.", map:"St Vitus Cathedral Prague", sources:[{type:"인스타",label:"사용자 제공 스크린샷"}] },
+    { id:"prg-golden-lane", city:"프라하", category:"명소", name:"황금소로", note:"프라하성 안의 작고 알록달록한 집들이 이어지는 골목. 성 비투스 대성당과 묶어 보기 좋음.", map:"Golden Lane Prague", sources:[{type:"인스타",label:"사용자 제공 스크린샷"}] },
+    { id:"prg-mala-strana", city:"프라하", category:"명소", name:"말라스트라나", note:"바로크 건축과 붉은 지붕 골목이 이어지는 프라하성 아래 지구. 성에서 카를교 방향으로 천천히 내려오는 산책 코스 추천.", map:"Mala Strana Prague", sources:[{type:"인스타",label:"사용자 제공 스크린샷"}] },
+    { id:"prg-lennon-wall", city:"프라하", category:"명소", name:"레넌 벽", note:"다채로운 그래피티로 유명한 말라스트라나의 사진 명소. 캄파섬·카를교와 함께 걷기 좋음.", map:"Lennon Wall Prague", sources:[{type:"인스타",label:"사용자 제공 스크린샷"},{type:"인스타",label:"@nomadtravel2019"}] },
+    { id:"prg-kantyna", city:"프라하", category:"맛집", name:"Kantýna", note:"체코 전통 요리와 고기를 전문으로 하는 캐주얼 식당. 스테이크·타르타르·소시지로 체코 음식에 입문하기 좋음.", map:"Kantyna Prague", sources:[{type:"인스타",label:"@nomadtravel2019"}] },
+    { id:"prg-nase-maso", city:"프라하", category:"맛집", name:"Naše maso", note:"정육점 겸 식당으로 신선한 고기 요리를 간단히 즐기는 곳. 햄버거와 타르타르 추천.", map:"Nase maso Prague", sources:[{type:"인스타",label:"@nomadtravel2019"},{type:"인스타",label:"@pangpang2_travel"}] },
+    { id:"prg-u-fleku", city:"프라하", category:"맛집", name:"U Fleků", note:"흑맥주와 소시지 등 체코 전통 음식을 즐기는 오래된 양조장 겸 레스토랑. 클래식한 프라하 펍 분위기 체험용.", map:"U Fleku Prague", sources:[{type:"인스타",label:"@nomadtravel2019"}] },
+    { id:"prg-kozlovna", city:"프라하", category:"맛집", name:"Kozlovna Apropos", note:"코젤 직영 체코 전통 레스토랑. 생흑맥주와 로스트 포크·감자 요리 같은 푸짐한 가정식 추천.", map:"Kozlovna Apropos Prague", sources:[{type:"인스타",label:"@nomadtravel2019"},{type:"인스타",label:"@pangpang2_travel"}] },
+    { id:"prg-angelato", city:"프라하", category:"카페", name:"Angelato", note:"피스타치오와 솔티드 캐러멜 맛이 추천된 젤라또 가게. 식후 디저트로 들르기 좋음.", map:"Angelato Prague", sources:[{type:"인스타",label:"@nomadtravel2019"}] },
+    { id:"prg-creme-de-la-creme", city:"프라하", category:"카페", name:"Crème de la Crème", note:"바닐라·초콜릿·과일 소르베 등 선택지가 다양한 아이스크림·디저트 가게.", map:"Creme de la Creme Prague", sources:[{type:"인스타",label:"@nomadtravel2019"}] },
+    { id:"prg-good-food", city:"프라하", category:"카페", name:"Good Food Coffee & Bakery", note:"굴뚝빵 안에 젤라또를 채운 디저트 조합으로 인기 있는 구시가 베이커리.", map:"Good Food Coffee and Bakery Prague", sources:[{type:"인스타",label:"@pangpang2_travel"}] },
+    { id:"prg-naplavka-market", city:"프라하", category:"명소", name:"Náplavka Farmers' Market", note:"토요일에 열리는 블타바강변 파머스 마켓. 현지 음식과 여러 소스를 골라 바르는 바질 토스트를 간식으로 추천.", map:"Naplavka Farmers Market Prague", sources:[{type:"인스타",label:"@pangpang2_travel"}] },
+    { id:"prg-letna-park", city:"프라하", category:"명소", name:"레트나 공원", note:"프라하성·카를교·블타바강을 한 프레임에 담기 좋은 노을과 야경 명소. 하나브스키 정자 쪽에서는 블타바강의 여러 다리가 일렬로 이어지는 파노라마를 볼 수 있음.", map:"Letna Park Prague", mapUrl:"https://maps.app.goo.gl/9GaTauNEdgcp5Yb56", sources:[{type:"인스타",label:"@minjjang_trip"},{type:"가이드",label:"프라하 야경 스팟 TOP 5"}] },
+    { id:"prg-petrin-tower", city:"프라하", category:"명소", name:"페트린 전망대", note:"프라하 전경을 360도로 내려다볼 수 있어 일몰과 야경 촬영에 좋은 전망대.", map:"Petrin Lookout Tower Prague", sources:[{type:"인스타",label:"@minjjang_trip"}] },
+    { id:"prg-vysehrad", city:"프라하", category:"명소", name:"비셰흐라드", note:"한적한 성벽길을 산책하며 블타바강과 프라하 전경을 여유롭게 감상하기 좋은 곳.", map:"Vysehrad Prague", sources:[{type:"인스타",label:"@minjjang_trip"},{type:"인스타",label:"@elin9ermany"}] },
+    { id:"prg-riegrovy-sady", city:"프라하", category:"명소", name:"리에그로비 사디", note:"현지인처럼 잔디에 앉아 피크닉하며 프라하성 방향의 노을을 보기 좋은 공원.", map:"Riegrovy sady Prague", sources:[{type:"인스타",label:"@elin9ermany"}] },
+    { id:"prg-charles-viewpoint", city:"프라하", category:"명소", name:"카를교 뷰 포인트", note:"강 건너편의 프라하성과 카를교를 한 화면에 담는 비교적 한적한 야경 촬영 지점.", map:"Smetanovo nabrezi 331 Prague", sources:[{type:"인스타",label:"@elin9ermany"}] },
+    { id:"prg-golden-eye", city:"프라하", category:"맛집", name:"Golden Eye", note:"페어몬트 골든 프라하의 루프톱 바. 블타바강과 올드타운 스카이라인을 배경으로 세련된 야경을 즐기기 좋음.", map:"Golden Eye Prague rooftop bar", sources:[{type:"인스타",label:"@minjjang_trip"}] },
+    { id:"prg-novotneho-lavka", city:"프라하", category:"사진스팟", name:"노보트네호 라프카", note:"스메타나 박물관 근처의 작은 선착장. 카를교의 아치와 조명 받은 프라하성, 강물의 반영을 한 화면에 담는 정석적인 캐슬뷰 촬영 포인트.", map:"Novotneho lavka Prague", mapUrl:"https://maps.app.goo.gl/VfsvQtos2fFtFEJN9", sources:[{type:"가이드",label:"프라하 야경 스팟 TOP 5"}] },
+    { id:"prg-hanavsky-pavilion", city:"프라하", category:"사진스팟", name:"하나브스키 정자", note:"레트나 공원 안에서 블타바강과 카를교를 포함한 여러 다리를 내려다보는 파노라마 촬영 포인트. 노을부터 가로등이 켜지는 시간까지 광각 풍경 촬영에 특히 좋음.", map:"Hanavsky Pavilion Prague", mapUrl:"https://maps.app.goo.gl/ki3rT9Bq3oELt5W67", sources:[{type:"가이드",label:"프라하 야경 스팟 TOP 5"}] },
+    { id:"prg-strahov-viewpoint", city:"프라하", category:"사진스팟", name:"스트라호프 수도원 전망대", note:"구시가지의 붉은 지붕과 첨탑을 넓게 담는 프라하 웨딩스냅 대표 스팟. 사람이 적은 오전에는 커플 전신과 파노라마 배경을 함께 살리기 좋고, 밤에는 오렌지빛 지붕 야경 촬영에 적합.", map:"Lookout with Vineyard Strahov Prague", mapUrl:"https://maps.app.goo.gl/NzL78nz9mrJS31mM8", sources:[{type:"가이드",label:"프라하 야경 스팟 TOP 5"},{type:"스냅코스",label:"막심프라하",url:"https://experiences.myrealtrip.com/products/3860590"}] },
+    { id:"prg-kampa-island", city:"프라하", category:"사진스팟", name:"캄파섬 · 카를교 아래", note:"관광객이 많은 다리 위를 피해 카를교 교각의 거친 돌 질감과 황금빛 조명을 가까이 담는 숨은 촬영 포인트. 강가의 백조와 함께 실루엣 사진도 찍기 좋음.", map:"Kampa Island Prague", mapUrl:"https://maps.app.goo.gl/MjZoQZBNBBNnCQvz6", sources:[{type:"가이드",label:"프라하 야경 스팟 TOP 5"}] },
+    { id:"prg-paradise-garden", city:"프라하", category:"사진스팟", name:"프라하성 천국의 정원", note:"프라하성 남쪽 정원에서 붉은 지붕과 구시가를 내려다보며 찍는 동화 같은 웨딩스냅 포인트. 소개된 촬영 코스 기준 4~10월 이용 대상으로, 9월 촬영에 적합하나 당일 출입 가능 여부는 작가와 재확인.", map:"Paradise Garden Prague Castle", sources:[{type:"스냅코스",label:"막심프라하",url:"https://experiences.myrealtrip.com/products/3860590"}] },
+    { id:"prg-chotkovy-sady", city:"프라하", category:"사진스팟", name:"호트코비 공원", note:"프라하성 인근이지만 관광객이 비교적 적어 자연스러운 산책 장면과 초록 배경의 프라이빗한 커플 컷을 찍기 좋은 공원.", map:"Chotkovy sady Prague", sources:[{type:"스냅코스",label:"막심프라하",url:"https://experiences.myrealtrip.com/products/3860590"}] },
+    { id:"prg-novy-svet", city:"프라하", category:"사진스팟", name:"노비 스베트 골목", note:"파스텔색 집과 돌길이 이어지는 프라하성 뒤편의 조용한 골목. 랜드마크 중심 사진과 다른 아늑한 유럽 거리 웨딩스냅을 남기기 좋음.", map:"Novy Svet Prague", sources:[{type:"스냅코스",label:"프라하 숨은 골목 참고",url:"https://experiences.myrealtrip.com/products/3860590"}] },
+    { id:"prg-nerudova", city:"프라하", category:"사진스팟", name:"네루도바 거리", note:"말라스트라나에서 프라하성으로 이어지는 바로크 건물과 경사 돌길이 인상적인 거리. 골목 원근감을 살린 걷는 컷과 뒷모습 촬영에 잘 어울림.", map:"Nerudova Street Prague", sources:[{type:"스냅코스",label:"프라하 거리 촬영 참고",url:"https://experiences.myrealtrip.com/products/3860590"}] },
+    { id:"prg-malostranska-tram", city:"프라하", category:"사진스팟", name:"말로스트란스카 트램 스팟", note:"빨간 프라하 트램과 유럽풍 거리 배경을 함께 담는 역동적인 웨딩스냅 포인트. 실제 운행 차량과 보행자 안전을 고려해 작가가 정해주는 위치에서 짧게 촬영.", map:"Malostranska tram stop Prague", sources:[{type:"스냅코스",label:"알럽프라하·막심프라하",url:"https://experiences.myrealtrip.com/products/3511071"}] },
   ],
 
   // ── 도시별 여행 팁 ──────────────────────────────────────────
@@ -1029,6 +1079,13 @@ const TRIP = {
     { id:"tip-vie-transit-sunday", city:"비엔나", category:"교통", title:"대중교통·일요일 쇼핑", body:"지하철·트램·버스는 승차 전에 유효한 티켓이 필요하며 종이 승차권은 반드시 개찰기에 찍어야 합니다. 비엔나는 일요일에 일반 상점과 슈퍼 대부분이 쉬므로 BILLA 쇼핑은 월요일 일정에서 끝내는 편이 안전합니다.", sources:[{type:"일정",label:"현장 메모"}] },
     { id:"tip-vie-water-payment", city:"비엔나", category:"기타", title:"물·결제·화장실", body:"비엔나 수돗물은 식수로 마실 수 있어 물병을 다시 채워도 됩니다. 카드 결제가 널리 가능하지만 소규모 노점과 화장실용으로 소액 유로 현금을 준비하세요.", sources:[{type:"일정",label:"현장 메모"}] },
     { id:"tip-vie-parndorf", city:"비엔나", category:"쇼핑", title:"파른도르프 아울렛 이동·할인", body:"비엔나에서 전용 셔틀버스로 이동할 수 있습니다. 방문 전 예약 페이지에서 날짜와 시간을 선택하고, 제공되는 할인 교환권·쿠폰의 사용 조건을 확인하세요.", sources:[{type:"인스타",label:"@atourshop"}] },
+
+    { id:"tip-prg-castle-downhill", city:"프라하", category:"이동", title:"프라하성부터 내리막으로 걷기", body:"숙소에서 스트라호프 수도원까지는 버스나 트램으로 먼저 올라간 뒤 프라하성·말라스트라나·카를교 방향으로 천천히 내려오면 계단을 거꾸로 오르는 일을 줄일 수 있습니다. 도심 명소끼리는 가까워 이후 구간은 도보 이동이 편합니다.", sources:[{type:"인스타",label:"@sachacollectif"}] },
+    { id:"tip-prg-night-route", city:"프라하", category:"관광", title:"해 질 무렵 야경 산책 동선", body:"카를교에서 시작해 프라하성·네루도바 거리·말로스트란스케 광장·레넌 벽·캄파섬·스트르젤레츠키섬·국립극장·구시가지 광장 순으로 걷는 약 4.6km 코스입니다. 여름에는 일몰 뒤 여유롭게 시작하고 구시가지 광장에서 맥주 한 잔으로 마무리하세요.", sources:[{type:"인스타",label:"@nomadtravel2019"}] },
+    { id:"tip-prg-visitor-pass", city:"프라하", category:"교통", title:"Prague Visitor Pass 비교하기", body:"명소 입장과 시내 대중교통을 묶은 패스입니다. 소개 이미지에는 공항 왕복 대중교통과 빈티지 트램 42번도 포함된다고 안내되어 있지만, 포함 명소·노선·가격은 바뀔 수 있으므로 구매 직전 공식 사이트에서 최신 혜택을 확인하고 실제 방문할 유료 명소의 개별 입장료 합계와 비교하세요.", sources:[{type:"인스타",label:"@myrealtrip × @visitczechia_kr"}] },
+    { id:"tip-prg-night-photo", city:"프라하", category:"사진", title:"프라하 야경 인생샷 촬영 팁", body:"일몰 후 약 20~30분 동안 하늘이 푸르게 남는 블루아워를 노리면 황금빛 조명과 하늘의 대비가 가장 선명합니다. 인물은 배경에 묻히지 않도록 화이트·크림 또는 채도가 높은 단색 의상을 추천합니다. 삼각대가 없다면 팔을 몸에 붙이고 스마트폰 야간 모드가 촬영을 마칠 때까지 2~3초간 움직이지 마세요. 계절별 일몰 시각은 방문 당일 다시 확인하세요.", sources:[{type:"가이드",label:"프라하 야경 스팟 TOP 5"}] },
+    { id:"tip-prg-snap-blog", city:"프라하", category:"사진", title:"프라하 스냅 촬영 후보 참고 블로그", body:"프라하 여행 중 커플 스냅 촬영 여부를 결정할 때 다시 확인할 참고자료입니다. 예약 전 촬영 상품·소요 시간·포함 원본 및 보정본 수·촬영 동선·의상 교체 가능 여부·우천 및 취소 규정·추가 비용을 확인하세요.", sources:[{type:"블로그",label:"네이버 블로그 원문",url:"https://blog.naver.com/gkals1221/224344952091"}] },
+    { id:"tip-prg-snap-iloveprague", city:"프라하", category:"사진", title:"스냅 후보 · 알럽프라하 마르코 작가", body:"9월 20일 오전 9시 ‘알맹이 60분’ 촬영으로 결정한 후보입니다. 마이리얼트립 평점 5.0·후기 1,218개의 한국어 도보 스냅 상품으로 최소 구매 수량은 2명이며 최대 6명까지 인원 추가비가 없습니다.", points:["선택안 · 알맹이 60분 · 24만원: 원본 100~150장, 색감보정 20장, 카를교·프라하성·트램 등 7개 이상 스팟","촬영일정: 9월 20일 07:00 준비 시작 → 08:20 이동 → 09:00~10:00 촬영 → 10:30 프라하성 관람","심플 추억 90분 · 30만원: 원본 150~200장, 색감보정 30장+정밀보정 5장, 10개 이상 스팟","빨간 지붕 120분 · 36만원: 원본 250~300장, 색감보정 40장+정밀보정 5장, 빨간 지붕·프라하성·트램·카를교 등 15개 이상 스팟","석양/야경 120분 · 36만원: 원본 150~200장, 색감보정 30장+정밀보정 5장, 카를교·프라하성·캄파섬 등 10개 이상 스팟","원본은 촬영일 기준 24시간 이내, 보정본은 최대 60일 소요 가능. 원본·보정본 모두 클라우드 전달","무료 소품은 조화 부케·화이트/블랙 베일·부토니에·보타이이며 촬영 전날 요청 필요","큰 가방은 피하고 정장 구두 촬영 시 이동용 운동화를 별도로 준비. 코스와 미팅 장소는 예약 확정 후 안내","페이지 확인 당시 가격·구성으로 예약 전 상품 페이지에서 최신 금액, 작가 배정, 취소·우천 규정을 다시 확인"], sources:[{type:"예약",label:"마이리얼트립 상품 3511071",url:"https://experiences.myrealtrip.com/products/3511071"}] },
   ],
 
   // ── 예산 (2인 합산 예상치 — 실제 예약가로 수정하세요) ──────────
@@ -1170,9 +1227,10 @@ const TRIP = {
       { area:"트라운제 · 고사우", map:"Gmunden Traunsee", items:[
         { time:"11:30", place:"린츠 출발", type:"이동", note:"Linz → Gmunden/Traunsee. 구글맵 + 차량 내비 병행.", map:"Linz Austria" },
         { time:"13:00", place:"트라운제 / 그문덴 점심 산책", type:"관광", note:"호수 산책 후 점심. 긴 산책보다 사진+식사 중심.", map:"Gmunden Traunsee" },
-        { time:"15:30", place:"장크트볼프강 숙소로 이동", type:"이동", note:"그문덴에서 차량 약 50~60분 예상.", map:"Seehaus Familie Leifer" },
-        { time:"16:30~17:00", place:"Seehaus Familie Leifer 체크인", type:"이동", note:"9/16~9/18 · 2박 · Booking.com 예약 · 524,000원 결제 · 9/18 체크아웃 10:30.", map:"Seehaus Familie Leifer" },
-        { time:"17:30", place:"볼프강호수 산책", type:"관광", note:"숙소가 호수 바로 앞이라 체크인 후 이동 없이 가볍게 산책. 장거리 이동일이므로 고사우제는 다음날로 조정.", map:"Wolfgangsee Sankt Wolfgang" },
+        { time:"15:30", place:"Strobl로 이동", type:"이동", note:"그문덴에서 차량 약 45~55분. 장크트볼프강으로 들어가기 전에 Strobl에서 먼저 장보기.", map:"SPAR Supermarkt Strobl Wolfgangseestrasse 2" },
+        { time:"16:20~16:50", place:"SPAR Supermarkt Strobl 장보기", type:"쇼핑", recId:"szk-spar-strobl", note:"수요일 영업시간 07:00~19:00. 생수·아침용 빵·햄/치즈·요거트·과일·간식·맥주 위주로 2박분 구매. B158 주유소 옆, 주차 30면, 카드 결제 가능. 출발 전 영업시간 변동 여부 재확인.", map:"SPAR Supermarkt Strobl Wolfgangseestrasse 2" },
+        { time:"17:10~17:30", place:"Seehaus Familie Leifer 체크인", type:"이동", note:"Strobl에서 장크트볼프강 숙소까지 차량 약 15~20분 예상. 9/16~9/18 · 2박 · Booking.com 예약 · 524,000원 결제 · 9/18 체크아웃 10:30.", map:"Seehaus Familie Leifer" },
+        { time:"17:45", place:"볼프강호수 산책", type:"관광", note:"숙소가 호수 바로 앞이라 체크인 후 이동 없이 가볍게 산책. 장거리 이동일이므로 고사우제는 다음날로 조정.", map:"Wolfgangsee Sankt Wolfgang" },
         { time:"19:00", place:"저녁 · 장크트볼프강 숙소 근처", type:"식사", note:"알프스 구간은 식당 마감이 빠를 수 있어 운영시간 확인.", map:"Sankt Wolfgang im Salzkammergut restaurants" },
       ]},
     ]},
@@ -1183,11 +1241,12 @@ const TRIP = {
         { time:"08:25", place:"할슈타트 클래식 뷰포인트 · 마을 산책", type:"관광", note:"오전 8시대가 사진에 유리함. 관광객이 몰리기 전 호숫가 골목까지 산책.", map:"Hallstatt Classic Viewpoint" },
         { time:"10:30", place:"카페 · Seecafé Frundsberg", type:"식사", note:"호숫가 휴식. 영업 여부 현장 확인.", map:"Seecafe Frundsberg Hallstatt" },
       ]},
-      { area:"소금광산 여부 · 호수 드라이브", map:"Hallstätter See", items:[
-        { time:"11:30", place:"소금광산/스카이워크 선택", type:"관광", note:"공식 안내상 2026년 여름 재개장 일정. 9월 방문 전 salzwelten.at에서 실제 운영 여부 재확인. 닫혀 있으면 마을 산책·오버트라운·고사우제로 전환.", map:"Salzwelten Hallstatt" },
-        { time:"13:00", place:"점심 · Restaurant Rudolfsturm 또는 마을 식당", type:"식사", note:"소금광산이 운영 중이면 Rudolfsturm, 아니면 마을 식당으로.", map:"Restaurant Rudolfsturm Hallstatt" },
-        { time:"15:00", place:"오버트라운", type:"관광", note:"할슈타트보다 한적한 호수 풍경. 짧게 산책.", map:"Obertraun Austria" },
-        { time:"16:00", place:"고사우제 드라이브 · 호수 산책", type:"휴식", note:"오버트라운에서 차량 약 30분. 첫날 제외한 고사우제를 이 시간에 방문하고 날씨가 나쁘면 숙소 휴식으로 전환.", map:"Gosausee Austria" },
+      { area:"소금광산 우선 · 미방문 시 호수 대안", map:"Hallstätter See", items:[
+        { time:"10:45", place:"소금광산 우선 관람 · 스카이워크 잠깐", type:"관광", note:"기본안: 소금광산 체험을 우선하고 같은 상부 구역의 스카이워크는 별도 코스 없이 짧게 관람. 이동·대기·투어를 합쳐 약 3시간 확보. 9월 방문 전 salzwelten.at에서 운영 및 예약 시간을 재확인.", map:"Salzwelten Hallstatt" },
+        { time:"14:00", place:"늦은 점심 · Rudolfsturm 또는 간단식", type:"식사", note:"광산 관람일은 상부 Rudolfsturm이나 미리 준비한 간단식으로 시간을 절약.", map:"Restaurant Rudolfsturm Hallstatt" },
+        { time:"15:00", place:"고사우제로 바로 이동", type:"이동", note:"광산을 보면 오버트라운은 생략하고 고사우제 산책 시간을 확보.", map:"Gosausee Austria" },
+        { time:"대안", place:"소금광산을 빼는 날 · 오버트라운 + 고사우제", type:"대안", note:"운영 중단·예약 실패·피로·날씨로 광산을 빼면 할슈타트 호숫가에서 여유롭게 점심 → 오버트라운 짧은 산책 → 15시 전후 고사우제로 이동. 스카이워크만 보기 위해 올라가지는 않고 자연 풍경에 집중.", map:"Obertraun Austria" },
+        { time:"16:00", place:"고사우제 호수 산책", type:"휴식", note:"광산 관람일은 핵심 구간 위주로 60~90분 산책. 광산 미방문일은 더 일찍 도착해 호숫가 체류 시간을 늘림. 날씨가 나쁘면 숙소 휴식으로 전환.", map:"Gosausee Austria" },
         { time:"18:00", place:"장크트볼프강 숙소 복귀", type:"이동", note:"고사우제에서 숙소까지 차량 약 50~60분. 야간 산길 운전은 피하기.", map:"Seehaus Familie Leifer" },
         { time:"19:00", place:"저녁 · 장크트볼프강", type:"식사", note:"다음날 이동을 위해 가볍게.", map:"Sankt Wolfgang im Salzkammergut restaurants" },
       ]},
@@ -1223,10 +1282,13 @@ const TRIP = {
     ]},
     { date:"2026-09-20", city:"프라하", title:"프라하성 · 말라스트라나 · 페트르진", items:[
       { area:"이른 카를교 · 프라하성", map:"Prague Castle", items:[
-        { time:"08:30", place:"카를교 이른 산책", type:"관광", note:"사람 적을 때 사진. 힘들면 생략하고 10시부터 시작.", map:"Charles Bridge Prague" },
-        { time:"10:00", place:"프라하성", type:"관광", note:"성 비투스 대성당·황금소로. 입장권 범위 확인.", map:"Prague Castle" },
-        { time:"11:30", place:"성 비투스 대성당 / 황금소로", type:"관광", note:"로즈 윈도우와 성 내부가 핵심.", map:"St Vitus Cathedral Prague" },
-        { time:"13:30", place:"점심 · U Glaubiců / Kuchyň", type:"식사", note:"U Glaubiců는 말라스트라나 쪽, Kuchyň은 성 근처 뷰 맛집.", map:"U Glaubicu Prague" },
+        { time:"07:00~08:20", place:"웨딩스냅 준비", type:"준비", note:"샤워·헤어·메이크업·환복. 커플 의상, 촬영용 구두, 운동화, 수정 파우치와 작가에게 요청한 무료 소품 확인." },
+        { time:"08:20~09:00", place:"스냅 미팅 장소로 이동", type:"이동", note:"미팅 장소는 예약 확정 후 작가 안내에 따름. 큰 가방은 숙소에 두고 10분 일찍 도착." },
+        { time:"09:00~10:00", place:"알럽프라하 웨딩스냅 · 60분", type:"관광", note:"알맹이 60분 후보 · 카를교·프라하성 배경·트램 등 7개 이상 스팟. 원본 100~150장, 색감보정 20장. 예약 전 최종 구성과 작가 배정 확인.", map:"Charles Bridge Prague" },
+        { time:"10:00~10:30", place:"촬영 정리 · 프라하성 이동", type:"이동", note:"촬영용 구두에서 운동화로 갈아 신고 메이크업을 정리한 뒤 프라하성으로 이동.", map:"Prague Castle" },
+        { time:"10:30", place:"프라하성", type:"관광", note:"성 비투스 대성당·황금소로. 입장권 범위 확인.", map:"Prague Castle" },
+        { time:"12:00", place:"성 비투스 대성당 / 황금소로", type:"관광", note:"로즈 윈도우와 성 내부가 핵심.", map:"St Vitus Cathedral Prague" },
+        { time:"14:00", place:"점심 · U Glaubiců / Kuchyň", type:"식사", note:"U Glaubiců는 말라스트라나 쪽, Kuchyň은 성 근처 뷰 맛집. 촬영일이라 간단한 간식을 미리 챙기기.", map:"U Glaubicu Prague" },
       ]},
       { area:"전망 · 공원", map:"Petrin Hill Prague", items:[
         { time:"15:00", place:"프라하성 스타벅스 전망", type:"휴식", note:"맛보다 전망 목적. 사람이 많으면 바로 이동.", map:"Starbucks Prague Castle" },
@@ -1279,6 +1341,7 @@ const TRIP = {
       { t:"린츠 → 프라하 기차 예약 (9/18)", s:"렌트 반납 후 탈 수 있는 17시 전후 시간대" },
       { t:"레오폴트 / 벨베데레 / Café Sacher / 빈 공연 예약", s:"개관 시간·시간권·카페 대기·공연 좌석 확인" },
       { t:"Hallstatt 소금광산·스카이워크 재개장 확인", s:"2026년 여름 재개장 일정이므로 1~2개월 전 salzwelten.at에서 실제 운영 여부 재확인" },
+      { t:"프라하 웨딩스냅 예약 (9/20 09:00)", s:"알럽프라하 알맹이 60분 후보 · 2인 24만원 · 마르코/호야 작가 배정, 미팅 장소, 무료 소품, 우천·취소 규정 확인" },
       { t:"Google My Maps 핀 + 오프라인 지도 준비", s:"부다페스트·비엔나·잘츠캄머구트·프라하 영역 · Organic Maps" },
     ],
     documents:[
@@ -1301,6 +1364,13 @@ const TRIP = {
       { t:"멀미약 · 간식 · 물", s:"렌트 이동·산길 대비" },
       { t:"선글라스", s:"렌트 운전·호수 반사광 대비" },
       { t:"주차 위치 캡처 · 오프라인 지도 · 날씨 캡처", s:"고사우제·할슈타트 렌트 구간 필수" },
+      { t:"웨딩스냅 커플 의상", s:"화이트·크림 또는 채도 높은 단색 위주 · 서로 색감 맞추기 · 야경 배경에 묻히는 올블랙은 피하기" },
+      { t:"촬영용 구두·깔끔한 양말", s:"촬영 구간에서만 착용하고 돌길 이동용 운동화를 별도로 준비" },
+      { t:"의상 보관용 가먼트백·구김 방지 커버", s:"이동 중 옷 오염과 구김 방지 · 큰 캐리어는 촬영 현장에 가져가지 않기" },
+      { t:"헤어·메이크업 수정 파우치", s:"빗·잔머리 픽서·립·쿠션·기름종이·면봉·작은 거울" },
+      { t:"촬영 응급 키트", s:"옷핀·안전핀·양면 패션테이프·미니 얼룩제거 티슈·밴드" },
+      { t:"작은 크로스백 또는 접이식 에코백", s:"여권·휴대폰·보조배터리·수정 화장품만 휴대하고 촬영 중 쉽게 숨길 수 있는 크기" },
+      { t:"스냅 무료 소품 사전 요청", s:"조화 부케·화이트/블랙 베일·부토니에·보타이 중 필요한 품목을 촬영 전날 작가에게 요청" },
     ],
   },
 
@@ -1963,7 +2033,7 @@ const TRIP = {
       ...selected.map(({r},i)=>[
         `${i+1}. ${r.name}${r.category ? ` (${r.category})` : ""}`,
         r.note ? `   메모: ${r.note}` : "",
-        r.map ? `   지도: ${mapURL(r.map)}` : "",
+        r.map ? `   지도: ${r.mapUrl||mapURL(r.map)}` : "",
       ].filter(Boolean).join("\n")),
     ].join("\n");
   };
@@ -1997,7 +2067,7 @@ const TRIP = {
         ? `<a class="rec-source" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.type||"출처")} · ${esc(s.label||"원문")} ↗</a>`
         : `<span class="rec-source no-link">${esc(s.type||"출처")} · ${esc(s.label||"출처 미상")}</span>`
       ).join("");
-      const map = r.map ? `<a class="rec-source" href="${mapURL(r.map)}" target="_blank" rel="noopener">◎ 지도</a>` : "";
+      const map = r.map ? `<a class="rec-source" href="${esc(r.mapUrl||mapURL(r.map))}" target="_blank" rel="noopener">◎ 지도</a>` : "";
       return `<article class="rec-card ${picked?'selected':''}" data-rec-card="${esc(id)}">
         <div class="rec-top">
           <button class="rec-pick" data-rec-check="${esc(id)}" aria-label="${esc(r.name)} 선택" aria-pressed="${picked}">✓</button>
