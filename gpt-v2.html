@@ -461,6 +461,9 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .rec-name{font-size:15.5px;font-weight:700;color:var(--ink)}
 .rec-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
 .rec-chip{font-family:"Courier New",monospace;font-size:10.5px;color:var(--teal);border:1px solid var(--line);border-radius:999px;padding:2px 7px}
+.rec-chip.booking-required{color:#a13d32;border-color:#d9a098;background:rgba(161,61,50,.07)}
+.rec-chip.booking-recommended{color:#9a6715;border-color:#d8b774;background:rgba(190,135,32,.08)}
+.rec-booking-note{font-size:11.5px;line-height:1.45;color:var(--ink-soft);margin-top:7px}
 .rec-note{font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin-top:8px}
 .rec-sources{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px dotted var(--line)}
 .rec-source{font-size:12px;color:var(--teal);text-decoration:none;border-bottom:1px dotted currentColor}
@@ -967,6 +970,7 @@ const TRIP = {
     { id:"vie-neni", city:"비엔나", category:"맛집", name:"NENI am Naschmarkt", note:"나슈마르크트 테라스에서 즐기는 지중해·중동 요리.", map:"NENI am Naschmarkt Vienna", sources:[{type:"인스타",label:"@eyesmag"},{type:"인스타",label:"@heytravelmag"}] },
     { id:"vie-vinifero", city:"비엔나", category:"맛집", name:"Vinifero", note:"오스트리아 내추럴 와인을 즐길 수 있는 와인 바.", map:"Vinifero Vienna", sources:[{type:"인스타",label:"@eyesmag"}] },
     { id:"vie-brosl", city:"비엔나", category:"맛집", name:"brösl", note:"제철 식재료에 따라 메뉴가 바뀌는 팜투테이블 자연주의 레스토랑.", map:"brosl Vienna restaurant", sources:[{type:"인스타",label:"@eyesmag"}] },
+    { id:"vie-gasthaus-poschl", city:"비엔나", category:"맛집", name:"Gasthaus Pöschl", note:"비엔나 마지막 저녁 후보. 좌석이 많지 않은 전통 오스트리아 식당.", map:"Gasthaus Poschl Vienna", sources:[{type:"일정",label:"9월 15일 저녁"}] },
     { id:"vie-bert-coffee", city:"비엔나", category:"카페", name:"BERT Coffee & Matcha", note:"현대적인 분위기의 커피·말차 전문점.", map:"BERT Coffee and Matcha Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
     { id:"vie-hafi-books", city:"비엔나", category:"카페", name:"Hafi Books + Coffee", note:"책과 커피를 함께 즐기는 북카페.", map:"Hafi Books Coffee Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
     { id:"vie-die-cafetiere", city:"비엔나", category:"카페", name:"Die Cafetière", note:"샌드위치와 스페셜티 커피를 즐기기 좋은 현대적인 카페.", map:"Die Cafetiere Vienna", sources:[{type:"인스타",label:"@viennese.snap"}] },
@@ -1010,6 +1014,7 @@ const TRIP = {
     { id:"szk-wolfgangsee-photo", city:"잘츠캄머구트", category:"사진스팟", name:"장크트볼프강 호숫가", note:"볼프강호의 푸른 물과 산, 목조 보트 선착장을 배경으로 자연스러운 휴양지 커플 사진을 남기기 좋은 곳. 숙소 앞 산책 시간에 가볍게 촬영 가능.", map:"Sankt Wolfgang lakeside promenade", sources:[{type:"공식 관광정보",label:"Wolfgangsee",url:"https://wolfgangsee.salzkammergut.at/"}] },
     { id:"szk-st-gilgen-photo", city:"잘츠캄머구트", category:"사진스팟", name:"장크트길겐 호숫가 · 모차르트 광장", note:"알록달록한 마을 건물과 꽃장식, 볼프강호 선착장 풍경을 번갈아 담을 수 있는 촬영지. 마지막 날 장크트길겐 산책 동선에 넣기 좋음.", map:"Mozartplatz St Gilgen Austria", sources:[{type:"공식 관광정보",label:"Wolfgangsee",url:"https://wolfgangsee.salzkammergut.at/"}] },
     { id:"szk-ort-castle-photo", city:"잘츠캄머구트", category:"사진스팟", name:"그문덴 오르트성 나무다리", note:"트라운제 위의 오르트성과 긴 나무다리가 만드는 원근감 있는 커플 촬영 포인트. 린츠에서 장크트볼프강으로 이동하는 날 그문덴 점심 산책과 함께 들르기 좋음.", map:"Seeschloss Ort Gmunden", sources:[{type:"공식 관광정보",label:"Salzkammergut",url:"https://www.salzkammergut.at/"}] },
+    { id:"szk-hallstatt-salt-mine", city:"잘츠캄머구트", category:"명소", name:"할슈타트 소금광산 · 스카이워크", note:"9월 17일 우선 일정. 광산 체험 후 같은 상부 구역의 스카이워크를 짧게 관람.", map:"Salzwelten Hallstatt", sources:[{type:"공식",label:"Salzwelten Hallstatt",url:"https://www.salzwelten.at/en/hallstatt"}] },
 
     // 프라하 · 유튜버 규진
     { id:"prg-charles-bridge", city:"프라하", category:"명소", name:"카를교", note:"노을과 가로등이 어우러진 중세 감성의 야경과 프라하성 전망을 함께 즐기기 좋은 프라하의 상징.", map:"Charles Bridge Prague", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@sachacollectif"},{type:"인스타",label:"@minjjang_trip"}] },
@@ -1027,6 +1032,10 @@ const TRIP = {
     { id:"prg-cafe-savoy", city:"프라하", category:"카페", name:"Café Savoy", note:"트러플 향이 나는 브런치로 유명한 카페.", map:"Cafe Savoy Prague", sources:[{type:"유튜브",label:"규진"}] },
     { id:"prg-wallenstein", city:"프라하", category:"명소", name:"발트슈타인 정원", note:"바로크 양식의 궁정 정원으로 분수·생울타리 사이 사진 스폿이 많아 말라스트라나 동선에 넣기 좋은 곳.", map:"Valdstejnska zahrada Prague", sources:[{type:"유튜브",label:"규진"},{type:"인스타",label:"@sachacollectif"}] },
     { id:"prg-cafe-imperial", city:"프라하", category:"카페", name:"Café Imperial", note:"화려하고 아름다운 인테리어로 유명한 카페.", map:"Cafe Imperial Prague", sources:[{type:"유튜브",label:"규진"}] },
+    { id:"prg-cafe-louvre", city:"프라하", category:"카페", name:"Café Louvre", note:"프라하 도착 다음날 브런치 일정. 클래식한 카페 분위기와 아침 식사로 유명.", map:"Cafe Louvre Prague", sources:[{type:"일정",label:"9월 19일 브런치"}] },
+    { id:"prg-lokal-dlouha", city:"프라하", category:"맛집", name:"Lokál Dlouhááá", note:"필스너 우르켈과 굴라쉬·스비치코바를 즐기는 인기 체코 펍.", map:"Lokal Dlouha Prague", sources:[{type:"일정",label:"9월 19일 저녁"}] },
+    { id:"prg-u-kroka", city:"프라하", category:"맛집", name:"U Kroka", note:"비셰흐라드 인근의 편안한 체코 가정식 식당.", map:"U Kroka Prague", sources:[{type:"일정",label:"9월 20일 저녁 후보"}] },
+    { id:"prg-cestr", city:"프라하", category:"맛집", name:"Čestr", note:"체코산 소고기를 중심으로 즐기는 프라하 마지막 저녁 후보.", map:"Cestr Prague", sources:[{type:"일정",label:"9월 21일 저녁 후보"}] },
     { id:"prg-trdelnik-celetna", city:"프라하", category:"카페", name:"Trdelník Celetná", note:"구시가의 또 다른 굴뚝빵 가게.", map:"Trdelnik Celetna Prague", sources:[{type:"유튜브",label:"규진"}] },
 
     // 사용자 제공 인스타그램 스크린샷에서 추가한 프라하 추천
@@ -1059,6 +1068,49 @@ const TRIP = {
     { id:"prg-nerudova", city:"프라하", category:"사진스팟", name:"네루도바 거리", note:"말라스트라나에서 프라하성으로 이어지는 바로크 건물과 경사 돌길이 인상적인 거리. 골목 원근감을 살린 걷는 컷과 뒷모습 촬영에 잘 어울림.", map:"Nerudova Street Prague", sources:[{type:"스냅코스",label:"프라하 거리 촬영 참고",url:"https://experiences.myrealtrip.com/products/3860590"}] },
     { id:"prg-malostranska-tram", city:"프라하", category:"사진스팟", name:"말로스트란스카 트램 스팟", note:"빨간 프라하 트램과 유럽풍 거리 배경을 함께 담는 역동적인 웨딩스냅 포인트. 실제 운행 차량과 보행자 안전을 고려해 작가가 정해주는 위치에서 짧게 촬영.", map:"Malostranska tram stop Prague", sources:[{type:"스냅코스",label:"알럽프라하·막심프라하",url:"https://experiences.myrealtrip.com/products/3511071"}] },
   ],
+
+  // 추천 카드 예약 표시. required=예약/시간권 필수, recommended=혼잡 대비 사전 예약 권장.
+  bookingGuide:{
+    "bud-jamie-oliver":{level:"recommended",label:"예약 권장",note:"토요일 점심은 미리 테이블 예약 권장.",url:"https://www.jamiesitalian.hu/hu/ji-buda-castle/book/"},
+    "bud-new-york-cafe":{level:"recommended",label:"일부 예약 가능",note:"일반 카페 홀은 현장 대기가 기본. 공식 예약은 제한된 점심 갤러리·저녁 White Salon 중심.",url:"https://newyorkcafe.hu/asztalfoglalas/"},
+    "bud-parliament":{level:"required",label:"내부 관람 예약 필수",note:"외관은 자유 관람. 내부 투어는 공식 시간권을 사전 구매.",url:"https://www.jegymester.hu/parlament"},
+    "bud-comme-chez-soi":{level:"required",label:"예약 필수",note:"좌석이 적고 인기가 높아 방문일 확정 후 예약 권장.",url:"https://commechezsoi.hu/"},
+    "bud-pest-buda-bistro":{level:"recommended",label:"예약 권장",note:"부다성 관광 시간대의 점심·저녁 좌석 확보 권장.",url:"https://www.pest-buda.com/table-reservation.html"},
+    "bud-360-bar":{level:"recommended",label:"예약 권장",note:"노을·야경 시간대는 테이블 예약 권장.",url:"https://www.360bar.hu/"},
+
+    "vie-cafe-sacher":{level:"recommended",label:"예약 권장",note:"희망 시간 예약 가능 여부를 먼저 확인하고, 불가하면 현장 대기.",url:"https://www.sacher.com/en/restaurants/cafe-sacher-wien/"},
+    "vie-state-opera":{level:"required",label:"공연 예약 필수",note:"공연은 좌석 예매 필수. 가이드 투어도 날짜·시간을 미리 예약하는 편이 안전.",url:"https://www.wiener-staatsoper.at/en/calendar/"},
+    "vie-national-library":{level:"recommended",label:"온라인 티켓 권장",note:"프룬크잘 방문일과 운영시간 확인 후 온라인 티켓 권장.",url:"https://www.onb.ac.at/en/museums/state-hall"},
+    "vie-palmenhaus":{level:"recommended",label:"예약 권장",note:"주말 및 저녁, 온실 쪽 좌석을 원하면 예약 권장.",url:"https://www.palmenhaus.at/"},
+    "vie-khm":{level:"recommended",label:"온라인 티켓 권장",note:"필수 시간권은 아니지만 입장 대기를 줄이려면 사전 구매.",url:"https://www.khm.at/en/visit/tickets/"},
+    "vie-musikverein":{level:"required",label:"공연 예약 필수",note:"공연별 좌석을 사전 예매.",url:"https://www.musikverein.at/en/program/"},
+    "vie-albertina":{level:"recommended",label:"온라인 티켓 권장",note:"인기 전시 기간에는 온라인 티켓 권장.",url:"https://www.albertina.at/en/visit/tickets/"},
+    "vie-griechenbeisl":{level:"recommended",label:"예약 권장",note:"저녁 시간과 역사적인 내부 좌석은 사전 예약 권장.",url:"https://www.griechenbeisl.at/"},
+    "vie-belvedere":{level:"required",label:"시간권 필수",note:"상궁·하궁은 유효한 입장 시간권이 필요하며 온라인 선구매 권장.",url:"https://www.belvedere.at/en/tickets"},
+    "vie-schonbrunn":{level:"required",label:"시간권 필수",note:"궁전 내부 투어는 지정 시간권을 미리 구매.",url:"https://www.imperialtickets.com/"},
+    "vie-figlmueller":{level:"recommended",label:"예약 강력 권장",note:"현장 입장도 가능하지만 수요가 높아 공식적으로 조기 예약을 권장.",url:"https://www.figlmueller.at/en/reservation/"},
+    "vie-neni":{level:"recommended",label:"예약 권장",note:"나슈마르크트 점심·저녁 피크 시간은 예약 권장.",url:"https://neni.at/restaurants/wien"},
+    "vie-brosl":{level:"recommended",label:"예약 권장",note:"소규모 제철 레스토랑이라 저녁은 사전 예약 권장.",url:"https://www.broesl.at/"},
+    "vie-gasthaus-poschl":{level:"required",label:"예약 필수",note:"좌석이 적고 저녁 수요가 높아 일정 확정 후 예약.",url:"https://www.gasthaus-poschl.at/"},
+    "vie-leopold-museum":{level:"recommended",label:"온라인 티켓 권장",note:"대기 단축을 위해 온라인 티켓 권장.",url:"https://www.leopoldmuseum.org/en/visit/tickets"},
+    "szk-hallstatt-salt-mine":{level:"required",label:"시간권 예약 필수",note:"2026년 재개장 운영을 확인한 뒤 광산 입장 시간권을 사전 구매.",url:"https://www.salzwelten.at/en/hallstatt/prices-opening-hours"},
+
+    "prg-castle":{level:"recommended",label:"온라인 티켓 권장",note:"성 지구는 자유 입장, 성 비투스·황금소로 등 유료 회로는 혼잡 대비 사전 구매 권장.",url:"https://www.hrad.cz/en/prague-castle-for-visitors/tickets"},
+    "prg-kuchyn":{level:"recommended",label:"예약 권장",note:"전망 좋은 테라스와 저녁 시간은 예약 권장.",url:"https://www.kuchyn.ambi.cz/en/"},
+    "prg-strahov-brewery":{level:"recommended",label:"예약 권장",note:"점심·저녁 피크 시간은 예약 권장.",url:"https://www.klasterni-pivovar.cz/en/"},
+    "prg-strahov-library":{level:"recommended",label:"온라인 티켓 권장",note:"내부 관람은 운영시간과 티켓 정책을 확인하고 사전 구매 권장.",url:"https://www.strahovskyklaster.cz/en/visitors/library"},
+    "prg-porks":{level:"recommended",label:"예약 권장",note:"꼴레뇨 저녁 시간은 예약 권장. 2호점 Vodičkova 지점 확인.",url:"https://www.porks.cz/"},
+    "prg-cafe-savoy":{level:"recommended",label:"예약 권장",note:"브런치 시간대는 대기가 길어 테이블 예약 권장.",url:"https://cafesavoy.ambi.cz/en/"},
+    "prg-cafe-imperial":{level:"recommended",label:"예약 권장",note:"아침·브런치와 주말은 사전 예약 권장.",url:"https://www.cafeimperial.cz/en/"},
+    "prg-cafe-louvre":{level:"recommended",label:"예약 권장",note:"주말 브런치 시간은 사전 예약 권장.",url:"https://www.cafelouvre.cz/en"},
+    "prg-lokal-dlouha":{level:"recommended",label:"예약 권장",note:"토요일 저녁은 대기가 길 수 있어 예약 권장.",url:"https://lokal-dlouha.ambi.cz/en/"},
+    "prg-u-kroka":{level:"required",label:"예약 필수",note:"저녁 방문은 사전 테이블 예약을 우선.",url:"https://www.ukroka.cz/en/"},
+    "prg-cestr":{level:"required",label:"예약 필수",note:"마지막 저녁 후보라 원하는 시간 좌석을 미리 확보.",url:"https://www.cestr.ambi.cz/en/"},
+    "prg-kantyna":{level:"recommended",label:"저녁 예약 권장",note:"낮에는 캐주얼 현장 이용, 정식 저녁 좌석은 예약 권장.",url:"https://www.kantyna.ambi.cz/en/"},
+    "prg-u-fleku":{level:"recommended",label:"예약 권장",note:"저녁과 공연·단체 방문 시간은 예약 권장.",url:"https://en.ufleku.cz/reservation/"},
+    "prg-golden-eye":{level:"required",label:"예약 필수",note:"루프톱 바 좌석은 방문 시간 예약 후 이용 권장.",url:"https://www.goldeneyeprague.com/"},
+    "prg-petrin-tower":{level:"recommended",label:"온라인 티켓 권장",note:"일몰 시간대 대기 단축을 위해 온라인 티켓 권장.",url:"https://www.prague.eu/en/objevujte/petrin-lookout-tower-petrinska-rozhledna/"}
+  },
 
   // ── 도시별 여행 팁 ──────────────────────────────────────────
   tips:[
@@ -1214,7 +1266,7 @@ const TRIP = {
         { time:"14:20–15:30", place:"마리아힐퍼 거리 쇼핑", type:"쇼핑", note:"의류·기념품 쇼핑. 박물관 시간을 지키기 위해 15:30에는 이동 시작.", map:"Mariahilfer Straße Vienna" },
         { time:"16:00–17:30", place:"비엔나 박물관", type:"관광", recId:"vie-wien-museum", note:"상설전은 무료. 화요일 18:00 폐관이므로 에곤 실레·클림트와 비엔나 도시사 핵심 구역부터 관람.", map:"Wien Museum Karlsplatz" },
         { time:"18:00–19:00", place:"호텔 휴식", type:"휴식", note:"마지막 저녁과 다음 날 렌트 이동을 위해 샤워·충전·쇼핑 짐 정리." },
-        { time:"19:30", place:"저녁 · Gasthaus Pöschl", type:"식사", note:"비엔나 마지막 저녁. 좌석이 많지 않아 예약 권장.", map:"Gasthaus Poschl Vienna" },
+        { time:"19:30", place:"저녁 · Gasthaus Pöschl", type:"식사", recId:"vie-gasthaus-poschl", note:"비엔나 마지막 저녁. 좌석이 많지 않아 예약 권장.", map:"Gasthaus Poschl Vienna" },
         { time:"21:00", place:"렌트 구간 짐 정리", type:"준비", note:"우비·운동화·국제운전면허증·국내면허증·여권·운전자 명의 신용카드 확인." },
       ]},
     ]},
@@ -1242,7 +1294,7 @@ const TRIP = {
         { time:"10:30", place:"카페 · Seecafé Frundsberg", type:"식사", note:"호숫가 휴식. 영업 여부 현장 확인.", map:"Seecafe Frundsberg Hallstatt" },
       ]},
       { area:"소금광산 우선 · 미방문 시 호수 대안", map:"Hallstätter See", items:[
-        { time:"10:45", place:"소금광산 우선 관람 · 스카이워크 잠깐", type:"관광", note:"기본안: 소금광산 체험을 우선하고 같은 상부 구역의 스카이워크는 별도 코스 없이 짧게 관람. 이동·대기·투어를 합쳐 약 3시간 확보. 9월 방문 전 salzwelten.at에서 운영 및 예약 시간을 재확인.", map:"Salzwelten Hallstatt" },
+        { time:"10:45", place:"소금광산 우선 관람 · 스카이워크 잠깐", type:"관광", recId:"szk-hallstatt-salt-mine", note:"기본안: 소금광산 체험을 우선하고 같은 상부 구역의 스카이워크는 별도 코스 없이 짧게 관람. 이동·대기·투어를 합쳐 약 3시간 확보. 9월 방문 전 salzwelten.at에서 운영 및 예약 시간을 재확인.", map:"Salzwelten Hallstatt" },
         { time:"14:00", place:"늦은 점심 · Rudolfsturm 또는 간단식", type:"식사", note:"광산 관람일은 상부 Rudolfsturm이나 미리 준비한 간단식으로 시간을 절약.", map:"Restaurant Rudolfsturm Hallstatt" },
         { time:"15:00", place:"고사우제로 바로 이동", type:"이동", note:"광산을 보면 오버트라운은 생략하고 고사우제 산책 시간을 확보.", map:"Gosausee Austria" },
         { time:"대안", place:"소금광산을 빼는 날 · 오버트라운 + 고사우제", type:"대안", note:"운영 중단·예약 실패·피로·날씨로 광산을 빼면 할슈타트 호숫가에서 여유롭게 점심 → 오버트라운 짧은 산책 → 15시 전후 고사우제로 이동. 스카이워크만 보기 위해 올라가지는 않고 자연 풍경에 집중.", map:"Obertraun Austria" },
@@ -1268,7 +1320,7 @@ const TRIP = {
     ]},
     { date:"2026-09-19", city:"프라하", title:"구시가 광장 · 천문시계 · 카를교", items:[
       { area:"구시가", map:"Old Town Square Prague", items:[
-        { time:"09:30", place:"브런치 · Café Louvre", type:"식사", note:"늦은 시작. 도착 다음날이라 무리하지 않기.", map:"Cafe Louvre Prague" },
+        { time:"09:30", place:"브런치 · Café Louvre", type:"식사", recId:"prg-cafe-louvre", note:"늦은 시작. 도착 다음날이라 무리하지 않기.", map:"Cafe Louvre Prague" },
         { time:"11:00", place:"구시가 광장", type:"관광", note:"천문시계탑이 있는 프라하의 심장.", map:"Old Town Square Prague" },
         { time:"11:30", place:"천문시계", type:"관광", note:"정시 쇼. 전망대는 대기줄 보고 결정.", map:"Prague Astronomical Clock" },
         { time:"13:00", place:"점심 · Kantýna", type:"식사", note:"고기 중심 캐주얼 맛집.", map:"Kantyna Prague" },
@@ -1276,7 +1328,7 @@ const TRIP = {
       { area:"시장 · 카를교", map:"Charles Bridge Prague", items:[
         { time:"15:00", place:"하벨시장 / 젤라또", type:"쇼핑", note:"기념품·과일·젤라또. Crème de la Crème 대안.", map:"Havelsky Market Prague" },
         { time:"17:30", place:"카를교 산책", type:"관광", note:"해질녘 좋지만 붐빔. 사진은 다음날 아침 한 번 더.", map:"Charles Bridge Prague" },
-        { time:"19:30", place:"저녁/맥주 · Lokál Dlouhááá", type:"식사", note:"필스너 우르켈, 굴라쉬, 스비치코바. 대기 시 Pilsnerka Národní.", map:"Lokal Dlouha Prague" },
+        { time:"19:30", place:"저녁/맥주 · Lokál Dlouhááá", type:"식사", recId:"prg-lokal-dlouha", note:"필스너 우르켈, 굴라쉬, 스비치코바. 대기 시 Pilsnerka Národní.", map:"Lokal Dlouha Prague" },
         { time:"밤", place:"간식 · Tradlo", type:"식사", note:"굴뚝빵. 아이스크림 토핑은 사진용.", map:"Tradlo Prague" },
       ]},
     ]},
@@ -1294,7 +1346,7 @@ const TRIP = {
         { time:"15:00", place:"프라하성 스타벅스 전망", type:"휴식", note:"맛보다 전망 목적. 사람이 많으면 바로 이동.", map:"Starbucks Prague Castle" },
         { time:"16:00", place:"레논 벽 / 캄파 섬", type:"관광", note:"프라하성에서 내려오는 길에 사진.", map:"Lennon Wall Prague" },
         { time:"17:00", place:"페트르진 공원", type:"관광", note:"노을 시간대 좋음. 피곤하면 Day 11로 이동.", map:"Petrin Hill Prague" },
-        { time:"19:30", place:"저녁 · U Kroka / Pork's", type:"식사", note:"U Kroka는 편한 체코식, Pork's는 꼴레뇨.", map:"U Kroka Prague" },
+        { time:"19:30", place:"저녁 · U Kroka / Pork's", type:"식사", recId:"prg-u-kroka", note:"U Kroka는 편한 체코식, Pork's는 꼴레뇨. 둘 다 저녁 예약 권장.", map:"U Kroka Prague" },
       ]},
     ]},
     { date:"2026-09-21", city:"프라하", title:"여유일 · 비셰흐라드 · 레트나 · 쇼핑", items:[
@@ -1309,7 +1361,7 @@ const TRIP = {
       { area:"쇼핑 · 마지막 저녁", map:"Letna Park Prague", items:[
         { time:"14:30", place:"팔라디움 / 나 프르지코페 쇼핑", type:"쇼핑", note:"마뉴팍투라, 기념품, 선물 보완.", map:"Palladium Prague" },
         { time:"17:00", place:"레트나 공원", type:"관광", note:"블타바 강과 다리 전망. 맥주 한 잔 하기 좋음.", map:"Letna Park Prague" },
-        { time:"19:30", place:"마지막 저녁 · Kuchyň / Čestr", type:"식사", note:"전망+체코식은 Kuchyň, 고기 중심은 Čestr.", map:"Kuchyn Prague" },
+        { time:"19:30", place:"마지막 저녁 · Kuchyň / Čestr", type:"식사", recId:"prg-cestr", note:"전망+체코식은 Kuchyň, 고기 중심은 Čestr. 마지막 저녁이므로 선택 후 사전 예약.", map:"Kuchyn Prague" },
       ]},
       { area:"선택 코스", map:"Josefov Prague", items:[
         { time:"대체", place:"유대인 지구 / Café Imperial / 댄싱하우스", type:"선택", note:"비가 오거나 쇼핑을 줄이면 넣기 좋은 보완 코스.", map:"Josefov Prague" },
@@ -1978,11 +2030,13 @@ const TRIP = {
     const map = it.map ? `<a class="maplink" href="${mapURL(it.map)}" target="_blank" rel="noopener">◎ 지도</a>` : "";
     const tag = it.type ? `<span class="tag">${esc(it.type)}</span>` : "";
     const recTag = it.recId ? `<span class="tag rec-tag">추천 선택</span>` : "";
+    const booking = it.recId ? T.bookingGuide?.[it.recId] : null;
+    const bookingTag = booking ? `<span class="tag">◷ ${esc(booking.label)}</span>` : "";
     const nt  = it.note ? `<div class="nt">${esc(it.note)}</div>` : "";
     return `<div class="item">
       <div class="time">${esc(it.time||"")}</div>
       <div class="body">
-        <div class="pl">${esc(it.place||"")} ${tag}${recTag}</div>
+        <div class="pl">${esc(it.place||"")} ${tag}${recTag}${bookingTag}</div>
         ${nt}${map}
         <div class="item-note-tools"><button class="pin-btn ${pinned?"done":""}" type="button" data-check="${pinId}" aria-pressed="${pinned?"true":"false"}">📌 ${pinned?"고정됨":"고정"}</button><button class="item-note-btn" type="button" data-note-open="${noteId}">${userNote?"메모 수정":"＋ 메모"}</button>${userNote?`<span class="item-user-note" data-note-view="${noteId}">${esc(userNote)}</span>`:""}</div>
         <div class="item-note-editor" data-note-editor="${noteId}">
@@ -2016,6 +2070,7 @@ const TRIP = {
 
   /* ══════════ RECOMMENDATIONS ══════════ */
   const recommendations = T.recommendations || [];
+  const bookingGuide = T.bookingGuide || {};
   const recCities = [...new Set(recommendations.map(r=>r.city).filter(Boolean))];
   const recCategories = [...new Set(recommendations.map(r=>r.category).filter(Boolean))];
   $("#rec-city").innerHTML += recCities.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
@@ -2032,6 +2087,7 @@ const TRIP = {
       `[${cityName} 추천 선택 ${selected.length}곳]`,
       ...selected.map(({r},i)=>[
         `${i+1}. ${r.name}${r.category ? ` (${r.category})` : ""}`,
+        bookingGuide[r.id] ? `   예약: ${bookingGuide[r.id].label} · ${bookingGuide[r.id].note}${bookingGuide[r.id].url ? ` · ${bookingGuide[r.id].url}` : ""}` : "",
         r.note ? `   메모: ${r.note}` : "",
         r.map ? `   지도: ${r.mapUrl||mapURL(r.map)}` : "",
       ].filter(Boolean).join("\n")),
@@ -2067,17 +2123,22 @@ const TRIP = {
         ? `<a class="rec-source" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.type||"출처")} · ${esc(s.label||"원문")} ↗</a>`
         : `<span class="rec-source no-link">${esc(s.type||"출처")} · ${esc(s.label||"출처 미상")}</span>`
       ).join("");
+      const booking = bookingGuide[r.id];
+      const bookingChip = booking ? `<span class="rec-chip booking-${esc(booking.level||"recommended")}">◷ ${esc(booking.label||"예약 확인")}</span>` : "";
+      const bookingNote = booking ? `<div class="rec-booking-note">예약 안내 · ${esc(booking.note||"")}</div>` : "";
+      const bookingLink = booking?.url ? `<a class="rec-source" href="${esc(booking.url)}" target="_blank" rel="noopener">◷ 공식 예약 ↗</a>` : "";
       const map = r.map ? `<a class="rec-source" href="${esc(r.mapUrl||mapURL(r.map))}" target="_blank" rel="noopener">◎ 지도</a>` : "";
       return `<article class="rec-card ${picked?'selected':''}" data-rec-card="${esc(id)}">
         <div class="rec-top">
           <button class="rec-pick" data-rec-check="${esc(id)}" aria-label="${esc(r.name)} 선택" aria-pressed="${picked}">✓</button>
           <div class="rec-main">
             <div class="rec-name">${esc(r.name)}</div>
-            <div class="rec-meta"><span class="rec-chip">${esc(r.city||"도시 미정")}</span><span class="rec-chip">${esc(r.category||"유형 미정")}</span></div>
+            <div class="rec-meta"><span class="rec-chip">${esc(r.city||"도시 미정")}</span><span class="rec-chip">${esc(r.category||"유형 미정")}</span>${bookingChip}</div>
+            ${bookingNote}
             ${r.note?`<div class="rec-note">${esc(r.note)}</div>`:""}
           </div>
         </div>
-        ${(sources||map)?`<div class="rec-sources">${sources}${map}</div>`:""}
+        ${(sources||map||bookingLink)?`<div class="rec-sources">${sources}${bookingLink}${map}</div>`:""}
       </article>`;
     };
     const grouped = visible.reduce((acc,item)=>{
