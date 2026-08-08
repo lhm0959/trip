@@ -1253,7 +1253,8 @@ const TRIP = {
       ]},
       { area:"오페라 지구 · 슈테판 대성당", map:"St. Stephen's Cathedral Vienna", items:[
         { time:"16:00–16:35", place:"알베르티나 테라스 · 오페라극장 사진", type:"관광", recId:"vie-albertina", note:"알베르티나 계단 위에서 오페라극장 대표 구도를 촬영.", map:"Albertina Museum Vienna" },
-        { time:"16:40–17:20", place:"부르크가르텐 또는 호텔 휴식", type:"휴식", note:"저녁까지 무리하지 않도록 체력을 회복하는 완충 시간.", map:"Burggarten Vienna" },
+        { time:"16:40–17:15", place:"호텔 휴식", type:"휴식", note:"이미 점심 후 부르크가르텐을 둘러봤으므로 호텔에서 쉬며 저녁까지 체력을 회복.", map:"The Cloud One Hotel Wien-Staatsoper" },
+        { time:"17:15–17:30", place:"호텔 → 성 슈테판 대성당", type:"이동", note:"Karlsplatz역에서 U1을 타고 Stephansplatz역 하차. 도보로도 약 15~20분이라 날씨와 체력에 따라 선택.", map:"St. Stephen's Cathedral Vienna" },
         { time:"17:30–18:25", place:"성 슈테판 대성당", type:"관광", recId:"vie-st-stephen", note:"피그뮐러 전에 외관과 내부를 관람. 전망탑은 제외하고 성당 중심으로 보면 저녁 예약 시간에 여유가 있음.", map:"St. Stephen's Cathedral Vienna" },
         { time:"18:25–18:45", place:"피그뮐러 이동 · 주변 산책", type:"이동", note:"대성당에서 Wollzeile 본점까지 도보 약 5분. 예약 시간 전 구시가 골목을 짧게 둘러보기.", map:"Figlmuller Vienna Wollzeile" },
         { time:"19:00–20:45", place:"저녁 · Figlmüller Wollzeile 1호점 · 예약 완료", type:"식사", recId:"vie-figlmueller", note:"9월 14일 월요일 19:00 CEST · 2명 예약 완료. 접시보다 큰 슈니첼과 포테이토 샐러드·링곤베리잼 조합 추천.", map:"Figlmuller Vienna Wollzeile" },
@@ -1266,12 +1267,14 @@ const TRIP = {
         { time:"12:00–12:30", place:"카를 성당", type:"관광", note:"벨베데레에서 이동 시간을 30분 확보. 내부보다 연못 건너편 외관 사진 중심.", map:"Karlskirche Vienna" },
         { time:"12:45–13:50", place:"점심 · NENI am Naschmarkt · 예약 예정", type:"식사", recId:"vie-neni", note:"9월 15일 화요일 12:45 · 2명으로 예약. 지중해·중동식 점심 후 13:50 무렵 출발해 미술사박물관까지 도보 이동.", map:"NENI am Naschmarkt Vienna" },
       ]},
-      { area:"뮤지엄쿼터 · 미술사박물관", map:"Kunsthistorisches Museum Vienna", items:[
+      { area:"미술사박물관 · 숙소 · 구시가 동쪽", map:"Kunsthistorisches Museum Vienna", items:[
         { time:"14:00–14:20", place:"나슈마르크트 → 미술사박물관 이동", type:"이동", note:"도보 약 15~20분.", map:"Kunsthistorisches Museum Vienna" },
         { time:"14:20–17:40", place:"빈 미술사박물관", type:"관광", recId:"vie-khm", note:"브뤼헐·벨라스케스·라파엘로 대표작과 중앙 계단·돔 카페 공간 중심. 화요일 18:00 폐관을 고려해 17:40까지 관람.", map:"Kunsthistorisches Museum Vienna" },
-        { time:"18:00–19:00", place:"호텔 휴식", type:"휴식", note:"마지막 저녁과 다음 날 렌트 이동을 위해 샤워·충전·짐 정리." },
-        { time:"19:30", place:"저녁 · Griechenbeisl · 예약 예정", type:"식사", recId:"vie-griechenbeisl", note:"비엔나 마지막 저녁을 550년 역사의 전통 식당에서. 굴라쉬·로스트·카이저슈마렌 후보이며, 공식 예약은 확인 이메일을 받아야 확정됨.", map:"Griechenbeisl Vienna" },
-        { time:"21:00", place:"렌트 구간 짐 정리", type:"준비", note:"우비·운동화·국제운전면허증·국내면허증·여권·운전자 명의 신용카드 확인." },
+        { time:"17:40–18:00", place:"미술사박물관 → 호텔", type:"이동", note:"The Cloud One Hotel Wien-Staatsoper까지 도보 약 10~15분. 숙소가 박물관과 저녁 식당 사이의 중간 휴식 지점.", map:"The Cloud One Hotel Wien-Staatsoper" },
+        { time:"18:00–19:45", place:"호텔 휴식 · 렌트 구간 짐 정리", type:"휴식", note:"샤워와 충전을 하고 다음 날 짐을 미리 마무리. 우비·운동화·국제운전면허증·국내면허증·여권·운전자 명의 신용카드 확인." },
+        { time:"19:45–20:15", place:"호텔 → Griechenbeisl", type:"이동", note:"Karlsplatz역에서 U1 탑승 → Schwedenplatz역 하차 후 도보 약 5~7분. 전체 약 20분, 환승 없음. 전 구간 도보는 약 25분 내외.", map:"Griechenbeisl Vienna" },
+        { time:"20:30–22:00", place:"저녁 · Griechenbeisl · 예약 예정", type:"식사", recId:"vie-griechenbeisl", note:"18:00과 20:30 중 미술사박물관 관람 시간을 지키기 위해 20:30 선택. 족발 요리·굴라쉬·로스트·카이저슈마렌 후보이며, 공식 예약은 확인 이메일을 받아야 확정됨.", map:"Griechenbeisl Vienna" },
+        { time:"22:00–22:25", place:"Griechenbeisl → 호텔", type:"이동", note:"Schwedenplatz역에서 U1으로 Karlsplatz역까지 돌아온 뒤 호텔로 도보 이동.", map:"The Cloud One Hotel Wien-Staatsoper" },
       ]},
     ]},
     { date:"2026-09-16", city:"잘츠캄머구트", title:"비엔나 → 린츠 렌트 → 트라운제 → 장크트볼프강", items:[
@@ -1393,7 +1396,7 @@ const TRIP = {
       { t:"부다페스트 → 비엔나 기차 예약 완료 ✓", s:"MÁV · 구매자 ID 2389732895 · 결제 ID 879835032 · 9/13 09:30 Budapest Keleti 출발 → 12:20 Wien Hbf 도착 · 23,680 HUF" },
       { t:"Figlmüller Wollzeile 1호점 예약 완료 ✓", s:"9/14 월요일 · 19:00 CEST · 2명" },
       { t:"NENI am Naschmarkt 점심 예약", s:"9/15 화요일 · 12:45 · 2명 · 13:50 전후 식사 마치고 미술사박물관으로 이동" },
-      { t:"Griechenbeisl 저녁 예약", s:"9/15 화요일 · 19:30 · 2명 · 공식 예약 후 확인 이메일 수신 여부 확인" },
+      { t:"Griechenbeisl 저녁 예약", s:"9/15 화요일 · 20:30 · 2명 · 공식 예약 후 확인 이메일 수신 여부 확인" },
       { t:"여행 현금 환전", s:"2인 기준 권장액 · 헝가리 26,000 HUF · 오스트리아 230 EUR · 체코 4,100 CZK · 나머지는 카드 결제" },
       { t:"빈 필하모닉 티켓 예매 (9/13 19:30)", s:"Musikverein 황금홀 · Tugan Sokhiev · 일반 예매 2026-08-10 09:00 시작 예정" },
       { t:"비엔나 → 린츠 기차 예약 (9/16)", s:"렌트 픽업 시간에 맞춰 여유 있게" },
