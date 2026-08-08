@@ -1182,10 +1182,10 @@ const TRIP = {
   // ── 도시 간 이동 ─────────────────────────────────────────────
   intercity:[
     { from:"부다페스트", to:"비엔나", mode:"MÁV 예약 · Railjet / EC (Keleti→Wien Hbf) · 9/13 09:30→12:20 · 구매자 ID 2389732895 · 결제 ID 879835032", duration:"2시간 50분", cost:"23,680 HUF", booked:true, link:"https://jegy.mav.hu" },
-    { from:"비엔나", to:"린츠", mode:"ÖBB 기차 · Wien Hbf→Linz Hbf", duration:"약 1시간 10~30분", cost:"€10~40", booked:false, link:"https://www.oebb.at/en/reiseplanung-services/oebb-zugverbindungen/zugverbindungen-oesterreich/weststrecke/wien-linz" },
-    { from:"린츠", to:"장크트볼프강", mode:"렌트카 예약 완료 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00 픽업 · 예약번호 9736979925", duration:"3일 대여", cost:"€196.88 · 보증금 €300", booked:true, link:"" },
-    { from:"장크트볼프강", to:"린츠", mode:"렌트카 · 장크트길겐 경유 · 9/18 16:00 반납", duration:"반나절", cost:"대여료에 포함", booked:true, link:"" },
-    { from:"린츠", to:"프라하", mode:"기차 · Linz Hbf→Praha hl.n.", duration:"약 4시간 전후", cost:"€25~80", booked:false, link:"https://www.oebb.at" },
+    { from:"비엔나", to:"린츠", mode:"ÖBB 예약 완료 · RJX 19962 (Railjet Xpress) · 9/16 08:28 Wien Hbf → 09:43 Linz Hbf · 2등석 Wagen 34 · 45번(창가)·47번 · 예약 0409 9890 6220 7073 / 1752 4185 5697 8669", duration:"1시간 15분", cost:"€71.00 (€27.90 + €43.10)", booked:true, link:"https://www.oebb.at/en/reiseplanung-services/oebb-zugverbindungen/zugverbindungen-oesterreich/weststrecke/wien-linz" },
+    { from:"린츠", to:"장크트볼프강", mode:"렌트카 예약 완료 · SIXT Autovermietung Linz (Stahlstraße 2, 4020 Linz · 중앙역 아님) · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00 픽업 · 예약번호 9736979925", duration:"3일 대여", cost:"€196.88 · 보증금 €300", booked:true, link:"https://www.google.com/maps/search/?api=1&query=SIXT%20Autovermietung%20Linz%20Stahlstra%C3%9Fe%202%204020%20Linz" },
+    { from:"장크트볼프강", to:"린츠", mode:"렌트카 · 장크트길겐 경유 · 9/18 16:00 SIXT Stahlstraße 2 반납 (영업 07:30~16:00 · 15:30까지 도착 권장)", duration:"반나절", cost:"대여료에 포함", booked:true, link:"https://www.google.com/maps/search/?api=1&query=SIXT%20Autovermietung%20Linz%20Stahlstra%C3%9Fe%202%204020%20Linz" },
+    { from:"린츠", to:"프라하", mode:"ÖBB 예약 완료 · ČD EC 332 Jižní expres 직통 · 9/18 15:54 Linz Hbf → 19:39 Praha hl.n. · 2등석 개방형 · 좌석지정 포함 · 2인 · 예약 1747 6128 2804 9517 · SparSchiene Tschechien(취소·변경 불가)", duration:"3시간 45분", cost:"€67.80 (2인)", booked:true, link:"https://www.oebb.at" },
   ],
 
   // ── 날짜별 일정 ──────────────────────────────────────────────
@@ -1279,9 +1279,11 @@ const TRIP = {
     ]},
     { date:"2026-09-16", city:"잘츠캄머구트", title:"비엔나 → 린츠 렌트 → 트라운제 → 장크트볼프강", items:[
       { area:"기차 · 렌트 픽업", map:"Linz Hauptbahnhof", items:[
-        { time:"08:30", place:"The Cloud One Hotel Wien-Staatsoper 체크아웃", type:"이동", note:"9/13~9/16 · 3박 · 스탠다드 더블룸. 너무 늦지 않게 출발해 고사우는 해 있을 때 도착 목표.", map:"The Cloud One Hotel Wien-Staatsoper" },
-        { time:"09:00~10:30", place:"비엔나 → 린츠", type:"이동", note:"ÖBB 직행 다수. 린츠 Hbf 도착 후 렌트 지점으로.", map:"Wien Hauptbahnhof" },
-        { time:"11:00", place:"린츠 렌트카 픽업 · 예약 완료", type:"이동", note:"예약번호 9736979925 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00~9/18 16:00 · 3일 · 세금 포함 €196.88 · Mastercard 끝번호 791 · 픽업 시 보증금 €300 임시 승인.", map:"Linz car rental" },
+        { time:"07:45~08:00", place:"The Cloud One Hotel Wien-Staatsoper 체크아웃", type:"이동", note:"9/13~9/16 · 3박 · 스탠다드 더블룸. 08:28 열차를 타려면 08:00에는 호텔을 나서기. 전날 밤 짐을 다 싸둘 것.", map:"The Cloud One Hotel Wien-Staatsoper" },
+        { time:"08:00~08:20", place:"호텔 → Wien Hbf", type:"이동", note:"Karlsplatz 역까지 도보 2분 → U1 (Leopoldau 방향) 2정거장 → Hauptbahnhof. 총 15~20분. 짐이 많으면 택시 약 10분·€10~13이 확실함.", map:"Wien Hauptbahnhof" },
+        { time:"08:28~09:43", place:"비엔나 → 린츠 · RJX 19962 · 예약 완료", type:"이동", note:"Wien Hbf → Linz/Donau Hbf · 1시간 15분 · 2등석 Grossraumwagen · 좌석 Wagen 34 / 45번(창가)·47번. ① Lee Hanmin · Sparschiene €27.90 · 예약 0409 9890 6220 7073 · Ticketcode 2392 2245 6946 2115 · ⚠️ 취소·변경 불가라 이 열차를 놓치면 표가 소멸. ② Standard-Ticket €43.10 · 예약 1752 4185 5697 8669 · 9/16~9/17 유효 · 아무 열차나 탑승 가능 · 9/15까지 무료 취소.", map:"Wien Hauptbahnhof" },
+        { time:"09:50~10:10", place:"린츠 Hbf → SIXT 지점 이동", type:"이동", note:"⚠️ SIXT는 중앙역이 아니라 Stahlstraße 2 (voestalpine 공단, 역에서 약 3km). 캐리어가 있으니 택시 권장 (10~15분 · €15~20). 대중교통은 버스 25번 Kokerei 하차 후 도보 400m라 25~30분 소요.", map:"SIXT Autovermietung Linz Stahlstraße 2 4020 Linz" },
+        { time:"11:00", place:"린츠 렌트카 픽업 · SIXT Linz (Stahlstraße 2)", type:"이동", note:"예약번호 9736979925 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00~9/18 16:00 · 3일 · 세금 포함 €196.88 · Mastercard 끝번호 791 · 픽업 시 보증금 €300 임시 승인. 영업시간 월~금 07:30~16:00. 운전자 2명 등록·서류 확인에 20~30분, 차량 인수·짐 적재까지 15~20분 더 잡을 것.", map:"SIXT Autovermietung Linz Stahlstraße 2 4020 Linz" },
       ]},
       { area:"트라운제 · 고사우", map:"Gmunden Traunsee", items:[
         { time:"11:30", place:"린츠 출발", type:"이동", note:"Linz → Gmunden/Traunsee. 구글맵 + 차량 내비 병행.", map:"Linz Austria" },
@@ -1315,14 +1317,19 @@ const TRIP = {
         { time:"08:30", place:"볼프강호수 아침 산책", type:"관광", note:"숙소 앞 호숫가를 가볍게 산책하고 체크아웃 준비.", map:"Wolfgangsee Sankt Wolfgang" },
         { time:"10:30", place:"Seehaus Familie Leifer 체크아웃", type:"이동", note:"Booking.com · 9/16~9/18 · 2박 · 524,000원. 체크아웃 마감 10:30. 캐리어 적재 전 차량 외관과 짐 확인.", map:"Seehaus Familie Leifer" },
         { time:"10:45", place:"장크트길겐 이동", type:"이동", note:"숙소에서 차량 약 20~25분. St. Wolfgang은 숙박 중 둘러보고 이 날은 St. Gilgen만 방문.", map:"St Gilgen Austria" },
-        { time:"12:00", place:"Wolfgangsee 점심/호수 산책", type:"식사", note:"사진+점심 중심. 늦어지면 바로 린츠로.", map:"Wolfgangsee Austria" },
+        { time:"11:00~11:25", place:"장크트길겐 호수 산책", type:"관광", note:"사진 위주로 짧게. 점심은 여기서 먹지 말고 린츠 중앙역에서 여유 있게 — 반납을 앞당긴 만큼 역에서 40분이 남음.", map:"Wolfgangsee Austria" },
       ]},
       { area:"렌트 반납 · 프라하 이동", map:"Linz Hauptbahnhof", items:[
-        { time:"14:00", place:"린츠 이동", type:"이동", note:"반납 지연을 피하려면 14시 전후 출발.", map:"St Gilgen to Linz" },
-        { time:"16:00", place:"린츠 렌트카 반납", type:"이동", note:"예약 반납 시각 16:00. 주유 정책을 확인해 반납 전 주유하고 차량 외관 사진·영상과 영수증 보관. €300 보증금은 반납 후 며칠 이내 승인 해제 예정.", map:"Linz car rental" },
-        { time:"17:00~18:00", place:"린츠 → 프라하", type:"이동", note:"기차 약 4시간 전후. 열차별 소요시간이 달라 예약 전 확인, 간식·물 준비.", map:"Linz Hauptbahnhof" },
-        { time:"21:00~22:30", place:"프라하 도착 · Airbnb 체크인", type:"이동", note:"9/18~9/21 · 3박 · 754,500원 결제. 중앙역에서 숙소까지 실제 도착시간을 고려해 호스트와 늦은 체크인 방법 확인.", map:"50.0818138,14.4058218" },
-        { time:"밤", place:"카를교 야경 산책 (여유되면)", type:"관광", note:"도착이 늦으면 다음날로 미루기.", map:"Charles Bridge Prague" },
+        { time:"11:30", place:"장크트길겐 → 린츠 출발", type:"이동", note:"⚠️ 15:54 EC 332는 취소·변경 불가 표라 놓치면 표가 소멸되고 다음 직통은 19:54(프라하 23:42 도착). 30분 일찍 나서는 것이 가장 싼 보험. 린츠까지 약 1시간 45분.", map:"St Gilgen to Linz" },
+        { time:"13:30", place:"주유 · Shell (SIXT 맞은편)", type:"준비", note:"SIXT 지점 바로 맞은편에 Shell 주유소가 있음. 만유 반납 정책이면 여기서 채우고 영수증 보관. 약 15분.", map:"Shell Stahlstraße Linz" },
+        { time:"13:45", place:"린츠 렌트카 반납 · SIXT Linz (Stahlstraße 2)", type:"이동", note:"⚠️ 예약 반납시각은 16:00이지만 일찍 반납하는 건 언제나 가능. 영업시간 월~금 07:30~16:00. 반납은 건물 뒤 주차구역. 직원 차량 점검·정산까지 40~50분 소요. 차량 외관 사진·영상과 영수증 보관. €300 보증금은 반납 후 며칠 이내 승인 해제 예정.", map:"SIXT Autovermietung Linz Stahlstraße 2 4020 Linz" },
+        { time:"14:30~14:55", place:"SIXT → 린츠 Hbf 이동", type:"이동", note:"⚠️ 공단 지역이라 지나가는 택시가 없음 — 반납 절차 중에 미리 택시를 불러둘 것. 이동 15분 + 대기 10분. 대중교통은 버스 25번 Kokerei 하차 후 도보 400m라 25~30분 걸림.", map:"Linz Hauptbahnhof" },
+        { time:"15:00~15:40", place:"린츠 Hbf 늦은 점심 · 물·간식 구입", type:"식사", note:"앞당긴 버퍼를 여기서 씀. 열차에 비스트로가 있지만 미리 먹어두는 편이 편함. 플랫폼 확인하고 승차 준비.", map:"Linz Hauptbahnhof" },
+        { time:"15:54", place:"린츠 → 프라하 · EC 332 · 예약 완료", type:"이동", note:"ČD EC Jižní expres 직통 · Linz Hbf → Summerau → České Budějovice → Praha hl.n. · 3시간 45분 · 2등석 개방형 좌석지정 포함 · 2인 €67.80 · 예약 1747 6128 2804 9517. ⚠️ SparSchiene Tschechien은 취소·변경 불가 + EC 332 고정 — 놓치면 다음 직통이 19:54(프라하 23:42 도착)라 표가 소멸되고 4시간을 버림. 간식·물 준비.", map:"Linz Hauptbahnhof" },
+        { time:"19:39", place:"프라하 도착 · Praha hl.n.", type:"이동", note:"중앙역 도착. 지하철 C선 Hlavní nádraží에서 숙소로 이동.", map:"Praha hlavni nadrazi" },
+        { time:"20:15", place:"Airbnb 체크인", type:"이동", note:"9/18~9/21 · 3박 · 754,500원 결제. 도착이 이르니 정상 시간 체크인 가능 — 호스트와 20시 전후 도착으로 조율.", map:"50.0818138,14.4058218" },
+        { time:"20:45", place:"프라하 첫 저녁", type:"식사", note:"도착 당일이지만 19:39 도착이라 제대로 된 저녁이 가능. 숙소 근처 구시가 쪽으로.", map:"Old Town Square Prague" },
+        { time:"22:00", place:"카를교 야경 산책", type:"관광", note:"첫날 밤 야경. 조명 켜진 프라하성과 함께.", map:"Charles Bridge Prague" },
       ]},
     ]},
     { date:"2026-09-19", city:"프라하", title:"구시가 광장 · 천문시계 · 카를교", items:[
@@ -1390,7 +1397,7 @@ const TRIP = {
       { t:"잘츠캄머구트 숙소 2박 예약 완료 ✓", s:"Seehaus Familie Leifer · 장크트볼프강 · 9/16~9/18 · Booking.com · 524,000원 · 체크아웃 10:30" },
       { t:"프라하 Airbnb 3박 예약 완료 ✓", s:"9/18~9/21 · 754,500원 · 위치 50.0818138, 14.4058218" },
       { t:"프라하 Hotel BOOKQUET 1박 예약 완료 ✓", s:"9/21~9/22 · 네이버 호텔 · 조식 포함 · 386,000원 · Karoliny Světlé 27, Prague 1" },
-      { t:"린츠 렌트카 예약 완료 ✓", s:"예약번호 9736979925 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00 픽업 → 9/18 16:00 반납 · €196.88 · 보증금 €300" },
+      { t:"린츠 렌트카 예약 완료 ✓", s:"SIXT Autovermietung Linz · Stahlstraße 2, 4020 Linz (⚠️ 중앙역 아님 · 역에서 택시 10~15분) · 영업 월~금 07:30~16:00 · 예약번호 9736979925 · Peugeot 208 또는 동급 세단(EDAR) · 9/16 11:00 픽업 → 9/18 16:00 반납 · €196.88 · 보증금 €300 · 지도: https://www.google.com/maps/search/?api=1&query=SIXT+Autovermietung+Linz+Stahlstra%C3%9Fe+2+4020+Linz" },
       { t:"비엔나 숙소 3박 예약 완료 ✓", s:"The Cloud One Hotel Wien-Staatsoper · 9/13~9/16 · 스탠다드 더블룸 · 920,000원" },
       { t:"부다페스트 숙소 2박 예약 완료 ✓", s:"H2 Hotel Budapest · 9/11~9/13 · 네이버 호텔 · 502,356원 · 지도: https://maps.app.goo.gl/kRi6VGdVCwvbyCVNA" },
       { t:"부다페스트 → 비엔나 기차 예약 완료 ✓", s:"MÁV · 구매자 ID 2389732895 · 결제 ID 879835032 · 9/13 09:30 Budapest Keleti 출발 → 12:20 Wien Hbf 도착 · 23,680 HUF" },
@@ -1398,9 +1405,9 @@ const TRIP = {
       { t:"NENI am Naschmarkt 점심 예약", s:"9/15 화요일 · 12:45 · 2명 · 13:50 전후 식사 마치고 미술사박물관으로 이동" },
       { t:"Griechenbeisl 저녁 예약", s:"9/15 화요일 · 20:30 · 2명 · 공식 예약 후 확인 이메일 수신 여부 확인" },
       { t:"여행 현금 환전", s:"2인 기준 권장액 · 헝가리 26,000 HUF · 오스트리아 230 EUR · 체코 4,100 CZK · 나머지는 카드 결제" },
-      { t:"빈 필하모닉 티켓 예매 (9/13 19:30)", s:"Musikverein 황금홀 · Tugan Sokhiev · 일반 예매 2026-08-10 09:00 시작 예정" },
-      { t:"비엔나 → 린츠 기차 예약 (9/16)", s:"렌트 픽업 시간에 맞춰 여유 있게" },
-      { t:"린츠 → 프라하 기차 예약 (9/18)", s:"렌트 반납 후 탈 수 있는 17시 전후 시간대" },
+      { t:"빈 필하모닉 티켓 예매 (9/13 19:30)", s:"Musikverein 황금홀(Großer Saal) · Tugan Sokhiev · '빈 음악친구협회 연주회(Gesellschaft der Musikfreunde)'라 정기회원권이 아닌 일반 판매 대상 → musikverein.at에서 구매. ⏰ 예매 오픈 2026-08-10(월) 빈 09:00 = 한국시간 같은 날 16:00 (시차 7시간). 오픈 전에 musikverein.at 계정을 미리 만들고 결제카드 등록해 둘 것. 좌석은 Balkon Mitte / Galerie Mitte 같은 '정면(Mitte)' 우선, 측면(Seite)·무대뒤(Orgelbalkon)는 피할 것 · 2인 €80~120 목표" },
+      { t:"비엔나 → 린츠 기차 예약 완료 ✓", s:"ÖBB RJX 19962 · 9/16 08:28 Wien Hbf → 09:43 Linz Hbf · 2등석 Wagen 34 · 45번(창가)·47번 · 합계 €71.00 · 예약 0409 9890 6220 7073(Lee Hanmin·Sparschiene·취소불가) / 1752 4185 5697 8669(Standard·9/15까지 무료취소) · PDF 티켓 2장 폰에 오프라인 저장할 것" },
+      { t:"린츠 → 프라하 기차 예약 완료 ✓", s:"ČD EC 332 직통 · 9/18 15:54 Linz Hbf → 19:39 Praha hl.n. · 3시간 45분 · 2등석 개방형 · 좌석지정 포함 · 2인 €67.80 · 예약 1747 6128 2804 9517 · SparSchiene Tschechien(취소·변경 불가) · PDF 티켓 오프라인 저장하고 배정된 Wagen/Sitzplatz 번호 확인할 것" },
       { t:"벨베데레 / Café Sacher / 빈 공연 예약", s:"개관 시간·시간권·카페 대기·공연 좌석 확인" },
       { t:"Hallstatt 소금광산·스카이워크 재개장 확인", s:"2026년 여름 재개장 일정이므로 1~2개월 전 salzwelten.at에서 실제 운영 여부 재확인" },
       { t:"프라하 웨딩스냅 예약 (9/20 09:00)", s:"알럽프라하 알맹이 60분 후보 · 2인 24만원 · 마르코/호야 작가 배정, 미팅 장소, 무료 소품, 우천·취소 규정 확인" },
@@ -1452,6 +1459,8 @@ const TRIP = {
     ],
     links:[
       { k:"ÖBB (부다페스트→비엔나)", v:"oebb.at", url:"https://www.oebb.at" },
+      { k:"SIXT 린츠 지점 지도", v:"Stahlstraße 2, 4020 Linz", url:"https://www.google.com/maps/search/?api=1&query=SIXT+Autovermietung+Linz+Stahlstra%C3%9Fe+2+4020+Linz" },
+      { k:"SIXT 린츠 지점 안내", v:"sixt.com · 월~금 07:30~16:00", url:"https://www.sixt.com/car-rental/austria/linz/linz-kokerei" },
       { k:"RegioJet 기차", v:"regiojet.com", url:"https://www.regiojet.com" },
       { k:"Hallstatt 주차 공식", v:"hallstatt.net", url:"https://www.hallstatt.net/parking-in-hallstatt/cars/" },
       { k:"Salzwelten Hallstatt 운영", v:"salzwelten.at", url:"https://www.salzwelten.at/en/hallstatt/prices-opening-hours" },
@@ -1736,6 +1745,9 @@ const TRIP = {
     {id:"paid-prague-airbnb",cat:"숙소 (11박)",amt:754500,cur:"KRW",method:"card",date:"2026-09-10",memo:"프라하 Airbnb · 9/18~9/21",updatedAt:0},
     {id:"paid-bookquet",cat:"숙소 (11박)",amt:386000,cur:"KRW",method:"card",date:"2026-09-10",memo:"Hotel BOOKQUET · 9/21~9/22",updatedAt:0},
     {id:"paid-mav-bud-vie",cat:"기차 (부다·비엔·린츠·프라하)",amt:23680,cur:"HUF",method:"card",date:"2026-09-10",memo:"MÁV 부다페스트→빈 · 결제 ID 879835032",updatedAt:0},
+    {id:"paid-obb-vie-linz-1",cat:"기차 (부다·비엔·린츠·프라하)",amt:27.90,cur:"EUR",method:"card",date:"2026-09-10",memo:"ÖBB 빈→린츠 ① Lee Hanmin · Sparschiene €24.90 + 좌석 €3 · Wagen 34 / 45번 창가 · 예약 0409 9890 6220 7073 · 취소불가",updatedAt:0},
+    {id:"paid-obb-vie-linz-2",cat:"기차 (부다·비엔·린츠·프라하)",amt:43.10,cur:"EUR",method:"card",date:"2026-09-10",memo:"ÖBB 빈→린츠 ② Standard-Ticket €40.10 + 좌석 €3 · Wagen 34 / 47번 · 예약 1752 4185 5697 8669 · 9/15까지 무료취소",updatedAt:0},
+    {id:"paid-cd-linz-prg",cat:"기차 (부다·비엔·린츠·프라하)",amt:67.80,cur:"EUR",method:"card",date:"2026-09-10",memo:"ČD EC 332 린츠→프라하 · 2인 · SparSchiene Tschechien €61.80 + 좌석 €6 · 예약 1747 6128 2804 9517 · 취소불가",updatedAt:0},
     {id:"paid-linz-rental",cat:"렌트카 (2박3일·린츠)",amt:196.88,cur:"EUR",method:"card",date:"2026-09-10",memo:"Peugeot 208 또는 동급 · 예약번호 9736979925 · 보증금 €300 별도",updatedAt:0},
   ];
   const loadedExpenseIds=new Map(expenses.map(e=>[e.id,e]));
