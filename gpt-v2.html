@@ -526,6 +526,16 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 @keyframes vpflash{0%,100%{box-shadow:0 2px 9px var(--shadow)}
   25%,75%{box-shadow:0 0 0 3px var(--wine),0 2px 9px var(--shadow)}}
 .vp-card.vp-flash{animation:vpflash 1.5s ease}
+.vp-photo{margin-top:10px}
+.vp-slot-btn{width:100%;display:block;font:inherit;cursor:pointer}
+.vp-slot-btn span{display:block;margin-top:5px;font-size:10.5px;opacity:.85}
+.vp-photo-tools{display:flex;gap:6px;align-items:center;margin-top:7px;flex-wrap:wrap}
+.vp-mini{font-size:11.5px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);
+  background:var(--paper-2);color:var(--teal);cursor:pointer;font-family:inherit}
+.vp-mini.danger{color:var(--wine);border-color:var(--wine)}
+.vp-pending{font-size:10.5px;color:var(--muted);margin-right:auto}
+.vp-busy{font-size:12px;color:var(--muted);padding:16px;text-align:center;
+  border:1px dashed var(--line-strong);border-radius:10px}
 .fx-grid{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:7px}
 .fx-input,.fx-select{
   width:100%;border:1px solid var(--line-strong);border-radius:9px;
@@ -684,7 +694,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   .panel{display:block!important;page-break-before:always}
   .subpanel{display:block!important}
   .vp-card{break-inside:avoid;page-break-inside:avoid}
-  .vp-slot{display:none}
+  .vp-slot,.vp-slot-btn,.vp-photo-tools{display:none!important}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
   .card,.day,.leg,.hero{box-shadow:none;border:1px solid #999}
@@ -1887,7 +1897,7 @@ const TRIP = {
     clearInterval(cloud.pollTimer);
     cloud.pollTimer=setInterval(async()=>{
       const polled=await fetchRemoteChecks(false);
-      if(polled.ok){await fetchRemoteExpenses(false);await fetchRemoteNotes(false);setSyncButton("동기화 ✓",true);}
+      if(polled.ok){await fetchRemoteExpenses(false);await fetchRemoteNotes(false);await syncPhotos();setSyncButton("동기화 ✓",true);}
     },5000);
     return result;
   }
@@ -2479,9 +2489,7 @@ const TRIP = {
         <div class="vp-top"><span class="vp-name">📷 ${esc(v.name||"")}</span><span class="vp-when">${esc((v.date||"").slice(5).replace("-","/"))} ${esc(v.time||"")}</span></div>
         ${vpRow("서는 곳",v.stand)}${vpRow("구도",v.frame)}${vpRow("시간",v.best)}${vpRow("팁",v.tip)}${vpRow("주의",v.watch,"watch")}
         <div class="vp-links">${v.map?`<a href="${mapURL(v.map)}" target="_blank" rel="noopener">◎ 지도</a>`:""}${v.photoQuery?`<a href="${imgSearchURL(v.photoQuery)}" target="_blank" rel="noopener">🖼 이 자리 사진 보기</a>`:""}</div>
-        ${v.image
-          ? `<div class="vp-shot"><img src="${esc(v.image)}" alt="${esc(v.imageAlt||v.name||"뷰포인트 참고 사진")}" loading="lazy"></div>`
-          : `<div class="vp-slot">참고 사진을 넣으려면 assets/ 에 파일을 두고<br>이 뷰포인트의 image 에 "assets/파일명.jpg" 로 적으세요</div>`}
+        <div class="vp-photo" data-vp-photo="${esc(v.id)}"></div>
       </div>`).join("")}
     </section>`;
   }).join("") : '<div class="rec-empty">아직 등록된 뷰포인트가 없습니다.</div>';
@@ -2508,6 +2516,174 @@ const TRIP = {
     e.preventDefault();
     goToViewpoint(btn.getAttribute("data-vp-go"));
   });
+
+  /* ══════════ 뷰포인트 참고 사진 (업로드 · 두 사람 공유) ══════════ */
+  // 웹에서 발견한 참고 사진을 뷰포인트 카드에 바로 올린다.
+  //  ① 캔버스로 축소·재압축해 300KB 안으로 만든 뒤
+  //  ② IndexedDB 에 먼저 넣어 오프라인에서도 즉시 보이게 하고
+  //  ③ Supabase 로 올려 공유 코드로 연결된 두 기기가 같은 사진을 본다.
+  // 클라우드가 끊겨 있거나 supabase-setup.sql 을 아직 안 돌렸어도
+  // 로컬 저장·표시는 그대로 동작하고, 연결되면 밀린 사진을 자동 전송한다.
+  const PHOTO_DB="trip-photos", PHOTO_STORE="photos", PHOTO_LIMIT=300*1024;
+  const memPhotos=new Map();          // IndexedDB 를 못 쓰는 환경의 대체 저장소
+  let idbBroken=false;
+
+  function idbOpen(){
+    return new Promise((res,rej)=>{
+      if(idbBroken || !window.indexedDB) return rej(new Error("no-idb"));
+      const r=indexedDB.open(PHOTO_DB,1);
+      r.onupgradeneeded=()=>{ const db=r.result;
+        if(!db.objectStoreNames.contains(PHOTO_STORE)) db.createObjectStore(PHOTO_STORE); };
+      r.onsuccess=()=>res(r.result);
+      r.onerror=()=>{ idbBroken=true; rej(r.error||new Error("idb-error")); };
+    });
+  }
+  function idbRun(mode,fn){
+    return idbOpen().then(db=>new Promise((res,rej)=>{
+      let rq; try{ rq=fn(db.transaction(PHOTO_STORE,mode).objectStore(PHOTO_STORE)); }catch(e){ return rej(e); }
+      rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);
+    }));
+  }
+  const photoGet  = id      => idbRun("readonly", st=>st.get(id)).then(v=>v||null).catch(()=>memPhotos.get(id)||null);
+  const photoPut  = (id,rec)=> idbRun("readwrite",st=>st.put(rec,id)).catch(()=>{ memPhotos.set(id,rec); });
+  const photoDel  = id      => idbRun("readwrite",st=>st.delete(id)).catch(()=>{ memPhotos.delete(id); });
+  const photoKeys = ()      => idbRun("readonly", st=>st.getAllKeys()).then(k=>k||[]).catch(()=>[...memPhotos.keys()]);
+  const cssSafe   = v => (window.CSS && CSS.escape) ? CSS.escape(v) : String(v).replace(/["\\]/g,"");
+
+  // 원본을 그대로 두면 localStorage·DB 가 금방 터진다. 긴 변을 줄이며 300KB 안에 들어올 때까지 재압축.
+  function drawToDataURL(file,maxSide,quality){
+    return new Promise((res,rej)=>{
+      const url=URL.createObjectURL(file), img=new Image();
+      img.onload=()=>{
+        URL.revokeObjectURL(url);
+        const scale=Math.min(1, maxSide/Math.max(img.width,img.height));
+        const w=Math.max(1,Math.round(img.width*scale)), h=Math.max(1,Math.round(img.height*scale));
+        const c=document.createElement("canvas"); c.width=w; c.height=h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        try{ res(c.toDataURL("image/jpeg",quality)); }catch(e){ rej(e); }
+      };
+      img.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("decode-failed")); };
+      img.src=url;
+    });
+  }
+  async function compressPhoto(file){
+    let out="";
+    for(const step of [[1200,0.72],[1000,0.66],[820,0.60],[640,0.55]]){
+      out=await drawToDataURL(file,step[0],step[1]);
+      if(out.length*0.75 <= PHOTO_LIMIT) return out;   // base64 는 원본의 약 4/3
+    }
+    return out;
+  }
+
+  function photoBox(vpId){ return document.querySelector('[data-vp-photo="'+cssSafe(vpId)+'"]'); }
+  function setPhotoBusy(vpId,msg){ const b=photoBox(vpId); if(b) b.innerHTML='<div class="vp-busy">'+esc(msg)+'</div>'; }
+
+  async function paintPhoto(vpId){
+    const box=photoBox(vpId); if(!box) return;
+    const rec=await photoGet(vpId);
+    const vp=(T.viewpoints||[]).find(v=>v.id===vpId);
+    const url=(rec&&rec.dataUrl)||(vp&&vp.image)||"";
+    const uploaded=!!(rec&&rec.dataUrl);
+    if(url){
+      box.innerHTML='<div class="vp-shot"><img alt="'+esc((vp&&(vp.imageAlt||vp.name))||"참고 사진")+'" src="'+url+'"></div>'
+        +'<div class="vp-photo-tools">'
+        +(uploaded&&rec.pending?'<span class="vp-pending">이 기기에만 저장됨 · 연결되면 전송</span>':'')
+        +'<button type="button" class="vp-mini" data-vp-upload="'+esc(vpId)+'">사진 교체</button>'
+        +(uploaded?'<button type="button" class="vp-mini danger" data-vp-del="'+esc(vpId)+'">삭제</button>':'')
+        +'</div>';
+    }else{
+      box.innerHTML='<button type="button" class="vp-slot vp-slot-btn" data-vp-upload="'+esc(vpId)+'">'
+        +'＋ 참고 사진 올리기<span>웹에서 저장해 둔 사진을 고르면 두 사람 모두에게 보입니다</span></button>';
+    }
+  }
+  function paintAllPhotos(){ (T.viewpoints||[]).forEach(v=>paintPhoto(v.id)); }
+
+  /* ---- 원격 ---- */
+  async function saveRemotePhoto(id,dataUrl){
+    if(!cloud.client||!cloud.accessCode) return false;
+    const {error}=await cloud.client.rpc("save_trip_photo",{
+      p_trip_id:TRIP_ID,p_vp_id:id,p_data_url:dataUrl,p_code:cloud.accessCode,p_device:deviceId});
+    return !error;
+  }
+  async function deleteRemotePhoto(id){
+    if(!cloud.client||!cloud.accessCode) return false;
+    const {error}=await cloud.client.rpc("delete_trip_photo",{
+      p_trip_id:TRIP_ID,p_vp_id:id,p_code:cloud.accessCode});
+    return !error;
+  }
+  async function syncPhotos(){
+    if(!cloud.client||!cloud.accessCode) return;
+    const keys=await photoKeys();
+    // ① 아직 못 올린 사진을 먼저 재전송
+    for(const k of keys){
+      const rec=await photoGet(k);
+      if(rec&&rec.pending&&rec.dataUrl&&await saveRemotePhoto(k,rec.dataUrl)){
+        rec.pending=false; await photoPut(k,rec); await paintPhoto(k);
+      }
+    }
+    // ② 목록만 받아 바뀐 것만 내려받는다 (본문은 5초 폴링에 싣지 않는다)
+    const {data,error}=await cloud.client.rpc("get_trip_photo_index",{p_trip_id:TRIP_ID,p_code:cloud.accessCode});
+    if(error) return;                       // SQL 미설치여도 로컬 기능은 유지
+    const remote=new Map((data||[]).map(r=>[r.vp_id,r.updated_at]));
+    for(const [vpId,updatedAt] of remote){
+      const rec=await photoGet(vpId);
+      if(rec&&rec.pending) continue;                  // 내 미전송본이 우선
+      if(rec&&rec.updatedAt===updatedAt) continue;    // 이미 최신
+      const one=await cloud.client.rpc("get_trip_photo",{p_trip_id:TRIP_ID,p_vp_id:vpId,p_code:cloud.accessCode});
+      const row=((one&&one.data)||[])[0];
+      if(row&&row.data_url){
+        await photoPut(vpId,{dataUrl:row.data_url,updatedAt:row.updated_at,pending:false});
+        await paintPhoto(vpId);
+      }
+    }
+    // ③ 상대가 지운 사진은 이 기기에서도 정리
+    for(const k of keys){
+      const rec=await photoGet(k);
+      if(rec&&!rec.pending&&!remote.has(k)){ await photoDel(k); await paintPhoto(k); }
+    }
+  }
+
+  /* ---- 업로드 ---- */
+  const photoInput=document.createElement("input");
+  photoInput.type="file"; photoInput.accept="image/*"; photoInput.hidden=true;
+  document.body.appendChild(photoInput);
+  let photoTarget="";
+  photoInput.addEventListener("change", async ()=>{
+    const file=photoInput.files&&photoInput.files[0];
+    photoInput.value=""; 
+    const id=photoTarget; photoTarget="";
+    if(!file||!id) return;
+    setPhotoBusy(id,"사진을 줄이는 중…");
+    try{
+      const dataUrl=await compressPhoto(file);
+      await photoPut(id,{dataUrl,updatedAt:new Date().toISOString(),pending:true});
+      await paintPhoto(id);
+      if(await saveRemotePhoto(id,dataUrl)){
+        const rec=await photoGet(id);
+        if(rec){ rec.pending=false; await photoPut(id,rec); await paintPhoto(id); }
+      }
+    }catch(err){
+      setPhotoBusy(id,"사진을 넣지 못했습니다. 다시 시도해 주세요");
+      setTimeout(()=>paintPhoto(id),2200);
+    }
+  });
+
+  $("#viewpoint-list").addEventListener("click", async e=>{
+    const up=e.target.closest("[data-vp-upload]");
+    if(up){ photoTarget=up.getAttribute("data-vp-upload"); photoInput.click(); return; }
+    const del=e.target.closest("[data-vp-del]");
+    if(!del) return;
+    const id=del.getAttribute("data-vp-del");
+    // 모달 없이 두 번 눌러 확인 — 실수로 지우는 것만 막는다
+    if(del.dataset.armed!=="1"){
+      del.dataset.armed="1"; del.textContent="정말 삭제?";
+      setTimeout(()=>{ if(del.isConnected&&del.dataset.armed==="1"){ del.dataset.armed=""; del.textContent="삭제"; } },3000);
+      return;
+    }
+    await photoDel(id); await deleteRemotePhoto(id); await paintPhoto(id);
+  });
+
+  paintAllPhotos();
 
   /* ══════════ TRANSPORT ══════════ */
   $("#flights").innerHTML = (T.flights||[]).map((f,i)=>{
