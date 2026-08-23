@@ -8,6 +8,7 @@
 |---|---|---|
 | 오리지널 버전 | 부다페스트 3박, 비엔나 4박, 9/18 고사우·할슈타트·체스키 샌딩투어, 프라하 4박 | https://lhm0959.github.io/trip/ |
 | GPT V2 버전 | 부다페스트 2박, 비엔나 3박, 린츠 픽업/반납 렌트카로 고사우 2박, 프라하 4박 | https://lhm0959.github.io/trip/gpt-v2.html |
+| 콘텐츠 중심 일자별 보기 | 시간·이동·주의사항을 우선 표시하는 모바일/인쇄 화면 | https://lhm0959.github.io/trip/content-first.html |
 
 ## 파일 구조
 
