@@ -115,6 +115,13 @@
 
 **부다페스트 → 비엔나 · 호프부르크 · 빈 필하모닉**
 
+### 부다페스트 아침 러닝
+
+- **06:30–07:15 · 다뉴브강변·국회의사당·머르기트섬 러닝** [운동]
+  - 약 5~6km · 평지 위주 · 35~45분. H2 Hotel → 다뉴브강변 → 국회의사당 → 머르기트 다리 → 머르기트섬 남단만 살짝 찍고 → 강변 → 호텔.
+  - 섬 러닝트랙 전체 일주(약 5.3km)는 숙소 왕복까지 더하면 길어지므로 하지 않기.
+  - [Google Maps](https://www.google.com/maps/search/?api=1&query=Margaret%20Island%20Budapest)
+
 ### 이동
 
 - **08:30 · H2 Hotel Budapest 체크아웃** [이동]
@@ -225,6 +232,13 @@
 ## Day 5 · 2026.09.15 (화) · 비엔나
 
 **벨베데레 · 나슈마르크트 · 쇼핑**
+
+### 링슈트라세 아침 러닝
+
+- **06:45–07:25 · 호프부르크·국회의사당·링슈트라세 러닝** [운동]
+  - 약 5km · 거의 평지 · 35~40분. The Cloud One Hotel → 빈 국립 오페라극장 → Burggarten → Hofburg → Volksgarten → 국회의사당 → Rathaus → Ringstraße → 시립공원 → 호텔.
+  - 링 전체 약 7.3km를 돌지 말고 5km 정도에서 끊기.
+  - [Google Maps](https://www.google.com/maps/search/?api=1&query=The%20Cloud%20One%20Hotel%20Wien-Staatsoper)
 
 ### 벨베데레 · 카를스플라츠
 
@@ -415,6 +429,13 @@
 ## Day 9 · 2026.09.19 (토) · 프라하
 
 **구시가 광장 · 천문시계 · 카를교**
+
+### 카를교 · 레트나 아침 러닝
+
+- **06:15–07:00 · 카를교·블타바강변·레트나 러닝** [운동]
+  - 약 4~5km · 35~45분. Airbnb → 구시가지 광장 → 카를교 → 블타바강변 → Čechův most → Letenské sady 전망 포인트 → 강변 → 숙소.
+  - 레트나 진입만 오르막이고 나머지는 비교적 평지. 기록 욕심보다 카를교에서 잠깐 멈춰 사진 찍기.
+  - [Google Maps](https://www.google.com/maps/search/?api=1&query=50.0818138%2C14.4058218)
 
 ### 구시가
 
