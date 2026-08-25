@@ -144,7 +144,7 @@
   - 모차르트 동상과 팔멘하우스 온실이 대표 사진 포인트. 잔디에서 잠깐 쉬기 좋음.
   - [Google Maps](https://www.google.com/maps/search/?api=1&query=Burggarten%20Vienna)
 - **16:20–17:00 · 간단한 카페 또는 호텔 휴식** [휴식]
-  - 공연 전 체력 보충 시간. Café Sacher는 대기 부담을 줄이기 위해 9/14로 이동.
+  - 공연 전 체력 보충 시간. Café Demel 방문은 9/14 일정에 배치.
 - **17:10–17:40 · 오페라극장·알베르티나 테라스 사진** [관광]
   - 알베르티나 계단 위에서 오페라극장 방향을 촬영. 내부 관람 없이 외관과 전망 중심.
   - [Google Maps](https://www.google.com/maps/search/?api=1&query=Albertina%20Museum%20Vienna)
@@ -175,7 +175,7 @@
 
 ## Day 4 · 2026.09.14 (월) · 비엔나
 
-**레오폴트 · 감성 골목 · Café Sacher · Figlmüller**
+**레오폴트 · 감성 골목 · Café Demel · Figlmüller**
 
 ### 뮤지엄쿼터 · 마리아힐프
 
@@ -195,11 +195,11 @@
 
 ### 오페라 지구 · 구시가
 
-[구역 지도 열기](https://www.google.com/maps/search/?api=1&query=Cafe%20Sacher%20Wien)
+[구역 지도 열기](https://www.google.com/maps/search/?api=1&query=Cafe%20Demel%20Vienna)
 
-- **14:50–15:50 · Café Sacher** [카페]
-  - 공식 안내 기준 월요일 포함 매일 07:00~23:00 운영. 2026년 9월 14일 월요일도 영업 예정이며, 온라인 사전 예약 권장. 예약이 어렵거나 현장 대기가 길면 같은 Hotel Sacher의 Café Bel Étage(매일 08:00~22:00)로 대체.
-  - [Google Maps](https://www.google.com/maps/search/?api=1&query=Cafe%20Sacher%20Wien)
+- **14:50–15:50 · Café Demel** [카페]
+  - 주문: 카이저슈마렌(Kaiserschmarrn). 폭신하게 찢은 팬케이크에 슈거파우더와 과일 콩포트를 곁들이는 비엔나식 디저트로, 양이 넉넉하면 둘이 나눠 먹기.
+  - [Google Maps](https://www.google.com/maps/search/?api=1&query=Cafe%20Demel%20Vienna)
 - **16:00–16:35 · 알베르티나 테라스·오페라극장 사진** [관광]
   - 알베르티나 계단 위가 오페라극장 대표 촬영 지점.
   - [Google Maps](https://www.google.com/maps/search/?api=1&query=Albertina%20Museum%20Vienna)
