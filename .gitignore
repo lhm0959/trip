@@ -2,3 +2,6 @@
 CLAUDE.md
 .DS_Store
 .claude/
+
+# 입장 바코드·예약 PIN이 포함된 개인 티켓
+tickets/
