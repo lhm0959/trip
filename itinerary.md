@@ -559,9 +559,9 @@
 - **17:00 · 레트나 공원** [관광]
   - 블타바 강과 다리 전망. 맥주 한 잔 하기 좋음.
   - [Google Maps](https://www.google.com/maps/search/?api=1&query=Letna%20Park%20Prague)
-- **19:30 · 마지막 저녁 · Kuchyň / Čestr** [식사]
-  - 전망+체코식은 Kuchyň, 고기 중심은 Čestr.
-  - [Google Maps](https://www.google.com/maps/search/?api=1&query=Kuchyn%20Prague)
+- **19:30 · 마지막 저녁 · Čestr · 예약 완료** [식사]
+  - 9월 21일 월요일 19:30 CEST · 2명 · 예약명 gu nana. 리에그로비 사디에서 일몰을 본 뒤 19:10에 출발.
+  - [Google Maps](https://www.google.com/maps/search/?api=1&query=Cestr%20Prague)
 
 ### 선택 코스
 
