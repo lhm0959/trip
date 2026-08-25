@@ -252,3 +252,111 @@ revoke all on function public.delete_trip_note(text,text,text) from public;
 grant execute on function public.get_trip_notes(text,text) to anon,authenticated;
 grant execute on function public.save_trip_note(text,text,text,text,text) to anon,authenticated;
 grant execute on function public.delete_trip_note(text,text,text) to anon,authenticated;
+
+-- ══════════════════════════════════════════════════════════════
+-- 뷰포인트 참고 사진 (2026-08 추가)
+-- 사진은 캔버스로 축소·재압축한 JPEG data URL 로 저장합니다.
+-- 목록(index)과 본문(photo)을 분리해 5초 폴링에 본문이 실리지 않게 합니다.
+-- ══════════════════════════════════════════════════════════════
+
+create table if not exists public.trip_photos (
+  trip_id text not null,
+  vp_id text not null,
+  data_url text not null,
+  byte_size integer not null default 0,
+  updated_by text not null default 'shared-device',
+  updated_at timestamptz not null default now(),
+  primary key (trip_id, vp_id)
+);
+
+alter table public.trip_photos enable row level security;
+revoke all on public.trip_photos from anon, authenticated;
+
+-- 목록: 본문 없이 vp_id 와 갱신시각만 (가볍게)
+create or replace function public.get_trip_photo_index(p_trip_id text, p_code text)
+returns table (vp_id text, byte_size integer, updated_at timestamptz)
+language plpgsql security definer set search_path=''
+as $$
+declare v_hash text;
+begin
+  select a.code_hash into v_hash from public.trip_access as a where a.trip_id=p_trip_id;
+  if v_hash is null or extensions.crypt(p_code,v_hash)<>v_hash then
+    raise exception using errcode='28000', message='invalid access code';
+  end if;
+  return query
+  select p.vp_id, p.byte_size, p.updated_at
+  from public.trip_photos as p where p.trip_id=p_trip_id order by p.vp_id;
+end;
+$$;
+
+-- 본문: 바뀐 사진만 한 장씩
+create or replace function public.get_trip_photo(p_trip_id text, p_vp_id text, p_code text)
+returns table (vp_id text, data_url text, updated_at timestamptz)
+language plpgsql security definer set search_path=''
+as $$
+declare v_hash text;
+begin
+  select a.code_hash into v_hash from public.trip_access as a where a.trip_id=p_trip_id;
+  if v_hash is null or extensions.crypt(p_code,v_hash)<>v_hash then
+    raise exception using errcode='28000', message='invalid access code';
+  end if;
+  return query
+  select p.vp_id, p.data_url, p.updated_at
+  from public.trip_photos as p where p.trip_id=p_trip_id and p.vp_id=p_vp_id;
+end;
+$$;
+
+create or replace function public.save_trip_photo(
+  p_trip_id text, p_vp_id text, p_data_url text, p_code text,
+  p_device text default 'shared-device'
+)
+returns void language plpgsql security definer set search_path=''
+as $$
+declare v_hash text; v_len integer;
+begin
+  select a.code_hash into v_hash from public.trip_access as a where a.trip_id=p_trip_id;
+  if v_hash is null or extensions.crypt(p_code,v_hash)<>v_hash then
+    raise exception using errcode='28000', message='invalid access code';
+  end if;
+
+  v_len := length(coalesce(p_data_url,''));
+  -- 앱이 300KB 안으로 압축해 보냅니다. 여유를 둔 상한이며 실수로 원본이 올라오는 것을 막습니다.
+  if v_len = 0 then
+    raise exception using errcode='22023', message='empty photo';
+  end if;
+  if v_len > 700000 then
+    raise exception using errcode='22023', message='photo too large (max ~700KB)';
+  end if;
+  if p_data_url not like 'data:image/%' then
+    raise exception using errcode='22023', message='not an image data url';
+  end if;
+
+  insert into public.trip_photos(trip_id, vp_id, data_url, byte_size, updated_by, updated_at)
+  values (p_trip_id, left(p_vp_id,120), p_data_url, v_len, left(p_device,120), now())
+  on conflict (trip_id, vp_id) do update
+  set data_url=excluded.data_url, byte_size=excluded.byte_size,
+      updated_by=excluded.updated_by, updated_at=now();
+end;
+$$;
+
+create or replace function public.delete_trip_photo(p_trip_id text, p_vp_id text, p_code text)
+returns void language plpgsql security definer set search_path=''
+as $$
+declare v_hash text;
+begin
+  select a.code_hash into v_hash from public.trip_access as a where a.trip_id=p_trip_id;
+  if v_hash is null or extensions.crypt(p_code,v_hash)<>v_hash then
+    raise exception using errcode='28000', message='invalid access code';
+  end if;
+  delete from public.trip_photos as p where p.trip_id=p_trip_id and p.vp_id=p_vp_id;
+end;
+$$;
+
+revoke all on function public.get_trip_photo_index(text,text) from public;
+revoke all on function public.get_trip_photo(text,text,text) from public;
+revoke all on function public.save_trip_photo(text,text,text,text,text) from public;
+revoke all on function public.delete_trip_photo(text,text,text) from public;
+grant execute on function public.get_trip_photo_index(text,text) to anon,authenticated;
+grant execute on function public.get_trip_photo(text,text,text) to anon,authenticated;
+grant execute on function public.save_trip_photo(text,text,text,text,text) to anon,authenticated;
+grant execute on function public.delete_trip_photo(text,text,text) to anon,authenticated;

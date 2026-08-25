@@ -482,17 +482,60 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .tip-points li+li{margin-top:5px}
 .tip-card .rec-sources{margin-top:9px;padding-top:9px}
 .subtab-bar{
-  display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0 0 16px;
+  display:flex;flex-wrap:nowrap;gap:4px;margin:0 0 16px;
   padding:4px;background:var(--paper-2);border:1px solid var(--line);
   border-radius:12px;position:sticky;top:70px;z-index:12;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
+.subtab-bar::-webkit-scrollbar{display:none}
 .subtab{
+  flex:1 0 auto;white-space:nowrap;
   border:0;border-radius:9px;padding:10px 12px;background:transparent;
   color:var(--muted);font-size:13.5px;font-weight:700;cursor:pointer;
 }
 .subtab.active{background:var(--paper);color:var(--wine);box-shadow:0 2px 8px var(--shadow)}
 .subpanel{display:none}
 .subpanel.active{display:block}
+/* ── 사진 뷰포인트 ── */
+.vp-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:13px 14px;margin-bottom:12px;box-shadow:0 2px 9px var(--shadow)}
+.vp-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.vp-name{font-family:"Didot","Bodoni 72",serif;font-size:16.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.vp-when{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.05em;color:#fff;
+  background:var(--wine);border-radius:4px;padding:2px 6px;white-space:nowrap}
+:root[data-theme="dark"] .vp-when{color:#14100b}
+.vp-row{display:grid;grid-template-columns:44px minmax(0,1fr);gap:9px;margin-top:6px;font-size:13.5px;line-height:1.55}
+.vp-key{font-size:10.5px;letter-spacing:.05em;color:var(--muted);padding-top:3px}
+.vp-val{color:var(--ink-soft);word-break:keep-all}
+.vp-row.watch .vp-val{color:var(--wine)}
+.vp-links{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.vp-links a{font-size:12px;text-decoration:none;color:var(--teal);border:1px solid var(--line);
+  border-radius:999px;padding:4px 10px;background:var(--paper-2);white-space:nowrap}
+.vp-slot{margin-top:10px;border:1px dashed var(--line-strong);border-radius:10px;min-height:70px;
+  display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11.5px;
+  text-align:center;padding:12px;background:var(--paper-2);line-height:1.6}
+.vp-shot{margin-top:10px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.vp-shot img{width:100%;display:block}
+.item button.vp-tag{
+  font-family:"Courier New",monospace;font-size:9.5px;letter-spacing:.08em;
+  color:var(--wine);background:transparent;border:1px solid var(--wine);
+  border-radius:4px;padding:2px 6px;cursor:pointer;vertical-align:middle;
+}
+.item button.vp-tag:active{background:var(--wine);color:var(--paper)}
+.vp-card{scroll-margin-top:calc(var(--appbar-offset) + 68px)}
+@keyframes vpflash{0%,100%{box-shadow:0 2px 9px var(--shadow)}
+  25%,75%{box-shadow:0 0 0 3px var(--wine),0 2px 9px var(--shadow)}}
+.vp-card.vp-flash{animation:vpflash 1.5s ease}
+.vp-photo{margin-top:10px}
+.vp-slot-btn{width:100%;display:block;font:inherit;cursor:pointer}
+.vp-slot-btn span{display:block;margin-top:5px;font-size:10.5px;opacity:.85}
+.vp-photo-tools{display:flex;gap:6px;align-items:center;margin-top:7px;flex-wrap:wrap}
+.vp-mini{font-size:11.5px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);
+  background:var(--paper-2);color:var(--teal);cursor:pointer;font-family:inherit}
+.vp-mini.danger{color:var(--wine);border-color:var(--wine)}
+.vp-pending{font-size:10.5px;color:var(--muted);margin-right:auto}
+.vp-busy{font-size:12px;color:var(--muted);padding:16px;text-align:center;
+  border:1px dashed var(--line-strong);border-radius:10px}
 .fx-grid{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:7px}
 .fx-input,.fx-select{
   width:100%;border:1px solid var(--line-strong);border-radius:9px;
@@ -650,6 +693,8 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   .theme-btn,.sync-btn,nav.tabbar,.perf,.caret,.day-route,.day-quick-wrap,.subtab-bar{display:none!important}
   .panel{display:block!important;page-break-before:always}
   .subpanel{display:block!important}
+  .vp-card{break-inside:avoid;page-break-inside:avoid}
+  .vp-slot,.vp-slot-btn,.vp-photo-tools{display:none!important}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
   .card,.day,.leg,.hero{box-shadow:none;border:1px solid #999}
@@ -796,9 +841,10 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   <!-- ══════════ 추천 · 팁 ══════════ -->
   <section class="panel" id="p-recommendations" data-tab="recommendations">
     <div class="section-head"><h2 class="serif">추천 · 팁</h2><span class="kicker">Places & tips</span></div>
-    <div class="subtab-bar" role="tablist" aria-label="추천과 팁">
+    <div class="subtab-bar" role="tablist" aria-label="추천·팁·뷰포인트">
       <button class="subtab active" type="button" role="tab" aria-selected="true" data-subgo="places">추천</button>
       <button class="subtab" type="button" role="tab" aria-selected="false" data-subgo="tips">팁</button>
+      <button class="subtab" type="button" role="tab" aria-selected="false" data-subgo="viewpoints">뷰포인트</button>
     </div>
     <div class="subpanel active" data-subpanel="places">
       <div class="callout" style="border-color:var(--teal)">
@@ -819,6 +865,13 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
         <p>교통 이용법, 무료 이동 동선, 쇼핑 추천 상품과 영업시간처럼 일정에 넣기보다는 미리 알아두면 좋은 정보를 도시별로 모았습니다.</p>
       </div>
       <div id="tips-list"></div>
+    </div>
+    <div class="subpanel" data-subpanel="viewpoints">
+      <div class="callout" style="border-color:var(--wine)">
+        <div class="h serif" style="color:var(--wine)">✦ 사진은 자리와 시간이 8할</div>
+        <p>일정에 실제로 들어 있는 촬영 포인트만 모았습니다. <b>어디에 서서 어떻게 담을지</b>, 언제가 가장 좋은지를 정리했습니다. 일정 탭에서 <b>📷</b> 칩이 붙은 항목이 여기 카드와 짝입니다.</p>
+      </div>
+      <div id="viewpoint-list"></div>
     </div>
   </section>
 
@@ -1115,6 +1168,7 @@ const TRIP = {
   // ── 도시별 여행 팁 ──────────────────────────────────────────
   tips:[
     { id:"tip-bud-transit-ticket", city:"부다페스트", category:"교통", title:"지하철 자동발매기 티켓 구매", body:"지하철역의 보라색 자동발매기에서 영국 국기를 눌러 영어로 바꾸고 원하는 티켓을 선택합니다. 인원수를 추가한 뒤 초록색 버튼으로 진행하고, 카드 삽입 후 비밀번호를 누르면 발권됩니다. 일정에 따라 72시간 트래블카드도 비교하세요.", sources:[{type:"인스타",label:"@intensify_yen"}] },
+    { id:"tip-bud-transit-pass", city:"부다페스트", category:"교통", title:"교통권 — 24시간권이면 충분하고, 100E만 예외", body:"부다페스트 체류는 9/11 저녁 도착 → 9/13 오전 출발이라 대중교통을 실제로 쓰는 날은 9/12 하루뿐입니다. 그래서 72시간권은 두 배 값을 내고 남기고, 24시간권 한 장이면 됩니다. 다만 공항버스만은 완전히 별개 체계라 이것만 조심하면 됩니다.", points:["🚨 100E 공항버스는 전용 티켓 2,500 HUF/인 — 단권도, 24시간권도, 72시간권도 전부 무효입니다. 발매기나 앱에서 100E 티켓을 따로 사야 하고, 트래블카드를 들고 그냥 타면 검표에서 무임승차로 처리됩니다","24시간권 2,750 HUF/인 · 72시간권 5,750 HUF/인. 9/12 아침에 24시간권을 개시하면 그날 일정이 전부 커버됩니다(2인 5,500 HUF)","9/12에 실제로 쓰는 구간 — New York Café → 대성당(M2 Blaha Lujza tér) · 국회의사당 → Jamie Oliver's(버스) · 어부의 요새 → Clark Ádám tér(16번 버스). 나머지 구간은 도보권입니다","공항↔숙소와 9/13 Keleti역 이동은 캐리어가 있으니 Bolt를 쓰세요. 2인이면 100E 2인분과 요금 차이가 크지 않고 문 앞까지 갑니다","BudapestGO 앱으로 사면 발매기 줄을 피할 수 있습니다. 종이표는 반드시 개찰기에 펀칭할 것 — 부다페스트는 검표가 잦고 벌금이 큽니다"], sources:[{type:"공식",label:"BKK 요금표"}] },
     { id:"tip-bud-castle-lift", city:"부다페스트", category:"이동", title:"푸니쿨라 대신 무료로 부다성 올라가기", body:"Clark Ádám tér 인근에서 Google Maps에 ‘Guards Palace’를 검색해 입구를 찾습니다. 문 안쪽 엘리베이터로 1층, 에스컬레이터와 야외 엘리베이터를 차례로 이용하면 부다성 도착입니다.", sources:[{type:"인스타",label:"@intensify_yen"}] },
     { id:"tip-bud-fishermans-guide", city:"부다페스트", category:"명소", title:"어부의 요새 야경·포토스팟 가이드", image:"assets/fishermans-bastion-guide.png", imageAlt:"어부의 요새 포토스팟, 시간대별 풍경, 주변 이동시간을 정리한 가이드", imageCrops:[{label:"BEST 포토스팟 TOP 5",x:53,y:270,w:1289,h:485},{label:"지도 · 시간대별 추천 풍경 · 주변 명소",x:53,y:765,w:1289,h:440},{label:"여행 팁 · 추천 동선 · 카페",x:53,y:1215,w:1289,h:175}], body:"2일차에는 일몰 전 도착해 해 질 무렵부터 야경까지 이어서 보는 일정으로 반영했습니다. 아치와 계단을 활용하면 국회의사당을 프레임 안에 담을 수 있고, 성벽 끝 전망대에서는 부다페스트 전경을 넓게 볼 수 있습니다.", points:["추천 포토스팟: 아치 사이 전망, 계단 위 파노라마, 일곱 개의 탑, 성벽 끝 전망대, 야간 삼각대 촬영 지점","추천 시간: 일출 05:30~07:30 · 오전 09:00~11:00 · 일몰 18:00~19:30 · 야경 20:00~23:00","주변 이동: 마차시 성당 도보 2분 · 부다성 15분 · 세체니 다리 12분 · 바트야니 광장 10분","2일차는 부다성에서 Walzer Café와 Pest-Buda Bistro를 거쳐 어부의 요새까지 성곽 안에서 한 방향으로 이동","야간에는 계단과 석조 바닥이 어두울 수 있으므로 편한 신발을 신고 소지품과 삼각대 통행에 주의"], sources:[{type:"이미지",label:"사용자 제공 가이드"}] },
     { id:"tip-bud-goulash", city:"부다페스트", category:"음식", title:"굴라쉬 주문 팁", body:"한국 김치찌개처럼 딱 맞는 굴라쉬를 특정하기 어렵습니다. 진한 소고기 육수에 파프리카 향이 강하고 매콤한 스타일을 찾으면 실패 확률을 줄일 수 있습니다.", sources:[{type:"인스타",label:"@intensify_yen"}] },
@@ -1129,12 +1183,14 @@ const TRIP = {
     { id:"tip-vie-sacher-wait", city:"비엔나", category:"예약", title:"Café Sacher 대기 대응", body:"도착일 대신 9월 14일 오전 10시에 방문합니다. Café Sacher는 예약을 받으므로 sacher.com 온라인 예약 도구나 전화(+43 1 514560)로 테이블을 잡아두면 줄을 아예 건너뜁니다. 붐비는 시간대는 오후라 오전 방문이 유리하고, 예약 없이 갔다가 줄이 길면 부르크가르텐이나 사진 일정을 먼저 본 뒤 다시 오세요.", sources:[{type:"일정",label:"동선 반영"}] },
     { id:"tip-vie-central-closure", city:"비엔나", category:"관광", title:"Café Central 휴업 주의", body:"Café Central은 2026년 3월 16일부터 전면 보수공사로 휴업 중이며 공식 재개장일이 확정되지 않았습니다. 이번 일정에서는 제외하고, 재개장 공지가 확인될 때만 후보로 되돌리세요.", sources:[{type:"공식",label:"Café Central"}] },
     { id:"tip-vie-transit-sunday", city:"비엔나", category:"교통", title:"대중교통·일요일 쇼핑", body:"지하철·트램·버스는 승차 전에 유효한 티켓이 필요하며 종이 승차권은 반드시 개찰기에 찍어야 합니다. 비엔나는 일요일에 일반 상점과 슈퍼 대부분이 쉬므로 BILLA 쇼핑은 월요일 일정에서 끝내는 편이 안전합니다.", sources:[{type:"일정",label:"현장 메모"}] },
+    { id:"tip-vie-transit-pass", city:"비엔나", category:"교통", title:"⚠️ 2026년부터 72시간권이 없어졌다 — 단권으로 가세요", body:"2026년 1월 1일 요금 개편으로 48시간권과 72시간권이 폐지됐습니다. 3박 여행자가 쓰던 표준 선택지가 통째로 사라진 거라, 예전 블로그를 보고 72시간권을 찾으면 없습니다. 우리 일정은 대부분 도보권이고 U-Bahn을 타는 게 1인 7회뿐이라 단권이 정답입니다.", points:["남은 선택지는 단권 €3.20(온라인·앱 €3.00) · 24시간권 €10.20 · 7일권 €28.90 셋뿐입니다","실제 탑승은 1인 7회 — 9/13 Hbf→호텔 1회, 9/14 슈테판 대성당 왕복 2회, 9/15 벨베데레 1회와 Griechenbeisl 왕복 2회, 9/16 호텔→Hbf 1회. 그 외는 전부 걸어서 다닙니다","계산하면 단권이 압도적입니다 — 1인 €21(2인 €42). 7일권은 1인 €28.90이라 손해고, 24시간권도 가장 많이 타는 9/15조차 3회뿐이라 €9.00 < €10.20으로 이득이 없습니다","WienMobil 앱에서 온라인 단권을 사면 €3.00이고 개찰도 필요 없습니다. 종이표를 샀다면 승차 전 반드시 개찰기에 찍으세요","노선도 단순합니다 — 9/15 벨베데레만 트램 D(Kärntner Ring/Oper → Schloss Belvedere)이고 나머지는 전부 U1입니다. 호텔이 Karlsplatz 바로 옆이라 환승이 없습니다"], sources:[{type:"공식",label:"Wiener Linien 2026 요금 개편"}] },
     { id:"tip-vie-water-payment", city:"비엔나", category:"기타", title:"물·결제·화장실", body:"비엔나 수돗물은 식수로 마실 수 있어 물병을 다시 채워도 됩니다. 카드 결제가 널리 가능하지만 소규모 노점과 화장실용으로 소액 유로 현금을 준비하세요.", sources:[{type:"일정",label:"현장 메모"}] },
     { id:"tip-vie-parndorf", city:"비엔나", category:"쇼핑", title:"파른도르프 아울렛 이동·할인", body:"비엔나에서 전용 셔틀버스로 이동할 수 있습니다. 방문 전 예약 페이지에서 날짜와 시간을 선택하고, 제공되는 할인 교환권·쿠폰의 사용 조건을 확인하세요.", sources:[{type:"인스타",label:"@atourshop"}] },
 
     { id:"tip-prg-castle-downhill", city:"프라하", category:"이동", title:"프라하성부터 내리막으로 걷기", body:"숙소에서 스트라호프 수도원까지는 버스나 트램으로 먼저 올라간 뒤 프라하성·말라스트라나·카를교 방향으로 천천히 내려오면 계단을 거꾸로 오르는 일을 줄일 수 있습니다. 도심 명소끼리는 가까워 이후 구간은 도보 이동이 편합니다.", sources:[{type:"인스타",label:"@sachacollectif"}] },
     { id:"tip-prg-night-route", city:"프라하", category:"관광", title:"해 질 무렵 야경 산책 동선", body:"카를교에서 시작해 프라하성·네루도바 거리·말로스트란스케 광장·레넌 벽·캄파섬·스트르젤레츠키섬·국립극장·구시가지 광장 순으로 걷는 약 4.6km 코스입니다. 여름에는 일몰 뒤 여유롭게 시작하고 구시가지 광장에서 맥주 한 잔으로 마무리하세요.", sources:[{type:"인스타",label:"@nomadtravel2019"}] },
     { id:"tip-prg-visitor-pass", city:"프라하", category:"교통", title:"Prague Visitor Pass 비교하기", body:"명소 입장과 시내 대중교통을 묶은 패스입니다. 소개 이미지에는 공항 왕복 대중교통과 빈티지 트램 42번도 포함된다고 안내되어 있지만, 포함 명소·노선·가격은 바뀔 수 있으므로 구매 직전 공식 사이트에서 최신 혜택을 확인하고 실제 방문할 유료 명소의 개별 입장료 합계와 비교하세요.", sources:[{type:"인스타",label:"@myrealtrip × @visitczechia_kr"}] },
+    { id:"tip-prg-transit-pass", city:"프라하", category:"교통", title:"교통권 — 이동이 몰리는 이틀만 24시간권", body:"2026년 1월부터 요금이 종이표 기준 약 30% 올랐고, 앱으로 사면 더 쌉니다. 프라하는 구시가 안이 전부 도보권이라 4박 내내 패스를 들 필요가 없습니다. 이동이 실제로 몰리는 날만 골라 사는 게 가장 저렴합니다.", points:["2026 요금 — 30분권 39 CZK(앱 36) · 90분권 50 CZK(앱 46) · 24시간권 150 CZK(앱 140)","교통이 필요한 날은 사실상 이틀입니다 — 9/20(프라하성·스트라호프·페트르진)과 9/21(카를린·비셰흐라드·리에그로비 사디). 이 이틀만 24시간권을 끊으세요","9/18 도착(Praha hl.n. → 숙소 지하철 C선)과 9/19 구시가 날은 90분권 개별로 사는 편이 쌉니다. 9/19는 거의 걸어다니는 일정입니다","PID Lítačka 앱을 출국 전에 깔아두면 종이보다 싸고 발매기 줄도 피합니다. 종이표는 승차할 때 노란 개찰기에 반드시 찍으세요","9/22 공항은 대중교통 대신 택시·Bolt로 가세요. 캐리어가 있고 18:50 비행기라 여기서는 시간을 사는 게 맞습니다"], sources:[{type:"공식",label:"PID 2026 신규 요금"}] },
     { id:"tip-prg-night-photo", city:"프라하", category:"사진", title:"프라하 야경 인생샷 촬영 팁", body:"일몰 후 약 20~30분 동안 하늘이 푸르게 남는 블루아워를 노리면 황금빛 조명과 하늘의 대비가 가장 선명합니다. 인물은 배경에 묻히지 않도록 화이트·크림 또는 채도가 높은 단색 의상을 추천합니다. 삼각대가 없다면 팔을 몸에 붙이고 스마트폰 야간 모드가 촬영을 마칠 때까지 2~3초간 움직이지 마세요. 계절별 일몰 시각은 방문 당일 다시 확인하세요.", sources:[{type:"가이드",label:"프라하 야경 스팟 TOP 5"}] },
     { id:"tip-prg-snap-blog", city:"프라하", category:"사진", title:"프라하 스냅 촬영 후보 참고 블로그", body:"프라하 여행 중 커플 스냅 촬영 여부를 결정할 때 다시 확인할 참고자료입니다. 예약 전 촬영 상품·소요 시간·포함 원본 및 보정본 수·촬영 동선·의상 교체 가능 여부·우천 및 취소 규정·추가 비용을 확인하세요.", sources:[{type:"블로그",label:"네이버 블로그 원문",url:"https://blog.naver.com/gkals1221/224344952091"}] },
     { id:"tip-weather-clothing", city:"전체", category:"기타", title:"9월 날씨와 옷차림 — 핵심은 잘츠캄머구트", body:"9월 중순 동유럽은 여행하기 가장 좋은 시기입니다. 낮은 따뜻하고 습하지 않으며 관광객도 성수기보다 줍니다. 다만 도시 셋과 잘츠캄머구트의 기후가 확연히 달라, 짐은 '잘츠캄머구트 기준'으로 싸고 도시에서는 겉옷을 벗는 방식이 맞습니다. 아래는 평년값이고 실제 예보는 출발 1주 전에 다시 확인하세요.", points:["🇭🇺 부다페스트 9/11~13 — 최고 24℃ / 최저 11℃, 월 강수 30~50mm. 네 곳 중 가장 따뜻하고 건조합니다. 낮에는 반팔로 충분하고 다뉴브 야경 볼 때만 겉옷","🇦🇹 비엔나 9/13~16 — 최고 22℃ / 최저 10℃, 월 강수 42mm에 비 오는 날 약 10일. 도시 관광에 무난하고 우산은 접이식이면 충분","⚠️ 잘츠캄머구트 9/16~18 — 최고 17~18℃ / 최저 6~8℃, 월 강수 169mm에 비 오는 날 약 14일. 비엔나의 4배 강수량이고 하루 강수 확률이 40% 안팎입니다. 여행 전체에서 춥고 젖을 위험이 가장 큰 구간이라 여기에 맞춰 짐을 싸세요","🇨🇿 프라하 9/18~22 — 최고 20℃ / 최저 11℃로 시작해 월말로 갈수록 최고 16℃ / 최저 8℃까지 내려갑니다. 유난히 추운 아침은 4℃까지도 떨어집니다. 다만 9월 하순은 맑은 날 비율이 높아 야경·사진에는 유리","☀️ 일교차가 10~13℃로 큽니다 — 이게 옷차림의 전부입니다. 두꺼운 옷 한 벌보다 얇은 옷 세 겹이 낫습니다","🌇 일몰은 9/11 약 19:05에서 9/22 약 18:50으로, 하루 2분씩 짧아집니다. 야경 일정은 19시 이후로 잡혀 있어 그대로 맞습니다"], sources:[{type:"기후",label:"평년값 기준 · 실제 예보는 출발 1주 전 확인"}] },
@@ -1142,6 +1198,166 @@ const TRIP = {
     { id:"tip-szk-driving", city:"잘츠캄머구트", category:"교통", title:"오스트리아 렌트 운전 — 결론부터: 어렵지 않다", body:"9/16~9/18 린츠 렌트 구간은 유럽 자가운전 중에서도 쉬운 편입니다. 우측통행·좌핸들이라 한국과 감각이 반대인 게 가장 큰 적응 포인트지만, 예약 차량이 자동변속기이고 도로 상태와 표지판이 좋아 이틀이면 익숙해집니다. 아래 항목만 미리 알고 가면 됩니다.", points:["✅ 자동변속기 확정 — 예약 차종코드 EDAR의 세 번째 글자 A가 자동변속기를 뜻합니다(E=이코노미, D=4~5도어, A=오토, R=에어컨 포함). 유럽 렌트의 최대 함정인 수동변속기 문제는 없습니다","⚠️ 국제운전면허증(IDP)이 법적 필수 — 한국 면허는 EU/EEA 밖이라 인정되지 않습니다. IDP + 국내면허증 원본 + 여권을 항상 함께 소지하세요(IDP만 있으면 무효). 픽업 때도 원본을 봅니다","비네트(고속도로 통행 스티커)는 오스트리아에서 빌린 차라 이미 포함입니다. 그래도 픽업 때 '비네트 포함 맞죠?'는 한 번 확인하세요. 미부착 적발 시 대체통행료가 즉시 부과됩니다. 우리 경로(린츠 A1 → 잘츠캄머구트)는 A9 파이른·A10 타우언 같은 별도 구간요금 구간을 지나지 않아 추가 통행료가 없습니다","제한속도 아우토반 130 / 국도 100 / 시내 50km/h. 오스트리아는 단속 카메라가 많고 관용 폭이 좁습니다. 과태료는 SIXT를 거쳐 행정수수료까지 붙어 청구되니 표지판 속도를 지키세요","🚨 Rettungsgasse(구급차로) — 아우토반에서 정체가 생기면 '차가 서기 전에' 1차로는 왼쪽으로, 나머지 차로는 오른쪽으로 붙어 가운데 통로를 만드는 게 법적 의무입니다. 한국에 없는 개념이라 앞차를 따라 하면 됩니다","혈중알코올 0.05% — 저녁에 와인 한 잔이라도 마셨으면 운전대를 잡지 마세요. 숙소 저녁은 걸어갈 수 있는 곳으로","교차로에 표지가 없으면 '우측 차량 우선'이 기본이고, 트램·버스에 우선권이 있습니다. 로터리에서는 이미 안에서 돌고 있는 차가 우선","비상삼각대·형광조끼·구급함은 차량에 비치되어 있어야 합니다. 픽업 때 트렁크에 있는지 눈으로 확인하세요","9월은 겨울타이어 의무 기간(11~4월)이 아니라 신경 쓸 필요 없습니다","산길은 B145·B166 위주로 2차선 포장도로라 험하지 않지만, 커브가 많고 자전거·트랙터가 자주 나옵니다. 오르막 차량에 양보하고 야간 산길 운전은 피하세요(9/17 18시 복귀 일정 유지)"], sources:[{type:"공식",label:"ASFINAG 비네트",url:"https://www.asfinag.at/en/toll/vignette/"},{type:"공식",label:"오스트리아 외교부 운전 안내",url:"https://www.bmeia.gv.at/en/austrian-embassy-ottawa/travel-information-on-austria/driving-toll-roads"}] },
     { id:"tip-szk-parking-payment", city:"잘츠캄머구트", category:"교통", title:"주차 — 고사우제 무인정산을 특히 조심", body:"렌트 구간에서 실제로 돈이 새거나 사고가 나는 지점은 운전이 아니라 주차 정산입니다. 방식이 장소마다 다릅니다.", points:["🅿️ 할슈타트 P1~P4 — 일반 티켓식. 15분 무료 · 1시간 €5 · 2시간 €9 · 3~4시간 €10 · 5~6시간 €12 · 7~12시간 €15 · 하루 €20. 티켓 분실하면 €40이니 잘 보관하세요","🅿️ 할슈타트 역사지구는 차단기 2개로 막혀 있어 숙박객 외에는 차로 못 들어갑니다. 당일 방문객은 주차장까지만 — 주차장 이용에는 호텔 예약이 필요 없습니다","⚠️ 고사우제 — 차단기도 티켓도 없는 무인 번호판 인식(ANPR) 방식입니다. 그냥 나오면 미납 처리되니 반드시 출차 후 48시간 안에 arivo.info/gosausee에서 번호판을 입력해 결제하거나, 현장 정산기에서 미리 내세요. 2026-08-01 기준 2시간 €4 · 4시간 €7 · 하루 €10","미납분은 렌터카 업체로 청구가 넘어가 행정수수료가 붙습니다. 출차 직후 폰으로 바로 결제하고 결제 화면을 캡처해 두세요","주유는 셀프가 기본이고 카드가 통합니다. 반납 전 린츠 근처에서 만땅으로 채우고 영수증을 보관하세요(SIXT는 연료 미충전 시 비싼 요율을 매깁니다)","주차 위치는 사진으로 남기세요 — 할슈타트 P2와 고사우제 모두 비슷하게 생긴 구역이 많습니다"], sources:[{type:"공식",label:"Hallstatt 주차 안내",url:"https://www.hallstatt.net/parking-in-hallstatt/cars/"},{type:"공식",label:"고사우제 주차 요금",url:"https://www.gosau.ooe.gv.at/Tarifordnung"}] },
     { id:"tip-prg-snap-iloveprague", city:"프라하", category:"사진", title:"스냅 후보 · 알럽프라하 마르코 작가", body:"9월 20일 오전 9시 ‘알맹이 60분’ 촬영으로 결정한 후보입니다. 마이리얼트립 평점 5.0·후기 1,218개의 한국어 도보 스냅 상품으로 최소 구매 수량은 2명이며 최대 6명까지 인원 추가비가 없습니다.", points:["선택안 · 알맹이 60분 · 24만원: 원본 100~150장, 색감보정 20장, 카를교·프라하성·트램 등 7개 이상 스팟","촬영일정: 9월 20일 07:00 준비 시작 → 08:20 이동 → 09:00~10:00 촬영 → 10:30 프라하성 관람","심플 추억 90분 · 30만원: 원본 150~200장, 색감보정 30장+정밀보정 5장, 10개 이상 스팟","빨간 지붕 120분 · 36만원: 원본 250~300장, 색감보정 40장+정밀보정 5장, 빨간 지붕·프라하성·트램·카를교 등 15개 이상 스팟","석양/야경 120분 · 36만원: 원본 150~200장, 색감보정 30장+정밀보정 5장, 카를교·프라하성·캄파섬 등 10개 이상 스팟","원본은 촬영일 기준 24시간 이내, 보정본은 최대 60일 소요 가능. 원본·보정본 모두 클라우드 전달","무료 소품은 조화 부케·화이트/블랙 베일·부토니에·보타이이며 촬영 전날 요청 필요","큰 가방은 피하고 정장 구두 촬영 시 이동용 운동화를 별도로 준비. 코스와 미팅 장소는 예약 확정 후 안내","페이지 확인 당시 가격·구성으로 예약 전 상품 페이지에서 최신 금액, 작가 배정, 취소·우천 규정을 다시 확인"], sources:[{type:"예약",label:"마이리얼트립 상품 3511071",url:"https://experiences.myrealtrip.com/products/3511071"}] },
+  ],
+
+  // ── 사진 뷰포인트 ────────────────────────────────────────────
+  // 일정에 실제로 들어 있는 촬영 포인트만 모았습니다. 일정 항목에 vpId 를 달면
+  // 그 항목에 📷 칩이 붙고, 여기 카드와 짝이 됩니다.
+  //   stand=어디에 서는지 · frame=어떻게 담는지 · best=언제 · tip=요령 · watch=주의
+  //   photoQuery 는 '이 자리 사진 보기'(구글 이미지) 검색어입니다.
+  //   image 에 assets/파일명.jpg 를 넣으면 빈 슬롯 대신 그 사진이 표시됩니다.
+  viewpoints:[
+    { id:"vp-bud-parliament-night", city:"부다페스트", date:"2026-09-11", time:"21:30", name:"국회의사당 야경 · 다뉴브 강변",
+      stand:"페스트 쪽 강변 산책로. 더 넓게 담으려면 다리 건너 바트야니 광장(Batthyány tér)",
+      frame:"건물 전체를 강물에 반영과 함께. 인물은 난간 쪽에 세우고 건물을 오른쪽에 두면 안정적",
+      best:"도착 첫날 밤. 조명이 완전히 올라온 21시 이후가 가장 화려하다",
+      tip:"장시간 노출이 되므로 난간에 폰을 기대 흔들림을 잡을 것. 인물 컷은 야간모드가 끝날 때까지 2~3초 정지",
+      watch:"첫날은 비행 피로가 크니 욕심내지 말고 대표 컷 몇 장만. 진짜 야경은 9/12 어부의 요새에서 찍는다",
+      map:"Hungarian Parliament Building Budapest", photoQuery:"Hungarian Parliament Budapest night Danube reflection", image:"", imageAlt:"" },
+
+    { id:"vp-bud-fishermans", city:"부다페스트", date:"2026-09-12", time:"17:25–19:25", name:"어부의 요새 · 아치와 계단",
+      stand:"2층 회랑의 흰 석조 아치 안쪽. 계단 위쪽은 파노라마용",
+      frame:"아치를 액자로 삼아 국회의사당을 프레임 안에. 인물은 아치 한쪽에 세워 실루엣과 배경을 함께",
+      best:"일몰 19:02 전후 → 직후 25분 블루아워. 하늘이 남색일 때 조명과 대비가 가장 좋다",
+      tip:"밝을 때 구도를 미리 잡아두고 같은 자리에서 시간대별로 세 번 찍으면 낮·노을·야경 세 장이 나온다",
+      watch:"아치 구간은 사람이 몰린다. 유료 전망대 구간과 무료 구간이 나뉘니 무료 구간에서 먼저 시도할 것",
+      map:"Fisherman's Bastion Budapest", photoQuery:"Fishermans Bastion Budapest arch Parliament view", image:"", imageAlt:"" },
+
+    { id:"vp-bud-chain-bridge", city:"부다페스트", date:"2026-09-12", time:"19:45–20:10", name:"세체니 다리 · 사자상과 철제 구조",
+      stand:"부다 쪽 클라크 아담 광장 입구에서 다리 위로 몇 걸음",
+      frame:"다리의 케이블과 기둥이 만드는 대칭을 중앙에 두고 인물을 가운데. 사자상을 앞에 넣으면 깊이가 생긴다",
+      best:"어부의 요새에서 내려온 직후. 조명이 켜진 뒤라 철제 구조의 실루엣이 살아난다",
+      tip:"다리 중간까지 걸어가며 뒤돌아보면 부다성이 배경으로 들어온다. 걷는 뒷모습 컷이 잘 나오는 구간",
+      watch:"차도 옆이라 인도 안쪽에서만. 바람이 세니 머리 정리할 시간을 준 뒤 셔터",
+      map:"Clark Adam Square Chain Bridge Budapest", photoQuery:"Szechenyi Chain Bridge Budapest night lions", image:"", imageAlt:"" },
+
+    { id:"vp-vie-michaelerplatz", city:"비엔나", date:"2026-09-13", time:"15:10–15:40", name:"호프부르크 · 미하엘 광장",
+      stand:"미하엘 광장 한가운데, 왕궁 돔을 정면으로",
+      frame:"곡선형 파사드와 아치를 배경 전체에 깔고 인물을 작게. 마차가 지나갈 때 셔터를 누르면 시대감이 살아난다",
+      best:"오후 늦게. 9월 오후 빛이 파사드에 정면으로 든다",
+      tip:"광장 바닥의 원형 패턴 중앙에 서면 좌우 대칭이 맞는다. 아치 아래로 들어가면 액자 구도도 가능",
+      watch:"관광객·마차 동선이 겹친다. 사람이 빠지는 순간을 기다리는 게 유일한 방법",
+      map:"Michaelerplatz Hofburg Vienna", photoQuery:"Michaelerplatz Hofburg Vienna dome facade", image:"", imageAlt:"" },
+
+    { id:"vp-vie-burggarten", city:"비엔나", date:"2026-09-13", time:"15:45–16:15", name:"왕궁정원 · 팔멘하우스 온실",
+      stand:"팔멘하우스 유리 온실 앞 잔디밭, 모차르트 동상 반대편",
+      frame:"아르누보 유리 파사드를 배경으로 인물을 중앙보다 약간 왼쪽에. 정원 녹음이 프레임 아래를 채운다",
+      best:"미하엘 광장 촬영 직후. 딱딱한 왕궁 컷 다음에 부드러운 정원 컷을 이어 붙이는 순서",
+      tip:"잔디에 앉은 컷과 유리 앞에 선 컷 두 가지를 남길 것. 유리 반사를 피하려면 살짝 비스듬히",
+      watch:"",
+      map:"Palmenhaus Burggarten Vienna", photoQuery:"Palmenhaus Burggarten Vienna glasshouse", image:"", imageAlt:"" },
+
+    { id:"vp-vie-albertina", city:"비엔나", date:"2026-09-13", time:"17:10–17:40", name:"알베르티나 테라스 · 오페라극장",
+      stand:"알베르티나 미술관 계단 위 테라스. 난간 왼쪽 끝",
+      frame:"테라스에서 내려다보며 오페라극장을 배경에. 높이 차이 덕에 인물과 건물이 겹치지 않는다",
+      best:"9/13은 공연 전 17시대, 9/14는 16시대. 두 번 오르니 빛이 나은 날에 본 컷을 남기면 된다",
+      tip:"비포 선라이즈 구도로 알려진 자리. 난간에 팔을 걸친 자연스러운 포즈가 잘 어울린다",
+      watch:"",
+      map:"Albertina Museum Vienna", photoQuery:"Albertina terrace Vienna opera house view", image:"", imageAlt:"" },
+
+    { id:"vp-vie-belvedere", city:"비엔나", date:"2026-09-15", time:"09:30–11:30", name:"벨베데레 상궁 · 반영 연못",
+      stand:"상궁 정면 반영 연못 남쪽 끝, 궁전을 정면으로",
+      frame:"연못에 궁전이 통째로 반영되도록 카메라를 낮게. 인물은 연못 가장자리에 작게 넣어 대칭을 깨지 않게",
+      best:"09:30 입장 직후. 개관 직후라 정원에 사람이 가장 적고, 오전 빛이 정면으로 든다",
+      tip:"반영은 바람이 없어야 선명하다. 물결이 있으면 연못을 포기하고 정원 축 대칭 구도로 전환할 것",
+      watch:"실내는 촬영 제한이 있다. 대표 컷은 외부 정원에서 확보하고 들어갈 것",
+      map:"Upper Belvedere Reflecting Pool Vienna", photoQuery:"Upper Belvedere Vienna reflecting pond symmetry", image:"", imageAlt:"" },
+
+    { id:"vp-vie-karlskirche", city:"비엔나", date:"2026-09-15", time:"12:00–12:30", name:"카를 성당 · 연못 건너편",
+      stand:"성당 앞 연못의 건너편(남쪽) 가장자리",
+      frame:"돔과 두 개의 원형 기둥을 연못 반영과 함께. 인물은 연못가에 앉히면 수평선이 정리된다",
+      best:"정오 무렵. 빛이 강하니 인물은 그늘 경계에 두는 편이 낫다",
+      tip:"연못 앞 잔디에 사람이 많이 앉아 있다. 로우앵글로 찍으면 뒤쪽 인파가 자연스럽게 가려진다",
+      watch:"",
+      map:"Karlskirche Vienna", photoQuery:"Karlskirche Vienna pond reflection", image:"", imageAlt:"" },
+
+    { id:"vp-szk-gmunden", city:"잘츠캄머구트", date:"2026-09-16", time:"13:00", name:"그문덴 오르트성 · 나무다리",
+      stand:"호수 쪽 나무다리 입구, 성을 정면에 두고",
+      frame:"긴 나무다리를 아래쪽 대각선으로 깔아 원근감을 만들고 성을 끝점에. 인물은 다리 중간쯤 걷게",
+      best:"점심 산책 시간. 오후 빛에 트라운제 물색이 가장 진하다",
+      tip:"다리 위 걷는 뒷모습이 이 자리의 정석. 정지 포즈보다 실제로 걸으며 여러 장 연사할 것",
+      watch:"나무다리가 좁고 마주 오는 사람이 있다. 비켜주며 찍는 리듬이 필요",
+      map:"Seeschloss Ort Gmunden", photoQuery:"Seeschloss Ort Gmunden wooden bridge Traunsee", image:"", imageAlt:"" },
+
+    { id:"vp-szk-wolfgangsee", city:"잘츠캄머구트", date:"2026-09-16", time:"17:45–18:30", name:"장크트볼프강 호숫가 · 숙소 앞 선착장",
+      stand:"숙소 앞 목조 선착장 끝",
+      frame:"선착장 판자가 만드는 소실점 위에 인물. 뒤로 호수와 산이 층을 이룬다",
+      best:"9/16 일몰 약 19:10. 그 한 시간 전 황금빛이 호수에 깔릴 때",
+      tip:"카약·SUP를 타면 물 위에서만 나오는 각도가 생긴다. 방수팩에 폰을 넣고 한 장은 물 위에서",
+      watch:"숙소 전용 장비라 대여가 자유롭다. 다만 바람·저온이면 무리하지 말고 호숫가 산책 컷으로 대체",
+      map:"Sankt Wolfgang lakeside promenade", photoQuery:"St Wolfgang Wolfgangsee wooden pier sunset", image:"", imageAlt:"" },
+
+    { id:"vp-szk-hallstatt", city:"잘츠캄머구트", date:"2026-09-17", time:"08:25", name:"할슈타트 클래식 뷰포인트",
+      stand:"마을 북쪽 호숫가 산책로. 엽서 구도로 알려진 그 지점",
+      frame:"호수·마을·교회 첨탑·산을 한 화면에. 인물은 앞쪽 난간에 두고 마을을 배경으로",
+      best:"오전 8시대. 이 여행에서 가장 중요한 시간 약속이다",
+      tip:"이 자리 하나만은 반드시 성공시킬 것. 세로 구도가 산까지 담겨 엽서에 가깝고, 가로는 호수 폭이 살아난다",
+      watch:"9시가 넘으면 단체 관광객이 밀려와 빈 프레임이 사라진다. 아침 8시대 도착 일정을 지키는 이유가 이것",
+      map:"Hallstatt Classic Viewpoint", photoQuery:"Hallstatt classic viewpoint postcard view", image:"", imageAlt:"" },
+
+    { id:"vp-szk-obertraun", city:"잘츠캄머구트", date:"2026-09-17", time:"14:00", name:"오버트라운 · 호수 건너 할슈타트 전경",
+      stand:"호수 동안(오버트라운 쪽) 물가",
+      frame:"호수 건너 할슈타트 마을 전체를 넓게. 물가 돌 위에 인물을 앉히면 앞이 채워진다",
+      best:"오후. 마을 쪽에 빛이 정면으로 들어 흰 벽이 밝게 나온다",
+      tip:"아침 뷰포인트와 정반대 방향이라 완전히 다른 사진이 나온다. 같은 마을을 두 번 다르게 남기는 자리",
+      watch:"사람이 훨씬 적다. 여기서 여유 있게 시간을 써도 된다",
+      map:"Obertraun lakeside Hallstatt view", photoQuery:"Obertraun lake view Hallstatt village across", image:"", imageAlt:"" },
+
+    { id:"vp-szk-gosausee", city:"잘츠캄머구트", date:"2026-09-17", time:"16:00", name:"고사우제 · 다흐슈타인 반영",
+      stand:"주차장에서 호수에 닿는 첫 지점, 호수 정면",
+      frame:"다흐슈타인 산군이 물에 반영되도록 카메라를 수면 가까이. 인물은 화면 아래 3분의 1에 작게",
+      best:"오후 4시 무렵 도착 기준. 바람이 잦아든 순간을 노린다",
+      tip:"이 여행 최고의 풍경 컷이 나올 자리. 반영이 살아 있으면 인물 없이 풍경만 한 장도 꼭 남길 것",
+      watch:"⚠️ 주차가 무인 번호판 인식이라 출차 후 48시간 안에 결제해야 한다. 사진에 정신 팔려 잊기 쉬움",
+      map:"Vorderer Gosausee classic viewpoint", photoQuery:"Vorderer Gosausee Dachstein reflection", image:"", imageAlt:"" },
+
+    { id:"vp-szk-st-gilgen", city:"잘츠캄머구트", date:"2026-09-18", time:"11:00~11:25", name:"장크트길겐 · 모차르트 광장과 선착장",
+      stand:"모차르트 광장의 파스텔 건물 앞, 그리고 선착장 끝 두 곳",
+      frame:"광장은 알록달록한 벽을 배경으로 인물을 크게. 선착장은 호수와 산을 넓게 깔고 인물을 작게",
+      best:"오전. 체크아웃 후 짧게 들르는 자리라 20분 안에 두 구도를 끝낸다",
+      tip:"알프스 구간 마지막 사진이다. 광장 컷 하나, 선착장 컷 하나로 나눠 찍으면 성격이 다른 두 장이 남는다",
+      watch:"11:30에는 린츠로 출발해야 한다. 시간을 넘기면 취소불가 기차가 걸린다",
+      map:"Mozartplatz St Gilgen Austria", photoQuery:"St Gilgen Mozartplatz Wolfgangsee pier", image:"", imageAlt:"" },
+
+    { id:"vp-prg-charles-night", city:"프라하", date:"2026-09-18", time:"22:00", name:"카를교 야경 · 프라하성 방향",
+      stand:"다리 위 구시가 쪽 3분의 1 지점, 프라하성을 정면에",
+      frame:"다리 난간의 성상들을 좌우로 흘리고 조명 받은 프라하성을 소실점에. 인물은 난간에 기대게",
+      best:"도착 첫날 밤 22시. 관광객이 빠져 다리가 비는 시간",
+      tip:"더 좋은 캐슬뷰는 다리 아래 노보트네호 라프카 선착장이다. 카를교 아치와 성과 강물 반영이 한 화면에 들어온다",
+      watch:"삼각대 없이 야간모드로 찍으면 인물이 흔들린다. 난간에 팔을 고정하고 숨을 참을 것",
+      map:"Charles Bridge Prague", photoQuery:"Charles Bridge Prague night castle view", image:"", imageAlt:"" },
+
+    { id:"vp-prg-oldtown", city:"프라하", date:"2026-09-19", time:"11:00", name:"구시가 광장 · 틴 성당",
+      stand:"광장 남쪽에서 틴 성당의 쌍둥이 첨탑을 정면으로",
+      frame:"두 첨탑을 화면 위쪽에 꽉 채우고 인물은 광장 돌바닥에. 낮은 각도가 건물을 웅장하게 만든다",
+      best:"오전 11시. 정오 천문시계 쇼 직전이라 광장이 아직 덜 붐빈다",
+      tip:"돌바닥에 앉거나 쪼그려 찍으면 뒤쪽 인파가 시야에서 사라진다. 이 광장에서 가장 잘 듣는 요령",
+      watch:"정시 천문시계 쇼 때는 사람이 한꺼번에 몰린다. 촬영은 쇼 전후로",
+      map:"Old Town Square Prague", photoQuery:"Old Town Square Prague Tyn Church towers", image:"", imageAlt:"" },
+
+    { id:"vp-prg-strahov", city:"프라하", date:"2026-09-20", time:"14:50–15:20", name:"스트라호프 수도원 전망대",
+      stand:"수도원 옆 포도밭 전망 구간의 난간",
+      frame:"붉은 지붕과 첨탑이 층층이 겹치는 구시가를 배경 전체에. 인물은 난간 앞 왼쪽에 세워 배경을 가리지 않게",
+      best:"오후. 웨딩스냅 촬영이 끝난 뒤라 옷과 머리가 아직 정돈된 상태",
+      tip:"프라하 웨딩스냅 대표 스팟이다. 작가가 잡아준 구도를 기억해뒀다가 여기서 직접 재현해볼 것",
+      watch:"오르막 도보 20~25분이다. 힘들면 Pohořelec 방향 트램을 타고 올라와 걸어 내려가는 쪽이 낫다",
+      map:"Lookout with Vineyard Strahov Prague", photoQuery:"Strahov monastery viewpoint Prague red roofs", image:"", imageAlt:"" },
+
+    { id:"vp-prg-kampa", city:"프라하", date:"2026-09-20", time:"17:20–18:30", name:"캄파섬 · 카를교 아래",
+      stand:"캄파섬 강가, 카를교 교각 바로 아래",
+      frame:"거대한 돌 교각을 화면 한쪽에 세로로 세우고 인물을 그 앞에. 위압적인 스케일 대비가 생긴다",
+      best:"해질 무렵. 다리 조명이 켜지기 시작하면 돌에 황금빛이 얹힌다",
+      tip:"다리 위 인파를 피하는 자리다. 강가 백조가 들어오면 실루엣 사진이 되니 기다려볼 만하다",
+      watch:"레논 벽에서 이어지는 내리막 동선이라 되돌아 올라갈 일이 없다",
+      map:"Kampa Island Prague", photoQuery:"Kampa Island Prague under Charles Bridge", image:"", imageAlt:"" },
+
+    { id:"vp-prg-riegrovy", city:"프라하", date:"2026-09-21", time:"17:15–19:15", name:"리에그로비 사디 · 일몰 언덕",
+      stand:"공원 서쪽 비탈 잔디, 프라하성 방향",
+      frame:"도시 스카이라인과 프라하성을 배경으로 잔디에 앉은 인물. 역광이라 실루엣과 노출 중 하나를 고른다",
+      best:"9/21 일몰 약 19:03. 17:15에 도착해 자리를 잡고 두 시간을 쓴다",
+      tip:"여행 마지막 일몰이다. 맥주잔을 든 건배 컷, 앉아서 도시를 보는 뒷모습 컷을 시간 두고 여유 있게",
+      watch:"역광이 강하다. 인물에 노출을 맞추면 하늘이 날아가니 해가 낮아진 뒤가 훨씬 쉽다",
+      map:"Riegrovy sady Prague", photoQuery:"Riegrovy sady Prague sunset castle skyline", image:"", imageAlt:"" },
   ],
 
   // ── 예산 (2인 합산 예상치 — 실제 예약가로 수정하세요) ──────────
@@ -1197,10 +1413,10 @@ const TRIP = {
   days:[
     { date:"2026-09-11", city:"부다페스트", title:"도착 · 체크인 · 국회의사당 야경", items:[
       { time:"12:35", place:"인천 출발", type:"이동", note:"장거리 비행." },
-      { time:"18:00", place:"부다페스트 도착 (BUD)", type:"이동", note:"입국 60~90분. 100E 공항버스 또는 Bolt로 숙소.", map:"Budapest Ferenc Liszt Airport" },
+      { time:"18:00", place:"부다페스트 도착 (BUD)", type:"이동", note:"입국 60~90분. 100E 공항버스 또는 Bolt로 숙소. ⚠️ 100E는 전용 티켓(2,500 HUF/인)이 따로 필요하다 — 단권·24시간권·72시간권 어느 것도 통하지 않으니 공항 발매기나 BudapestGO 앱에서 100E 티켓을 따로 살 것. 첫날은 캐리어가 있어 Bolt가 편하고, 둘이면 요금 차이도 크지 않다.", map:"Budapest Ferenc Liszt Airport" },
       { time:"19:30", place:"H2 Hotel Budapest 체크인", type:"이동", note:"9/11~9/13 · 2박 · 네이버 호텔 예약 · 502,356원 결제. 첫날 공항에서는 Bolt가 편함.", map:"H2 Hotel Budapest" },
       { time:"20:30", place:"저녁 · Mazel Tov 또는 Bors GastroBar", type:"식사", note:"Mazel Tov는 분위기 좋은 첫날 저녁, Bors는 빠르고 캐주얼한 대안.", map:"Mazel Tov Budapest" },
-      { time:"21:30", place:"국회의사당 야경 산책", type:"관광", note:"첫날은 무리하지 말고 다뉴브 강변 야경만. Batthyány tér 쪽 전망도 좋음.", map:"Hungarian Parliament Building" },
+      { time:"21:30", place:"국회의사당 야경 산책", vpId:"vp-bud-parliament-night", type:"관광", note:"첫날은 무리하지 말고 다뉴브 강변 야경만. Batthyány tér 쪽 전망도 좋음.", map:"Hungarian Parliament Building" },
       { time:"22:00", place:"간식 · Chimney Cake Shop", type:"식사", note:"굴뚝빵 · 시나몬 맛 추천.", map:"Chimney Cake Shop Budapest" },
     ]},
     { date:"2026-09-12", city:"부다페스트", title:"페스트 중심 · 부다 성곽 일몰 · 다뉴브 야경", items:[
@@ -1214,11 +1430,11 @@ const TRIP = {
         { time:"14:15–15:15", place:"부다성", type:"관광", recId:"bud-buda-castle", note:"왕궁 외부와 테라스 산책 60분 기준. 박물관 내부 관람은 제외. 성곽 안 Tárnok utca 방향으로 Walzer Café까지 도보 약 15분.", map:"Buda Castle Budapest" },
         { time:"15:30–16:00", place:"커피 · Walzer Café", type:"카페", recId:"bud-walzer-cafe", note:"700년 된 건물의 안뜰 카페에서 30분 휴식. 영업시간은 방문 전 재확인 권장. Pest-Buda Bistro까지 도보 약 5분.", map:"Walzer Cafe Budapest" },
         { time:"16:05–17:20", place:"이른 저녁 · Pest-Buda Bistro", type:"식사", recId:"bud-pest-buda-bistro", note:"굴라쉬와 치킨 파프리카시 후보. 공식 안내상 매일 운영하며, 어부의 요새까지 도보 약 5분이라 다시 언덕을 오르내리지 않음.", map:"Pest-Buda Bistro Budapest" },
-        { time:"17:25–19:25", place:"어부의 요새 · 일몰과 야경", type:"관광", recId:"bud-fishermans-bastion", note:"일몰 전 도착해 밝은 풍경부터 블루아워와 점등 후 야경까지 감상. 2026년 9월 12일 일몰은 19:02 전후. 아치와 성벽에서 국회의사당 사진 촬영.", map:"Fisherman's Bastion Budapest" },
+        { time:"17:25–19:25", place:"어부의 요새 · 일몰과 야경", vpId:"vp-bud-fishermans", type:"관광", recId:"bud-fishermans-bastion", note:"일몰 전 도착해 밝은 풍경부터 블루아워와 점등 후 야경까지 감상. 2026년 9월 12일 일몰은 19:02 전후. 아치와 성벽에서 국회의사당 사진 촬영.", map:"Fisherman's Bastion Budapest" },
       ]},
       { area:"세체니 다리 · 다뉴브 야경 산책", map:"Szechenyi Chain Bridge Budapest", items:[
         { time:"19:25–19:45", place:"Clark Ádám tér로 이동", type:"이동", note:"어부의 요새 인근 정류장에서 16번 버스로 내려가는 기준. 도보 하산보다 시간을 아끼고, 세체니 다리 부다 쪽 입구에 바로 도착.", map:"Clark Adam Square Budapest" },
-        { time:"19:45–20:10", place:"세체니 다리 건너기", type:"산책", recId:"bud-chain-bridge", note:"부다에서 페스트 방향으로 이동. 다리 조명과 부다성 야경을 보며 사진 시간을 포함해 25분 배정.", map:"Szechenyi Chain Bridge Budapest" },
+        { time:"19:45–20:10", place:"세체니 다리 건너기", vpId:"vp-bud-chain-bridge", type:"산책", recId:"bud-chain-bridge", note:"부다에서 페스트 방향으로 이동. 다리 조명과 부다성 야경을 보며 사진 시간을 포함해 25분 배정.", map:"Szechenyi Chain Bridge Budapest" },
         { time:"20:10–21:00", place:"다뉴브강 야경 산책", type:"산책", recId:"bud-danube-promenade", note:"일몰 피크닉은 제외. 세체니 다리 페스트 쪽에서 다뉴브 산책로를 따라 국회의사당 방향으로 걷고, 적당한 지점에서 H2 Hotel로 이동.", map:"Shoes on the Danube Bank Budapest" },
         { time:"21:00–21:20", place:"숙소로 이동", type:"이동", note:"강변에서 H2 Hotel Budapest까지 도보 약 15~20분. 피곤하면 짧게 Bolt 이용.", map:"H2 Hotel Budapest" },
       ]},
@@ -1233,10 +1449,10 @@ const TRIP = {
       ]},
       { area:"호프부르크 · 오페라 지구", map:"Austrian National Library Vienna", items:[
         { time:"14:00–15:00", place:"오스트리아 국립 도서관", type:"관광", recId:"vie-national-library", note:"프룬크잘의 천장 프레스코와 고서 전시 관람. 9월 일요일은 18:00까지 운영하며, 열차가 늦으면 관람을 30~40분으로 줄이기.", map:"Austrian National Library Vienna" },
-        { time:"15:10–15:40", place:"호프부르크 왕궁 외관", type:"관광", recId:"vie-hofburg", note:"공연일에는 내부 투어 없이 미하엘 광장과 왕궁 외관만 가볍게 촬영.", map:"Hofburg Vienna" },
-        { time:"15:45–16:15", place:"왕궁정원 (Burggarten)", type:"관광", recId:"vie-burggarten", note:"모차르트 동상과 팔멘하우스 온실이 대표 사진 포인트. 잔디에서 잠깐 쉬기 좋음.", map:"Burggarten Vienna" },
+        { time:"15:10–15:40", place:"호프부르크 왕궁 외관", vpId:"vp-vie-michaelerplatz", type:"관광", recId:"vie-hofburg", note:"공연일에는 내부 투어 없이 미하엘 광장과 왕궁 외관만 가볍게 촬영.", map:"Hofburg Vienna" },
+        { time:"15:45–16:15", place:"왕궁정원 (Burggarten)", vpId:"vp-vie-burggarten", type:"관광", recId:"vie-burggarten", note:"모차르트 동상과 팔멘하우스 온실이 대표 사진 포인트. 잔디에서 잠깐 쉬기 좋음.", map:"Burggarten Vienna" },
         { time:"16:20–17:00", place:"간단한 카페 또는 호텔 휴식", type:"휴식", note:"공연 전 체력 보충 시간. Café Sacher는 대기 부담을 줄이기 위해 9/14로 이동." },
-        { time:"17:10–17:40", place:"오페라극장 · 알베르티나 테라스 사진", type:"관광", recId:"vie-state-opera", note:"알베르티나 계단 위에서 오페라극장 방향을 촬영. 내부 관람 없이 외관과 전망 중심.", map:"Albertina Museum Vienna" },
+        { time:"17:10–17:40", place:"오페라극장 · 알베르티나 테라스 사진", vpId:"vp-vie-albertina", type:"관광", recId:"vie-state-opera", note:"알베르티나 계단 위에서 오페라극장 방향을 촬영. 내부 관람 없이 외관과 전망 중심.", map:"Albertina Museum Vienna" },
         { time:"18:05–18:35", place:"Bitzinger Würstelstand Albertina", type:"식사", recId:"vie-bitzinger", note:"공연 전 가벼운 저녁. 케제크라이너 또는 핫도그를 먹고 Musikverein까지 도보 이동.", map:"Bitzinger Wurstelstand Albertina Vienna" },
       ]},
       { area:"Musikverein · 빈 필하모닉", map:"Musikverein Wien", items:[
@@ -1255,7 +1471,7 @@ const TRIP = {
         { time:"14:10–15:30", place:"부르크가르텐 산책과 자유시간", type:"산책", note:"식당 바로 앞 정원에서 쉬거나 호텔에서 잠시 휴식. 이후 알베르티나까지 도보 약 5~10분.", map:"Burggarten Vienna" },
       ]},
       { area:"오페라 지구 · 슈테판 대성당", map:"St. Stephen's Cathedral Vienna", items:[
-        { time:"16:00–16:35", place:"알베르티나 테라스 · 오페라극장 사진", type:"관광", recId:"vie-albertina", note:"알베르티나 계단 위에서 오페라극장 대표 구도를 촬영.", map:"Albertina Museum Vienna" },
+        { time:"16:00–16:35", place:"알베르티나 테라스 · 오페라극장 사진", vpId:"vp-vie-albertina", type:"관광", recId:"vie-albertina", note:"알베르티나 계단 위에서 오페라극장 대표 구도를 촬영.", map:"Albertina Museum Vienna" },
         { time:"16:40–17:15", place:"호텔 휴식", type:"휴식", note:"이미 점심 후 부르크가르텐을 둘러봤으므로 호텔에서 쉬며 저녁까지 체력을 회복.", map:"The Cloud One Hotel Wien-Staatsoper" },
         { time:"17:15–17:30", place:"호텔 → 성 슈테판 대성당", type:"이동", note:"Karlsplatz역에서 U1을 타고 Stephansplatz역 하차. 도보로도 약 15~20분이라 날씨와 체력에 따라 선택.", map:"St. Stephen's Cathedral Vienna" },
         { time:"17:30–18:25", place:"성 슈테판 대성당", type:"관광", recId:"vie-st-stephen", note:"피그뮐러 전에 외관과 내부를 관람. 전망탑은 제외하고 성당 중심으로 보면 저녁 예약 시간에 여유가 있음.", map:"St. Stephen's Cathedral Vienna" },
@@ -1266,8 +1482,9 @@ const TRIP = {
     ]},
     { date:"2026-09-15", city:"비엔나", title:"벨베데레 · 나슈마르크트 · 빈 미술사박물관", items:[
       { area:"벨베데레 · 카를스플라츠", map:"Belvedere Palace Vienna", items:[
-        { time:"09:30–11:30", place:"벨베데레궁 (상궁)", type:"관광", recId:"vie-belvedere", note:"⚠️ 상궁은 시간권(Time Slot) 없이는 입장 불가 — 권장이 아니라 필수다. belvedere.at에서 09:30 슬롯을 미리 잡을 것. 성인 €23(온라인·현장 동일, 온라인은 매표 줄을 건너뛰고 바로 입구로). 매일 09:00 개관이고 7/15~8/31만 19시까지 연장이라 9월은 통상 18시 폐관 — 예매 화면에서 확인. 클림트 ‘키스’와 대표작 중심으로 관람하고 정원 사진 시간 포함.", map:"Upper Belvedere Vienna" },
-        { time:"12:00–12:30", place:"카를 성당", type:"관광", note:"벨베데레에서 이동 시간을 30분 확보. 내부보다 연못 건너편 외관 사진 중심.", map:"Karlskirche Vienna" },
+        { time:"08:55–09:20", place:"호텔 → 벨베데레 상궁 이동", type:"이동", note:"⚠️ 09:30 시간권이라 늦으면 입장이 거부될 수 있어 이동 시간을 따로 잡았다. 호텔 앞 Kärntner Ring/Oper 정류장에서 트램 D를 타고 Schloss Belvedere 하차, 약 10분. 도보로도 2.2km·25분이라 날씨가 좋으면 걸어도 되지만 첫 일정이 시간권이니 트램이 안전하다.", map:"Kaerntner Ring Oper Vienna" },
+        { time:"09:30–11:30", place:"벨베데레궁 (상궁)", vpId:"vp-vie-belvedere", type:"관광", recId:"vie-belvedere", note:"⚠️ 상궁은 시간권(Time Slot) 없이는 입장 불가 — 권장이 아니라 필수다. belvedere.at에서 09:30 슬롯을 미리 잡을 것. 성인 €23(온라인·현장 동일, 온라인은 매표 줄을 건너뛰고 바로 입구로). 매일 09:00 개관이고 7/15~8/31만 19시까지 연장이라 9월은 통상 18시 폐관 — 예매 화면에서 확인. 클림트 ‘키스’와 대표작 중심으로 관람하고 정원 사진 시간 포함.", map:"Upper Belvedere Vienna" },
+        { time:"12:00–12:30", place:"카를 성당", vpId:"vp-vie-karlskirche", type:"관광", note:"벨베데레에서 이동 시간을 30분 확보. 내부보다 연못 건너편 외관 사진 중심.", map:"Karlskirche Vienna" },
         { time:"12:45–13:50", place:"점심 · NENI am Naschmarkt · 예약 예정", type:"식사", recId:"vie-neni", note:"9월 15일 화요일 12:45 · 2명으로 예약. 지중해·중동식 점심 후 13:50 무렵 출발해 미술사박물관까지 도보 이동.", map:"NENI am Naschmarkt Vienna" },
       ]},
       { area:"미술사박물관 · 숙소 · 구시가 동쪽", map:"Kunsthistorisches Museum Vienna", items:[
@@ -1290,11 +1507,11 @@ const TRIP = {
       ]},
       { area:"트라운제 · 고사우", map:"Gmunden Traunsee", items:[
         { time:"11:30", place:"린츠 출발", type:"이동", note:"Linz → Gmunden/Traunsee. 구글맵 + 차량 내비 병행.", map:"Linz Austria" },
-        { time:"13:00", place:"트라운제 / 그문덴 점심 산책", type:"관광", note:"호수 산책 후 점심. 긴 산책보다 사진+식사 중심.", map:"Gmunden Traunsee" },
+        { time:"13:00", place:"트라운제 / 그문덴 점심 산책", vpId:"vp-szk-gmunden", type:"관광", note:"호수 산책 후 점심. 긴 산책보다 사진+식사 중심.", map:"Gmunden Traunsee" },
         { time:"15:30", place:"Strobl로 이동", type:"이동", note:"그문덴에서 차량 약 45~55분. 장크트볼프강으로 들어가기 전에 Strobl에서 먼저 장보기.", map:"SPAR Supermarkt Strobl Wolfgangseestrasse 2" },
         { time:"16:20~16:50", place:"SPAR Supermarkt Strobl 장보기", type:"쇼핑", recId:"szk-spar-strobl", note:"수요일 영업시간 07:00~19:00. 생수·아침용 빵·햄/치즈·요거트·과일·간식·맥주 위주로 2박분 구매. B158 주유소 옆, 주차 30면, 카드 결제 가능. 출발 전 영업시간 변동 여부 재확인.", map:"SPAR Supermarkt Strobl Wolfgangseestrasse 2" },
         { time:"17:10~17:30", place:"Seehaus Familie Leifer 체크인", type:"이동", note:"Strobl에서 장크트볼프강 숙소까지 차량 약 15~20분 예상. 9/16~9/18 · 2박 · Booking.com 예약 · 524,000원 결제 · 9/18 체크아웃 10:30.", map:"Seehaus Familie Leifer" },
-        { time:"17:45–18:30", place:"숙소 카약·SUP · 날씨 좋을 때", type:"관광", note:"Seehaus 투숙객 전용 카약·SUP·노 젓는 보트를 무료 이용. 9/16 일몰 약 19:10 전후라 45분 체험 가능. 체크인 때 장비와 구명조끼를 확인하고 바람·비·저온 또는 장거리 이동 피로가 크면 호숫가 산책만 하기.", map:"Seehaus Familie Leifer" },
+        { time:"17:45–18:30", place:"숙소 카약·SUP · 날씨 좋을 때", vpId:"vp-szk-wolfgangsee", type:"관광", note:"Seehaus 투숙객 전용 카약·SUP·노 젓는 보트를 무료 이용. 9/16 일몰 약 19:10 전후라 45분 체험 가능. 체크인 때 장비와 구명조끼를 확인하고 바람·비·저온 또는 장거리 이동 피로가 크면 호숫가 산책만 하기.", map:"Seehaus Familie Leifer" },
         { time:"19:00", place:"저녁 · 장크트볼프강 숙소 근처", type:"식사", note:"알프스 구간은 식당 마감이 빠를 수 있어 운영시간 확인.", map:"Sankt Wolfgang im Salzkammergut restaurants" },
       ]},
     ]},
@@ -1302,15 +1519,15 @@ const TRIP = {
       { area:"할슈타트 이른 방문", map:"Hallstatt P2 Parking", items:[
         { time:"07:20", place:"Seehaus Familie Leifer 출발", type:"이동", note:"장크트볼프강에서 Hallstatt P2까지 차량 약 45~55분. 주차 혼잡을 피하려면 이른 출발.", map:"Seehaus Familie Leifer" },
         { time:"08:10", place:"Hallstatt P2 주차", type:"이동", note:"공식 안내: 역사지구 중심부는 차단기 2개로 막혀 있어 차량 진입 불가 — 숙박객만 들어가고 당일 방문객은 P1~P4를 쓴다(주차장 자체는 당일 방문객도 자유 이용, 호텔 예약 불필요). 일부 블로그의 ‘당일 차량 08~17시 진입 금지’ 설명은 사실이 아님. 2026 요금: 15분 무료 · 1시간 €5 · 2시간 €9 · 3~4시간 €10 · 5~6시간 €12 · 7~12시간 €15 · 하루 €20(티켓 분실 €40). 예약 불가라 이른 도착이 유리하고, 성수기엔 오전 중 P1·P2가 차서 2.5km 밖 P3(셔틀)로 우회시킨다.", map:"Hallstatt P2 Parking" },
-        { time:"08:25", place:"할슈타트 클래식 뷰포인트 · 마을 산책", type:"관광", note:"오전 8시대가 사진에 유리함. 관광객이 몰리기 전 호숫가 골목까지 산책.", map:"Hallstatt Classic Viewpoint" },
+        { time:"08:25", place:"할슈타트 클래식 뷰포인트 · 마을 산책", vpId:"vp-szk-hallstatt", type:"관광", note:"오전 8시대가 사진에 유리함. 관광객이 몰리기 전 호숫가 골목까지 산책.", map:"Hallstatt Classic Viewpoint" },
         { time:"10:30", place:"카페 · Seecafé Frundsberg", type:"식사", note:"호숫가 휴식. 영업 여부 현장 확인. 소금광산을 빼기로 해서 시간 압박이 없으니 여유롭게 머물 것.", map:"Seecafe Frundsberg Hallstatt" },
       ]},
       { area:"호수 중심 하루 · 오버트라운 · 고사우제", map:"Hallstätter See", items:[
         { time:"10:45", place:"할슈타트 호숫가 · 마르크트광장 여유 산책", type:"관광", note:"소금광산은 가지 않기로 결정 — 지하 90분 + 케이블카 대기로 3시간을 쓰는 대신 호수와 마을에 시간을 넉넉히 쓴다. 오전에 이미 클래식 뷰포인트를 봤으니 이번엔 마르크트광장·묘지·성당 쪽 골목과 호숫가 벤치 위주로 천천히.", map:"Hallstatt Marktplatz" },
         { time:"12:30", place:"점심 · 할슈타트 호숫가", type:"식사", note:"광산 일정이 없어 상부 Rudolfsturm까지 올라갈 이유가 없다. 호숫가 식당에서 느긋하게 먹고 P2로 복귀. 주차 요금은 시간제라 총 체류시간을 염두에 둘 것(5~6시간 €12).", map:"Hallstatt restaurants" },
-        { time:"14:00", place:"오버트라운 호수 동안 산책", type:"휴식", note:"할슈타트에서 호수 남단을 돌아 차량 약 10분. 광산을 뺀 덕에 원래 생략하려던 오버트라운을 되살렸다. 건너편에서 보는 할슈타트 마을 전경이 사진에 좋고, 사람이 훨씬 적어 쉬기 좋다.", map:"Obertraun Austria" },
+        { time:"14:00", place:"오버트라운 호수 동안 산책", vpId:"vp-szk-obertraun", type:"휴식", note:"할슈타트에서 호수 남단을 돌아 차량 약 10분. 광산을 뺀 덕에 원래 생략하려던 오버트라운을 되살렸다. 건너편에서 보는 할슈타트 마을 전경이 사진에 좋고, 사람이 훨씬 적어 쉬기 좋다.", map:"Obertraun Austria" },
         { time:"15:15", place:"고사우제로 이동", type:"이동", note:"오버트라운에서 고사우제까지 차량 약 45~55분. 파스 그쇼트(Pass Gschütt) 방향 B166 산길 구간.", map:"Gosausee Austria" },
-        { time:"16:00", place:"고사우제 호수 산책", type:"휴식", note:"다흐슈타인이 호수에 반영되는 대표 구간 위주로 60~90분. ⚠️ 주차장이 무인 번호판 인식(ANPR) 방식이라 차단기도 티켓도 없다 — 그냥 나오면 미납이 되니 출차 후 48시간 안에 arivo.info/gosausee에서 번호판으로 결제하거나 현장 정산기에서 낼 것. 2026-08-01부터 2시간 €4 · 4시간 €7 · 하루 €10. 미납분은 SIXT를 거쳐 수수료까지 붙어 청구된다. 날씨가 나쁘면 숙소 휴식으로 전환.", map:"Gosausee Austria" },
+        { time:"16:00", place:"고사우제 호수 산책", vpId:"vp-szk-gosausee", type:"휴식", note:"다흐슈타인이 호수에 반영되는 대표 구간 위주로 60~90분. ⚠️ 주차장이 무인 번호판 인식(ANPR) 방식이라 차단기도 티켓도 없다 — 그냥 나오면 미납이 되니 출차 후 48시간 안에 arivo.info/gosausee에서 번호판으로 결제하거나 현장 정산기에서 낼 것. 2026-08-01부터 2시간 €4 · 4시간 €7 · 하루 €10. 미납분은 SIXT를 거쳐 수수료까지 붙어 청구된다. 날씨가 나쁘면 숙소 휴식으로 전환.", map:"Gosausee Austria" },
         { time:"18:00", place:"장크트볼프강 숙소 복귀", type:"이동", note:"고사우제에서 숙소까지 차량 약 50~60분. 야간 산길 운전은 피하기.", map:"Seehaus Familie Leifer" },
         { time:"19:00", place:"저녁 · 장크트볼프강", type:"식사", note:"다음날 이동을 위해 가볍게.", map:"Sankt Wolfgang im Salzkammergut restaurants" },
       ]},
@@ -1321,7 +1538,7 @@ const TRIP = {
         { time:"09:00–10:15", place:"샤워 · 아침 · 체크아웃 준비", type:"준비", note:"수상 장비를 이용했다면 제자리에 반납하고 젖은 옷을 갈아입은 뒤 짐과 차량 적재를 마무리." },
         { time:"10:30", place:"Seehaus Familie Leifer 체크아웃", type:"이동", note:"Booking.com · 9/16~9/18 · 2박 · 524,000원. 체크아웃 마감 10:30. 캐리어 적재 전 차량 외관과 짐 확인.", map:"Seehaus Familie Leifer" },
         { time:"10:45", place:"장크트길겐 이동", type:"이동", note:"숙소에서 차량 약 20~25분. St. Wolfgang은 숙박 중 둘러보고 이 날은 St. Gilgen만 방문.", map:"St Gilgen Austria" },
-        { time:"11:00~11:25", place:"장크트길겐 호수 산책", type:"관광", note:"사진 위주로 짧게. 점심은 여기서 먹지 말고 린츠 중앙역에서 여유 있게 — 반납을 앞당긴 만큼 역에서 40분이 남음.", map:"Wolfgangsee Austria" },
+        { time:"11:00~11:25", place:"장크트길겐 호수 산책", vpId:"vp-szk-st-gilgen", type:"관광", note:"사진 위주로 짧게. 점심은 여기서 먹지 말고 린츠 중앙역에서 여유 있게 — 반납을 앞당긴 만큼 역에서 40분이 남음.", map:"Wolfgangsee Austria" },
       ]},
       { area:"렌트 반납 · 프라하 이동", map:"Linz Hauptbahnhof", items:[
         { time:"11:30", place:"장크트길겐 → 린츠 출발", type:"이동", note:"⚠️ 15:54 EC 332는 취소·변경 불가 표라 놓치면 표가 소멸되고 다음 직통은 19:54(프라하 23:42 도착). 30분 일찍 나서는 것이 가장 싼 보험. 린츠까지 약 1시간 45분.", map:"St Gilgen to Linz" },
@@ -1333,7 +1550,7 @@ const TRIP = {
         { time:"19:39", place:"프라하 도착 · Praha hl.n.", type:"이동", note:"중앙역 도착. 지하철 C선 Hlavní nádraží에서 숙소로 이동.", map:"Praha hlavni nadrazi" },
         { time:"20:15", place:"Airbnb 체크인", type:"이동", note:"9/18~9/21 · 3박 · 754,500원 결제. 도착이 이르니 정상 시간 체크인 가능 — 호스트와 20시 전후 도착으로 조율.", map:"50.0818138,14.4058218" },
         { time:"20:45", place:"프라하 첫 저녁", type:"식사", note:"도착 당일이지만 19:39 도착이라 제대로 된 저녁이 가능. 숙소 근처 구시가 쪽으로.", map:"Old Town Square Prague" },
-        { time:"22:00", place:"카를교 야경 산책", type:"관광", note:"첫날 밤 야경. 조명 켜진 프라하성과 함께.", map:"Charles Bridge Prague" },
+        { time:"22:00", place:"카를교 야경 산책", vpId:"vp-prg-charles-night", type:"관광", note:"첫날 밤 야경. 조명 켜진 프라하성과 함께.", map:"Charles Bridge Prague" },
       ]},
     ]},
     { date:"2026-09-19", city:"프라하", title:"구시가 광장 · 천문시계 · 카를교", items:[
@@ -1342,7 +1559,7 @@ const TRIP = {
       ]},
       { area:"구시가", map:"Old Town Square Prague", items:[
         { time:"09:30", place:"브런치 · Café Louvre", type:"식사", recId:"prg-cafe-louvre", note:"늦은 시작. 도착 다음날이라 무리하지 않기.", map:"Cafe Louvre Prague" },
-        { time:"11:00", place:"구시가 광장", type:"관광", note:"천문시계탑이 있는 프라하의 심장.", map:"Old Town Square Prague" },
+        { time:"11:00", place:"구시가 광장", vpId:"vp-prg-oldtown", type:"관광", note:"천문시계탑이 있는 프라하의 심장.", map:"Old Town Square Prague" },
         { time:"11:30", place:"천문시계", type:"관광", note:"정시 쇼. 전망대는 대기줄 보고 결정.", map:"Prague Astronomical Clock" },
         { time:"13:00", place:"점심 · Kantýna", type:"식사", recId:"prg-kantyna", note:"체코산 고기와 타르타르·소시지를 캐주얼하게 즐기기. 낮에는 현장 이용 중심이라 대기줄을 보고 메뉴와 체류 시간을 조절.", map:"Kantyna Prague" },
       ]},
@@ -1366,9 +1583,9 @@ const TRIP = {
         { time:"13:40–14:50", place:"점심 · Klášterní pivovar Strahov · 예약 권장", type:"식사", recId:"prg-strahov-brewery", note:"수도원 양조장의 Sv. Norbert 생맥주와 체코 음식. 매일 10:00~22:00 운영하며 평일 예약은 이메일로 접수하지만, 일요일 방문이므로 공식 문의 폼이나 전화로 좌석 확인.", map:"Klasterni pivovar Strahov Prague" },
       ]},
       { area:"전망 · 공원", map:"Petrin Hill Prague", items:[
-        { time:"14:50–15:20", place:"스트라호프 수도원 전망대", type:"관광", recId:"prg-strahov-viewpoint", note:"구시가지의 붉은 지붕과 첨탑을 내려다보는 대표 전망. 도서관은 시간이 남을 때만 짧게 확인.", map:"Lookout with Vineyard Strahov Prague" },
+        { time:"14:50–15:20", place:"스트라호프 수도원 전망대", vpId:"vp-prg-strahov", type:"관광", recId:"prg-strahov-viewpoint", note:"구시가지의 붉은 지붕과 첨탑을 내려다보는 대표 전망. 도서관은 시간이 남을 때만 짧게 확인.", map:"Lookout with Vineyard Strahov Prague" },
         { time:"15:20–17:10", place:"페트르진 공원", type:"관광", note:"스트라호프에서 공원 능선을 따라 이동한 뒤 말라스트라나 방향으로 내려오기. 전망대 입장은 체력과 대기줄을 보고 선택.", map:"Petrin Hill Prague" },
-        { time:"17:20–18:30", place:"레논 벽 · 캄파 섬", type:"관광", note:"페트르진에서 내려와 레논 벽과 카를교 아래 강변을 산책. 오르막을 되돌아가지 않는 내리막 동선.", map:"Lennon Wall Prague" },
+        { time:"17:20–18:30", place:"레논 벽 · 캄파 섬", vpId:"vp-prg-kampa", type:"관광", note:"페트르진에서 내려와 레논 벽과 카를교 아래 강변을 산책. 오르막을 되돌아가지 않는 내리막 동선.", map:"Lennon Wall Prague" },
         { time:"19:30", place:"저녁 · Pork's Mostecká", type:"식사", recId:"prg-porks-mostecka", note:"말라스트라나 Mostecká 16 지점. 레논 벽·캄파 섬에서 가까우며, 체코식 족발 꼴레뇨 추천. 저녁 예약 권장.", map:"Pork's Mostecka 16 Prague" },
       ]},
     ]},
@@ -1378,12 +1595,12 @@ const TRIP = {
         { time:"09:30", place:"Hotel BOOKQUET 체크인/짐 보관", type:"이동", note:"9/21~9/22 · 1박 · 네이버 호텔 예약 · 조식 포함 · 386,000원. 정식 체크인 전이면 프런트에 짐 보관.", map:"Hotel BOOKQUET Prague" },
       ]},
       { area:"카를린 · 비셰흐라드", map:"Vysehrad Prague", items:[
-        { time:"10:00", place:"브런치 · Eska Karlín / Můj šálek kávy", type:"식사", note:"카를린 감성 카페. 늦은 시작에 적합.", map:"Eska Karlin Prague" },
-        { time:"12:00", place:"비셰흐라드", type:"관광", note:"구시가보다 한적한 성벽 산책과 전망.", map:"Vysehrad Prague" },
+        { time:"10:00", place:"브런치 · Eska Karlín / Můj šálek kávy", type:"식사", note:"카를린 감성 카페. 늦은 시작에 적합. 숙소에서 도보로는 30분 넘게 걸리니 지하철 B선 Křižíkova역에서 내릴 것.", map:"Eska Karlin Prague" },
+        { time:"12:00", place:"비셰흐라드", type:"관광", note:"구시가보다 한적한 성벽 산책과 전망. 카를린에서 B선 Florenc역 → C선 환승 → Vyšehrad역 하차. 역에서 성벽까지 도보 5~10분이고 이 구간은 걷기엔 너무 멀다.", map:"Vysehrad Prague" },
       ]},
       { area:"쇼핑 · 리에그로비 사디 일몰 · 마지막 저녁", map:"Riegrovy sady Prague", items:[
         { time:"14:30", place:"팔라디움 / 나 프르지코페 쇼핑", type:"쇼핑", note:"마뉴팍투라, 기념품, 선물 보완.", map:"Palladium Prague" },
-        { time:"17:15–19:15", place:"리에그로비 사디 · 일몰 맥주 피크닉", type:"관광", recId:"prg-riegrovy-sady", note:"잔디에 앉아 프라하성 방향 노을을 보며 맥주 한 잔. 9/21 일몰은 약 19:03 전후이므로 17:15 도착해 자리를 잡기. Energy Pub은 월요일 14:00~22:00 운영 안내지만 날씨와 행사 여부는 당일 확인.", map:"Riegrovy sady Prague" },
+        { time:"17:15–19:15", place:"리에그로비 사디 · 일몰 맥주 피크닉", vpId:"vp-prg-riegrovy", type:"관광", recId:"prg-riegrovy-sady", note:"잔디에 앉아 프라하성 방향 노을을 보며 맥주 한 잔. 9/21 일몰은 약 19:03 전후이므로 17:15 도착해 자리를 잡기. Energy Pub은 월요일 14:00~22:00 운영 안내지만 날씨와 행사 여부는 당일 확인.", map:"Riegrovy sady Prague" },
         { time:"19:45", place:"마지막 저녁 · Čestr · 예약 권장", type:"식사", recId:"prg-cestr", note:"리에그로비 사디에서 가깝고 고기 중심의 마지막 저녁으로 동선이 자연스러움. 일몰을 끝까지 보고 이동할 수 있도록 19:45 이후 예약.", map:"Cestr Prague" },
       ]},
       { area:"선택 코스", map:"Josefov Prague", items:[
@@ -1442,7 +1659,10 @@ const TRIP = {
       { t:"eSIM / 유심", s:"헝가리·오스트리아·체코 사용 가능 상품" },
       { t:"환전 / 트래블카드", s:"현금 목표: 26,000 HUF + 230 EUR + 4,100 CZK · 트래블카드 잔액 별도 준비" },
       { t:"해외 결제 카드 2장", s:"분산 보관" },
-      { t:"예약 바우처 (숙소·기차·렌트·투어·항공)", s:"인쇄 또는 오프라인 저장" },
+      { t:"🖨 빈 필하모닉 티켓 — A4 인쇄 (필수)", s:"⚠️ 여행 전체에서 종이 인쇄가 반드시 필요한 유일한 항목. tickets_653263284.pdf를 A4 흰 종이에 전면 인쇄할 것 — 바코드·QR이 선명해야 하고 사본은 입장이 거부된다. 9/13(일) 19:30 Musikverein 황금홀 · 주문번호 600739 · €120 · 취소·교환 불가라 현장에서 문제가 생기면 복구할 방법이 없다. 폰 오프라인 저장본도 함께 준비" },
+      { t:"🖨 기차표 PDF 3건 — 오프라인 저장 + 인쇄 1부", s:"① 부다페스트→비엔나 MÁV (9/13 09:30) ② 비엔나→린츠 ÖBB 2장 (9/16 08:28 · Wagen 34 · 45번·47번) ③ 린츠→프라하 ČD EC 332 (9/18 15:54 · 배정된 Wagen/Sitzplatz 확인). ②③은 취소·변경 불가라 검표에서 못 보여주면 그대로 손실 — 폰 저장에 더해 인쇄본 1부를 캐리어에 넣어둘 것" },
+      { t:"예약 바우처 (숙소·기차·렌트·투어·항공)", s:"인쇄 또는 오프라인 저장. SIXT는 카운터에서 예약번호 9736979925를 확인하고, 숙소 주소는 입국심사에서 물어보므로 5곳 주소를 따로 적어둘 것" },
+      { t:"🖨 이 일정표를 PDF로 백업", s:"브라우저에서 ⌘P → PDF로 저장하거나 인쇄. 예약번호·좌석·주차 정산 방법·영업시간이 전부 이 파일에만 있고, 9/16~9/18 잘츠캄머구트는 산간이라 데이터가 불안정하다. 폰 배터리가 죽거나 eSIM이 안 붙었을 때의 유일한 참조본" },
     ],
     packing:[
       { t:"멀티어댑터 (유럽 C타입)", s:"" },
@@ -1678,7 +1898,7 @@ const TRIP = {
     clearInterval(cloud.pollTimer);
     cloud.pollTimer=setInterval(async()=>{
       const polled=await fetchRemoteChecks(false);
-      if(polled.ok){await fetchRemoteExpenses(false);await fetchRemoteNotes(false);setSyncButton("동기화 ✓",true);}
+      if(polled.ok){await fetchRemoteExpenses(false);await fetchRemoteNotes(false);await syncPhotos();setSyncButton("동기화 ✓",true);}
     },5000);
     return result;
   }
@@ -2074,13 +2294,14 @@ const TRIP = {
     const map = it.map ? `<a class="maplink" href="${mapURL(it.map)}" target="_blank" rel="noopener">◎ 지도</a>` : "";
     const tag = it.type ? `<span class="tag">${esc(it.type)}</span>` : "";
     const recTag = it.recId ? `<span class="tag rec-tag">추천 선택</span>` : "";
+    const vpTag = it.vpId ? `<button class="vp-tag" type="button" data-vp-go="${esc(it.vpId)}" title="뷰포인트 카드 보기">📷 뷰포인트</button>` : "";
     const booking = it.recId ? T.bookingGuide?.[it.recId] : null;
     const bookingTag = booking ? `<span class="tag">◷ ${esc(booking.label)}</span>` : "";
     const nt  = it.note ? `<div class="nt">${esc(it.note)}</div>` : "";
     return `<div class="item">
       <div class="time">${esc(it.time||"")}</div>
       <div class="body">
-        <div class="pl">${esc(it.place||"")} ${tag}${recTag}${bookingTag}</div>
+        <div class="pl">${esc(it.place||"")} ${tag}${recTag}${vpTag}${bookingTag}</div>
         ${nt}${map}
         <div class="item-note-tools"><button class="pin-btn ${pinned?"done":""}" type="button" data-check="${pinId}" aria-pressed="${pinned?"true":"false"}">📌 ${pinned?"고정됨":"고정"}</button><button class="item-note-btn" type="button" data-note-open="${noteId}">${userNote?"메모 수정":"＋ 메모"}</button>${userNote?`<span class="item-user-note" data-note-view="${noteId}">${esc(userNote)}</span>`:""}</div>
         <div class="item-note-editor" data-note-editor="${noteId}">
@@ -2255,6 +2476,216 @@ const TRIP = {
     </section>`;
   }).join("") : '<div class="rec-empty">아직 저장된 여행 팁이 없습니다.</div>';
 
+  /* ══════════ VIEWPOINTS ══════════ */
+  const imgSearchURL = q => "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q);
+  const vps = T.viewpoints || [];
+  const vpByCity = vps.reduce((acc,v)=>{ (acc[v.city||"도시 미정"] ||= []).push(v); return acc; },{});
+  const vpCityOrder = [...(T.route||[]), ...Object.keys(vpByCity).filter(x=>!(T.route||[]).includes(x))];
+  const vpRow = (k,v,cls) => v ? `<div class="vp-row ${cls||""}"><div class="vp-key">${k}</div><div class="vp-val">${esc(v)}</div></div>` : "";
+  $("#viewpoint-list").innerHTML = vps.length ? vpCityOrder.filter(city=>vpByCity[city]).map(city=>{
+    const list = vpByCity[city];
+    return `<section class="rec-city-group">
+      <div class="rec-city-head"><h3 class="rec-city-name">${esc(city)}</h3><span class="rec-city-count">${list.length}곳</span><span class="rec-city-rule"></span></div>
+      ${list.map(v=>`<div class="vp-card" data-vp="${esc(v.id)}">
+        <div class="vp-top"><span class="vp-name">📷 ${esc(v.name||"")}</span><span class="vp-when">${esc((v.date||"").slice(5).replace("-","/"))} ${esc(v.time||"")}</span></div>
+        ${vpRow("서는 곳",v.stand)}${vpRow("구도",v.frame)}${vpRow("시간",v.best)}${vpRow("팁",v.tip)}${vpRow("주의",v.watch,"watch")}
+        <div class="vp-links">${v.map?`<a href="${mapURL(v.map)}" target="_blank" rel="noopener">◎ 지도</a>`:""}${v.photoQuery?`<a href="${imgSearchURL(v.photoQuery)}" target="_blank" rel="noopener">🖼 이 자리 사진 보기</a>`:""}</div>
+        <div class="vp-photo" data-vp-photo="${esc(v.id)}"></div>
+      </div>`).join("")}
+    </section>`;
+  }).join("") : '<div class="rec-empty">아직 등록된 뷰포인트가 없습니다.</div>';
+
+  // 일정의 📷 칩 → 추천 탭의 뷰포인트 서브탭으로 이동해 해당 카드까지 스크롤
+  function goToViewpoint(vpId){
+    const tabBtn = document.querySelector('.tab[data-go="recommendations"]');
+    const subBtn = document.querySelector('.subtab[data-subgo="viewpoints"]');
+    if(tabBtn) tabBtn.click();
+    if(subBtn) subBtn.click();
+    const safe = (window.CSS && CSS.escape) ? CSS.escape(vpId) : vpId;
+    const card = document.querySelector('[data-vp="' + safe + '"]');
+    if(!card) return;
+    // 탭 전환 핸들러가 먼저 스크롤을 잡으므로 그다음 프레임에 카드로 이동한다
+    requestAnimationFrame(()=>{
+      card.scrollIntoView({behavior:"smooth", block:"start"});
+      card.classList.add("vp-flash");
+      setTimeout(()=>card.classList.remove("vp-flash"), 1500);
+    });
+  }
+  $("#days").addEventListener("click", e=>{
+    const btn = e.target.closest("[data-vp-go]");
+    if(!btn) return;
+    e.preventDefault();
+    goToViewpoint(btn.getAttribute("data-vp-go"));
+  });
+
+  /* ══════════ 뷰포인트 참고 사진 (업로드 · 두 사람 공유) ══════════ */
+  // 웹에서 발견한 참고 사진을 뷰포인트 카드에 바로 올린다.
+  //  ① 캔버스로 축소·재압축해 300KB 안으로 만든 뒤
+  //  ② IndexedDB 에 먼저 넣어 오프라인에서도 즉시 보이게 하고
+  //  ③ Supabase 로 올려 공유 코드로 연결된 두 기기가 같은 사진을 본다.
+  // 클라우드가 끊겨 있거나 supabase-setup.sql 을 아직 안 돌렸어도
+  // 로컬 저장·표시는 그대로 동작하고, 연결되면 밀린 사진을 자동 전송한다.
+  const PHOTO_DB="trip-photos", PHOTO_STORE="photos", PHOTO_LIMIT=300*1024;
+  const memPhotos=new Map();          // IndexedDB 를 못 쓰는 환경의 대체 저장소
+  let idbBroken=false;
+
+  function idbOpen(){
+    return new Promise((res,rej)=>{
+      if(idbBroken || !window.indexedDB) return rej(new Error("no-idb"));
+      const r=indexedDB.open(PHOTO_DB,1);
+      r.onupgradeneeded=()=>{ const db=r.result;
+        if(!db.objectStoreNames.contains(PHOTO_STORE)) db.createObjectStore(PHOTO_STORE); };
+      r.onsuccess=()=>res(r.result);
+      r.onerror=()=>{ idbBroken=true; rej(r.error||new Error("idb-error")); };
+    });
+  }
+  function idbRun(mode,fn){
+    return idbOpen().then(db=>new Promise((res,rej)=>{
+      let rq; try{ rq=fn(db.transaction(PHOTO_STORE,mode).objectStore(PHOTO_STORE)); }catch(e){ return rej(e); }
+      rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error);
+    }));
+  }
+  const photoGet  = id      => idbRun("readonly", st=>st.get(id)).then(v=>v||null).catch(()=>memPhotos.get(id)||null);
+  const photoPut  = (id,rec)=> idbRun("readwrite",st=>st.put(rec,id)).catch(()=>{ memPhotos.set(id,rec); });
+  const photoDel  = id      => idbRun("readwrite",st=>st.delete(id)).catch(()=>{ memPhotos.delete(id); });
+  const photoKeys = ()      => idbRun("readonly", st=>st.getAllKeys()).then(k=>k||[]).catch(()=>[...memPhotos.keys()]);
+  const cssSafe   = v => (window.CSS && CSS.escape) ? CSS.escape(v) : String(v).replace(/["\\]/g,"");
+
+  // 원본을 그대로 두면 localStorage·DB 가 금방 터진다. 긴 변을 줄이며 300KB 안에 들어올 때까지 재압축.
+  function drawToDataURL(file,maxSide,quality){
+    return new Promise((res,rej)=>{
+      const url=URL.createObjectURL(file), img=new Image();
+      img.onload=()=>{
+        URL.revokeObjectURL(url);
+        const scale=Math.min(1, maxSide/Math.max(img.width,img.height));
+        const w=Math.max(1,Math.round(img.width*scale)), h=Math.max(1,Math.round(img.height*scale));
+        const c=document.createElement("canvas"); c.width=w; c.height=h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        try{ res(c.toDataURL("image/jpeg",quality)); }catch(e){ rej(e); }
+      };
+      img.onerror=()=>{ URL.revokeObjectURL(url); rej(new Error("decode-failed")); };
+      img.src=url;
+    });
+  }
+  async function compressPhoto(file){
+    let out="";
+    for(const step of [[1200,0.72],[1000,0.66],[820,0.60],[640,0.55]]){
+      out=await drawToDataURL(file,step[0],step[1]);
+      if(out.length*0.75 <= PHOTO_LIMIT) return out;   // base64 는 원본의 약 4/3
+    }
+    return out;
+  }
+
+  function photoBox(vpId){ return document.querySelector('[data-vp-photo="'+cssSafe(vpId)+'"]'); }
+  function setPhotoBusy(vpId,msg){ const b=photoBox(vpId); if(b) b.innerHTML='<div class="vp-busy">'+esc(msg)+'</div>'; }
+
+  async function paintPhoto(vpId){
+    const box=photoBox(vpId); if(!box) return;
+    const rec=await photoGet(vpId);
+    const vp=(T.viewpoints||[]).find(v=>v.id===vpId);
+    const url=(rec&&rec.dataUrl)||(vp&&vp.image)||"";
+    const uploaded=!!(rec&&rec.dataUrl);
+    if(url){
+      box.innerHTML='<div class="vp-shot"><img alt="'+esc((vp&&(vp.imageAlt||vp.name))||"참고 사진")+'" src="'+url+'"></div>'
+        +'<div class="vp-photo-tools">'
+        +(uploaded&&rec.pending?'<span class="vp-pending">이 기기에만 저장됨 · 연결되면 전송</span>':'')
+        +'<button type="button" class="vp-mini" data-vp-upload="'+esc(vpId)+'">사진 교체</button>'
+        +(uploaded?'<button type="button" class="vp-mini danger" data-vp-del="'+esc(vpId)+'">삭제</button>':'')
+        +'</div>';
+    }else{
+      box.innerHTML='<button type="button" class="vp-slot vp-slot-btn" data-vp-upload="'+esc(vpId)+'">'
+        +'＋ 참고 사진 올리기<span>웹에서 저장해 둔 사진을 고르면 두 사람 모두에게 보입니다</span></button>';
+    }
+  }
+  function paintAllPhotos(){ (T.viewpoints||[]).forEach(v=>paintPhoto(v.id)); }
+
+  /* ---- 원격 ---- */
+  async function saveRemotePhoto(id,dataUrl){
+    if(!cloud.client||!cloud.accessCode) return false;
+    const {error}=await cloud.client.rpc("save_trip_photo",{
+      p_trip_id:TRIP_ID,p_vp_id:id,p_data_url:dataUrl,p_code:cloud.accessCode,p_device:deviceId});
+    return !error;
+  }
+  async function deleteRemotePhoto(id){
+    if(!cloud.client||!cloud.accessCode) return false;
+    const {error}=await cloud.client.rpc("delete_trip_photo",{
+      p_trip_id:TRIP_ID,p_vp_id:id,p_code:cloud.accessCode});
+    return !error;
+  }
+  async function syncPhotos(){
+    if(!cloud.client||!cloud.accessCode) return;
+    const keys=await photoKeys();
+    // ① 아직 못 올린 사진을 먼저 재전송
+    for(const k of keys){
+      const rec=await photoGet(k);
+      if(rec&&rec.pending&&rec.dataUrl&&await saveRemotePhoto(k,rec.dataUrl)){
+        rec.pending=false; await photoPut(k,rec); await paintPhoto(k);
+      }
+    }
+    // ② 목록만 받아 바뀐 것만 내려받는다 (본문은 5초 폴링에 싣지 않는다)
+    const {data,error}=await cloud.client.rpc("get_trip_photo_index",{p_trip_id:TRIP_ID,p_code:cloud.accessCode});
+    if(error) return;                       // SQL 미설치여도 로컬 기능은 유지
+    const remote=new Map((data||[]).map(r=>[r.vp_id,r.updated_at]));
+    for(const [vpId,updatedAt] of remote){
+      const rec=await photoGet(vpId);
+      if(rec&&rec.pending) continue;                  // 내 미전송본이 우선
+      if(rec&&rec.updatedAt===updatedAt) continue;    // 이미 최신
+      const one=await cloud.client.rpc("get_trip_photo",{p_trip_id:TRIP_ID,p_vp_id:vpId,p_code:cloud.accessCode});
+      const row=((one&&one.data)||[])[0];
+      if(row&&row.data_url){
+        await photoPut(vpId,{dataUrl:row.data_url,updatedAt:row.updated_at,pending:false});
+        await paintPhoto(vpId);
+      }
+    }
+    // ③ 상대가 지운 사진은 이 기기에서도 정리
+    for(const k of keys){
+      const rec=await photoGet(k);
+      if(rec&&!rec.pending&&!remote.has(k)){ await photoDel(k); await paintPhoto(k); }
+    }
+  }
+
+  /* ---- 업로드 ---- */
+  const photoInput=document.createElement("input");
+  photoInput.type="file"; photoInput.accept="image/*"; photoInput.hidden=true;
+  document.body.appendChild(photoInput);
+  let photoTarget="";
+  photoInput.addEventListener("change", async ()=>{
+    const file=photoInput.files&&photoInput.files[0];
+    photoInput.value="";
+    const id=photoTarget; photoTarget="";
+    if(!file||!id) return;
+    setPhotoBusy(id,"사진을 줄이는 중…");
+    try{
+      const dataUrl=await compressPhoto(file);
+      await photoPut(id,{dataUrl,updatedAt:new Date().toISOString(),pending:true});
+      await paintPhoto(id);
+      if(await saveRemotePhoto(id,dataUrl)){
+        const rec=await photoGet(id);
+        if(rec){ rec.pending=false; await photoPut(id,rec); await paintPhoto(id); }
+      }
+    }catch(err){
+      setPhotoBusy(id,"사진을 넣지 못했습니다. 다시 시도해 주세요");
+      setTimeout(()=>paintPhoto(id),2200);
+    }
+  });
+
+  $("#viewpoint-list").addEventListener("click", async e=>{
+    const up=e.target.closest("[data-vp-upload]");
+    if(up){ photoTarget=up.getAttribute("data-vp-upload"); photoInput.click(); return; }
+    const del=e.target.closest("[data-vp-del]");
+    if(!del) return;
+    const id=del.getAttribute("data-vp-del");
+    // 모달 없이 두 번 눌러 확인 — 실수로 지우는 것만 막는다
+    if(del.dataset.armed!=="1"){
+      del.dataset.armed="1"; del.textContent="정말 삭제?";
+      setTimeout(()=>{ if(del.isConnected&&del.dataset.armed==="1"){ del.dataset.armed=""; del.textContent="삭제"; } },3000);
+      return;
+    }
+    await photoDel(id); await deleteRemotePhoto(id); await paintPhoto(id);
+  });
+
+  paintAllPhotos();
+
   /* ══════════ TRANSPORT ══════════ */
   $("#flights").innerHTML = (T.flights||[]).map((f,i)=>{
     const id="flight_"+i; const done = checks[id];
@@ -2360,11 +2791,27 @@ const TRIP = {
   }));
 
   /* ══════════ TAB NAV ══════════ */
+  // 탭마다 마지막으로 보던 스크롤 위치를 기억해 두었다가 그 탭으로 돌아올 때 복원한다.
+  // 일정 탭을 한참 내려보다 예산 탭에 다녀와도 보던 자리에서 이어보게 하는 목적.
+  // 새로고침하면 초기화된다(한 번의 사용 중에만 유지).
+  const tabScroll = {};
+  const firstTab  = $(".tab.active");
+  let currentTab  = firstTab ? firstTab.getAttribute("data-go") : "overview";
+  const curY      = ()=> window.scrollY || document.documentElement.scrollTop || 0;
+  const jumpTo    = y => window.scrollTo({top:y, behavior:"instant" in window ? "instant":"auto"});
+
   $$(".tab").forEach(btn=> btn.addEventListener("click", ()=>{
     const go = btn.getAttribute("data-go");
+    // 보고 있는 탭을 다시 누르면 맨 위로 — 기존 동작을 그대로 남겨둔다
+    if(go === currentTab){ tabScroll[go] = 0; jumpTo(0); return; }
+    tabScroll[currentTab] = curY();   // 떠나는 탭의 위치를 저장
+    currentTab = go;
     $$(".tab").forEach(b=>b.classList.toggle("active", b===btn));
     $$(".panel").forEach(p=>p.classList.toggle("active", p.getAttribute("data-tab")===go));
-    window.scrollTo({top:0, behavior:"instant" in window ? "instant":"auto"});
+    const y = tabScroll[go] || 0;     // 처음 여는 탭은 맨 위에서 시작
+    jumpTo(y);
+    // 패널이 표시된 뒤에야 문서 높이가 확정되므로 다음 프레임에 한 번 더 맞춘다
+    requestAnimationFrame(()=>jumpTo(y));
   }));
 
   /* ══════════ SUPABASE SHARED-CODE SYNC ══════════ */
