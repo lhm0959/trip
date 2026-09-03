@@ -721,8 +721,8 @@ const TRIP = {
 
   // ── 항공 (예약완료) ──────────────────────────────────────────
   flights:[
-    { route:"인천(ICN) → 부다페스트(BUD)", detail:"9/11 금 · 12:35 출발 → 18:00 도착", cost:"", booked:true },
-    { route:"프라하(PRG) → 인천(ICN)", detail:"9/22 화 · 18:50 출발", cost:"", booked:true },
+    { route:"인천(ICN) → 부다페스트(BUD)", detail:"아시아나항공 · 직항 · 9/11 금 12:35 출발 → 9/11 금 18:05 도착", cost:"", booked:true },
+    { route:"프라하(PRG) → 인천(ICN)", detail:"아시아나항공 · 직항 · 9/22 화 18:50 출발 → 9/23 수 13:10 도착 (+1일)", cost:"", booked:true },
   ],
 
   // ── 도시 간 이동 ─────────────────────────────────────────────
@@ -736,8 +736,8 @@ const TRIP = {
   //   type = 태그(관광/식사/이동/휴식/쇼핑), note = 메모, map = 지도검색어
   days:[
     { date:"2026-09-11", city:"부다페스트", title:"도착 · 힐튼 체크인 · 국회의사당 야경", items:[
-      { time:"12:35", place:"인천 출발", type:"이동", note:"장거리 비행." },
-      { time:"18:00", place:"부다페스트 도착 (BUD)", type:"이동", note:"입국 60~90분. 100E 공항버스 또는 Bolt로 숙소.", map:"Budapest Ferenc Liszt Airport" },
+      { time:"12:35", place:"인천 출발 · 아시아나항공 직항", type:"이동", note:"ICN → BUD 직항 · 현지시각 18:05 도착." },
+      { time:"18:05", place:"부다페스트 도착 (BUD)", type:"이동", note:"아시아나항공 직항. 입국 60~90분. 100E 공항버스 또는 Bolt로 숙소.", map:"Budapest Ferenc Liszt Airport" },
       { time:"19:30", place:"힐튼 부다페스트 체크인", type:"이동", note:"리버뷰 · 국회의사당이 정면으로 보임(매우 만족). 부다성 언덕 위치.", map:"Hilton Budapest" },
       { time:"20:00", place:"저녁 · Jamie Oliver", type:"식사", note:"이탈리안 · 마르게리타 피자, 슈림프 파스타 추천.", map:"Jamie Oliver restaurant Budapest" },
       { time:"21:00", place:"국회의사당 야경", type:"관광", note:"첫날은 무리 없이 야경만. 힐튼에서 강 건너로 보임.", map:"Hungarian Parliament Building" },
@@ -895,7 +895,8 @@ const TRIP = {
       { time:"12:00", place:"마지막 산책 / 기념품", type:"쇼핑", note:"무리하지 않기." },
       { time:"14:00", place:"숙소 짐 픽업", type:"이동", note:"체크아웃 후 짐 보관 확인." },
       { time:"15:00", place:"공항 이동", type:"이동", note:"Metro A + 59번 또는 Bolt (45~60분). 국제선 여유 있게.", map:"Vaclav Havel Airport Prague" },
-      { time:"18:50", place:"프라하 출발 (인천행)", type:"이동" },
+      { time:"18:50", place:"프라하 출발 · 아시아나항공 직항", type:"이동", note:"PRG → ICN 직항. 다음 날 인천 도착." },
+      { time:"9/23 13:10", place:"인천 도착 (ICN) · +1일", type:"이동", note:"9월 23일 수요일 13:10 도착." },
     ]},
   ],
 
