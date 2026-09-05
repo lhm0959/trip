@@ -529,6 +529,25 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 @keyframes vpflash{0%,100%{box-shadow:0 2px 9px var(--shadow)}
   25%,75%{box-shadow:0 0 0 3px var(--wine),0 2px 9px var(--shadow)}}
 .vp-card.vp-flash{animation:vpflash 1.5s ease}
+/* ── 숙소 오가기 ── */
+.tf-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:13px 14px;margin-bottom:12px;box-shadow:0 2px 9px var(--shadow)}
+.tf-top{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.tf-when{font-family:"Courier New",monospace;font-size:10px;letter-spacing:.05em;color:#fff;
+  background:var(--teal);border-radius:4px;padding:2px 6px;white-space:nowrap}
+:root[data-theme="dark"] .tf-when{color:#14100b}
+.tf-city{font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+.tf-title{font-family:"Didot","Bodoni 72",serif;font-size:16.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.tf-to{font-size:12.5px;color:var(--muted);margin-top:3px;word-break:keep-all}
+.tf-pick{font-size:12.5px;color:var(--wine);margin-top:8px;font-weight:700;word-break:keep-all}
+.tf-opt{border-top:1px solid var(--line);margin-top:9px;padding-top:8px}
+.tf-opt-head{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:13px;color:var(--ink)}
+.tf-opt-head span{font-size:11.5px;color:var(--muted)}
+.tf-opt-head .tf-cost{color:var(--teal);font-weight:700}
+.tf-opt-d{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin-top:4px;word-break:keep-all}
+.tf-watch{margin-top:9px;padding:8px 10px;border-radius:8px;background:var(--paper-2);
+  border:1px solid var(--line);font-size:12.5px;color:var(--wine);line-height:1.55;word-break:keep-all}
+.tf-card .maplink{display:inline-block;margin-top:9px}
 .vp-photo{margin-top:10px}
 .vp-slot-btn{width:100%;display:block;font:inherit;cursor:pointer}
 .vp-slot-btn span{display:block;margin-top:5px;font-size:10.5px;opacity:.85}
@@ -826,7 +845,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
   .theme-btn,.sync-btn,nav.tabbar,.perf,.caret,.day-route,.day-quick-wrap,.subtab-bar{display:none!important}
   .panel{display:block!important;page-break-before:always}
   .subpanel{display:block!important}
-  .vp-card{break-inside:avoid;page-break-inside:avoid}
+  .vp-card,.tf-card{break-inside:avoid;page-break-inside:avoid}
   .vp-slot,.vp-slot-btn,.vp-photo-tools{display:none!important}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
@@ -975,6 +994,11 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
   <!-- ══════════ 이동 ══════════ -->
   <section class="panel" id="p-transport" data-tab="transport">
     <div class="section-head"><h2 class="serif">이동</h2><span class="kicker">Transport</span></div>
+    <div class="subtab-bar" role="tablist" aria-label="이동 정보">
+      <button class="subtab active" type="button" role="tab" aria-selected="true" data-subgo="routes">노선</button>
+      <button class="subtab" type="button" role="tab" aria-selected="false" data-subgo="access">숙소 오가기</button>
+    </div>
+    <div class="subpanel active" data-subpanel="routes">
 
     <div class="card" id="flights-card">
       <div class="card-title"><span class="ic">✈</span> 항공</div>
@@ -989,6 +1013,14 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
       <div class="h serif">✦ 알아두기</div>
       <p>부다페스트·비엔나·린츠·프라하 구간은 <b>기차</b>가 편합니다(도심↔도심). 운영사는 <b>Railjet(ÖBB)</b>·<b>RegioJet</b>·<b>České dráhy</b>. 표는 <b>미리 예약할수록 저렴</b>합니다. 잘츠캄머구트(고사우·할슈타트)는 대중교통이 불편해 <b>린츠 렌트카</b>가 효율적입니다.</p>
       <div class="src">※ 소요시간·요금은 참고용 — 예약 전 RegioJet / ÖBB 공식 사이트에서 확인하세요.</div>
+      </div>
+    </div>
+    <div class="subpanel" data-subpanel="access">
+      <div class="callout" style="border-color:var(--teal)">
+        <div class="h serif" style="color:var(--teal)">✦ 공항·역에서 숙소까지</div>
+        <p>도시 간 이동이 <b>어느 도시로</b>라면 여기는 <b>내려서 숙소까지</b>입니다. 매번 헷갈리는 구간만 미리 조사해 두었습니다. 요금은 2026년 기준이고 현장에서 다시 확인하세요.</p>
+      </div>
+      <div id="transfer-list"></div>
     </div>
   </section>
 
@@ -1352,6 +1384,104 @@ const TRIP = {
     { id:"tip-prg-snap-iloveprague", city:"프라하", category:"사진", title:"스냅 후보 · 날씨 확인 후 결정", body:"9월 20일 오전 9시 ‘알맹이 60분’은 아직 예약하지 않고 프라하 단기예보를 확인한 뒤 진행 여부를 결정합니다. 원하는 작가나 시간대가 마감될 수 있다는 점은 감수합니다.", points:["결정 시점: 9월 17~18일에 9월 20일 오전 강수·풍속 예보 확인","진행 후보 · 알맹이 60분 · 24만원: 원본 100~150장, 색감보정 20장, 카를교·프라하성·트램 등 7개 이상 스팟","진행 시 일정: 9월 20일 07:00 준비 → 08:20 이동 → 09:00~10:00 촬영 → 10:30 프라하성 관람","비 예보 또는 예약 마감 시 전문 스냅은 생략하고 카를교·프라하성에서 직접 커플 사진 촬영","예약 직전 최신 금액, 작가 배정, 남은 시간대, 취소·우천 규정을 다시 확인"], sources:[{type:"예약",label:"마이리얼트립 상품 3511071",url:"https://experiences.myrealtrip.com/products/3511071"}] },
   ],
 
+  // ── 숙소 오가기 (공항·역 ↔ 숙소 접근) ────────────────────────
+  // 도시 간 이동(intercity)이 '어느 도시로'라면, 여기는 '역·공항에서 숙소까지'다.
+  //   pick=추천 · options[]={n:수단, t:시간, c:요금, d:방법} · watch=주의
+  transfers:[
+    { id:"tf-bud-arrive", date:"2026-09-11", time:"18:05 도착", city:"부다페스트",
+      title:"부다페스트 공항 → H2 Hotel", to:"H2 Hotel · Sas utca 24, 5구 (Deák Ferenc tér 도보 10분)",
+      pick:"택시·Bolt — 야간 도착에 캐리어가 있어 5만원 더 쓸 값이 있다",
+      options:[
+        { n:"택시 · Bolt · Uber", t:"30~40분", c:"15,000~19,000 HUF (2인 합계)",
+          d:"Főtaxi가 공항 공식 택시로 터미널 2A·2B 도착층 밖에 부스가 있다. Bolt·Uber로 불러도 되고, 부다페스트에서는 Uber도 Főtaxi 차량을 배차하며 요금이 법으로 고정이라 셋 다 값이 같다. 2026-08-01부터 기본 1,300 HUF · km당 520 HUF · 공항할증 800 HUF." },
+        { n:"100E 공항버스", t:"40분 + 도보 10분", c:"2,500 HUF × 2 = 5,000 HUF",
+          d:"터미널 2 밖에서 탑승. 정차는 Kálvin tér · Astoria · 종점 Deák Ferenc tér 셋뿐이고 24시간 운행한다(저녁 10~15분 간격). 종점에서 호텔까지 도보 10분." }
+      ],
+      watch:"⚠️ 100E는 전용 티켓이라 단권·24시간권·72시간권이 모두 무효다. 다만 버스에서 은행카드를 대면(Budapest Pay&GO) 바로 구매·검표되니 앱이나 발매기는 필요 없다. 🚫 터미널 안에서 말 거는 사람은 따라가지 말 것 — 공식 택시는 호객하지 않는다. '카드 단말기가 고장났다'는 사기다(모든 정식 택시는 카드 결제가 법적 의무).",
+      map:"Budapest Ferenc Liszt Airport Terminal 2" },
+
+    { id:"tf-bud-keleti", date:"2026-09-13", time:"08:30 출발", city:"부다페스트",
+      title:"H2 Hotel → Keleti 역", to:"Budapest Keleti pályaudvar (09:30 기차)",
+      pick:"Bolt — 캐리어가 있고 기차 시간이 정해져 있다",
+      options:[
+        { n:"Bolt · 택시", t:"15~20분", c:"약 4,000~6,000 HUF", d:"호텔 앞에서 바로 탄다. 일요일 아침이라 길이 막히지 않는다." },
+        { n:"M2 지하철", t:"약 20분", c:"단권 또는 24시간권", d:"호텔에서 Deák Ferenc tér까지 도보 10분 → M2(빨간선)로 3정거장 → Keleti pályaudvar 하차. 역과 바로 연결된다." }
+      ],
+      watch:"09:30 기차이고 좌석이 지정돼 있다. 08:30 체크아웃이면 여유가 있지만, 캐리어를 끌고 Deák Ferenc tér까지 10분 걷는 것보다 Bolt가 확실하다.",
+      map:"Budapest Keleti Railway Station" },
+
+    { id:"tf-vie-arrive", date:"2026-09-13", time:"12:20 도착", city:"비엔나",
+      title:"Wien Hbf → The Cloud One Hotel", to:"The Cloud One Hotel Wien-Staatsoper (오페라극장 옆)",
+      pick:"U1 — 환승 없이 2정거장이다",
+      options:[
+        { n:"U1 지하철", t:"15~20분", c:"단권 €3.00 (앱) / €3.20 (종이)", d:"Wien Hbf에서 U1을 타고 Karlsplatz 하차 → 도보 2~3분. 방향은 Leopoldau 행." },
+        { n:"택시", t:"약 10분", c:"€10~13", d:"짐이 많으면 확실하다." }
+      ],
+      watch:"역 밖으로 나가기 전에 중앙역 안에서 점심(Leberkas-Pepi)을 해결하는 일정이다. 체크인 전이면 프런트에 짐만 맡기고 13:35까지 국립도서관으로 출발.",
+      map:"Wien Hauptbahnhof" },
+
+    { id:"tf-vie-depart", date:"2026-09-16", time:"08:00 출발", city:"비엔나",
+      title:"The Cloud One Hotel → Wien Hbf", to:"Wien Hbf (08:28 RJX 19962)",
+      pick:"U1 — 다만 짐이 많으면 택시",
+      options:[
+        { n:"U1 지하철", t:"15~20분", c:"단권 €3.00", d:"Karlsplatz역까지 도보 2분 → U1(Leopoldau 방향) 2정거장 → Hauptbahnhof." },
+        { n:"택시", t:"약 10분", c:"€10~13", d:"08:28 열차가 취소·변경 불가라 확실한 쪽을 택해도 좋다." }
+      ],
+      watch:"⚠️ 08:28 RJX는 Sparschiene라 놓치면 표가 소멸한다. 08:00에는 호텔을 나서고 전날 밤에 짐을 다 싸둘 것.",
+      map:"Wien Hauptbahnhof" },
+
+    { id:"tf-linz-pickup", date:"2026-09-16", time:"09:50 도착", city:"린츠",
+      title:"Linz Hbf → SIXT 렌터카 지점", to:"SIXT · Stahlstraße 2, 4020 Linz (⚠️ 중앙역 아님)",
+      pick:"택시 — 캐리어가 있고 공단 지역이다",
+      options:[
+        { n:"택시", t:"10~15분", c:"€15~20", d:"역 앞 택시 승강장에서 탄다. Stahlstraße 2 (voestalpine 공단), 역에서 약 3km." },
+        { n:"버스 25번", t:"25~30분", c:"시내 단권", d:"Kokerei 정류장 하차 후 도보 400m." }
+      ],
+      watch:"픽업 예약이 11:00이라 10:10 도착이면 50분 여유가 있다. 운전자 2명 등록·서류 확인에 20~30분, 차량 인수까지 15~20분을 더 잡을 것.",
+      map:"SIXT Autovermietung Linz Stahlstraße 2 4020 Linz" },
+
+    { id:"tf-linz-return", date:"2026-09-18", time:"14:30 출발", city:"린츠",
+      title:"SIXT → Linz Hbf", to:"Linz Hbf (15:54 EC 332)",
+      pick:"택시 — 반납 수속 중에 미리 불러둘 것",
+      options:[
+        { n:"택시 (미리 콜)", t:"이동 15분 + 대기 10분", c:"€15~20",
+          d:"☎ Taxi 6969 : +43 732 6969 · ☎ Taxi 2244 : +43 732 2244. Bolt는 린츠에서 운행하지만 Uber는 빈·잘츠부르크까지만이라 린츠에서는 잡히지 않는다." },
+        { n:"버스 25번", t:"25~30분", c:"시내 단권", d:"Kokerei에서 타고 중앙역 하차. 시간이 촉박하면 권하지 않는다." }
+      ],
+      watch:"🚨 이번 여행에서 가장 아슬아슬한 구간이다. 공단이라 지나가는 택시가 없고, 15:54 EC 332는 취소·변경 불가에 다음 직통이 19:54(프라하 23:42 도착)다. 13:45 반납 → 정산 40~50분 → 14:30 출발 → 14:55 역 도착이 계획이니, 반납 수속을 하면서 택시를 먼저 불러둘 것.",
+      map:"Linz Hauptbahnhof" },
+
+    { id:"tf-prg-arrive", date:"2026-09-18", time:"19:39 도착", city:"프라하",
+      title:"Praha hl.n. → 프라하 Airbnb", to:"Airbnb · Říční 540/9, 말라스트라나 (Praha 1)",
+      pick:"Bolt — 19:39 도착에 캐리어가 있다",
+      options:[
+        { n:"Bolt · 택시", t:"약 15분", c:"약 250~350 CZK", d:"역 앞에서 바로 부른다. 강을 건너 말라스트라나로 들어간다." },
+        { n:"트램 9번", t:"12~15분", c:"90분권 46 CZK (앱)", d:"역에서 나와 앞 공원을 가로질러 250m 걸으면 트램 정류장이 있다. 9번을 타고 Újezd 하차, 숙소는 바로 옆." }
+      ],
+      watch:"⚠️ 숙소가 강 건너 말라스트라나라 지하철 C선으로는 갈 수 없다 — C선은 그쪽으로 가지 않는다. ⚠️ 트램을 타면 25×45×70cm를 넘는 캐리어마다 짐 티켓 16 CZK를 따로 사야 한다.",
+      map:"Praha hlavni nadrazi" },
+
+    { id:"tf-prg-move", date:"2026-09-21", time:"09:00 출발", city:"프라하",
+      title:"Airbnb → Hotel BOOKQUET", to:"Hotel BOOKQUET · Karoliny Světlé 27, 구시가 (Praha 1)",
+      pick:"도보 — 다리 하나만 건너면 된다",
+      options:[
+        { n:"도보", t:"12~15분", c:"무료", d:"Říční에서 Legií 다리(most Legií)를 건너 구시가 쪽으로. 평지이고 강 풍경이 좋다." },
+        { n:"트램 9·22번", t:"약 5분 + 도보 5분", c:"30분권 36 CZK (앱)", d:"Újezd에서 한 정거장, Národní divadlo 하차." }
+      ],
+      watch:"체크인은 09:30이지만 정식 체크인 전이면 프런트에 짐만 맡기고 카를린 브런치로 출발하면 된다.",
+      map:"Hotel BOOKQUET Prague" },
+
+    { id:"tf-prg-depart", date:"2026-09-22", time:"14:30 출발", city:"프라하",
+      title:"Hotel BOOKQUET → 프라하 공항", to:"Václav Havel Airport Prague (PRG) · 18:50 출발",
+      pick:"택시·Bolt — 마지막 날은 시간을 사는 게 맞다",
+      options:[
+        { n:"Bolt · 택시", t:"25~30분", c:"약 385~700 CZK", d:"호텔 앞에서 부른다. 짐을 찾은 뒤 바로 출발." },
+        { n:"트램·지하철 + 트롤리버스 59", t:"약 50분", c:"40 CZK", d:"지하철 A선 Nádraží Veleslavín까지 간 뒤 트롤리버스 59번으로 환승. ⚠️ 예전 119번 버스는 2024년에 59번 트롤리버스로 대체됐다." }
+      ],
+      watch:"18:50 비행기 기준 3시간 전인 15:30 공항 도착이 목표다. 체크아웃 후 짐을 프런트에 맡겨두고 점심·쇼핑을 마친 뒤 14:30에 출발하는 일정.",
+      map:"Vaclav Havel Airport Prague" },
+  ],
+
   // ── 사진 뷰포인트 ────────────────────────────────────────────
   // 일정에 실제로 들어 있는 촬영 포인트만 모았습니다. 일정 항목에 vpId 를 달면
   // 그 항목에 📷 칩이 붙고, 여기 카드와 짝이 됩니다.
@@ -1565,7 +1695,7 @@ const TRIP = {
   days:[
     { date:"2026-09-11", city:"부다페스트", title:"도착 · 체크인 · 국회의사당 야경", items:[
       { time:"12:35", place:"인천 출발 · 아시아나항공 직항", type:"이동", note:"ICN → BUD 직항 · 현지시각 18:05 도착." },
-      { time:"18:05", place:"부다페스트 도착 (BUD)", type:"이동", note:"아시아나항공 직항. 입국 60~90분. 100E 공항버스 또는 Bolt로 숙소. ⚠️ 100E는 전용 티켓(2,500 HUF/인)이 따로 필요하다 — 단권·24시간권·72시간권 어느 것도 통하지 않으니 공항 발매기나 BudapestGO 앱에서 100E 티켓을 따로 살 것. 첫날은 캐리어가 있어 Bolt가 편하고, 둘이면 요금 차이도 크지 않다.", map:"Budapest Ferenc Liszt Airport" },
+      { time:"18:05", place:"부다페스트 도착 (BUD)", type:"이동", note:"아시아나항공 직항. 입국 60~90분(EES 생체등록 포함). 숙소는 H2 Hotel · Sas utca 24 (5구). ⚠️ 2026-08-01 택시 요금 인상으로 두 방법의 차이가 커졌다 — 택시·Bolt 15,000~19,000 HUF(2인 합계·공항할증 800 포함) vs 100E 2,500 HUF×2=5,000 HUF. 3~4배 차이. 100E는 전용 티켓이라 단권·24시간권·72시간권 모두 무효지만, 버스에서 은행카드를 대면(Budapest Pay&GO) 바로 구매·검표되니 앱도 발매기도 필요 없다. 100E 종점 Deák Ferenc tér에서 호텔까지 도보 10분. 첫날은 야간 도착에 캐리어가 있어 택시를 권한다.", map:"Budapest Ferenc Liszt Airport" },
       { time:"19:30", place:"H2 Hotel Budapest 체크인", type:"이동", note:"9/11~9/13 · 2박 · 네이버 호텔 예약 · 502,356원 결제. 첫날 공항에서는 Bolt가 편함.", map:"H2 Hotel Budapest" },
       { time:"20:30", place:"저녁 · Mazel Tov 또는 Bors GastroBar", type:"식사", note:"Mazel Tov는 분위기 좋은 첫날 저녁, Bors는 빠르고 캐주얼한 대안.", map:"Mazel Tov Budapest" },
       { time:"21:30", place:"국회의사당 야경 산책", vpId:"vp-bud-parliament-night", type:"관광", note:"첫날은 무리하지 말고 다뉴브 강변 야경만. Batthyány tér 쪽 전망도 좋음.", map:"Hungarian Parliament Building" },
@@ -1705,7 +1835,7 @@ const TRIP = {
         { time:"14:30~14:55", place:"SIXT → 린츠 Hbf 이동", type:"이동", note:"⚠️ 공단 지역이라 지나가는 택시가 없음 — 반납 절차 중에 미리 택시를 불러둘 것. 이동 15분 + 대기 10분. 대중교통은 버스 25번 Kokerei 하차 후 도보 400m라 25~30분 걸림.", map:"Linz Hauptbahnhof" },
         { time:"15:00~15:40", place:"린츠 Hbf 늦은 점심 · 물·간식 구입", type:"식사", note:"앞당긴 버퍼를 여기서 씀. 열차에 비스트로가 있지만 미리 먹어두는 편이 편함. 플랫폼 확인하고 승차 준비.", map:"Linz Hauptbahnhof" },
         { time:"15:54", place:"린츠 → 프라하 · EC 332 · 예약 완료", type:"이동", note:"ČD EC Jižní expres 직통 · Linz Hbf → Summerau → České Budějovice → Praha hl.n. · 3시간 45분 · 2등석 개방형 좌석지정 포함 · 2인 €67.80 · 예약 1747 6128 2804 9517. ⚠️ SparSchiene Tschechien은 취소·변경 불가 + EC 332 고정 — 놓치면 다음 직통이 19:54(프라하 23:42 도착)라 표가 소멸되고 4시간을 버림. 간식·물 준비.", map:"Linz Hauptbahnhof" },
-        { time:"19:39", place:"프라하 도착 · Praha hl.n.", type:"이동", note:"중앙역 도착. 지하철 C선 Hlavní nádraží에서 숙소로 이동.", map:"Praha hlavni nadrazi" },
+        { time:"19:39", place:"프라하 도착 · Praha hl.n.", type:"이동", note:"중앙역 도착. ⚠️ 숙소(Říční 540/9)는 강 건너 말라스트라나라 지하철 C선으로는 못 간다 — C선은 그쪽으로 가지 않는다. 역 앞 공원을 가로질러 250m 걸어 나오면 트램 정류장이 있고, 트램 9번이 Újezd까지 직통 12~15분이다. ⚠️ 25×45×70cm 넘는 캐리어는 짐 티켓 16 CZK를 따로 사야 한다. 19:39 도착에 캐리어가 있으니 Bolt(약 15분)도 충분히 합리적이다.", map:"Praha hlavni nadrazi" },
         { time:"20:15", place:"Airbnb 체크인", type:"이동", note:"9/18~9/21 · 3박 · 754,500원 결제. 도착이 이르니 정상 시간 체크인 가능 — 호스트와 20시 전후 도착으로 조율.", map:"50.0818138,14.4058218" },
         { time:"20:45", place:"프라하 첫 저녁", type:"식사", note:"도착 당일이지만 19:39 도착이라 제대로 된 저녁이 가능. 숙소 근처 구시가 쪽으로.", map:"Old Town Square Prague" },
         { time:"22:00", place:"카를교 야경 산책", vpId:"vp-prg-charles-night", type:"관광", note:"첫날 밤 야경. 조명 켜진 프라하성과 함께.", map:"Charles Bridge Prague" },
@@ -2650,6 +2780,19 @@ const TRIP = {
     </section>`;
   }).join("") : '<div class="rec-empty">아직 저장된 여행 팁이 없습니다.</div>';
 
+  /* ══════════ TRANSFERS (숙소 오가기) ══════════ */
+  // 도시 간 이동과 달리 '역·공항에서 숙소까지'라 날짜순으로 보여준다.
+  const transfers = T.transfers || [];
+  $("#transfer-list").innerHTML = transfers.length ? transfers.map(t=>`<div class="tf-card">
+      <div class="tf-top"><span class="tf-when">${esc((t.date||"").slice(5).replace("-","/"))} ${esc(t.time||"")}</span><span class="tf-city">${esc(t.city||"")}</span></div>
+      <div class="tf-title">${esc(t.title||"")}</div>
+      ${t.to?`<div class="tf-to">→ ${esc(t.to)}</div>`:""}
+      ${t.pick?`<div class="tf-pick">추천 · ${esc(t.pick)}</div>`:""}
+      ${(t.options||[]).map(o=>`<div class="tf-opt"><div class="tf-opt-head"><b>${esc(o.n||"")}</b><span>${esc(o.t||"")}</span><span class="tf-cost">${esc(o.c||"")}</span></div>${o.d?`<div class="tf-opt-d">${esc(o.d)}</div>`:""}</div>`).join("")}
+      ${t.watch?`<div class="tf-watch">${esc(t.watch)}</div>`:""}
+      ${t.map?`<a class="maplink" href="${mapURL(t.map)}" target="_blank" rel="noopener">◎ 지도</a>`:""}
+    </div>`).join("") : '<div class="rec-empty">등록된 이동 정보가 없습니다.</div>';
+
   /* ══════════ VIEWPOINTS ══════════ */
   const imgSearchURL = q => "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q);
   const vps = T.viewpoints || [];
@@ -2953,14 +3096,17 @@ const TRIP = {
   refreshBookCount();
 
   /* ══════════ RECOMMENDATION / TIP SUBTABS ══════════ */
+  // 서브탭 바가 여러 패널에 생겼으므로 자기 바·자기 패널 안에서만 토글한다.
+  // (전역으로 토글하면 추천 탭의 서브탭이 이동 탭 클릭에 꺼져 빈 화면이 된다)
   $$(".subtab").forEach(btn=>btn.addEventListener("click",()=>{
     const go=btn.getAttribute("data-subgo");
-    $$(".subtab").forEach(b=>{
+    const bar=btn.closest(".subtab-bar"), panel=btn.closest(".panel");
+    $$(".subtab",bar||document).forEach(b=>{
       const active=b===btn;
       b.classList.toggle("active",active);
       b.setAttribute("aria-selected",active?"true":"false");
     });
-    $$(".subpanel").forEach(p=>p.classList.toggle("active",p.getAttribute("data-subpanel")===go));
+    $$(".subpanel",panel||document).forEach(p=>p.classList.toggle("active",p.getAttribute("data-subpanel")===go));
     window.scrollTo({top:0,behavior:"instant" in window?"instant":"auto"});
   }));
 
