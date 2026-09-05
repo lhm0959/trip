@@ -487,7 +487,8 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .subtab-bar{
   display:flex;flex-wrap:nowrap;gap:4px;margin:0 0 16px;
   padding:4px;background:var(--paper-2);border:1px solid var(--line);
-  border-radius:12px;position:sticky;top:70px;z-index:12;
+  border-radius:12px;position:sticky;top:var(--appbar-offset);z-index:30;
+  box-shadow:0 6px 14px var(--shadow);
   overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
 .subtab-bar::-webkit-scrollbar{display:none}
@@ -548,6 +549,26 @@ main{max-width:760px;margin:0 auto;padding:18px 16px 32px}
 .tf-watch{margin-top:9px;padding:8px 10px;border-radius:8px;background:var(--paper-2);
   border:1px solid var(--line);font-size:12.5px;color:var(--wine);line-height:1.55;word-break:keep-all}
 .tf-card .maplink{display:inline-block;margin-top:9px}
+/* ── 도시별 대중교통 이용법 ── */
+.tg-card{padding:14px 15px}
+.tg-card summary{cursor:pointer;list-style:none}
+.tg-card summary::-webkit-details-marker{display:none}
+.tg-card .card-title{font-size:17px;margin-bottom:0;flex-wrap:wrap}
+.tg-card .card-title .chip{margin-left:auto}
+.tg-card .card-title::after{content:"▾";margin-left:2px;font-size:12px;color:var(--muted)}
+.tg-card[open] .card-title::after{content:"▴"}
+.tg-sum{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin-top:6px;word-break:keep-all}
+.tg-body{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+.tg-app{font-size:12.5px;color:var(--teal);font-weight:700;margin-bottom:9px;word-break:keep-all}
+.tg-fares{display:flex;flex-direction:column;gap:0;background:var(--paper-2);border-radius:9px;padding:4px 10px}
+.tg-fare{display:flex;gap:10px;align-items:baseline;justify-content:space-between;
+  padding:6px 0;font-size:12.5px;color:var(--ink-soft)}
+.tg-fare+.tg-fare{border-top:1px dotted var(--line)}
+.tg-fare b{font-family:"Courier New",monospace;font-size:12px;color:var(--teal);white-space:nowrap}
+.tg-steps{margin:11px 0 0 17px;display:flex;flex-direction:column;gap:7px}
+.tg-steps li{font-size:12.5px;color:var(--ink-soft);line-height:1.65;word-break:keep-all}
+.tg-card .tf-watch{margin-top:11px}
+.tg-card .rec-sources{margin-top:10px}
 .vp-photo{margin-top:10px}
 .vp-slot-btn{width:100%;display:block;font:inherit;cursor:pointer}
 .vp-slot-btn span{display:block;margin-top:5px;font-size:10.5px;opacity:.85}
@@ -847,6 +868,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
   .subpanel{display:block!important}
   .vp-card,.tf-card{break-inside:avoid;page-break-inside:avoid}
   .vp-slot,.vp-slot-btn,.vp-photo-tools{display:none!important}
+  .tg-card .card-title::after{content:""}
   .panel:first-of-type{page-break-before:avoid}
   .day-body{display:block!important}
   .card,.day,.leg,.hero{box-shadow:none;border:1px solid #999}
@@ -1016,8 +1038,13 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
       </div>
     </div>
     <div class="subpanel" data-subpanel="access">
+      <div class="section-head" style="margin-top:0"><h2 class="serif" style="font-size:20px">도시별 대중교통 이용법</h2><span class="kicker">How to ride</span></div>
+      <div class="card-note" style="margin:-4px 2px 12px">표 사는 법과 개시(검표) 방법은 도시마다 다릅니다. 도시를 눌러 펼치세요. 요금은 2026년 공식 요금표 기준입니다.</div>
+      <div id="transit-guide"></div>
+
+      <div class="section-head" style="margin-top:22px"><h2 class="serif" style="font-size:20px">공항·역에서 숙소까지</h2><span class="kicker">Access</span></div>
       <div class="callout" style="border-color:var(--teal)">
-        <div class="h serif" style="color:var(--teal)">✦ 공항·역에서 숙소까지</div>
+        <div class="h serif" style="color:var(--teal)">✦ 내려서 숙소까지</div>
         <p>도시 간 이동이 <b>어느 도시로</b>라면 여기는 <b>내려서 숙소까지</b>입니다. 매번 헷갈리는 구간만 미리 조사해 두었습니다. 요금은 2026년 기준이고 현장에서 다시 확인하세요.</p>
       </div>
       <div id="transfer-list"></div>
@@ -1384,6 +1411,82 @@ const TRIP = {
     { id:"tip-prg-snap-iloveprague", city:"프라하", category:"사진", title:"스냅 후보 · 날씨 확인 후 결정", body:"9월 20일 오전 9시 ‘알맹이 60분’은 아직 예약하지 않고 프라하 단기예보를 확인한 뒤 진행 여부를 결정합니다. 원하는 작가나 시간대가 마감될 수 있다는 점은 감수합니다.", points:["결정 시점: 9월 17~18일에 9월 20일 오전 강수·풍속 예보 확인","진행 후보 · 알맹이 60분 · 24만원: 원본 100~150장, 색감보정 20장, 카를교·프라하성·트램 등 7개 이상 스팟","진행 시 일정: 9월 20일 07:00 준비 → 08:20 이동 → 09:00~10:00 촬영 → 10:30 프라하성 관람","비 예보 또는 예약 마감 시 전문 스냅은 생략하고 카를교·프라하성에서 직접 커플 사진 촬영","예약 직전 최신 금액, 작가 배정, 남은 시간대, 취소·우천 규정을 다시 확인"], sources:[{type:"예약",label:"마이리얼트립 상품 3511071",url:"https://experiences.myrealtrip.com/products/3511071"}] },
   ],
 
+  // ── 도시별 대중교통 이용법 ───────────────────────────────────
+  // '숙소 오가기' 탭 맨 위에 도시 순서대로 나옵니다. 제목을 누르면 펼쳐집니다.
+  //   sum=접었을 때 보이는 한 줄 · app=티켓 앱 · fares[]={n:종류, c:요금}
+  //   steps[]=타는 순서(번호는 자동) · watch=벌금·주의 · src={label,url}
+  transitGuide:[
+    { city:"부다페스트", operator:"BKK", sum:"단권 500 Ft · 지하철과 100E는 카드를 대면 구매·검표가 한 번에 끝난다",
+      app:"BudapestGO — 무료, 카드 결제, QR 승차권",
+      fares:[
+        { n:"단권 (환승 불가)", c:"500 Ft · 차내 구매 700 Ft" },
+        { n:"30분권 / 90분권 (환승 자유)", c:"600 Ft / 850 Ft" },
+        { n:"24시간권 / 72시간권", c:"2,750 Ft / 5,750 Ft" },
+        { n:"공항 100E 전용권", c:"2,500 Ft · 일반권·패스 무효" }
+      ],
+      steps:[
+        "가장 쉬운 방법은 Pay&GO다. 노랑·검정 단말기에 신용카드나 폰을 대면 단권이 그 자리에서 구매되고 검표까지 끝난다. 앱 설치도 등록도 필요 없다. 2026년 4월부터 지하철 전 노선에서 되고, 100E 공항버스에도 같은 단말기가 있다.",
+        "2인이면 각자 카드를 한 번씩 댄다. 한 카드로 두 사람 몫을 사는 방식이 아니다.",
+        "앱으로 사려면 BudapestGO에 카드를 등록해 승차권을 사고, 타기 직전에 앱에서 개시한다. 검표 때는 QR을 보여주면 된다.",
+        "종이표는 개찰기에 넣어 각인해야 유효하다. 지하철은 에스컬레이터를 내려가기 전 개찰구에서, 버스·트램은 차 안 기계에서.",
+        "단권은 환승이 안 된다. 갈아탈 일이 있으면 30분권이나 90분권을 산다."
+      ],
+      watch:"⚠️ 검표는 지하철 출구와 환승 통로에서 자주 한다. 무검표 과태료가 표값의 수십 배이니 한 정거장이라도 반드시 사서 개시할 것. 100E는 전용권이라 24·72시간권으로는 탈 수 없다.",
+      src:{ label:"BKK 공식 요금표", url:"https://bkk.hu/jegyek-es-berletek/arak" } },
+
+    { city:"비엔나", operator:"Wiener Linien", sum:"단권 €3.00(앱)·€3.20(종이) · 80분간 환승 자유, 종이는 각인 필수",
+      app:"WienMobil — 앱에서 사면 20센트 싸고 각인이 필요 없다",
+      fares:[
+        { n:"단권 (80분·환승 자유)", c:"€3.00 앱 · €3.20 종이 · 트램 내 발매기 €3.40" },
+        { n:"24시간권", c:"€9.70 앱 · €10.20 종이" },
+        { n:"7일권", c:"€25.20 앱 · €28.90 종이" }
+      ],
+      steps:[
+        "WienMobil 앱을 깔고 카드로 단권을 사면 화면에 유효시간이 찍혀 나온다. 이 표는 각인할 필요가 없다.",
+        "종이표를 샀다면 타기 전에 파란색 각인기에 넣어 시각을 찍어야 한다. U-Bahn 승강장 입구, 버스·트램 안에 있다.",
+        "각인 시각부터 80분간 유효하고 한 방향으로 가는 동안 환승은 자유다. 되돌아가거나 도중에 볼일을 보면 무효다.",
+        "U-Bahn에는 개찰구가 없어 표 없이도 탈 수는 있지만, 사복 검표원이 수시로 돈다.",
+        "우리 일정은 U1을 두 번(9/13 도착 · 9/16 출발) 타는 게 전부라 단권 2장이 24시간권보다 싸다."
+      ],
+      watch:"⚠️ 48·72시간권은 2026년 1월 1일자로 없어졌다. 3박이어도 그런 표는 살 수 없다. 무임승차가 걸리면 현장에서 100유로가 넘는 벌금을 문다.",
+      src:{ label:"Wiener Linien 단권 안내", url:"https://www.wienerlinien.at/web/wl-en/single-journey" } },
+
+    { city:"린츠", operator:"LINZ AG LINIEN", sum:"Kernzone 편도 MIDI €3.20 · 4정거장 이내면 MINI €1.60",
+      app:"LinzMobil — 앱 전용 1시간권(€3.20)도 있다",
+      fares:[
+        { n:"MINI (4정거장 이내)", c:"€1.60" },
+        { n:"MIDI (편도·환승 가능)", c:"€3.20" },
+        { n:"MAXI (24시간)", c:"€6.40" },
+        { n:"1시간권 (앱 전용)", c:"€3.20" }
+      ],
+      steps:[
+        "린츠 중앙역 ↔ SIXT(Kokerei)를 잇는 25번 버스는 Kernzone Linz 안이라 MIDI €3.20 한 장이면 된다.",
+        "표는 LinzMobil 앱이나 정류장·차내 발매기에서 산다. 타기 전에 사두는 편이 마음 편하다.",
+        "MIDI는 한 방향으로 가는 동안 환승이 되지만, 도중에 내려 볼일을 보면 무효다.",
+        "Kernzone 안에서는 LINZ AG 표가 통합승차권으로 인정돼 다른 회사 버스·근교열차에도 그대로 쓸 수 있다."
+      ],
+      watch:"⚠️ 다만 9/16 픽업과 9/18 반납 구간은 캐리어가 있고 시간이 촉박해 택시를 권한다. 특히 9/18은 15:54 기차가 취소·변경 불가라 버스로 모험할 구간이 아니다.",
+      src:{ label:"LINZ AG 요금 (2026-01-01 기준)", url:"https://www.linzag.at/portal/de/privatkunden/unterwegs/tickets___tarife/einzel__und_tagestickets" } },
+
+    { city:"프라하", operator:"PID", sum:"30분권 36 Kč · 90분권 46 Kč (앱 기준) · 큰 캐리어는 짐 티켓 별도",
+      app:"PID Lítačka — 앱이 종이보다 3~4 Kč 싸다",
+      fares:[
+        { n:"30분권", c:"36 Kč 앱 · 39 Kč 종이" },
+        { n:"90분권", c:"46 Kč 앱 · 50 Kč 종이" },
+        { n:"24시간권 / 72시간권", c:"140 / 340 Kč 앱 · 150 / 350 Kč 종이" },
+        { n:"짐 티켓 (대형 캐리어 1개당)", c:"23 Kč 앱 · 25 Kč 종이" }
+      ],
+      steps:[
+        "PID Lítačka 앱으로 사는 게 가장 싸다. 산 뒤 타기 전에 개시해야 유효하다.",
+        "트램·버스 안 주황색 발매기에서 컨택리스 카드로 사도 된다. 이 표는 살 때 시각이 찍혀 나오므로 따로 펀칭하지 않는다. 대신 컨택리스 표시가 붙은 문으로 타야 한다.",
+        "종이표는 노란 개찰기에 넣어 펀칭한다. 트램·버스는 차 안에서, 지하철은 개찰 구역에 들어가기 전에.",
+        "한 번 개시하면 30분·90분 동안 트램·버스·지하철을 갈아타며 계속 쓸 수 있다.",
+        "⚠️ 25×45×70cm를 넘는 캐리어는 한 개당 짐 티켓을 따로 사야 한다. 9/18 도착(트램 9번)과 9/22 공항행이 여기 걸린다. 2인 기준 90분권 46×2 + 짐 23×2 = 138 Kč로, 24시간권 2장(280 Kč)보다 싸다."
+      ],
+      watch:"⚠️ 무검표 과태료는 현장 1,200 Kč, 짐 티켓을 안 사면 200 Kč다. 검표원은 사복이고 트램·지하철에서 실제로 자주 검사한다. 24시간권 이상을 가진 사람은 짐 추가요금이 면제된다.",
+      src:{ label:"PID 2026 요금표", url:"https://pid.cz/en/tickets-and-fare" } },
+  ],
+
   // ── 숙소 오가기 (공항·역 ↔ 숙소 접근) ────────────────────────
   // 도시 간 이동(intercity)이 '어느 도시로'라면, 여기는 '역·공항에서 숙소까지'다.
   //   pick=추천 · options[]={n:수단, t:시간, c:요금, d:방법} · watch=주의
@@ -1405,7 +1508,7 @@ const TRIP = {
       pick:"Bolt — 캐리어가 있고 기차 시간이 정해져 있다",
       options:[
         { n:"Bolt · 택시", t:"15~20분", c:"약 4,000~6,000 HUF", d:"호텔 앞에서 바로 탄다. 일요일 아침이라 길이 막히지 않는다." },
-        { n:"M2 지하철", t:"약 20분", c:"단권 또는 24시간권", d:"호텔에서 Deák Ferenc tér까지 도보 10분 → M2(빨간선)로 3정거장 → Keleti pályaudvar 하차. 역과 바로 연결된다." }
+        { n:"M2 지하철", t:"약 20분", c:"단권 500 Ft (Pay&GO 카드 태그 가능)", d:"호텔에서 Deák Ferenc tér까지 도보 10분 → M2(빨간선)로 3정거장 → Keleti pályaudvar 하차. 역과 바로 연결된다." }
       ],
       watch:"09:30 기차이고 좌석이 지정돼 있다. 08:30 체크아웃이면 여유가 있지만, 캐리어를 끌고 Deák Ferenc tér까지 10분 걷는 것보다 Bolt가 확실하다.",
       map:"Budapest Keleti Railway Station" },
@@ -1435,7 +1538,7 @@ const TRIP = {
       pick:"택시 — 캐리어가 있고 공단 지역이다",
       options:[
         { n:"택시", t:"10~15분", c:"€15~20", d:"역 앞 택시 승강장에서 탄다. Stahlstraße 2 (voestalpine 공단), 역에서 약 3km." },
-        { n:"버스 25번", t:"25~30분", c:"시내 단권", d:"Kokerei 정류장 하차 후 도보 400m." }
+        { n:"버스 25번", t:"25~30분", c:"MIDI €3.20 (LinzMobil 앱·정류장 발매기)", d:"Kokerei 정류장 하차 후 도보 400m." }
       ],
       watch:"픽업 예약이 11:00이라 10:10 도착이면 50분 여유가 있다. 운전자 2명 등록·서류 확인에 20~30분, 차량 인수까지 15~20분을 더 잡을 것.",
       map:"SIXT Autovermietung Linz Stahlstraße 2 4020 Linz" },
@@ -1446,7 +1549,7 @@ const TRIP = {
       options:[
         { n:"택시 (미리 콜)", t:"이동 15분 + 대기 10분", c:"€15~20",
           d:"☎ Taxi 6969 : +43 732 6969 · ☎ Taxi 2244 : +43 732 2244. Bolt는 린츠에서 운행하지만 Uber는 빈·잘츠부르크까지만이라 린츠에서는 잡히지 않는다." },
-        { n:"버스 25번", t:"25~30분", c:"시내 단권", d:"Kokerei에서 타고 중앙역 하차. 시간이 촉박하면 권하지 않는다." }
+        { n:"버스 25번", t:"25~30분", c:"MIDI €3.20", d:"Kokerei에서 타고 중앙역 하차. 시간이 촉박하면 권하지 않는다." }
       ],
       watch:"🚨 이번 여행에서 가장 아슬아슬한 구간이다. 공단이라 지나가는 택시가 없고, 15:54 EC 332는 취소·변경 불가에 다음 직통이 19:54(프라하 23:42 도착)다. 13:45 반납 → 정산 40~50분 → 14:30 출발 → 14:55 역 도착이 계획이니, 반납 수속을 하면서 택시를 먼저 불러둘 것.",
       map:"Linz Hauptbahnhof" },
@@ -1458,7 +1561,7 @@ const TRIP = {
         { n:"Bolt · 택시", t:"약 15분", c:"약 250~350 CZK", d:"역 앞에서 바로 부른다. 강을 건너 말라스트라나로 들어간다." },
         { n:"트램 9번", t:"12~15분", c:"90분권 46 CZK (앱)", d:"역에서 나와 앞 공원을 가로질러 250m 걸으면 트램 정류장이 있다. 9번을 타고 Újezd 하차, 숙소는 바로 옆." }
       ],
-      watch:"⚠️ 숙소가 강 건너 말라스트라나라 지하철 C선으로는 갈 수 없다 — C선은 그쪽으로 가지 않는다. ⚠️ 트램을 타면 25×45×70cm를 넘는 캐리어마다 짐 티켓 16 CZK를 따로 사야 한다.",
+      watch:"⚠️ 숙소가 강 건너 말라스트라나라 지하철 C선으로는 갈 수 없다 — C선은 그쪽으로 가지 않는다. ⚠️ 트램을 타면 25×45×70cm를 넘는 캐리어마다 짐 티켓을 따로 사야 한다 — 앱 23 CZK · 종이 25 CZK. 2인 캐리어 2개면 90분권 2장 + 짐 2장 = 138 CZK다.",
       map:"Praha hlavni nadrazi" },
 
     { id:"tf-prg-move", date:"2026-09-21", time:"09:00 출발", city:"프라하",
@@ -1476,7 +1579,7 @@ const TRIP = {
       pick:"택시·Bolt — 마지막 날은 시간을 사는 게 맞다",
       options:[
         { n:"Bolt · 택시", t:"25~30분", c:"약 385~700 CZK", d:"호텔 앞에서 부른다. 짐을 찾은 뒤 바로 출발." },
-        { n:"트램·지하철 + 트롤리버스 59", t:"약 50분", c:"40 CZK", d:"지하철 A선 Nádraží Veleslavín까지 간 뒤 트롤리버스 59번으로 환승. ⚠️ 예전 119번 버스는 2024년에 59번 트롤리버스로 대체됐다." }
+        { n:"트램·지하철 + 트롤리버스 59", t:"약 50분", c:"90분권 46 CZK + 짐 티켓 23 CZK (1인당, 앱 기준)", d:"지하철 A선 Nádraží Veleslavín까지 간 뒤 트롤리버스 59번으로 환승. 50분 걸리니 30분권이 아니라 90분권을 사야 한다. ⚠️ 예전 119번 버스는 2024년에 59번 트롤리버스로 대체됐다." }
       ],
       watch:"18:50 비행기 기준 3시간 전인 15:30 공항 도착이 목표다. 체크아웃 후 짐을 프런트에 맡겨두고 점심·쇼핑을 마친 뒤 14:30에 출발하는 일정.",
       map:"Vaclav Havel Airport Prague" },
@@ -2779,6 +2882,27 @@ const TRIP = {
       }).join("")}
     </section>`;
   }).join("") : '<div class="rec-empty">아직 저장된 여행 팁이 없습니다.</div>';
+
+  /* ══════════ 도시별 대중교통 이용법 ══════════ */
+  // 표 사는 법·개시 방법이 도시마다 달라 숙소 오가기 탭 맨 위에 접이식으로 둔다.
+  const tGuide = T.transitGuide || [];
+  $("#transit-guide").innerHTML = tGuide.length ? tGuide.map(g=>`<details class="card tg-card">
+      <summary>
+        <div class="card-title"><span class="ic">◍</span> ${esc(g.city||"")}<span class="chip teal">${esc(g.operator||"")}</span></div>
+        ${g.sum?`<div class="tg-sum">${esc(g.sum)}</div>`:""}
+      </summary>
+      <div class="tg-body">
+        ${g.app?`<div class="tg-app">앱 · ${esc(g.app)}</div>`:""}
+        ${(g.fares||[]).length?`<div class="tg-fares">${g.fares.map(f=>`<div class="tg-fare"><span>${esc(f.n||"")}</span><b>${esc(f.c||"")}</b></div>`).join("")}</div>`:""}
+        ${(g.steps||[]).length?`<ol class="tg-steps">${g.steps.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}
+        ${g.watch?`<div class="tf-watch">${esc(g.watch)}</div>`:""}
+        ${g.src&&g.src.label?`<div class="rec-sources">${g.src.url?`<a class="rec-source" href="${esc(g.src.url)}" target="_blank" rel="noopener">◎ ${esc(g.src.label)}</a>`:`<span class="rec-source no-link">${esc(g.src.label)}</span>`}</div>`:""}
+      </div>
+    </details>`).join("") : '<div class="rec-empty">등록된 대중교통 안내가 없습니다.</div>';
+
+  // ⌘P 종이 백업에는 접힌 카드 내용도 나와야 한다
+  window.addEventListener("beforeprint", ()=>$$("details.tg-card").forEach(d=>{ d.dataset.wasOpen = d.open?"1":"0"; d.open = true; }));
+  window.addEventListener("afterprint", ()=>$$("details.tg-card").forEach(d=>{ if(d.dataset.wasOpen==="0") d.open = false; }));
 
   /* ══════════ TRANSFERS (숙소 오가기) ══════════ */
   // 도시 간 이동과 달리 '역·공항에서 숙소까지'라 날짜순으로 보여준다.
