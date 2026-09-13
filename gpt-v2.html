@@ -873,6 +873,15 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
   .day-body{display:block!important}
   .card,.day,.leg,.hero{box-shadow:none;border:1px solid #999}
 }
+  .meal-booking{margin:12px 0;padding:16px;border:1px solid var(--line-strong);border-left:4px solid var(--wine);border-radius:8px;background:var(--paper-2)}
+  .meal-booking.done{border-left-color:var(--teal)}
+  .meal-booking h4{margin:0 0 8px;font-size:15px}
+  .meal-booking p{margin:8px 0;font-size:13px;line-height:1.6}
+  .meal-booking-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .meal-booking-actions a,.meal-booking-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 12px;border:1px solid var(--line-strong);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;text-decoration:none;cursor:pointer}
+  .meal-booking-actions a:first-child{background:var(--wine);color:var(--paper)}
+  .meal-booking-actions button[aria-pressed="true"]{background:var(--teal);color:var(--paper)}
+  .meal-booking-actions :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 </style>
 
 <header class="appbar">
@@ -1354,7 +1363,7 @@ const TRIP = {
     "vie-schonbrunn":{level:"required",label:"시간권 필수",note:"궁전 내부 투어는 지정 시간권을 미리 구매.",url:"https://www.imperialtickets.com/"},
     "vie-figlmueller":{level:"booked",label:"예약 완료",note:"9월 14일 월요일 19:00 CEST · 2명 · Wollzeile 1호점.",url:"https://www.figlmueller.at/en/wollzeile/"},
     "vie-neni":{level:"recommended",label:"예약 권장",note:"9월 15일 12:45 점심 예약 예정. 월~토 08:00~23:00 운영 안내.",url:"https://nenifood.com/restaurants/naschmarkt"},
-    "vie-griechenbeisl":{level:"recommended",label:"예약 권장",note:"공식 예약은 이메일 확인을 받아야 최종 확정. 월~목 14:00~23:00, 마지막 주문 22:00 안내.",url:"https://www.griechenbeisl.at/contact-us/"},
+    "vie-griechenbeisl":{level:"booked",label:"예약 완료",note:"9월 15일 화요일 20:30 CEST · 2명 · 예약명 Nana Gu · Teburio 예약 완료 화면 확인. 카드 €20 사전 승인(홀드). 9월 14일 20:30까지 무료 취소, 이후 취소·노쇼 시 최대 €20 청구. 22:00 식사 종료 후 호텔 복귀.",url:"https://www.griechenbeisl.at/contact-us/"},
     "vie-brosl":{level:"recommended",label:"예약 권장",note:"소규모 제철 레스토랑이라 저녁은 사전 예약 권장.",url:"https://www.broesl.at/"},
     "vie-gasthaus-poschl":{level:"required",label:"예약 필수",note:"좌석이 적고 저녁 수요가 높아 일정 확정 후 예약.",url:"https://www.gasthaus-poschl.at/"},
 
@@ -1393,7 +1402,7 @@ const TRIP = {
     { id:"tip-vie-cafe-order", city:"비엔나", category:"음식", title:"비엔나 카페 주문 팁", body:"Melange는 우유 거품을 올린 비엔나식 커피, Einspänner는 휘핑크림을 올린 진한 커피입니다. Café Demel에서는 카이저슈마렌(Kaiserschmarrn)을 주문하세요. 양이 넉넉하면 둘이 나누고 음료를 각각 주문하면 됩니다.", sources:[{type:"일정",label:"현장 메모"}] },
     { id:"tip-vie-central-closure", city:"비엔나", category:"관광", title:"Café Central 휴업 주의", body:"Café Central은 2026년 3월 16일부터 전면 보수공사로 휴업 중이며 공식 재개장일이 확정되지 않았습니다. 이번 일정에서는 제외하고, 재개장 공지가 확인될 때만 후보로 되돌리세요.", sources:[{type:"공식",label:"Café Central"}] },
     { id:"tip-vie-transit-sunday", city:"비엔나", category:"교통", title:"대중교통·일요일 쇼핑", body:"지하철·트램·버스는 승차 전에 유효한 티켓이 필요하며 종이 승차권은 반드시 개찰기에 찍어야 합니다. 비엔나는 일요일에 일반 상점과 슈퍼 대부분이 쉬므로 BILLA 쇼핑은 월요일 일정에서 끝내는 편이 안전합니다.", sources:[{type:"일정",label:"현장 메모"}] },
-    { id:"tip-vie-transit-pass", city:"비엔나", category:"교통", title:"⚠️ 2026년부터 72시간권이 없어졌다 — 단권으로 가세요", body:"2026년 1월 1일 요금 개편으로 48시간권과 72시간권이 폐지됐습니다. 3박 여행자가 쓰던 표준 선택지가 통째로 사라진 거라, 예전 블로그를 보고 72시간권을 찾으면 없습니다. 우리 일정은 대부분 도보권이고 U-Bahn을 타는 게 1인 7회뿐이라 단권이 정답입니다.", points:["남은 선택지는 단권 €3.20(온라인·앱 €3.00) · 24시간권 €10.20 · 7일권 €28.90 셋뿐입니다","실제 탑승은 1인 7회 — 9/13 Hbf→호텔 1회, 9/14 슈테판 대성당 왕복 2회, 9/15 벨베데레 1회와 Griechenbeisl 왕복 2회, 9/16 호텔→Hbf 1회. 그 외는 전부 걸어서 다닙니다","계산하면 단권이 압도적입니다 — 1인 €21(2인 €42). 7일권은 1인 €28.90이라 손해고, 24시간권도 가장 많이 타는 9/15조차 3회뿐이라 €9.00 < €10.20으로 이득이 없습니다","WienMobil 앱에서 온라인 단권을 사면 €3.00이고 개찰도 필요 없습니다. 종이표를 샀다면 승차 전 반드시 개찰기에 찍으세요","노선도 단순합니다 — 9/15 벨베데레만 트램 D(Kärntner Ring/Oper → Schloss Belvedere)이고 나머지는 전부 U1입니다. 호텔이 Karlsplatz 바로 옆이라 환승이 없습니다"], sources:[{type:"공식",label:"Wiener Linien 2026 요금 개편"}] },
+    {"id":"tip-vie-transit-pass","city":"비엔나","category":"교통","title":"9/14~15 교통권 · 24시간권 + 단권 2회","body":"훈데르트바서하우스를 9/14 오후에 방문하는 수정 동선 기준. WienMobil 앱 24시간권을 9/14 15:20부터 9/15 15:20까지 사용하고, 9/15 저녁 Griechenbeisl 왕복은 단권으로 이동.","points":["24시간권 앱 €9.70/인: 9/14 호텔→훈데르트바서, 훈데르트바서→대성당, 저녁 대중교통 귀가, 9/15 아침 호텔→벨베데레의 4회 포함.","9/15 저녁 호텔↔Griechenbeisl 단권 €3 × 2회. 이틀 합계 1인 €15.70 · 2인 €31.40. 9/13·9/16 교통비는 별도.","9/15 벨베데레→카를 성당→NENI→미술사박물관→호텔은 도보 중심.","단권 앱 €3.00 · 종이 €3.20. 24시간권 앱 €9.70 · 종이 €10.20. 48·72시간권은 2026년부터 판매 중단.","9/14 저녁 도보 귀가 시 24시간 안의 계획 승차가 3회가 되어 단권 €9가 €0.70 더 저렴. 추가 승차 여부와 체력에 따라 선택.","이동 시간은 계획용 예상치. 승차 전 WienMobil에서 배차·경로와 티켓 유효 시작 시각을 확인."],"sources":[{"type":"공식","label":"Wiener Linien 요금표","url":"https://www.wienerlinien.at/tickets"}]},
     { id:"tip-vie-water-payment", city:"비엔나", category:"기타", title:"물·결제·화장실", body:"비엔나 수돗물은 식수로 마실 수 있어 물병을 다시 채워도 됩니다. 카드 결제가 널리 가능하지만 소규모 노점과 화장실용으로 소액 유로 현금을 준비하세요.", sources:[{type:"일정",label:"현장 메모"}] },
     { id:"tip-vie-parndorf", city:"비엔나", category:"쇼핑", title:"파른도르프 아울렛 이동·할인", body:"비엔나에서 전용 셔틀버스로 이동할 수 있습니다. 방문 전 예약 페이지에서 날짜와 시간을 선택하고, 제공되는 할인 교환권·쿠폰의 사용 조건을 확인하세요.", sources:[{type:"인스타",label:"@atourshop"}] },
 
@@ -1849,25 +1858,152 @@ const TRIP = {
         { time:"21:30–22:00", place:"공연 후 호텔 복귀", type:"이동", note:"Musikverein에서 The Cloud One Hotel Wien-Staatsoper까지 도보 약 10분.", map:"The Cloud One Hotel Wien-Staatsoper" },
       ]},
     ]},
-    { date:"2026-09-14", city:"비엔나", title:"Café Demel · 뮤지엄쿼터 · 슈테판 대성당 · Figlmüller", items:[
-      { area:"뮤지엄쿼터 · 마리아힐프", map:"Leopold Museum Vienna", items:[
-        { time:"10:00–11:00", place:"Café Demel", type:"카페", recId:"vie-demel", note:"주문: 카이저슈마렌(Kaiserschmarrn). 폭신하게 찢은 팬케이크에 슈거파우더와 과일 콩포트를 곁들이는 비엔나식 디저트로, 양이 넉넉하면 둘이 나눠 먹기.", map:"Cafe Demel Vienna" },
-        { time:"11:00–11:20", place:"뮤지엄쿼터로 이동", type:"이동", note:"Café Demel에서 뮤지엄쿼터까지 이동.", map:"MuseumsQuartier Vienna" },
-        { time:"11:20–11:50", place:"레오폴트 기념품샵 (선택)", type:"쇼핑", note:"미술관 관람은 제외. 실레·클림트·빈 1900 관련 기념품이 궁금할 때만 방문. 매표소에서 정규 입장료만큼 보증금을 맡기고 30분짜리 숍 전용 티켓을 받은 뒤 반환받는 방식이며, 숍은 매일 10:00~17:30 운영.", map:"Leopold Museum Shop Vienna" },
-        { time:"11:50–12:35", place:"뮤지엄쿼터 · 슈피텔베르크 산책", type:"산책", note:"안뜰과 바로크풍 골목, 작은 상점을 가볍게 둘러본 뒤 부르크가르텐으로 이동.", map:"Spittelberg Vienna" },
-        { time:"13:00–14:10", place:"점심 · Brasserie Palmenhaus · 예약 완료", type:"식사", recId:"vie-palmenhaus", note:"9월 14일 월요일 13:00 CEST · 2명 · nana gu로 예약 완료. 확인 메일은 devjjinny@gmail.com으로 전송됨. 슈니첼은 저녁 Figlmüller와 겹치므로 점심에는 생선·샐러드·파스타류를 선택.", map:"Brasserie Palmenhaus Vienna" },
-        { time:"14:10–15:30", place:"부르크가르텐 산책과 자유시간", type:"산책", note:"식당 바로 앞 정원에서 쉬거나 호텔에서 잠시 휴식. 이후 알베르티나까지 도보 약 5~10분.", map:"Burggarten Vienna" },
-      ]},
-      { area:"오페라 지구 · 슈테판 대성당", map:"St. Stephen's Cathedral Vienna", items:[
-        { time:"16:00–16:35", place:"알베르티나 테라스 · 오페라극장 사진", vpId:"vp-vie-albertina", type:"관광", recId:"vie-albertina", note:"알베르티나 계단 위에서 오페라극장 대표 구도를 촬영.", map:"Albertina Museum Vienna" },
-        { time:"16:40–17:15", place:"호텔 휴식", type:"휴식", note:"이미 점심 후 부르크가르텐을 둘러봤으므로 호텔에서 쉬며 저녁까지 체력을 회복.", map:"The Cloud One Hotel Wien-Staatsoper" },
-        { time:"17:15–17:30", place:"호텔 → 성 슈테판 대성당", type:"이동", note:"Karlsplatz역에서 U1을 타고 Stephansplatz역 하차. 도보로도 약 15~20분이라 날씨와 체력에 따라 선택.", map:"St. Stephen's Cathedral Vienna" },
-        { time:"17:30–18:25", place:"성 슈테판 대성당", type:"관광", recId:"vie-st-stephen", note:"피그뮐러 전에 외관과 내부를 관람. 전망탑은 제외하고 성당 중심으로 보면 저녁 예약 시간에 여유가 있음.", map:"St. Stephen's Cathedral Vienna" },
-        { time:"18:25–18:45", place:"피그뮐러 이동 · 주변 산책", type:"이동", note:"대성당에서 Wollzeile 본점까지 도보 약 5분. 예약 시간 전 구시가 골목을 짧게 둘러보기.", map:"Figlmuller Vienna Wollzeile" },
-        { time:"19:00–20:45", place:"저녁 · Figlmüller Wollzeile 1호점 · 예약 완료", type:"식사", recId:"vie-figlmueller", note:"9월 14일 월요일 19:00 CEST · 2명 예약 완료. 접시보다 큰 슈니첼과 포테이토 샐러드·링곤베리잼 조합 추천.", map:"Figlmuller Vienna Wollzeile" },
-        { time:"21:15", place:"Vinifero", type:"식사", recId:"vie-vinifero", note:"오스트리아 내추럴 와인으로 하루 마무리. 영업일과 마지막 주문 시간은 방문 전 확인.", map:"Vinifero Vienna" },
-      ]},
-    ]},
+    {
+  "date": "2026-09-14",
+  "city": "비엔나",
+  "title": "Café Demel · Palmenhaus · 훈데르트바서하우스 · 슈테판 대성당 · Figlmüller",
+  "items": [
+    {
+      "area": "도심 오전 · Palmenhaus · 호텔 휴식",
+      "map": "Brasserie Palmenhaus Vienna",
+      "items": [
+        {
+          "noteKey": "hotel-demel",
+          "time": "09:40–10:00",
+          "place": "호텔 → Café Demel",
+          "type": "이동",
+          "note": "도보 약 15~20분. 이동 시간은 실시간 길찾기 결과가 아닌 계획용 예상치.",
+          "map": "Cafe Demel Vienna"
+        },
+        {
+          "time": "10:00–11:00",
+          "place": "Café Demel",
+          "type": "카페",
+          "recId": "vie-demel",
+          "note": "주문: 카이저슈마렌(Kaiserschmarrn). 폭신하게 찢은 팬케이크에 슈거파우더와 과일 콩포트를 곁들이는 비엔나식 디저트로, 양이 넉넉하면 둘이 나눠 먹기.",
+          "map": "Cafe Demel Vienna",
+          "noteKey": 0
+        },
+        {
+          "noteKey": "demel-albertina",
+          "time": "11:00–11:15",
+          "place": "데멜 → 알베르티나 테라스",
+          "type": "이동",
+          "note": "도보 약 10~15분.",
+          "map": "Albertina Museum Vienna"
+        },
+        {
+          "time": "11:15–12:00",
+          "place": "알베르티나 테라스 · 오페라극장 사진",
+          "vpId": "vp-vie-albertina",
+          "type": "관광",
+          "recId": "vie-albertina",
+          "note": "알베르티나 계단 위에서 오페라극장 대표 구도를 촬영.",
+          "map": "Albertina Museum Vienna",
+          "noteKey": 6
+        },
+        {
+          "time": "12:00–12:45",
+          "place": "부르크가르텐 산책과 자유시간",
+          "type": "산책",
+          "note": "알베르티나에서 도보 약 5~10분. 부르크가르텐을 산책하고 정원 안 Palmenhaus로 이동. 12:50 식당 도착 목표.",
+          "map": "Burggarten Vienna",
+          "noteKey": 5
+        },
+        {
+          "time": "13:00–14:10",
+          "place": "점심 · Brasserie Palmenhaus · 예약 완료",
+          "type": "식사",
+          "recId": "vie-palmenhaus",
+          "note": "9월 14일 월요일 13:00 CEST · 2명 · nana gu로 예약 완료. 확인 메일은 devjjinny@gmail.com으로 전송됨. 슈니첼은 저녁 Figlmüller와 겹치므로 점심에는 생선·샐러드·파스타류를 선택.",
+          "map": "Brasserie Palmenhaus Vienna",
+          "noteKey": 4
+        },
+        {
+          "time": "14:20–15:20",
+          "place": "호텔 휴식",
+          "type": "휴식",
+          "note": "Palmenhaus에서 호텔까지 도보 약 5~10분. 오후 외출 전에 쉬고 충전하기. 15:20에 출발.",
+          "map": "The Cloud One Hotel Wien-Staatsoper",
+          "noteKey": 7
+        }
+      ]
+    },
+    {
+      "area": "훈데르트바서하우스 → 슈테판 대성당 → Figlmüller",
+      "map": "Hundertwasserhaus Vienna",
+      "items": [
+        {
+          "noteKey": "hotel-hundertwasser",
+          "time": "15:20–16:00",
+          "place": "호텔 → 훈데르트바서하우스",
+          "type": "이동",
+          "note": "대중교통 약 30~40분(도보·대기 포함). 당일 WienMobil에서 경로 확인. 24시간권은 9/14 15:20부터 9/15 15:20까지 설정하면 오늘 오후·귀가와 내일 아침 벨베데레 이동을 포함.",
+          "map": "Hundertwasserhaus Vienna"
+        },
+        {
+          "noteKey": "hundertwasser",
+          "time": "16:00–16:45",
+          "place": "훈데르트바서하우스 외관 · Hundertwasser Village",
+          "type": "관광",
+          "note": "주거 건물은 외관 사진 중심. 맞은편 Village는 운영 중이면 함께 구경. 별도 미술관 Kunst Haus Wien 내부 관람은 이번 일정에서 제외. 16:45까지 대성당으로 출발. 주소 Kegelgasse 34–38.",
+          "map": "Hundertwasserhaus Vienna"
+        },
+        {
+          "time": "16:45–17:20",
+          "place": "훈데르트바서하우스 → 성 슈테판 대성당",
+          "type": "이동",
+          "note": "훈데르트바서하우스 → 성 슈테판 대성당. 대중교통 약 25~35분(도보·대기 포함), 당일 경로 확인. 17:30 관람 전 도착. 훈데르트바서 방문 후 호텔에 다시 들르지 않고 대성당으로 바로 이동.",
+          "map": "St. Stephen's Cathedral Vienna",
+          "noteKey": 8
+        },
+        {
+          "time": "17:30–18:25",
+          "place": "성 슈테판 대성당",
+          "type": "관광",
+          "recId": "vie-st-stephen",
+          "note": "피그뮐러 전에 외관과 내부를 관람. 전망탑은 제외하고 성당 중심으로 보면 저녁 예약 시간에 여유가 있음.",
+          "map": "St. Stephen's Cathedral Vienna",
+          "noteKey": 9
+        },
+        {
+          "time": "18:25–18:45",
+          "place": "피그뮐러 이동 · 주변 산책",
+          "type": "이동",
+          "note": "대성당에서 Wollzeile 본점까지 도보 약 5분. 예약 시간 전 구시가 골목을 짧게 둘러보기.",
+          "map": "Figlmuller Vienna Wollzeile",
+          "noteKey": 10
+        },
+        {
+          "time": "19:00–20:45",
+          "place": "저녁 · Figlmüller Wollzeile 1호점 · 예약 완료",
+          "type": "식사",
+          "recId": "vie-figlmueller",
+          "note": "9월 14일 월요일 19:00 CEST · 2명 예약 완료. 접시보다 큰 슈니첼과 포테이토 샐러드·링곤베리잼 조합 추천.",
+          "map": "Figlmuller Vienna Wollzeile",
+          "noteKey": 11
+        },
+        {
+          "time": "21:15 (선택)",
+          "place": "Vinifero",
+          "type": "식사",
+          "recId": "vie-vinifero",
+          "note": "체력이 남으면 Vinifero에서 와인. 피곤하면 생략하고 호텔 복귀. 영업일과 마지막 주문 시간은 방문 전 확인.",
+          "map": "Vinifero Vienna",
+          "noteKey": 12
+        },
+        {
+          "noteKey": "return-hotel",
+          "time": "저녁 후",
+          "place": "호텔 복귀",
+          "type": "이동",
+          "note": "피그뮐러에서 바로 귀가하면 Stephansplatz → Karlsplatz U1과 도보 약 15~20분. 도보 귀가도 가능. Vinifero 방문 시 현 위치에서 경로를 다시 확인. 24시간권 비용 비교는 대중교통으로 귀가하는 경우 기준.",
+          "map": "The Cloud One Hotel Wien-Staatsoper"
+        }
+      ]
+    }
+  ]
+},
     { date:"2026-09-15", city:"비엔나", title:"벨베데레 · 나슈마르크트 · 빈 미술사박물관", items:[
       { area:"링슈트라세 아침 러닝", map:"The Cloud One Hotel Wien Staatsoper", items:[
         { time:"06:45–07:25", place:"호프부르크 · 국회의사당 · 링슈트라세 러닝", type:"운동", note:"약 5km · 거의 평지 · 35~40분. 호텔 → 빈 국립 오페라극장 → Burggarten → Hofburg → Volksgarten → 국회의사당 → Rathaus → Ringstraße → 시립공원 → 호텔. 링 전체 약 7.3km를 돌지 말고 5km 정도에서 끊기.", map:"The Cloud One Hotel Wien Staatsoper" },
@@ -1875,7 +2011,7 @@ const TRIP = {
       { area:"벨베데레 · 카를스플라츠", map:"Belvedere Palace Vienna", items:[
         { time:"08:55–09:20", place:"호텔 → 벨베데레 상궁 이동", type:"이동", note:"⚠️ 09:30 시간권이라 늦으면 입장이 거부될 수 있어 이동 시간을 따로 잡았다. 호텔 앞 Kärntner Ring/Oper 정류장에서 트램 D를 타고 Schloss Belvedere 하차, 약 10분. 도보로도 2.2km·25분이라 날씨가 좋으면 걸어도 되지만 첫 일정이 시간권이니 트램이 안전하다.", map:"Kaerntner Ring Oper Vienna" },
         { time:"09:30–11:30", place:"벨베데레궁 (상궁) · 시간권 예약 완료", vpId:"vp-vie-belvedere", type:"관광", recId:"vie-belvedere", note:"9월 15일 화요일 09:30 · 성인 2명 · 주문 이메일 ruinna@nate.com. 09:20까지 도착해 스마트폰 바우처 제시. 큰 캐리어는 반입하거나 보관할 수 없음. 클림트 ‘키스’와 대표작 중심으로 관람하고 정원 사진 시간 포함. 티켓: tickets/2026-09-15_벨베데레-상궁.pdf", map:"Upper Belvedere Vienna" },
-        { time:"12:00–12:30", place:"카를 성당", vpId:"vp-vie-karlskirche", type:"관광", note:"벨베데레에서 이동 시간을 30분 확보. 내부보다 연못 건너편 외관 사진 중심.", map:"Karlskirche Vienna" },
+        { time:"12:00–12:20", place:"카를 성당", vpId:"vp-vie-karlskirche", type:"관광", note:"벨베데레에서 도보 약 20~30분. 외관 사진 중심으로 12:20까지 보고 NENI까지 도보 약 10~15분 이동.", map:"Karlskirche Vienna" },
         { time:"12:45–13:50", place:"점심 · NENI am Naschmarkt · 예약 예정", type:"식사", recId:"vie-neni", note:"9월 15일 화요일 12:45 · 2명으로 예약. 지중해·중동식 점심 후 13:50 무렵 출발해 미술사박물관까지 도보 이동.", map:"NENI am Naschmarkt Vienna" },
       ]},
       { area:"미술사박물관 · 숙소 · 구시가 동쪽", map:"Kunsthistorisches Museum Vienna", items:[
@@ -1884,7 +2020,7 @@ const TRIP = {
         { time:"17:40–18:00", place:"미술사박물관 → 호텔", type:"이동", note:"The Cloud One Hotel Wien-Staatsoper까지 도보 약 10~15분. 숙소가 박물관과 저녁 식당 사이의 중간 휴식 지점.", map:"The Cloud One Hotel Wien-Staatsoper" },
         { time:"18:00–19:45", place:"호텔 휴식 · 렌트 구간 짐 정리", type:"휴식", note:"샤워와 충전을 하고 다음 날 짐을 미리 마무리. 우비·운동화·국제운전면허증·국내면허증·여권·운전자 명의 신용카드 확인." },
         { time:"19:45–20:15", place:"호텔 → Griechenbeisl", type:"이동", note:"Karlsplatz역에서 U1 탑승 → Schwedenplatz역 하차 후 도보 약 5~7분. 전체 약 20분, 환승 없음. 전 구간 도보는 약 25분 내외.", map:"Griechenbeisl Vienna" },
-        { time:"20:30–22:00", place:"저녁 · Griechenbeisl · 예약 예정", type:"식사", recId:"vie-griechenbeisl", note:"18:00과 20:30 중 미술사박물관 관람 시간을 지키기 위해 20:30 선택. 족발 요리·굴라쉬·로스트·카이저슈마렌 후보이며, 공식 예약은 확인 이메일을 받아야 확정됨.", map:"Griechenbeisl Vienna" },
+        { time:"20:30–22:00", place:"저녁 · Griechenbeisl · 예약 완료", type:"식사", recId:"vie-griechenbeisl", note:"9월 15일 화요일 20:30 CEST · 2명 · 예약명 Nana Gu · Teburio 예약 완료 화면 확인. 카드 €20 사전 승인(홀드). 9월 14일 20:30까지 무료 취소, 이후 취소·노쇼 시 최대 €20 청구. 22:00 식사 종료 후 호텔 복귀.", map:"Griechenbeisl Vienna" },
         { time:"22:00–22:25", place:"Griechenbeisl → 호텔", type:"이동", note:"Schwedenplatz역에서 U1으로 Karlsplatz역까지 돌아온 뒤 호텔로 도보 이동.", map:"The Cloud One Hotel Wien-Staatsoper" },
       ]},
     ]},
@@ -2029,7 +2165,7 @@ const TRIP = {
       { t:"Brasserie Palmenhaus 점심 예약 완료 ✓", s:"9/14 월요일 · 13:00 CEST · 2명 · 예약명 nana gu · 확인 메일 devjjinny@gmail.com" },
       { t:"NENI am Naschmarkt 점심 예약", s:"9/15 화요일 · 12:45 · 2명 · 13:50 전후 식사 마치고 미술사박물관으로 이동" },
       { t:"빈 미술사박물관 입장권 구매 완료 ✓", s:"9/15 화요일 · 14:30 · 성인 2명 · GetYourGuide 바우처 · A4 인쇄본과 모바일 저장본 모두 준비" },
-      { t:"Griechenbeisl 저녁 예약", s:"9/15 화요일 · 20:30 · 2명 · 공식 예약 후 확인 이메일 수신 여부 확인" },
+      { t:"Griechenbeisl 저녁 예약", s:"9월 15일 화요일 20:30 CEST · 2명 · 예약명 Nana Gu · Teburio 예약 완료 화면 확인. 카드 €20 사전 승인(홀드). 9월 14일 20:30까지 무료 취소, 이후 취소·노쇼 시 최대 €20 청구. 22:00 식사 종료 후 호텔 복귀." },
       { t:"여행 현금 환전", s:"2인 기준 권장액 · 헝가리 26,000 HUF · 오스트리아 230 EUR · 체코 4,100 CZK · 나머지는 카드 결제" },
       { t:"빈 필하모닉 티켓 예매 완료 ✓", s:"Musikverein 황금홀 · 9/13(일) 19:30~21:30 · Tugan Sokhiev · 좌석 1. Balkon Loge rechts 3열 3·4번(나란히) · Category 6 €60 × 2 = €120 · 주문번호(Vorgangsnummer) 600739 · 고객번호(Kundennummer) 181152 · 영수증번호 TR-00106380 · 구매자 Hanmin Lee · 구매 2026-08-10 11:06(빈). 🎫 QR 티켓 PDF 2장 확보 완료 ✓ — Reihe 3 Platz 3(바코드 04010153056) / Platz 4(04010153055). ⚠️ 메일에 함께 온 Rechnung.pdf는 영수증일 뿐 입장권이 아니니 헷갈리지 말 것. 티켓을 분실하면 musikverein.at에 고객번호 181152로 로그인해 재다운로드하거나 tickets@musikverein.at로 문의. ⚠️ 취소·교환 불가. 티켓 PDF(tickets_653263284.pdf)를 A4 흰 종이에 전면 인쇄하거나 폰에 오프라인 저장 — 바코드·QR이 선명해야 하고 사본은 입장 거부됨" },
       { t:"비엔나 → 린츠 기차 PDF 발권 완료 ✓", s:"ÖBB RJX 19962 · 9/16 08:28 Wien Hbf → 09:43 Linz Hbf · 2등석 Grossraumwagen Wagen 34 · 45번 창가 Lee Hanmin(이한민) / 47번 통로 Gu Kyeongjin(구경진) · 합계 €71.00 · 예약 0409 9890 6220 7073(Lee Hanmin·Sparschiene·취소불가) / 1752 4185 5697 8669(Gu Kyeongjin·Standard·9/15까지 무료취소지만 취소하지 말 것) · 좌석예약권 2342 8686 8700 3793(45번) / 2848 5568 1293 9278(47번) · 승차권 2장 + 좌석예약권 2장 = 총 4장을 폰에 오프라인 저장" },
@@ -2171,6 +2307,12 @@ const TRIP = {
   const deviceId = load("device-id") || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())+Math.random().toString(36).slice(2));
   save("device-id",deviceId);
   const checks = load("checks") || {};
+  // Apply the newly supplied reservation confirmation once; subsequent user edits remain reversible.
+  if(!load("griechenbeisl-confirmed-20260913")){
+    const index=T.prep.predeparture.findIndex(x=>x.t==="Griechenbeisl 저녁 예약");
+    if(index>=0) checks[`pre_${index}`]=true;
+    save("checks",checks);save("griechenbeisl-confirmed-20260913",true);
+  }
   const setCheck = (id,val)=>{
     checks[id]=val; save("checks",checks);
     saveRemoteCheck(id,val);
@@ -2202,7 +2344,43 @@ const TRIP = {
     }
     save("pending-checks",pending);
   }
+  // Reuse the preparation checklist IDs so local and shared checks have one source of truth.
+  function mealBooking(id){
+    const details={
+      "vie-neni":{name:"NENI am Naschmarkt",prep:"NENI am Naschmarkt 점심 예약",time:"12:45",end:"13:50",route:"13:50까지 식사·계산 완료 → 도보 15~20분 → 미술사박물관 14:20 도착 · 14:30 입장",phone:"+4315852020"},
+      "vie-griechenbeisl":{name:"Griechenbeisl",prep:"Griechenbeisl 저녁 예약",time:"20:30",end:"22:00",route:"호텔 19:45 출발 → U1·도보로 20:15 도착 · 22:00 식사 종료 → 22:25 호텔 복귀",phone:"+4315331977"}
+    };
+    const meal=details[id];
+    if(!meal) return null;
+    const index=T.prep.predeparture.findIndex(x=>x.t===meal.prep);
+    return {...meal,checkId:`pre_${index}`,done:!!checks[`pre_${index}`]};
+  }
+  function effectiveBooking(id){
+    const base=T.bookingGuide?.[id],meal=mealBooking(id);
+    if(!base||!meal) return base;
+    return {...base,level:meal.done?"booked":"recommended",label:meal.done?"예약 완료":"예약 예정",
+      note:`${id==="vie-griechenbeisl"?base.note+" ":""}9월 15일 · ${meal.time} CEST · 2명 · ${meal.end}까지 식사 종료. ${meal.done?"예약 확정 확인 완료.":"확정 안내를 받은 뒤 완료 체크."}`};
+  }
+  function renderMealBooking(id){
+    const meal=mealBooking(id);if(!meal)return "";
+    return `<section class="meal-booking ${meal.done?"done":""}" data-meal-card="${id}" aria-label="${esc(meal.name)} 예약">
+      <h4>${esc(meal.name)} · <span data-meal-status="${id}" aria-live="polite">${meal.done?"예약 완료":"예약 예정"}</span></h4>
+      <p><b>9월 15일 (화) · 2명 · ${meal.time} CEST</b> (비엔나 현지 시각)</p>
+      <p><b>동선상 마감 ${meal.end}</b> · 식사·계산을 마칠 시각<br>${esc(meal.route)}</p>
+      <p>${id==="vie-griechenbeisl"?esc(T.bookingGuide[id].note):"공식 사이트에서 날짜·인원·시간을 선택해 예약하고 확정 안내를 받은 뒤 완료 체크하세요."}</p>
+      <div class="meal-booking-actions"><a href="${esc(T.bookingGuide[id].url)}" target="_blank" rel="noopener">공식 예약하기 ↗</a><a href="tel:${meal.phone}">전화 예약</a><button type="button" data-check="${meal.checkId}" data-meal-toggle="${id}" aria-pressed="${meal.done}" aria-label="${esc(meal.name)} 예약 완료">${meal.done?"✓ 예약 완료 · 체크 해제":"□ 예약 완료 체크"}</button></div>
+    </section>`;
+  }
+  function refreshMealBookings(){
+    ["vie-neni","vie-griechenbeisl"].forEach(id=>{
+      const meal=mealBooking(id),booking=effectiveBooking(id);
+      $$(`[data-meal-status="${id}"]`).forEach(el=>el.textContent=booking.label);
+      $$(`[data-meal-card="${id}"]`).forEach(el=>el.classList.toggle("done",meal.done));
+      $$(`[data-meal-toggle="${id}"]`).forEach(el=>{el.setAttribute("aria-pressed",String(meal.done));el.textContent=meal.done?"✓ 예약 완료 · 체크 해제":"□ 예약 완료 체크";});
+    });
+  }
   function refreshChecksUI(){
+    refreshMealBookings();
     $$('[data-check]').forEach(el=>{
       const done=!!checks[el.getAttribute("data-check")];
       el.classList.toggle("done",done);
@@ -2617,7 +2795,7 @@ const TRIP = {
       (d.items||[]).forEach(node=>{
         const items=node.area?(node.items||[]):[node];
         items.forEach(it=>{
-          const id=`${d.date}:${dayIndex}:${itemIndex++}`;
+          const id=`${d.date}:${dayIndex}:${it.noteKey ?? itemIndex}`; itemIndex++;
           rows.push({id,date:d.date,city:d.city,time:it.time||"",place:it.place||"",map:it.map||""});
         });
       });
@@ -2694,7 +2872,7 @@ const TRIP = {
     return dirURL(uniq, "walking");
   }
   function renderItem(it,d,dayIndex,itemIndex){
-    const noteId=`${d.date}:${dayIndex}:${itemIndex}`;
+    const noteId=`${d.date}:${dayIndex}:${it.noteKey ?? itemIndex}`;
     const userNote=itineraryNotes[noteId]||"";
     const pinId="pin_"+noteId;
     const pinned=!!checks[pinId];
@@ -2702,14 +2880,15 @@ const TRIP = {
     const tag = it.type ? `<span class="tag">${esc(it.type)}</span>` : "";
     const recTag = it.recId ? `<span class="tag rec-tag">추천 선택</span>` : "";
     const vpTag = it.vpId ? `<button class="vp-tag" type="button" data-vp-go="${esc(it.vpId)}" title="뷰포인트 카드 보기">📷 뷰포인트</button>` : "";
-    const booking = it.recId ? T.bookingGuide?.[it.recId] : null;
-    const bookingTag = booking ? `<span class="tag">◷ ${esc(booking.label)}</span>` : "";
+    const booking = effectiveBooking(it.recId);
+    const meal = mealBooking(it.recId);
+    const bookingTag = booking ? `<span class="tag" ${meal?`data-meal-status="${it.recId}"`:""}>${esc(booking.label)}</span>` : "";
     const nt  = it.note ? `<div class="nt">${esc(it.note)}</div>` : "";
     return `<div class="item">
       <div class="time">${esc(it.time||"")}</div>
       <div class="body">
-        <div class="pl">${esc(it.place||"")} ${tag}${recTag}${vpTag}${bookingTag}</div>
-        ${nt}${map}
+        <div class="pl">${esc(meal?(it.place||"").replace(/ · 예약 예정$/, ""):(it.place||""))} ${tag}${recTag}${vpTag}${bookingTag}</div>
+        ${nt}${map}${renderMealBooking(it.recId)}
         <div class="item-note-tools"><button class="pin-btn ${pinned?"done":""}" type="button" data-check="${pinId}" aria-pressed="${pinned?"true":"false"}">📌 ${pinned?"고정됨":"고정"}</button><button class="item-note-btn" type="button" data-note-open="${noteId}">${userNote?"메모 수정":"＋ 메모"}</button>${userNote?`<span class="item-user-note" data-note-view="${noteId}">${esc(userNote)}</span>`:""}</div>
         <div class="item-note-editor" data-note-editor="${noteId}">
           <textarea aria-label="일정 메모" placeholder="예약 정보, 현장 메모 등을 적어두세요.">${esc(userNote)}</textarea>
@@ -2759,7 +2938,7 @@ const TRIP = {
       `[${cityName} 추천 선택 ${selected.length}곳]`,
       ...selected.map(({r},i)=>[
         `${i+1}. ${r.name}${r.category ? ` (${r.category})` : ""}`,
-        bookingGuide[r.id] ? `   예약: ${bookingGuide[r.id].label} · ${bookingGuide[r.id].note}${bookingGuide[r.id].url ? ` · ${bookingGuide[r.id].url}` : ""}` : "",
+        effectiveBooking(r.id) ? `   예약: ${effectiveBooking(r.id).label} · ${effectiveBooking(r.id).note}${bookingGuide[r.id].url ? ` · ${bookingGuide[r.id].url}` : ""}` : "",
         r.note ? `   메모: ${r.note}` : "",
         r.map ? `   지도: ${r.mapUrl||mapURL(r.map)}` : "",
       ].filter(Boolean).join("\n")),
@@ -2795,7 +2974,7 @@ const TRIP = {
         ? `<a class="rec-source" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.type||"출처")} · ${esc(s.label||"원문")} ↗</a>`
         : `<span class="rec-source no-link">${esc(s.type||"출처")} · ${esc(s.label||"출처 미상")}</span>`
       ).join("");
-      const booking = bookingGuide[r.id];
+      const booking = effectiveBooking(r.id);
       const bookingChip = booking ? `<span class="rec-chip booking-${esc(booking.level||"recommended")}">◷ ${esc(booking.label||"예약 확인")}</span>` : "";
       const bookingNote = booking ? `<div class="rec-booking-note">예약 안내 · ${esc(booking.note||"")}</div>` : "";
       const bookingLink = booking?.url ? `<a class="rec-source" href="${esc(booking.url)}" target="_blank" rel="noopener">◷ 공식 예약 ↗</a>` : "";
@@ -3204,6 +3383,7 @@ const TRIP = {
       chk.textContent=now?"📌 고정됨":"📌 고정";
       chk.setAttribute("aria-pressed",now?"true":"false");
     }
+    refreshChecksUI();
     // refresh dependent counters
     updateProg("#prog-pre", T.prep.predeparture, "pre");
     updateProg("#prog-doc", T.prep.documents, "doc");
