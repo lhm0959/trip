@@ -736,7 +736,7 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outl
   --wine:#ae3f24;--wine-soft:#c85d3e;--teal:#164e40;--teal-soft:#307463;
   --gold:#b48a2e;--gold-soft:#d0ad55;--stamp:#ae3f24;
   --shadow:rgba(43,49,38,.06);--shadow-strong:rgba(43,49,38,.14);
-  --appbar-offset:58px;
+  --appbar-offset:0px;
 }
 :root[data-theme="dark"]{
   --bg:#111815;--bg-2:#111815;--paper:#18221d;--paper-2:#223029;
@@ -882,6 +882,11 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
   .meal-booking-actions a:first-child{background:var(--wine);color:var(--paper)}
   .meal-booking-actions button[aria-pressed="true"]{background:var(--teal);color:var(--paper)}
   .meal-booking-actions :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.day-quick-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.day-quick-tools .day-quick-label{margin:0}
+#go-current-itinerary{min-height:44px;padding:8px 14px;border:1px solid var(--teal);border-radius:8px;background:var(--teal);color:var(--paper);font:700 13px inherit;cursor:pointer;white-space:nowrap}
+.item.current-time-target{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px;background:var(--paper-2)}
+.day-quick-wrap,.subtab-bar{top:var(--appbar-offset);border-radius:0 0 10px 10px}
 </style>
 
 <header class="appbar">
@@ -1008,8 +1013,9 @@ input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outl
   <section class="panel" id="p-itinerary" data-tab="itinerary">
     <div class="section-head"><h2 class="serif">일정</h2><span class="kicker">Itinerary</span></div>
     <div class="day-quick-wrap" aria-label="날짜 바로가기">
-      <div class="day-quick-label">날짜 바로가기</div>
+      <div class="day-quick-tools"><div class="day-quick-label">날짜 바로가기</div><button type="button" id="go-current-itinerary">지금 일정 ↓</button></div>
       <div class="day-quick" id="day-quick"></div>
+      <span id="current-itinerary-status" class="sr-only" role="status"></span>
     </div>
     <div class="callout" style="border-color:var(--teal)">
       <div class="h serif" style="color:var(--teal)">✦ 지도 우선 동선</div>
@@ -2492,10 +2498,11 @@ const TRIP = {
     applyTheme(next); save("editorial-theme", next);
   });
 
-  // Keep in-panel sticky controls directly below the responsive app header.
+  // Reserve space only for a header that actually stays at the viewport top.
   const syncAppbarOffset = ()=>{
     const bar = document.querySelector("header.appbar");
-    if(bar) rootEl.style.setProperty("--appbar-offset", Math.ceil(bar.getBoundingClientRect().height)+"px");
+    const pinned=bar && ["sticky","fixed"].includes(getComputedStyle(bar).position);
+    rootEl.style.setProperty("--appbar-offset", (pinned?Math.ceil(bar.getBoundingClientRect().height):0)+"px");
   };
   syncAppbarOffset();
   window.addEventListener("resize", syncAppbarOffset, {passive:true});
@@ -2788,6 +2795,41 @@ const TRIP = {
   }));
   setActiveQuickDay(0, false);
 
+  function currentItineraryTarget(days, now=new Date()){
+    // All destinations in this trip share Vienna's timezone, including DST.
+    const parts=Object.fromEntries(new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Vienna",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(now).map(p=>[p.type,p.value]));
+    const today=`${parts.year}-${parts.month}-${parts.day}`, minutes=Number(parts.hour)*60+Number(parts.minute);
+    let dayIndex=days.findIndex(d=>d.date>=today);
+    if(dayIndex<0) dayIndex=days.length-1;
+    if(dayIndex<0)return null;
+    const day=days[dayIndex],items=(day.items||[]).flatMap(n=>n.area?n.items||[]:[n]);
+    const timed=items.map((it,index)=>{
+      const matches=[...String(it.time||"").matchAll(/(\d{1,2}):(\d{2})/g)];
+      const times=matches.map(m=>Number(m[1])*60+Number(m[2]));
+      return {index,start:times[0],end:times[1]};
+    }).filter(it=>Number.isFinite(it.start));
+    let target;
+    if(day.date>today)target=timed[0];
+    else if(day.date<today)target=timed.at(-1);
+    else target=timed.find((it,i)=>minutes>=it.start && minutes<(it.end??timed[i+1]?.start??1440)) || timed.find(it=>it.start>minutes) || timed.at(-1);
+    return {dayIndex,itemIndex:target?.index??0,today,clock:`${parts.hour}:${parts.minute}`};
+  }
+  $("#go-current-itinerary").addEventListener("click",()=>{
+    const target=currentItineraryTarget(T.days);if(!target)return;
+    const day=$("#itinerary-day-"+target.dayIndex);if(!day)return;
+    day.classList.add("open");setActiveQuickDay(target.dayIndex);
+    $$(".item.current-time-target").forEach(el=>el.classList.remove("current-time-target"));
+    const item=day.querySelectorAll(".item")[target.itemIndex]||day;
+    item.classList.add("current-time-target");
+    requestAnimationFrame(()=>{
+      const rail=document.querySelector(".day-quick-wrap");
+      const offset=parseFloat(getComputedStyle(rootEl).getPropertyValue("--appbar-offset"))||0;
+      window.scrollTo({top:Math.max(0,window.scrollY+item.getBoundingClientRect().top-offset-rail.getBoundingClientRect().height-12),behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+      item.setAttribute("tabindex","-1");item.focus({preventScroll:true});
+      $("#current-itinerary-status").textContent=`여행지 현지 시각 ${target.today} ${target.clock} 기준, ${T.days[target.dayIndex].date}의 ${item.querySelector(".time")?.textContent||""} 일정으로 이동했습니다.`;
+    });
+  });
+
   function itineraryExportRows(){
     const rows=[];
     T.days.forEach((d,dayIndex)=>{
@@ -2829,7 +2871,7 @@ const TRIP = {
   function updateQuickFromScroll(){
     quickSpyFrame = 0;
     if(!$("#p-itinerary").classList.contains("active")) return;
-    const offset = parseFloat(getComputedStyle(rootEl).getPropertyValue("--appbar-offset")) || 72;
+    const offset = parseFloat(getComputedStyle(rootEl).getPropertyValue("--appbar-offset")) || 0;
     const railHeight = document.querySelector(".day-quick-wrap").getBoundingClientRect().height;
     const marker = offset + railHeight + 12;
     const days = $$("#days .day");
